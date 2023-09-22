@@ -29,7 +29,7 @@
     "build": "pnpm generate && tsup index.ts --format cjs,esm --dts",
     "release": "pnpm run build && changeset publish",
     "generate": "ctix create -p ./tsconfig.json -t",
-    "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "lint": "eslint ./src --ext .js,.cjs,.mjs,.ts,.cts,.mts --fix --ignore-path .gitignore",
     "start": "ts-node index.ts"
   },
   "devDependencies": {
