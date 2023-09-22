@@ -1,0 +1,46 @@
+{
+  "name": "@danyalwe/tools",
+  "description": "Package with a bunch of useful data structures and algorithms",
+  "license": "MIT",
+  "version": "0.0.1",
+  "author": "zAlweNy26",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "keywords": [
+    "algorithms",
+    "data-structures",
+    "structures",
+    "module",
+    "utils"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zAlweNy26/tools.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zAlweNy26/tools/issues"
+  },
+  "homepage": "https://github.com/zAlweNy26/tools",
+  "scripts": {
+    "build": "pnpm generate && tsup index.ts --format cjs,esm --dts",
+    "release": "pnpm run build && changeset publish",
+    "generate": "ctix create -p ./tsconfig.json -t",
+    "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "start": "ts-node index.ts"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.26.2",
+    "@types/node": "^20.4.2",
+    "@typescript-eslint/eslint-plugin": "^6.1.0",
+    "@typescript-eslint/parser": "^6.1.0",
+    "ctix": "^1.8.2",
+    "eslint": "^8.45.0",
+    "ts-node": "^10.9.1",
+    "tsup": "^7.1.0",
+    "typescript": "^5.1.6"
+  }
+}
