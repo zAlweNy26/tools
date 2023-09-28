@@ -28,7 +28,7 @@
   "scripts": {
     "build": "pnpm generate && tsup index.ts --format cjs,esm --dts",
     "release": "pnpm run build && changeset publish",
-    "generate": "ctix create -p ./tsconfig.json -t",
+    "generate": "ctix create -p ./tsconfig.json -t -w --noBackup",
     "lint": "eslint ./src --ext .js,.cjs,.mjs,.ts,.cts,.mts --fix --ignore-path .gitignore",
     "start": "ts-node index.ts"
   },
