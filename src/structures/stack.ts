@@ -3,14 +3,14 @@ import { List } from "./interfaces"
 export class Stack<T> implements List<T> {
     protected _data: T[] = []
     protected _capacity = 0
-    protected _size = 0
+    size = 0
 
     constructor(size: number | T[]) {
         if (typeof size === 'number') {
-            this._size = size
+            this.size = size
             this._data = new Array<T>(size)
         } else {
-            this._size = size.length
+            this.size = size.length
             this._data = [...size]
         }
     }
@@ -18,10 +18,12 @@ export class Stack<T> implements List<T> {
     push(element: T) {
         if (this.isFull) throw new Error('Stack is full')
         this._data.push(element)
+        this._capacity += 1
     }
 
     pop() {
         if (this.isEmpty) throw new Error('Stack is empty')
+        this._capacity -= 1
         return this._data.pop()
     }
 
@@ -39,7 +41,7 @@ export class Stack<T> implements List<T> {
     }
 
     get space() {
-        return this._data.length
+        return this.size - this._capacity
     }
 
     get isEmpty() {
@@ -47,10 +49,10 @@ export class Stack<T> implements List<T> {
     }
 
     get isFull() {
-        return this.space === this._size
+        return this.space === this.size
     }
 
     get hasRoom() {
-        return this.space !== this._size
+        return this.space !== this.size
     }
 }

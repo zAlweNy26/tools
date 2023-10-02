@@ -4,14 +4,14 @@ export class Queue<T> implements List<T> {
     protected _data: T[] = []
     protected _head = 0
     protected _tail = 0
-    protected _size = 0
+    size = 0
 
     constructor(size: number | T[]) {
         if (typeof size === 'number') {
-            this._size = size
+            this.size = size
             this._data = new Array<T>(size)
         } else {
-            this._size = size.length
+            this.size = size.length
             this._data = [...size]
         }
     }
@@ -48,7 +48,7 @@ export class Queue<T> implements List<T> {
     }
 
     get space() {
-        return this._size - (this._tail - this._head)
+        return this.size - (this._tail - this._head)
     }
 
     get isEmpty() {

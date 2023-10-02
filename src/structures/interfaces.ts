@@ -7,6 +7,7 @@ export interface Structure {
 }
 
 export interface List<T> extends Structure {
+    size: number
     peek: () => T | undefined
     items: readonly T[]
 }

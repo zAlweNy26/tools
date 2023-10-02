@@ -7,9 +7,9 @@ export class CircularQueue<T> extends Queue<T> {
 
     enqueue(element: T) {
         if (this.isFull) {
-            this._data[this._tail % this._size] = element
-            this._tail = (this._tail + 1) % this._size
-            this._head = this._tail === this._head ? (this._head + 1) % this._size : this._head
+            this._data[this._tail % this.size] = element
+            this._tail = (this._tail + 1) % this.size
+            this._head = this._tail === this._head ? (this._head + 1) % this.size : this._head
         } else {
             super.enqueue(element)
         }
@@ -19,13 +19,13 @@ export class CircularQueue<T> extends Queue<T> {
         if (this.isEmpty) throw new Error('Queue is empty')
         const item = this._data[this._head]
         delete this._data[this._head]
-        this._head = (this._head + 1) % this._size
+        this._head = (this._head + 1) % this.size
         return item
     }
 
     get space() {
         return this._tail >= this._head ?
-            this._size - (this._tail - this._head)
+            this.size - (this._tail - this._head)
             :
             this._head - this._tail
     }
@@ -35,6 +35,6 @@ export class CircularQueue<T> extends Queue<T> {
     }
 
     get isEmpty() {
-        return this.space === this._size
+        return this.space === this.size
     }
 }
