@@ -19,22 +19,24 @@ export class TSNE extends DimRed<TSNEParams> {
     }
 
     init() {
-        const n = this._data.rows
-        let delta = this._data.clone()
+        const data = this._data
+        const n = data.rows
+        const metric = this._params.metric
+        let delta = data.clone()
 
         if (this.metric != "precomputed") {
             delta = new Matrix(n, n, 0)
             for (let i = 0; i < n; ++i) {
                 for (let j = i + 1; j < n; ++j) {
-                    const distance = this._params.metric(this._data.getRow(i), this._data.getRow(j)) as number
+                    const distance = metric(data.getRow(i), data.getRow(j)) as number
                     delta.set(i, j, distance)
                     delta.set(j, i, distance)
                 }
             }
         }
 
-        this._yStep = new Matrix(this._data.rows, this._data.cols, 0)
-        this._gains = new Matrix(this._data.rows, this._data.cols, 1)
+        this._yStep = new Matrix(data.rows, data.cols, 0)
+        this._gains = new Matrix(data.rows, data.cols, 1)
 
         const P = new Matrix(n, n, 0)
 
@@ -95,6 +97,10 @@ export class TSNE extends DimRed<TSNEParams> {
     protected next() {
         const { dimensionality: dim, epsilon } = this._params
         const n = this._data.rows
+        const proj = this._projection
+        const yStep = this._yStep
+        const gains = this._gains
+        const res = this._result
         const iter = ++this._iter
         const pMul = iter < 100 ? 4 : 1
 
@@ -106,7 +112,7 @@ export class TSNE extends DimRed<TSNEParams> {
             for (let j = i + 1; j < n; ++j) {
                 let dSum = 0
                 for (let d = 0; d < dim; ++d) {
-                    const dHere = this._result.get(i, d) - this._result.get(j, d)
+                    const dHere = res.get(i, d) - res.get(j, d)
                     dSum += dHere * dHere
                 }
                 const qVal = 1 / (1 + dSum)
@@ -130,9 +136,9 @@ export class TSNE extends DimRed<TSNEParams> {
         for (let i = 0; i < n; ++i) {
             for (let j = 0; j < n; ++j) {
                 const Qij = Q.get(i, j)
-                const preMult = 4 * (pMul * this._projection.get(i, j) - Qij) * Qij
+                const preMult = 4 * (pMul * proj.get(i, j) - Qij) * Qij
                 for (let d = 0; d < dim; ++d) {
-                    grad.update(i, d, o => o + (preMult * (this._result.get(i, d) - this._result.get(j, d))))
+                    grad.update(i, d, o => o + (preMult * (res.get(i, d) - res.get(j, d))))
                 }
             }
         }
@@ -142,8 +148,8 @@ export class TSNE extends DimRed<TSNEParams> {
         for (let i = 0; i < n; ++i) {
             for (let d = 0; d < dim; ++d) {
                 const gId = grad.get(i, d)
-                const sId = this._yStep.get(i, d)
-                const gainId = this._gains.get(i, d)
+                const sId = yStep.get(i, d)
+                const gainId = gains.get(i, d)
 
                 let newGain = 0
                 
@@ -151,19 +157,20 @@ export class TSNE extends DimRed<TSNEParams> {
                 else if (Math.sign(gId) === Math.sign(sId)) newGain = gainId * 0.8
                 else newGain = gainId + 0.2
                 
-                this._gains.set(i, d, newGain)
+                gains.set(i, d, newGain)
 
                 const mVal = iter < 250 ? 0.5 : 0.8
                 const sIdNew = mVal * sId - epsilon * newGain * gId
-                this._yStep.set(i, d, sIdNew)
+                
+                yStep.set(i, d, sIdNew)
 
-                resMean[d] += this._result.update(i, d, o => o + sIdNew)
+                resMean[d] += res.update(i, d, o => o + sIdNew)
             }
         }
 
         for (let i = 0; i < n; ++i) {
             for (let d = 0; d < dim; ++d) {
-                this._result.update(i, d, o => o - (resMean[d] / n))
+                res.update(i, d, o => o - (resMean[d] / n))
             }
         }
 
