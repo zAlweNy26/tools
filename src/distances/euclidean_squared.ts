@@ -8,7 +8,12 @@
 export function euclideanSquared(a: number[], b: number[]) {
     if (a.length != b.length) throw new Error('The vectors should have the same length')
 
-    const result = Array.from({ length: a.length }, (_, i) => a[i] - b[i]).reduce((p, c) => p + (c * c), 0)
+    let result = 0
+
+    for (let i = 0; i < a.length; ++i) {
+        const op = a[i] - b[i]
+        result += op * op
+    }
 
     return result
 }

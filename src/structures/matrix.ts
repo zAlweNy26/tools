@@ -36,19 +36,12 @@ export class Matrix implements Structure {
     }
 
     get(row: number, col: number) {
-        if (row >= 0 && row < this.rows && col >= 0 && col < this.cols) {
-            return this._data[row][col]
-        } else {
-            throw new Error("Index out of range")
-        }
+        return this._data[row][col]
     }
 
     set(row: number, col: number, value: number) {
-        if (row >= 0 && row < this.rows && col >= 0 && col < this.cols) {
-            this._data[row][col] = value
-        } else {
-            throw new Error("Index out of range")
-        }
+        this._data[row][col] = value
+        return value
     }
 
     concat(mat: Matrix, type: 'horizontal' | 'vertical' = 'horizontal') {
@@ -64,20 +57,20 @@ export class Matrix implements Structure {
         return Matrix.from(data)
     }
 
-    update(row: number, col: number, value: (old: number) => number, original = true) {
+    update(row: number, col: number, value: (old: number) => number) {
         const val = value(this._data[row][col])
-        if (original) this._data[row][col] = val
+        this._data[row][col] = val
         return val
     }
 
-    operate(matrix: number[][] | Matrix, value: (left: number, right: number) => number, original = true) {
+    operate(matrix: number[][] | Matrix, value: (left: number, right: number) => number) {
         const mat = matrix instanceof Matrix ? matrix : Matrix.from(matrix)
 
         if (this.cols != mat.cols || this.rows != mat.rows) 
             throw new Error('The number of columns of the current matrix is different from the number of rows of the passed matrix')
         
         const data = this._data.map((row, i) => row.map((col, j) => value(col, mat.get(i, j))))
-        if (original) this._data = data
+        this._data = data
         return data
     }
 
@@ -253,9 +246,7 @@ export class Matrix implements Structure {
     }
 
     get diagonal() {
-        const diagonal: number[] = []
-        for (let i = 0; i < Math.min(this.rows, this.cols); i++) diagonal.push(this.get(i, i))
-        return diagonal
+        return Array.from({ length: Math.min(this.rows, this.cols) }, (_, i) => this.get(i, i))
     }
 
     get items() {

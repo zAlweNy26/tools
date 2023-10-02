@@ -3,7 +3,7 @@
  * @param a the first vector
  * @param b the second vector
  * @returns the Manhattan distance between the two vectors
- * @see {@link https://en.wikipedia.org/wiki/Chebyshev_distance}
+ * @see {@link https://en.wikipedia.org/wiki/Manhattan_distance}
  */
 export function manhattan(a: number[], b: number[]) {
     if (a.length != b.length) throw new Error('The vectors should have the same length')
