@@ -8,7 +8,13 @@
 export function cosine(a: number[], b: number[]) {
     if (a.length != b.length) throw new Error('The vectors should have the same length')
 
-    const product = Array.from({ length: a.length }, (_, i) => a[i] * b[i]).reduce((p, c) => p + c, 0)
+    // slower:
+    // const product = Array.from({ length: a.length }, (_, i) => a[i] * b[i]).reduce((p, c) => p + c, 0)
+
+    let product = 0
+    
+    for (let i = 0; i < a.length; i++) product += a[i] * b[i]
+
     const normA = Math.sqrt(a.reduce((p, c) => p + c**2, 0))
     const normB = Math.sqrt(b.reduce((p, c) => p + c**2, 0))
 

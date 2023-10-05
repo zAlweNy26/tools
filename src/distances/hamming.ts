@@ -8,7 +8,12 @@
 export function hamming(a: number[], b: number[]) {
     if (a.length != b.length) throw new Error('The vectors should have the same length')
 
-    const result = Array.from({ length: a.length }, (_, i) => i).reduce((p, c) => p + Number(a[c] != b[c]), 0)
+    // slower:
+    // const result = Array.from({ length: a.length }, (_, i) => i).reduce((p, c) => p + Number(a[c] != b[c]), 0)
+
+    let result = 0
+    
+    for (let i = 0; i < a.length; i++) result += Number(a[i] != b[i])
 
     return result / a.length
 }

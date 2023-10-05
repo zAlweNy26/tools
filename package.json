@@ -12,10 +12,13 @@
   ],
   "keywords": [
     "algorithms",
-    "data-structures",
+    "data structures",
     "structures",
+    "dimensionality reduction",
     "module",
-    "utils"
+    "distances",
+    "utils",
+    "tools"
   ],
   "repository": {
     "type": "git",
