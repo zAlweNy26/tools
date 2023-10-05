@@ -2,7 +2,7 @@
   "name": "@danyalwe/tools",
   "description": "Package with a bunch of useful data structures and algorithms",
   "license": "MIT",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "author": "zAlweNy26",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
