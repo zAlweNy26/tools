@@ -1,6 +1,6 @@
-import { List } from "./interfaces"
+import { ListStructure } from "./interfaces"
 
-export class Queue<T> implements List<T> {
+export class Queue<T> implements ListStructure<T> {
     protected _data: T[] = []
     protected _head = 0
     protected _tail = 0
@@ -44,7 +44,7 @@ export class Queue<T> implements List<T> {
 
     get items() {
         if (this.isEmpty) return []
-        return [...this._data.filter(v => v != undefined)]
+        return [...this._data.filter(v => v != undefined)] as readonly T[]
     }
 
     get space() {

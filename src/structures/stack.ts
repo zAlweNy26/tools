@@ -1,6 +1,6 @@
-import { List } from "./interfaces"
+import { ListStructure } from "./interfaces"
 
-export class Stack<T> implements List<T> {
+export class Stack<T> implements ListStructure<T> {
     protected _data: T[] = []
     protected _capacity = 0
     size = 0
@@ -37,7 +37,7 @@ export class Stack<T> implements List<T> {
     }
 
     get items() {
-        return [...this._data]
+        return [...this._data] as readonly T[]
     }
 
     get space() {
