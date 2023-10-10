@@ -1,10 +1,11 @@
 import { euclideanSquared } from "./euclidean_squared"
 
 /**
- * Computes the Euclidean distance between `a` and `b`
- * @param a the first vector
- * @param b the second vector
- * @returns the Euclidean distance between the two vectors
+ * Calculates the Euclidean distance between `a` and `b`.
+ * @param a - The first vector.
+ * @param b - The second vector.
+ * @returns The Euclidean distance between the two vectors.
+ * @throws An error if the vectors do not have the same length.
  * @see {@link https://en.wikipedia.org/wiki/Euclidean_distance}
  */
 export function euclidean(a: number[], b: number[]) {

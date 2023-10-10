@@ -1,8 +1,9 @@
 /**
- * Computes the Canberra distance between `a` and `b`
- * @param a the first vector
- * @param b the second vector
- * @returns the Canberra distance between the two vectors
+ * Calculates the Canberra distance between `a` and `b`.
+ * @param a - The first vector.
+ * @param b - The second vector.
+ * @returns The Canberra distance between the two vectors.
+ * @throws An error if the vectors do not have the same length.
  * @see {@link https://en.wikipedia.org/wiki/Canberra_distance}
  */
 export function canberra(a: number[], b: number[]) {

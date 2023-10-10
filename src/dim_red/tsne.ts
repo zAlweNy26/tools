@@ -7,6 +7,11 @@ export class TSNE extends DimRed<TSNEParams> {
     protected _yStep!: Matrix
     protected _gains!: Matrix
 
+    /**
+     * t-SNE algorithm for dimensionality reduction.
+     * @param data A 2D array or matrix whose dimensionality is to be reduced.
+     * @param params Optional parameters for the algorithm.
+     */
     constructor(data: Matrix | number[][], params?: Partial<TSNEParams>) {
         super(data, {
             perplexity: 50,
@@ -18,6 +23,11 @@ export class TSNE extends DimRed<TSNEParams> {
         this._result = new Matrix(this._data.rows, this.dimensionality, () => this._randomizer.randomGauss() * 1e-4)
     }
 
+    /**
+     * Initializes the t-SNE algorithm by computing pairwise distances between data points and
+     * computing probabilities for each pair of points. It also initializes the step and gains matrices.
+     * @returns The t-SNE instance.
+     */
     init() {
         const data = this._data
         const n = data.rows
@@ -177,10 +187,18 @@ export class TSNE extends DimRed<TSNEParams> {
         return super.next()
     }
 
+    /**
+     * Returns the perplexity value used in t-SNE algorithm.
+     * @returns The value of the perplexity parameter.
+     */
     get perplexity() {
         return this._params.perplexity
     }
 
+    /**
+     * Returns the epsilon value used in t-SNE algorithm.
+     * @returns The value of the epsilon parameter.
+     */
     get epsilon() {
         return this._params.epsilon
     }

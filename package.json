@@ -17,6 +17,8 @@
     "dimensionality reduction",
     "module",
     "distances",
+    "sortings",
+    "helpers",
     "utils",
     "tools"
   ],

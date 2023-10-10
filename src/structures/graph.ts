@@ -1,5 +1,9 @@
 import { GraphStructure } from "./interfaces"
 
+/**
+ * A graph data structure.
+ * @template K The type of the vertices in the graph.
+ */
 export class Graph<K> extends GraphStructure<K, K> {
     addEdge(v1: K, v2: K) {
         const list = this.map.get(v1)

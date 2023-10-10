@@ -1,8 +1,9 @@
 /**
- * Computes the Manhattan distance between `a` and `b`
- * @param a the first vector
- * @param b the second vector
- * @returns the Manhattan distance between the two vectors
+ * Calculates the Manhattan distance between `a` and `b`.
+ * @param a - The first vector.
+ * @param b - The second vector.
+ * @returns The Manhattan distance between the two vectors.
+ * @throws An error if the vectors do not have the same length.
  * @see {@link https://en.wikipedia.org/wiki/Manhattan_distance}
  */
 export function manhattan(a: number[], b: number[]) {

@@ -3,7 +3,19 @@ import { GraphStructure } from "./interfaces"
 type Weight = number
 type Edge<V> = [V, Weight]
 
+/**
+ * A weighted graph data structure.
+ * @template K The type of the vertices in the graph.
+ */
 export class WeightedGraph<K> extends GraphStructure<K, Edge<K>> {
+    /**
+     * Adds an edge between two vertices with an optional weight.
+     * @param v1 The first vertex.
+     * @param v2 The second vertex.
+     * @param weight The weight of the edge (default is 0).
+     * @throws An error if the first vertex is not found or if the edge already exists.
+     * @returns The updated weighted graph.
+     */
     addEdge(v1: K, v2: K, weight = 0) {
         const list = this.map.get(v1)
         if (list) {
@@ -48,6 +60,15 @@ export class WeightedGraph<K> extends GraphStructure<K, Edge<K>> {
         return [...list.map(e => e[0])] as readonly K[]
     }
 
+    /**
+     * Returns the weight of the edge between the first vertex and the second vertex,
+     * and optionally additional vertices if provided.
+     * @param v1 The first vertex.
+     * @param v2 The second vertex.
+     * @param vn Additional vertices (optional).
+     * @returns The weight of the edge between the vertices.
+     * @throws Error if the first or second vertex is not found.
+     */
     getWeight(v1: K, v2: K, ...vn: K[]) {
         const list = this.map.get(v1)
         if (!list) throw new Error('First vertex not found')

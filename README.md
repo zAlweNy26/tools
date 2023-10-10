@@ -11,6 +11,12 @@ It includes:
 - Randomizer
 - Various utils
 
+## To-do
+
+[ ] Add Linked List data structure
+[ ] Add Double Linked List data structure
+[ ] Add other sorting algorithms
+
 ## Credits
 
 Thanks to [DruidJS](https://github.com/saehm/DruidJS) for some portions of code that I converted to TypeScript and in some way refactored.

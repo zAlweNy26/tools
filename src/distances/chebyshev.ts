@@ -1,8 +1,9 @@
 /**
- * Computes the Chebyshev distance between `a` and `b`
- * @param a the first vector
- * @param b the second vector
- * @returns the Chebyshev distance between the two vectors
+ * Calculates the Chebyshev distance between `a` and `b`.
+ * @param a - The first vector.
+ * @param b - The second vector.
+ * @returns The Chebyshev distance between the two vectors.
+ * @throws An error if the vectors do not have the same length.
  * @see {@link https://en.wikipedia.org/wiki/Chebyshev_distance}
  */
 export function chebyshev(a: number[], b: number[]) {

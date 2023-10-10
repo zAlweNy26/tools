@@ -1,8 +1,9 @@
 /**
- * Computes the cosine distance (not similarity) between `a` and `b`
- * @param a the first vector
- * @param b the second vector
- * @returns the cosine distance between the two vectors
+ * Calculates the cosine distance (not similarity) between `a` and `b`.
+ * @param a - The first vector.
+ * @param b - The second vector.
+ * @returns The cosine distance between the two vectors.
+ * @throws An error if the vectors do not have the same length.
  * @see {@link https://en.wikipedia.org/wiki/Cosine_similarity#Cosine_distance}
  */
 export function cosine(a: number[], b: number[]) {
