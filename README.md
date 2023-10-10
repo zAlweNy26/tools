@@ -16,6 +16,9 @@ It includes:
 [ ] Add Linked List data structure
 [ ] Add Double Linked List data structure
 [ ] Add other sorting algorithms
+[ ] Add other dimensionality reduction algorithms
+[ ] Add other vectors distances
+[ ] Add other utils
 
 ## Credits
 

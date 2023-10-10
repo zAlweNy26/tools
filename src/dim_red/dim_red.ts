@@ -7,7 +7,7 @@ import { Randomizer } from "utils/randomizer"
  * A class for performing dimensionality reduction on a matrix of data.
  * @template P - The type of the parameters for the class.
  */
-export class DimRed<P extends DimRedParams> {
+export abstract class DimRed<P extends DimRedParams> {
     protected _params!: P & DimRedParams
     protected _randomizer!: Randomizer
     protected _initialized = false
@@ -37,17 +37,13 @@ export class DimRed<P extends DimRedParams> {
      * Initializes the needed stuff for the algorithm.
      * @returns The instance of the class.
      */
-    init() {
-        return this
-    }
+    abstract init(): this
 
     /**
      * Calculates the next projection of the data.
      * @returns The next projection of the data.
      */
-    protected next() {
-        return this._result
-    }
+    protected abstract next(): Matrix
 
     /**
      * Checks if the class has been initialized and initializes it if it hasn't.

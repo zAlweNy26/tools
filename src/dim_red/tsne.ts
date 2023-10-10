@@ -184,7 +184,7 @@ export class TSNE extends DimRed<TSNEParams> {
             }
         }
 
-        return super.next()
+        return this._result
     }
 
     /**

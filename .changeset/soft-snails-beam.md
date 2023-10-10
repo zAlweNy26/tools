@@ -3,4 +3,5 @@
 ---
 
 - Fixed string merge sort
-- Added documentation
+- Added JSDoc strings
+- DimRed class is now abstract
