@@ -1,0 +1,31 @@
+name: Dcs
+
+on:
+  workflow_run:
+    workflows: [CI]
+    branches: [main]
+    types: [completed]
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: "pnpm"
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm doc
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Build documentation
+          commit_user_name: Docs Bot
