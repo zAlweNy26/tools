@@ -5,14 +5,22 @@ on:
     workflows: [CI]
     branches: [main]
     types: [completed]
+  workflow_dispatch:
 
-concurrency: ${{ github.workflow }}-${{ github.ref }}
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   build:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -29,3 +37,12 @@ jobs:
         with:
           commit_message: Build documentation
           commit_user_name: Docs Bot
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: './docs'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
