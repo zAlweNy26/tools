@@ -1,4 +1,8 @@
-# Alwe's tools
+# Alwe's tools 💻
+
+<a href="https://github.com/zAlweNy26/tools">
+  <img alt="Documentation" src="docs/coverage.svg" onerror="this.src='coverage.svg'">
+</a>
 
 Just a bunch of tools made in TypeScript.
 
@@ -13,12 +17,12 @@ It includes:
 
 ## To-do
 
-[ ] Add Linked List data structure
-[ ] Add Double Linked List data structure
-[ ] Add other sorting algorithms
-[ ] Add other dimensionality reduction algorithms
-[ ] Add other vectors distances
-[ ] Add other utils
+- [ ] Add Linked List data structure
+- [ ] Add Double Linked List data structure
+- [ ] Add other sorting algorithms
+- [ ] Add other dimensionality reduction algorithms
+- [ ] Add other vectors distances
+- [ ] Add other utils
 
 ## Credits
 

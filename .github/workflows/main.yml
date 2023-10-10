@@ -1,8 +1,14 @@
 name: CI
+
 on:
   push:
     branches:
       - "**"
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -16,6 +22,5 @@ jobs:
         with:
           node-version: 16.x
           cache: "pnpm"
-
       - run: pnpm install --frozen-lockfile
-      - run: pnpm lint && pnpm build
+      - run: pnpm lint && pnpm build && pnpm doc

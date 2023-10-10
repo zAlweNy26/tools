@@ -1,7 +1,7 @@
 import { GraphStructure } from "./interfaces"
 
-type Weight = number
-type Edge<V> = [V, Weight]
+export type Weight = number
+export type Edge<V> = [V, Weight]
 
 /**
  * A weighted graph data structure.

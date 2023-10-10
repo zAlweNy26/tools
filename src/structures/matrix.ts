@@ -1,7 +1,7 @@
 import { Structure } from "./interfaces"
 
 /**
- * A Matrix data structure.
+ * A matrix data structure.
  */
 export class Matrix implements Structure {
     protected _data: number[][] = []
@@ -20,7 +20,7 @@ export class Matrix implements Structure {
      * @throws An error if the number of rows or columns is less than or equal to 1.
      */
     constructor(public rows: number, public cols: number, value?: ((row: number, col: number) => number) | 'identity' | number) {
-        if (rows <= 1 && cols <= 1) throw new Error('Unable to create a Matrix of that size')
+        if (rows <= 1 && cols <= 1) throw new Error('Unable to create a matrix of that size')
         if (value === undefined) {
             this._data = Array.from({ length: rows }, () => Array.from({ length: cols }))
         } else if (value == 'identity') {
@@ -373,8 +373,8 @@ export class Matrix implements Structure {
     }
 
     /**
-     * Returns a new Matrix that is a clone of the current Matrix instance.
-     * @returns A new Matrix that is a clone of the current Matrix instance.
+     * Returns a new matrix that is a clone of the current matrix instance.
+     * @returns A new matrix that is a clone of the current matrix instance.
      */
     clone() {
         return Matrix.from(this.items)

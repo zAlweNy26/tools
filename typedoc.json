@@ -1,0 +1,23 @@
+{
+    "$schema": "https://typedoc.org/schema.json",
+    "includeVersion": true,
+    "hideGenerator": true,
+    "name": "Alwe's Tools",
+    "cleanOutputDir": true,
+    "plugin": [
+        "typedoc-plugin-coverage",
+        "@mxssfd/typedoc-theme"
+    ],
+    "theme": "my-theme",
+    "entryPoints": [
+        "./index.ts"
+    ],
+    "out": "./docs",
+    "searchGroupBoosts": {
+        "Classes": 1.5
+    },
+    "navigationLinks": {
+        "GitHub": "https://github.com/zAlweNy26/tools",
+        "NPM": "https://www.npmjs.com/package/@danyalwe/tools"
+    }
+}
