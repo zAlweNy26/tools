@@ -4,7 +4,8 @@
 
 ### Patch Changes
 
-- d4dd4d6: - Fixed string merge sort
+- d4dd4d6: 
+  - Fixed string merge sort
   - Added JSDoc strings
   - DimRed class is now abstract
 
