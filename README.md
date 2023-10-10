@@ -1,9 +1,5 @@
 # Alwe's tools 💻
 
-<a href="https://github.com/zAlweNy26/tools">
-  <img alt="Documentation" src="docs/coverage.svg" onerror="this.src='coverage.svg'">
-</a>
-
 Just a bunch of tools made in TypeScript.
 
 It includes:
