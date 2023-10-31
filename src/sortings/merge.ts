@@ -1,29 +1,41 @@
-import { isRightArray } from "../utils"
+import { getLCP } from "../utils"
 
 /**
- * Sorts an array of numbers or strings using the merge sort algorithm.
+ * Sorts an array of numbers using the merge sort algorithm.
  * @param array The array to be sorted.
  * @returns The sorted array.
  */
-export function mergeSort(array: number[]): number[]
-export function mergeSort(array: string[]): string[]
-export function mergeSort(array: number[] | string[]) {
+export function mergeSortNum(array: number[]) {
     if (array.length <= 1) return array
 
     const middle = Math.floor(array.length / 2)
     
-    let left = array.slice(0, middle) as never
-    let right = array.slice(middle) as never
+    let left = array.slice(0, middle)
+    let right = array.slice(middle)
 
-    left = mergeSort(left) as never
-    right = mergeSort(right) as never
+    left = mergeSortNum(left)
+    right = mergeSortNum(right)
 
-    let result: number[] | string[] = []
+    return mergeNumbers(left, right)
+}
 
-    if (isRightArray<string>(array)) result = mergeStrings(left, right)
-    else if (isRightArray<number>(array)) result = mergeNumbers(left, right)
+/**
+ * Sorts an array of strings using the merge sort algorithm.
+ * @param array The array to be sorted.
+ * @returns The sorted array.
+ */
+export function mergeSortStr(array: string[]) {
+    if (array.length <= 1) return array
 
-    return result
+    const middle = Math.floor(array.length / 2)
+    
+    let left = array.slice(0, middle)
+    let right = array.slice(middle)
+
+    left = mergeSortStr(left)
+    right = mergeSortStr(right)
+
+    return mergeStrings(left, right)
 }
 
 function mergeNumbers(left: number[], right: number[]) {
@@ -48,7 +60,7 @@ function mergeStrings(left: string[], right: string[]) {
     let result: string[] = []
 
     while (left.length > 0 && right.length > 0) {
-        if (compareLCP(left[0], right[0]) <= 0) {
+        if (getLCP(left[0], right[0]) <= 0) {
             result.push(left[0])
             left.shift()
         } else {
@@ -60,10 +72,4 @@ function mergeStrings(left: string[], right: string[]) {
     result = [...result, ...left, ...right]
 
     return result
-}
-
-function compareLCP(str1: string, str2: string) {
-    let lcp = 0
-    while (lcp < Math.min(str1.length, str2.length) && str1[lcp] === str2[lcp]) lcp++
-    return lcp
 }

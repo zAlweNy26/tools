@@ -29,6 +29,18 @@ export function isArray2D<T>(array: unknown[][]): array is T[][] {
 }
 
 /**
+ * Returns the length of the longest common prefix between two strings.
+ * @param str1 - The first string to compare.
+ * @param str2 - The second string to compare.
+ * @returns The length of the longest common prefix between the two strings.
+ */
+export function getLCP(str1: string, str2: string) {
+    let lcp = 0
+    while (lcp < Math.min(str1.length, str2.length) && str1[lcp] === str2[lcp]) lcp++
+    return lcp
+}
+
+/**
  * Measures the time it takes for a function to execute.
  * @param func - The function to measure the execution time of.
  * @param params - The parameters to pass to the function.

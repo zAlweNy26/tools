@@ -18,6 +18,7 @@ export class TSNE extends DimRed<TSNEParams> {
             epsilon: 10,
             dimensionality: 2,
             metric: euclideanSquared,
+            seed: 1212,
             ...params
         })
         this._result = new Matrix(this._data.rows, this.dimensionality, () => this._randomizer.randomGauss() * 1e-4)
@@ -51,7 +52,7 @@ export class TSNE extends DimRed<TSNEParams> {
         const P = new Matrix(n, n, 0)
 
         // search for fitting sigma
-        const targetH = Math.log(this.perplexity)
+        const targetH = Math.log(this._params.perplexity)
         for (let i = 0; i < n; ++i) {
             const nDist = delta.getRow(i)
             const pRow = P.getRow(i)
@@ -185,21 +186,5 @@ export class TSNE extends DimRed<TSNEParams> {
         }
 
         return this._result
-    }
-
-    /**
-     * Returns the perplexity value used in t-SNE algorithm.
-     * @returns The value of the perplexity parameter.
-     */
-    get perplexity() {
-        return this._params.perplexity
-    }
-
-    /**
-     * Returns the epsilon value used in t-SNE algorithm.
-     * @returns The value of the epsilon parameter.
-     */
-    get epsilon() {
-        return this._params.epsilon
     }
 }

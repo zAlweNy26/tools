@@ -104,4 +104,13 @@ export abstract class DimRed<P extends DimRedParams> {
     get seed() {
         return this._params.seed
     }
+
+    /**
+     * Gets the parameters used for the algorithm.
+     */
+    get parameters() {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { metric, seed, dimensionality, ...rest } = this._params
+        return rest
+    }
 }
