@@ -1,8 +1,8 @@
 /**
  * Returns an array of linearly spaced numbers between `start` and `end`.
- * @param start - The starting number of the sequence.
- * @param end - The ending number of the sequence.
- * @param num - The number of samples to generate. Defaults to the maximum of 1 and `end - start` rounded.
+ * @param start The starting number of the sequence.
+ * @param end The ending number of the sequence.
+ * @param num The number of samples to generate. Defaults to the maximum of 1 and `end - start` rounded.
  * @returns An array of `num` linearly spaced numbers between `start` and `end`.
  */
 export function linearSpace(start: number, end: number, num?: number) {

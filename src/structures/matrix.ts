@@ -70,9 +70,9 @@ export class Matrix implements Structure {
 
     /**
      * Sets the value of a specific cell in the matrix.
-     * @param {number} row - The row index of the cell to set.
-     * @param {number} col - The column index of the cell to set.
-     * @param {number} value - The value to set in the cell.
+     * @param row The row index of the cell to set.
+     * @param col The column index of the cell to set.
+     * @param value The value to set in the cell.
      * @returns The value that was set in the cell.
      */
     set(row: number, col: number, value: number) {
@@ -102,9 +102,9 @@ export class Matrix implements Structure {
 
     /**
      * Updates the value at the specified row and column index using the provided update function.
-     * @param row - The row index of the value to update.
-     * @param col - The column index of the value to update.
-     * @param value - The update function that takes the old value as input and returns the new value.
+     * @param row The row index of the value to update.
+     * @param col The column index of the value to update.
+     * @param value The update function that takes the old value as input and returns the new value.
      * @returns The new value after the update.
      */
     update(row: number, col: number, value: (old: number) => number) {
@@ -115,9 +115,9 @@ export class Matrix implements Structure {
 
     /**
      * Applies a binary operation to each element of the current matrix and another matrix.
-     * @template T - The type of the elements in the matrix.
-     * @param matrix - The matrix to operate with.
-     * @param value - The binary operation to apply to each element.
+     * @template T The type of the elements in the matrix.
+     * @param matrix The matrix to operate with.
+     * @param value The binary operation to apply to each element.
      * @returns A new matrix with the result of the operation.
      * @throws If the number of columns of the current matrix is different from the number of rows of the passed matrix.
      */
@@ -134,8 +134,8 @@ export class Matrix implements Structure {
 
     /**
      * Swaps two rows in the matrix.
-     * @param row1 - The index of the first row to swap.
-     * @param row2 - The index of the second row to swap.
+     * @param row1 The index of the first row to swap.
+     * @param row2 The index of the second row to swap.
      * @returns The updated matrix with the swapped rows.
      */
     swapRows(row1: number, row2: number) {
@@ -145,8 +145,8 @@ export class Matrix implements Structure {
 
     /**
      * Sets the values of a row in the matrix.
-     * @param row - The index of the row to set.
-     * @param values - The values to set for the row.
+     * @param row The index of the row to set.
+     * @param values The values to set for the row.
      * @returns The updated matrix.
      * @throws If the passed index exceeds the total number of rows in the matrix or if the passed values exceed the total number of rows in the matrix.
      */
@@ -159,7 +159,7 @@ export class Matrix implements Structure {
 
     /**
      * Returns the row at the specified index.
-     * @param row - The index of the row to retrieve.
+     * @param row The index of the row to retrieve.
      * @returns The row at the specified index.
      * @throws An error if the passed index exceeds the total number of rows in the matrix.
      */
@@ -170,8 +170,8 @@ export class Matrix implements Structure {
 
     /**
      * Swaps two columns in the matrix.
-     * @param col1 - The index of the first column to swap.
-     * @param col2 - The index of the second column to swap.
+     * @param col1 The index of the first column to swap.
+     * @param col2 The index of the second column to swap.
      * @returns The updated matrix with the swapped columns.
      */
     swapCols(col1: number, col2: number) {
@@ -184,8 +184,8 @@ export class Matrix implements Structure {
 
     /**
      * Sets the values of a given column in the matrix.
-     * @param col - The index of the column to set.
-     * @param values - An array of values to set in the column.
+     * @param col The index of the column to set.
+     * @param values An array of values to set in the column.
      * @returns The updated matrix.
      * @throws An error if the passed index exceeds the total number of columns in the matrix.
      * @throws An error if the passed values exceed the total number of columns in the matrix.
@@ -202,7 +202,7 @@ export class Matrix implements Structure {
 
     /**
      * Returns an array containing the elements of the specified column in the matrix.
-     * @param col - The index of the column to retrieve.
+     * @param col The index of the column to retrieve.
      * @returns An array containing the elements of the specified column.
      * @throws An error if the passed index exceeds the total number of columns in the matrix.
      */
@@ -310,7 +310,7 @@ export class Matrix implements Structure {
 
     /**
      * Returns the dot product of the current matrix and the passed matrix.
-     * @param matrix - The matrix to multiply with the current matrix.
+     * @param matrix The matrix to multiply with the current matrix.
      * @returns A new matrix that is the result of the dot product.
      * @throws An error if the number of columns of the current matrix is different from the number of rows of the passed matrix.
      */

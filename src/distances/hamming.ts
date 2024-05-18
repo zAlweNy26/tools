@@ -1,7 +1,7 @@
 /**
  * Calculates the Hamming distance between `a` and `b`.
- * @param a - The first vector.
- * @param b - The second vector.
+ * @param a The first vector.
+ * @param b The second vector.
  * @returns The Hamming distance between the two vectors.
  * @throws An error if the vectors do not have the same length.
  * @see {@link https://en.wikipedia.org/wiki/Hamming_distance}

@@ -5,7 +5,7 @@ import { Randomizer } from "utils/randomizer"
 
 /**
  * A class for performing dimensionality reduction on a matrix of data.
- * @template P - The type of the parameters for the class.
+ * @template P The type of the parameters for the class.
  */
 export abstract class DimRed<P extends DimRedParams> {
     protected _params!: P & DimRedParams
@@ -18,8 +18,8 @@ export abstract class DimRed<P extends DimRedParams> {
 
     /**
      * Constructs a new instance of the DimRed class.
-     * @param data - The matrix of data to perform dimensionality reduction on.
-     * @param params - Optional parameters for the algorithm.
+     * @param data The matrix of data to perform dimensionality reduction on.
+     * @param params Optional parameters for the algorithm.
      */
     constructor(data: Matrix | number[][], params?: Partial<P>) {
         this._data = data instanceof Matrix ? data : Matrix.from(data)
@@ -57,7 +57,7 @@ export abstract class DimRed<P extends DimRedParams> {
 
     /**
      * Transforms the data by performing dimensionality reduction on it.
-     * @param iterations - The number of iterations to perform. Default to 500.
+     * @param iterations The number of iterations to perform. Default to 500.
      * @returns The projection of the data after dimensionality reduction.
      */
     transform(iterations = 500) {
@@ -70,7 +70,7 @@ export abstract class DimRed<P extends DimRedParams> {
 
     /**
      * A generator function that yields the projection of the data after each iteration.
-     * @param iterations - The number of iterations to perform. Default to 500.
+     * @param iterations The number of iterations to perform. Default to 500.
      * @yields The projection of the data after each iteration.
      * @returns The projection of the data after dimensionality reduction.
      */

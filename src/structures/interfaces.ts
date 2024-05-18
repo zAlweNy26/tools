@@ -48,15 +48,15 @@ export interface ListStructure<T> extends Structure {
 
 /**
  * Abstract class representing a graph structure.
- * @template K - The type of the vertices in the graph.
- * @template V - The type of the values associated with the vertices.
+ * @template K The type of the vertices in the graph.
+ * @template V The type of the values associated with the vertices.
  */
 export abstract class GraphStructure<K, V> {
     protected map = new Map<K, V[]>()
 
     /**
      * Creates a new graph structure with the given vertex.
-     * @param vertex - The vertex to add to the graph.
+     * @param vertex The vertex to add to the graph.
      */
     constructor(vertex: K) {
         this.map.set(vertex, [])
@@ -64,46 +64,46 @@ export abstract class GraphStructure<K, V> {
 
     /**
      * Adds an edge between two vertices in the graph.
-     * @param v1 - The first vertex.
-     * @param v2 - The second vertex.
+     * @param v1 The first vertex.
+     * @param v2 The second vertex.
      * @returns The graph structure instance.
      */
     abstract addEdge(v1: K, v2: K): this
 
     /**
      * Removes an edge between two vertices in the graph.
-     * @param v1 - The first vertex.
-     * @param v2 - The second vertex.
+     * @param v1 The first vertex.
+     * @param v2 The second vertex.
      * @returns The graph structure instance.
      */
     abstract removeEdge(v1: K, v2: K): this
 
     /**
      * Returns an array of vertices adjacent to the given vertex.
-     * @param vertex - The vertex to get the adjacent vertices for.
+     * @param vertex The vertex to get the adjacent vertices for.
      * @returns An array of adjacent vertices.
      */
     abstract getEdges(vertex: K): readonly K[]
 
     /**
      * Returns a boolean indicating if two vertices are adjacent in the graph.
-     * @param v1 - The first vertex.
-     * @param v2 - The second vertex.
+     * @param v1 The first vertex.
+     * @param v2 The second vertex.
      * @returns True if the vertices are adjacent, false otherwise.
      */
     abstract isAdjacent(v1: K, v2: K): boolean
 
     /**
      * Removes a vertex from the graph.
-     * @param vertex - The vertex to remove.
+     * @param vertex The vertex to remove.
      * @returns The graph structure instance.
      */
     abstract removeVertex(vertex: K): this
 
     /**
      * Returns the shortest path between two vertices in the graph.
-     * @param v1 - The starting vertex.
-     * @param v2 - The ending vertex.
+     * @param v1 The starting vertex.
+     * @param v2 The ending vertex.
      * @returns An array of vertices representing the shortest path.
      * @throws An error if the path could not be found.
      */
@@ -128,7 +128,7 @@ export abstract class GraphStructure<K, V> {
 
     /**
      * Returns true if the graph contains the given vertex, false otherwise.
-     * @param vertex - The vertex to check for.
+     * @param vertex The vertex to check for.
      * @returns True if the graph contains the vertex, false otherwise.
      */
     hasVertex(vertex: K) {

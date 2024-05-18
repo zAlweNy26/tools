@@ -17,7 +17,7 @@ export class Randomizer {
 
     /**
      * A Mersenne Twister random number generator.
-     * @param seed - The seed for the random number generator. If `seed` is `null` then the actual time gets used.
+     * @param seed The seed for the random number generator. If `seed` is `null` then the actual time gets used.
      */
     constructor(seed?: number) {
         this.seed = seed ?? new Date().getTime()
@@ -33,7 +33,7 @@ export class Randomizer {
 
     /**
      * Setter for the seed property of the Randomizer class.
-     * @param seed - The seed value to set.
+     * @param seed The seed value to set.
      */
     set seed(seed: number) {
         this._seed = seed
