@@ -1,10 +1,16 @@
 # @danyalwe/tools
 
+## 0.0.3
+
+### Patch Changes
+
+- f56380f: Added documentation website
+
 ## 0.0.2
 
 ### Patch Changes
 
-- d4dd4d6: 
+- d4dd4d6:
   - Fixed string merge sort
   - Added JSDoc strings
   - DimRed class is now abstract
