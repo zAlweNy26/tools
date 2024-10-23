@@ -11,7 +11,7 @@ export class Randomizer {
     protected _cMat = 0x9908b0df
     protected _upperMask = 0x80000000
     protected _lowerMask = 0x7fffffff
-    protected _sVec = new Array<number>(this._pN)
+    protected _sVec = Array.from<number>({ length: this._pN })
     protected _init = this._pN + 1
     protected _gVal?: number = undefined
 
@@ -146,7 +146,7 @@ export class Randomizer {
     samples(data: Matrix | number[][], n: number) {
         const mat = data instanceof Matrix ? data : Matrix.from(data)
         if (n > mat.rows) throw new Error('The number of samples can\'t be bigger than the number of rows of the matrix')
-        const samples = new Array<number>(n)
+        const samples = Array.from<number>({ length: n })
         const indexList = linearSpace(0, mat.rows - 1)
         for (let i = 0, l = indexList.length; i < n; ++i, --l) {
             samples[i] = indexList.splice(this.randomInt() % l, 1)[0]
