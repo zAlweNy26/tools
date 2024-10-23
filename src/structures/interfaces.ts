@@ -1,5 +1,3 @@
-import { Matrix } from "./matrix"
-
 /**
  * Interface for data structures.
  */
@@ -7,161 +5,183 @@ export interface Structure {
     /**
      * Clears the structure.
      */
-    clear: () => void
+    clear(): void
     /**
-     * The available space in the structure.
+     * The current number of elements in the structure.
      */
-    space: number
-    /**
-     * Indicates whether the structure has room for more elements.
-     */
-    hasRoom: boolean
-    /**
-     * Indicates whether the structure is empty.
-     */
-    isEmpty: boolean
-    /**
-     * Indicates whether the structure is full.
-     */
-    isFull: boolean
+    size(): number
 }
 
 /**
- * Interface for a list data structure.
+ * Abstract class representing a list structure.
  * @template T The type of elements held in the list.
  */
-export interface ListStructure<T> extends Structure {
+export abstract class ListStructure<T> implements Structure {
+    protected _size: number
+    protected _data: T[] = []
+
+    constructor(size: number | T[]) {
+        if (typeof size === 'number') {
+            this._size = size
+            this._data = Array.from({ length: size })
+        } else {
+            this._size = size.length
+            this._data = [...size]
+        }
+    }
+
     /**
-     * The number of elements in the list.
+     * The available space in the structure.
      */
-    size: number
+    abstract get space(): number
     /**
-     * Returns the first element in the list without removing it.
-     * @returns The first element in the list, or undefined if the list is empty.
+     * Indicates whether the structure has room for more elements.
      */
-    peek: () => T | undefined
+    abstract get hasRoom(): boolean
+    /**
+     * Indicates whether the structure is empty.
+     */
+    abstract get isEmpty(): boolean
+    /**
+     * Indicates whether the structure is full.
+     */
+    abstract get isFull(): boolean
+    /**
+     * Gets the next element in the list without removing it.
+     */
+    abstract peek(): T | undefined
+
     /**
      * An array of all the elements in the list.
      */
-    items: readonly T[]
+    get items() {
+        return this._data.filter<T>(v => v !== undefined)
+    }
+
+    /**
+     * Clears the list.
+     */
+    clear() {
+        this._data = []
+        return this
+    }
+
+    /**
+     * The current number of elements in the list.
+     */
+    size() {
+        return this._size
+    }
 }
 
 /**
  * Abstract class representing a graph structure.
- * @template K The type of the vertices in the graph.
- * @template V The type of the values associated with the vertices.
+ * @template N The type of the nodes in the graph.
+ * @template E The type of the values associated with the nodes.
  */
-export abstract class GraphStructure<K, V> {
-    protected map = new Map<K, V[]>()
+export abstract class GraphStructure<N, E> implements Structure {
+    protected map = new Map<N, E[]>()
 
     /**
-     * Creates a new graph structure with the given vertex.
-     * @param vertex The vertex to add to the graph.
+     * Creates a new graph structure with the given node.
+     * @param node The first node to add to the graph.
      */
-    constructor(vertex: K) {
-        this.map.set(vertex, [])
+    constructor(node: N) {
+        this.map.set(node, [])
     }
 
     /**
-     * Adds an edge between two vertices in the graph.
-     * @param v1 The first vertex.
-     * @param v2 The second vertex.
+     * Clears the graph by removing all nodes and edges.
+     */
+    clear() {
+        this.map.clear()
+    }
+
+    /**
+     * The current number of elements in the graph.
+     */
+    size() {
+        return this.map.size
+    }
+
+    /**
+     * Adds an edge between two nodes in the graph.
+     * @param v1 The first node.
+     * @param v2 The second node.
      * @returns The graph structure instance.
      */
-    abstract addEdge(v1: K, v2: K): this
+    abstract addEdge(v1: N, v2: N): this
 
     /**
-     * Removes an edge between two vertices in the graph.
-     * @param v1 The first vertex.
-     * @param v2 The second vertex.
+     * Removes an edge between two nodes in the graph.
+     * @param v1 The first node.
+     * @param v2 The second node.
      * @returns The graph structure instance.
      */
-    abstract removeEdge(v1: K, v2: K): this
+    abstract removeEdge(v1: N, v2: N): this
 
     /**
-     * Returns an array of vertices adjacent to the given vertex.
-     * @param vertex The vertex to get the adjacent vertices for.
-     * @returns An array of adjacent vertices.
+     * Returns an array of nodes adjacent to the given node.
+     * @param node The node to get the adjacent nodes for.
+     * @returns An array of adjacent nodes.
      */
-    abstract getEdges(vertex: K): readonly K[]
+    abstract getEdges(node: N): N[]
 
     /**
-     * Returns a boolean indicating if two vertices are adjacent in the graph.
-     * @param v1 The first vertex.
-     * @param v2 The second vertex.
-     * @returns True if the vertices are adjacent, false otherwise.
+     * Returns a boolean indicating if two nodes are adjacent in the graph.
+     * @param v1 The first node.
+     * @param v2 The second node.
+     * @returns True if the nodes are adjacent, false otherwise.
      */
-    abstract isAdjacent(v1: K, v2: K): boolean
+    abstract isAdjacent(v1: N, v2: N): boolean
 
     /**
-     * Removes a vertex from the graph.
-     * @param vertex The vertex to remove.
+     * Removes a node from the graph.
+     * @param node The node to remove.
      * @returns The graph structure instance.
      */
-    abstract removeVertex(vertex: K): this
+    abstract removeNode(node: N): this
+
+    abstract hasCycle(): boolean
 
     /**
-     * Returns the shortest path between two vertices in the graph.
-     * @param v1 The starting vertex.
-     * @param v2 The ending vertex.
-     * @returns An array of vertices representing the shortest path.
+     * Returns the shortest path between two nodes in the graph.
+     * @param v1 The starting node.
+     * @param v2 The ending node.
      * @throws An error if the path could not be found.
      */
-    getPath(v1: K, v2: K) {
+    getPath(v1: N, v2: N) {
         const start = this.map.get(v1), end = this.map.get(v2)
-        if (!start || !end) throw new Error('One or both the vertices could not be found')
-        const visited = new Set<K>()
-        const queue: [K, K[]][] = [[v1, []]]
+        if (!start || !end) throw new Error('One or both the nodes could not be found')
+        const visited = new Set<N>()
+        const queue: [N, N[]][] = [[v1, []]]
         while (queue.length) {
-            const [vertex, path] = queue.shift()!
-            if (visited.has(vertex)) continue
-            visited.add(vertex)
-            const currentPath = [...path, vertex]
-            if (vertex == v2) return currentPath as readonly K[]
-            const edges = this.getEdges(vertex)
+            const [node, path] = queue.shift()!
+            if (visited.has(node)) continue
+            visited.add(node)
+            const currentPath = [...path, node]
+            if (node == v2) return currentPath
+            const edges = this.getEdges(node)
             for (const edge of edges) {
                 queue.push([edge, currentPath])
             }
         }
+        if (queue.length > 1) return queue
         throw new Error('Path not found')
     }
 
     /**
-     * Returns true if the graph contains the given vertex, false otherwise.
-     * @param vertex The vertex to check for.
-     * @returns True if the graph contains the vertex, false otherwise.
+     * Returns true if the graph contains the given node, false otherwise.
+     * @param node The node to check for.
      */
-    hasVertex(vertex: K) {
-        return this.map.has(vertex)
+    hasNode(node: N) {
+        return this.map.has(node)
     }
 
     /**
-     * Returns the graph as an adjacency matrix.
-     * @returns A matrix representing the graph.
+     * Returns an array of nodes in the graph.
      */
-    get asMatrix() {
-        const matrix: number[][] = []
-        for (const vertex of this.vertices) {
-            const edges = this.getEdges(vertex)
-            const row = this.vertices.map(v => edges.includes(v) ? 1 : 0)
-            matrix.push(row)
-        }
-        return Matrix.from(matrix)
-    }
-
-    /**
-     * Returns an array of vertices in the graph.
-     * @returns An array of vertices.
-     */
-    get vertices() {
-        return [...this.map.keys()] as readonly K[]
-    }
-
-    /**
-     * Returns the number of vertices in the graph.
-     * @returns The number of vertices in the graph.
-     */
-    get size() {
-        return this.map.size
+    get nodes() {
+        return [...this.map.keys()]
     }
 }

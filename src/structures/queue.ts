@@ -4,24 +4,17 @@ import { ListStructure } from "./interfaces"
  * A queue data structure.
  * @template T The type of elements held in the queue.
  */
-export class Queue<T> implements ListStructure<T> {
+export class Queue<T> extends ListStructure<T> {
     protected _data: T[] = []
     protected _head = 0
     protected _tail = 0
-    size = 0
 
     /**
      * Creates a new queue with the specified size or elements.
      * @param size The size of the queue or an array of elements to initialize the queue with.
      */
     constructor(size: number | T[]) {
-        if (typeof size === 'number') {
-            this.size = size
-            this._data = new Array<T>(size)
-        } else {
-            this.size = size.length
-            this._data = [...size]
-        }
+        super(size)
     }
     
     /**
@@ -69,20 +62,11 @@ export class Queue<T> implements ListStructure<T> {
     }
 
     /**
-     * Returns an array of all elements in the queue.
-     * @returns An array of all elements in the queue or an empty array if the queue is empty.
-     */
-    get items() {
-        if (this.isEmpty) return []
-        return [...this._data.filter(v => v != undefined)] as readonly T[]
-    }
-
-    /**
      * Returns the number of available spaces in the queue.
      * @returns The number of available spaces in the queue.
      */
     get space() {
-        return this.size - (this._tail - this._head)
+        return this.size() - (this._tail - this._head)
     }
 
     /**

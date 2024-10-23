@@ -254,6 +254,13 @@ export class Matrix implements Structure {
     }
 
     /**
+     * The current number of elements in the matrix.
+     */
+    size() {
+        return this.rows * this.cols
+    }
+
+    /**
      * Returns a new matrix that is the transpose of the current matrix.
      * @returns A new matrix that is the transpose of the current matrix.
      */
@@ -442,7 +449,7 @@ export class Matrix implements Structure {
      * @returns True if the matrix is empty, false otherwise.
      */
     get isEmpty() {
-        return this.space == this.rows * this.cols
+        return this.space == this.size()
     }
 
     /**
