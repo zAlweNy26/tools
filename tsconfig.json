@@ -2,6 +2,7 @@
   "include": [
     ".eslintrc.cjs",
     "./src/**/*.ts",
+    "./test/**/*.ts",
     "index.ts"
   ],
   "compilerOptions": {
