@@ -1,5 +1,5 @@
-import type { Graph } from 'structures'
-import { Queue } from 'structures'
+import type { Graph } from '@structures'
+import { Queue } from '@structures'
 
 export function breadthFirstSearch<T>(graph: Graph<T>) {
   const visited = new Set()

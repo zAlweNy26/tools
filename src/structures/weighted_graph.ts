@@ -32,14 +32,14 @@ export class WeightedGraph<N> extends GraphStructure<N, Edge<N>> {
   removeEdge(v1: N, v2: N) {
     const list = this.map.get(v1)
     if (list) {
-      const index = list.findIndex(e => e[0] == v2)
-      if (index != -1) list.splice(index, 1)
+      const index = list.findIndex(e => e[0] === v2)
+      if (index !== -1) list.splice(index, 1)
       else throw new Error('Edge not found')
 
       const edge = this.map.get(v2)
       if (edge) {
-        const index = edge.findIndex(e => e[0] == v1)
-        if (index != -1) edge.splice(index, 1)
+        const index = edge.findIndex(e => e[0] === v1)
+        if (index !== -1) edge.splice(index, 1)
       }
     }
     else throw new Error('Node not found')
@@ -49,8 +49,8 @@ export class WeightedGraph<N> extends GraphStructure<N, Edge<N>> {
   removeNode(node: N) {
     if (this.map.delete(node)) {
       for (const list of this.map.values()) {
-        const index = list.findIndex(e => e[0] == node)
-        if (index != -1) list.splice(index, 1)
+        const index = list.findIndex(e => e[0] === node)
+        if (index !== -1) list.splice(index, 1)
       }
     }
     else throw new Error('Node not found')
@@ -75,7 +75,7 @@ export class WeightedGraph<N> extends GraphStructure<N, Edge<N>> {
   getWeight(v1: N, v2: N, ...vn: N[]) {
     const list = this.map.get(v1)
     if (!list) throw new Error('First node not found')
-    const edge = list.find(e => e[0] == v2)
+    const edge = list.find(e => e[0] === v2)
     if (!edge) throw new Error('Second node not found')
     let weight = edge[1]
     if (vn.length) weight += this.getWeight(v2, vn[0], ...vn.slice(1))

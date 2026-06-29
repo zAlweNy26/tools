@@ -1,5 +1,5 @@
+import { Queue } from '@structures/queue'
 import { describe, expect, test } from 'bun:test'
-import { Queue } from 'structures/queue'
 
 describe('Queue', () => {
   test('numeric capacity - enqueue, dequeue, peek', () => {

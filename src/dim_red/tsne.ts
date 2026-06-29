@@ -1,7 +1,7 @@
 import type { TSNEParams } from './interfaces'
 import { DimRed } from './dim_red'
-import { euclideanSquared } from 'distances'
-import { Matrix } from 'structures'
+import { euclideanSquared } from '@distances'
+import { Matrix } from '@structures'
 
 export class TSNE extends DimRed<TSNEParams> {
   protected _yStep!: Matrix
@@ -35,7 +35,7 @@ export class TSNE extends DimRed<TSNEParams> {
     const metric = this._params.metric
     let delta = data.clone()
 
-    if (this.metric != 'precomputed') {
+    if (this.metric !== 'precomputed') {
       delta = new Matrix(n, n, 0)
       for (let i = 0; i < n; ++i) {
         for (let j = i + 1; j < n; ++j) {
@@ -154,7 +154,7 @@ export class TSNE extends DimRed<TSNEParams> {
     }
 
     // perform gradient step
-    const resMean = new Array<number>(dim)
+    const resMean = Array.from<number>({ length: dim }).fill(0)
     for (let i = 0; i < n; ++i) {
       for (let d = 0; d < dim; ++d) {
         const gId = grad.get(i, d)

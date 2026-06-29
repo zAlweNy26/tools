@@ -22,13 +22,13 @@ export class Graph<N> extends GraphStructure<N, N> {
     const list = this.map.get(v1)
     if (list) {
       const index = list.indexOf(v2)
-      if (index != -1) list.splice(index, 1)
+      if (index !== -1) list.splice(index, 1)
       else throw new Error('Edge not found')
 
       const edge = this.map.get(v2)
       if (edge) {
         const index = edge.indexOf(v1)
-        if (index != -1) edge.splice(index, 1)
+        if (index !== -1) edge.splice(index, 1)
       }
     }
     else throw new Error('Node not found')
@@ -39,7 +39,7 @@ export class Graph<N> extends GraphStructure<N, N> {
     if (this.map.delete(node)) {
       for (const list of this.map.values()) {
         const index = list.indexOf(node)
-        if (index != -1) list.splice(index, 1)
+        if (index !== -1) list.splice(index, 1)
       }
     }
     else throw new Error('Node not found')

@@ -1,51 +1,290 @@
 {
-  // Disable the default formatter, use eslint instead
+  // window
+  "window.title": "${rootName}",
+  "window.commandCenter": false,
+  // minimal settings
+  "editor.minimap.enabled": false,
+  "editor.lightbulb.enabled": "off",
+  "editor.glyphMargin": false,
+  "editor.overviewRulerBorder": false,
+  "editor.renderLineHighlight": "line",
+  "editor.renderControlCharacters": false,
+  "vue.inlayHints.optionsWrapper": false,
+  "editor.gotoLocation.multipleReferences": "goto",
+  "editor.gotoLocation.multipleDefinitions": "goto",
+  "editor.gotoLocation.multipleDeclarations": "goto",
+  "workbench.editor.enablePreviewFromQuickOpen": false,
+  "editor.gotoLocation.multipleImplementations": "goto",
+  "editor.gotoLocation.multipleTypeDefinitions": "goto",
+  "editor.formatOnType": true,
+  // Theme-specific UI
+  "diffEditor.renderSideBySide": false,
+  "editor.copyWithSyntaxHighlighting": false,
+  "editor.snippetSuggestions": "inline",
+  "editor.tabSize": 2,
+  "editor.detectIndentation": true,
+  "editor.multiCursorModifier": "alt",
+  "files.insertFinalNewline": true,
+  // Search
+  "search.smartCase": true,
+  "search.exclude": {
+    "**/dist": true,
+    "**/node_modules": true,
+    "**/package-lock.json": true,
+    "**/public/*": true,
+    "**/vendor/*": true,
+    "**/*.lock": true,
+    ".claude/**/*.md": true
+  },
+  // Code
+  // Include "-" in word selection.
+  "editor.wordSeparators": "`~!@#%^&*()=+[{]}\\|;:'\",.<>/?",
+  "emmet.includeLanguages": {
+    "blade": "html",
+    "vue-html": "html",
+    "spec.js": "html"
+  },
+  "files.associations": {
+    "*.ejs": "html",
+    "*.page-template": "vue",
+    "*.layout-template": "vue",
+    "*.vue": "vue",
+    ".php_cs": "php",
+    ".php_cs.dist": "php",
+    ".graphqlconfig": "json",
+    ".env*": "dotenv",
+    "*.json": "jsonc",
+    "*.css": "postcss"
+  },
+  "editor.cursorBlinking": "smooth",
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.wordWrap": "on",
+  "editor.tabCompletion": "on",
+  "explorer.openEditors.visible": 1,
+  // Code auto-formatting
+  "editor.formatOnPaste": true,
+  // Files to display
+  "files.enableTrash": false,
+  "files.exclude": {
+    ".cache-loader/": true,
+    ".gitattributes": true,
+    ".gitkeep": true,
+    ".travis.yml": true,
+    "coverage": true,
+    "acf-json": true,
+    "backend/vendor": true,
+    "CODE_OF_CONDUCT.md": true,
+    "config": false,
+    "LICENSE.md": true,
+    "phpcs.xml": true
+  },
+  "files.watcherExclude": {
+    "**/.output/**": true,
+    "**/.yarn/**": true,
+    "workspace/**": true,
+    "backend/vendor/**": true
+  },
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
+  "js/ts.updateImportsOnFileMove.enabled": "always",
+  // Git integration
+  "git.confirmSync": false,
+  "git.enableSmartCommit": true,
+  "gitlens.keymap": "alternate",
+  "gitlens.advanced.messages": {
+    "suppressIntegrationRequestTimedOutWarning": true
+  },
+  "gitlens.advanced.fileHistoryFollowsRenames": true,
+  "gitlens.blame.ignoreWhitespace": true,
+  "git.fetchOnPull": true,
+  "npm.packageManager": "yarn",
+  "outline.problems.colors": false,
+  "editor.semanticHighlighting.enabled": true,
+  "explorer.confirmDragAndDrop": false,
+  "npm.fetchOnlinePackageInfo": false,
+  "debug.console.fontSize": 10,
+  "editor.linkedEditing": true,
+  "errorLens.scrollbarHackEnabled": true,
+  "zenMode.fullScreen": false,
+  "zenMode.centerLayout": false,
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.formatOnSave": true
+  },
+  "[yaml]": {
+    "diffEditor.ignoreTrimWhitespace": true
+  },
+  "extensions.ignoreRecommendations": true,
+  "js/ts.format.semicolons": "remove",
+  "js/ts.format.insertSpaceAfterConstructor": true,
+  "js/ts.inlayHints.parameterNames.enabled": "none",
+  "editor.renderWhitespace": "none",
+  "js/ts.implicitProjectConfig.checkJs": true,
+  "js/ts.implicitProjectConfig.strictNullChecks": true,
+  "editor.bracketPairColorization.enabled": true,
+  "editor.accessibilitySupport": "off",
+  // Error lens
+  "errorLens.enabled": true,
+  "errorLens.fontSize": "12",
+  "errorLens.enabledDiagnosticLevels": [
+    "info"
+  ],
+  // Suggestions
+  "js/ts.preferences.importModuleSpecifier": "project-relative",
+  "editor.inlineSuggest.enabled": true,
+  "editor.acceptSuggestionOnEnter": "smart",
+  "editor.suggestSelection": "first",
+  "editor.suggest.showWords": false,
+  "emmet.showAbbreviationSuggestions": false,
+  "editor.suggest.showSnippets": true,
+  "js/ts.suggest.names": false,
+  "js/ts.suggest.paths": true,
+  "js/ts.suggest.jsdoc.enabled": false,
+  "js/ts.suggest.completeFunctionCalls": true,
+  "editor.guides.indentation": false,
+  "editor.unicodeHighlight.ambiguousCharacters": false,
+  "editor.unicodeHighlight.invisibleCharacters": false,
+  "terminal.integrated.cursorStyle": "line",
+  "terminal.integrated.cursorBlinking": true,
+  "diffEditor.maxComputationTime": 0,
+  "gitlens.showWhatsNewAfterUpgrades": false,
+  "git.autofetch": "all",
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "js/ts.format.insertSpaceAfterTypeAssertion": true,
+  "terminal.integrated.gpuAcceleration": "on",
+  "js/ts.format.insertSpaceAfterOpeningAndBeforeClosingEmptyBraces": false,
+  "debug.allowBreakpointsEverywhere": true,
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": false,
+    "markdown": true,
+    "scminput": false,
+    "yaml": true
+  },
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "launch": {
+    "configurations": [],
+    "compounds": []
+  },
+  "yaml.maxItemsComputed": 100,
+  "files.autoSave": "off",
+  "files.autoSaveDelay": 3000,
+  "terminal.integrated.enableMultiLinePasteWarning": "never",
+  "terminal.integrated.env.osx": {},
+  "search.followSymlinks": false,
+  "workbench.layoutControl.enabled": false,
+  "workbench.editor.editorActionsLocation": "titleBar",
+  "eslint.format.enable": true,
+  "debug.onTaskErrors": "debugAnyway",
+  "gitlens.launchpad.indicator.polling.enabled": false,
+  "gitlens.launchpad.indicator.enabled": false,
+  "diffEditor.ignoreTrimWhitespace": true,
+  "terminal.integrated.shellIntegration.enabled": false,
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "git.replaceTagsWhenPull": true,
+  "[markdown]": {
+    "diffEditor.ignoreTrimWhitespace": false
+  },
+  "explorer.confirmPasteNative": false,
+  "chat.agent.enabled": true,
+  "gitlens.plusFeatures.enabled": false,
+  "makefile.configureOnOpen": false,
+  "eslint.useFlatConfig": true,
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "tailwindCSS.classAttributes": [
+    "class",
+    "activeClass",
+    "inactiveClass",
+    "inputClass",
+    "ui"
+  ],
+  "i18n-ally.keystyle": "nested",
+  "i18n-ally.sourceLanguage": "it-IT",
+  "i18n-ally.displayLanguage": "it-IT",
+  "todo-tree.tree.scanMode": "workspace",
+  "js/ts.tsdk.path": "node_modules/typescript/lib",
+  "json.schemaDownload.trustedDomains": {
+    "https://opencode.ai/config.json": true,
+    "https://models.dev/model-schema.json": true
+  },
   "prettier.enable": false,
   "editor.formatOnSave": false,
-
   // Auto fix
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit",
+    "source.fixAll.eslint": "always",
     "source.organizeImports": "never"
   },
-
   // Silent the stylistic rules in your IDE, but still auto fix them
   "eslint.rules.customizations": [
-    { "rule": "style/*", "severity": "off", "fixable": true },
-    { "rule": "format/*", "severity": "off", "fixable": true },
-    { "rule": "*-indent", "severity": "off", "fixable": true },
-    { "rule": "*-spacing", "severity": "off", "fixable": true },
-    { "rule": "*-spaces", "severity": "off", "fixable": true },
-    { "rule": "*-order", "severity": "off", "fixable": true },
-    { "rule": "*-dangle", "severity": "off", "fixable": true },
-    { "rule": "*-newline", "severity": "off", "fixable": true },
-    { "rule": "*quotes", "severity": "off", "fixable": true },
-    { "rule": "*semi", "severity": "off", "fixable": true }
+    {
+      "rule": "style/*",
+      "severity": "off",
+      "fixable": true
+    },
+    {
+      "rule": "format/*",
+      "severity": "off",
+      "fixable": true
+    },
+    {
+      "rule": "*-indent",
+      "severity": "off",
+      "fixable": true
+    },
+    {
+      "rule": "*-spacing",
+      "severity": "off",
+      "fixable": true
+    },
+    {
+      "rule": "*-spaces",
+      "severity": "off",
+      "fixable": true
+    },
+    {
+      "rule": "*-order",
+      "severity": "off",
+      "fixable": true
+    },
+    {
+      "rule": "*-dangle",
+      "severity": "off",
+      "fixable": true
+    },
+    {
+      "rule": "*-newline",
+      "severity": "off",
+      "fixable": true
+    },
+    {
+      "rule": "*quotes",
+      "severity": "off",
+      "fixable": true
+    },
+    {
+      "rule": "*semi",
+      "severity": "off",
+      "fixable": true
+    }
   ],
-
   // Enable eslint for all supported languages
   "eslint.validate": [
     "javascript",
-    "javascriptreact",
     "typescript",
-    "typescriptreact",
-    "vue",
-    "html",
     "markdown",
     "json",
-    "json5",
     "jsonc",
     "yaml",
     "toml",
-    "xml",
-    "gql",
-    "graphql",
-    "astro",
-    "svelte",
-    "css",
-    "less",
-    "scss",
-    "pcss",
-    "postcss"
+    "xml"
   ]
 }

@@ -1,5 +1,5 @@
+import { Matrix } from '@structures/matrix'
 import { describe, expect, test } from 'bun:test'
-import { Matrix } from 'structures/matrix'
 
 describe('Matrix', () => {
   test('constructor and get/set', () => {

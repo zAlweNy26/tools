@@ -9,7 +9,7 @@ import { euclideanSquared } from './euclidean_squared'
  * @see {@link https://en.wikipedia.org/wiki/Euclidean_distance}
  */
 export function euclidean(a: number[], b: number[]) {
-  if (a.length != b.length) throw new Error('The vectors should have the same length')
+  if (a.length !== b.length) throw new Error('The vectors should have the same length')
 
   return Math.sqrt(euclideanSquared(a, b))
 }

@@ -7,7 +7,7 @@
  * @see {@link https://en.wikipedia.org/wiki/Canberra_distance}
  */
 export function canberra(a: number[], b: number[]) {
-  if (a.length != b.length) throw new Error('The vectors should have the same length')
+  if (a.length !== b.length) throw new Error('The vectors should have the same length')
 
   let distance = 0
 

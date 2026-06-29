@@ -1,5 +1,5 @@
+import { Stack } from '@structures/stack'
 import { describe, expect, test } from 'bun:test'
-import { Stack } from 'structures/stack'
 
 describe('Stack', () => {
   test('numeric capacity - push, pop, peek', () => {

@@ -1,5 +1,5 @@
+import { FixedArray } from '@structures/fixed_array'
 import { describe, expect, test } from 'bun:test'
-import { FixedArray } from 'structures/fixed_array'
 
 describe('FixedArray', () => {
   test('numeric capacity - push, pop, length', () => {

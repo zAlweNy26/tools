@@ -1,5 +1,5 @@
+import { CircularQueue } from '@structures/circular_queue'
 import { describe, expect, test } from 'bun:test'
-import { CircularQueue } from 'structures/circular_queue'
 
 describe('CircularQueue', () => {
   test('basic enqueue, dequeue', () => {

@@ -59,7 +59,7 @@ function postOrder<T>(node: TreeLeaf<T>, list: T[]) { // leaves -> root
 }
 
 function inOrder<T>(node: TreeLeaf<T>, list: T[]) { // first half -> root -> second half
-  if (node.leaves.length == 0) list.push(node.data)
+  if (node.leaves.length === 0) list.push(node.data)
   else {
     const n = node.leaves.length, nd = Math.round(n / 2)
     for (let i = 0; i < nd; i++)
@@ -101,10 +101,10 @@ export class Tree<T> {
   traverse(order: 'post' | 'pre' | 'in' | 'height' = 'pre'): T[] {
     const result: T[] = []
 
-    if (order == 'pre') preOrder(this.root, result)
-    else if (order == 'post') postOrder(this.root, result)
-    else if (order == 'in') inOrder(this.root, result)
-    else if (order == 'height') heightOrder(this.root, result)
+    if (order === 'pre') preOrder(this.root, result)
+    else if (order === 'post') postOrder(this.root, result)
+    else if (order === 'in') inOrder(this.root, result)
+    else if (order === 'height') heightOrder(this.root, result)
 
     return result
   }
@@ -118,7 +118,7 @@ export class Tree<T> {
     const queue: TreeLeaf<T>[] = [this.root]
     while (queue.length > 0) {
       const node = queue.shift()!
-      if (node.data == value) return node
+      if (node.data === value) return node
       queue.push(...node.leaves)
     }
     return undefined

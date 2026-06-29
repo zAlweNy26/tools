@@ -7,7 +7,7 @@
  * @see {@link https://en.wikipedia.org/wiki/Manhattan_distance}
  */
 export function manhattan(a: number[], b: number[]) {
-  if (a.length != b.length) throw new Error('The vectors should have the same length')
+  if (a.length !== b.length) throw new Error('The vectors should have the same length')
 
   // slower:
   // const result = Array.from({ length: a.length }, (_, i) => Math.abs(a[i] - b[i])).reduce((p, c) => p + c, 0)

@@ -6,7 +6,7 @@ export default antfu({
     quotes: 'single',
   },
   typescript: true,
-  ignores: ['**/dist/**', '**/node_modules/**', '**/public/**', '**/.agents/**', '**/.claude/**'],
+  ignores: ['**/dist/**', '**/docs/**', '**/node_modules/**'],
   rules: {
     'node/prefer-global/process': 'off',
     'array-bracket-spacing': 'off',

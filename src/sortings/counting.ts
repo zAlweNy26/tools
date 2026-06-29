@@ -2,7 +2,7 @@ export function countingSort(array: number[]) {
   if (array.length <= 1) return array
 
   const max = Math.max(...array)
-  const count = Array.from({ length: max + 1 }).fill(0)
+  const count = Array.from<number>({ length: max + 1 }).fill(0)
 
   array.forEach(element => count[element]++)
 

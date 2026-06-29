@@ -1,5 +1,5 @@
+import { Graph } from '@structures/graph'
 import { describe, expect, test } from 'bun:test'
-import { Graph } from 'structures/graph'
 
 describe('Graph', () => {
   test('add nodes via edges', () => {

@@ -20,9 +20,7 @@ export class CircularQueue<T> extends Queue<T> {
    * @param element The element to add to the queue.
    */
   enqueue(element: T) {
-    if (this.isFull) {
-      this._head++
-    }
+    if (this.isFull) this._head++
     this._data[this._tail % this._capacity] = element
     this._tail++
   }

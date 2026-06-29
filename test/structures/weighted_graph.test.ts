@@ -1,5 +1,5 @@
+import { WeightedGraph } from '@structures/weighted_graph'
 import { describe, expect, test } from 'bun:test'
-import { WeightedGraph } from 'structures/weighted_graph'
 
 describe('WeightedGraph', () => {
   test('add edges with weights', () => {

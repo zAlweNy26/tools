@@ -1,7 +1,7 @@
 import type { DimRedParams } from './interfaces'
-import { euclidean } from 'distances/euclidean'
-import { Matrix } from 'structures/matrix'
-import { Randomizer } from 'utils/randomizer'
+import { euclidean } from '@distances/euclidean'
+import { Matrix } from '@structures/matrix'
+import { Randomizer } from '@utils/randomizer'
 
 /**
  * A class for performing dimensionality reduction on a matrix of data.
@@ -95,7 +95,7 @@ export abstract class DimRed<P extends DimRedParams> {
    */
   get metric() {
     const metr = this._params.metric
-    return typeof metr == 'string' ? metr : metr.name
+    return typeof metr === 'string' ? metr : metr.name
   }
 
   /**
@@ -109,7 +109,6 @@ export abstract class DimRed<P extends DimRedParams> {
    * Gets the parameters used for the algorithm.
    */
   get parameters() {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { metric, seed, dimensionality, ...rest } = this._params
     return rest
   }

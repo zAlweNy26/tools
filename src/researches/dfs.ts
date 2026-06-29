@@ -1,5 +1,5 @@
-import type { Graph } from 'structures'
-import { Stack } from 'structures'
+import type { Graph } from '@structures'
+import { Stack } from '@structures'
 
 export function depthFirstSearch<T>(graph: Graph<T>) {
   const visited = new Set()

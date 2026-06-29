@@ -1,5 +1,5 @@
 import { linearSpace } from './linear_space'
-import { Matrix } from 'structures/matrix'
+import { Matrix } from '@structures/matrix'
 
 /**
  * A Mersenne Twister random number generator.
@@ -112,7 +112,7 @@ export class Randomizer {
    */
   randomGauss() {
     let x, y, r
-    if (this._gVal != undefined) {
+    if (this._gVal !== undefined) {
       x = this._gVal
       this._gVal = undefined
       return x

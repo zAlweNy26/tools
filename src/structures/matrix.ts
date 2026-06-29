@@ -23,11 +23,11 @@ export class Matrix implements Structure {
     if (rows <= 1 && cols <= 1) throw new Error('Unable to create a matrix of that size')
     if (value === undefined)
       this._data = Array.from({ length: rows }, () => Array.from({ length: cols }))
-    else if (value == 'identity')
+    else if (value === 'identity')
       this._data = Array.from({ length: rows }, (_, i) => Array.from({ length: cols }, (_, j) => i === j ? 1 : 0))
-    else if (typeof value == 'number')
+    else if (typeof value === 'number')
       this._data = Array.from({ length: rows }, () => Array.from<number>({ length: cols }).fill(value))
-    else if (typeof value == 'function')
+    else if (typeof value === 'function')
       this._data = Array.from({ length: rows }, (_, i) => Array.from({ length: cols }, (_, j) => value(i, j)))
   }
 
@@ -41,20 +41,20 @@ export class Matrix implements Structure {
   static from(array: number[][]): Matrix
   static from(array: number[], fill: 'row' | 'col' | 'diag'): Matrix
   static from(...params: never[]) {
-    if (params.length == 1) {
+    if (params.length === 1) {
       const array = params[0] as number[][]
       const rows = array.length, cols = array[0].length
-      if (rows == 0) throw new Error('2D array is empty')
-      else if (array.some(arr => arr.length != cols)) throw new Error('Not all the columns of the matrix have the same length')
+      if (rows === 0) throw new Error('2D array is empty')
+      else if (array.some(arr => arr.length !== cols)) throw new Error('Not all the columns of the matrix have the same length')
       return new Matrix(rows, cols, (r, c) => array[r][c])
     }
     else {
       const array = params[0] as number[], type = params[1] as string
       const len = array.length
-      if (len == 0) throw new Error('Array is empty')
-      if (type == 'col') return new Matrix(1, len, (_, c) => array[c])
-      else if (type == 'row') return new Matrix(len, 1, r => array[r])
-      else return new Matrix(len, len, (r, c) => (r == c ? array[r] : 0))
+      if (len === 0) throw new Error('Array is empty')
+      if (type === 'col') return new Matrix(1, len, (_, c) => array[c])
+      else if (type === 'row') return new Matrix(len, 1, r => array[r])
+      else return new Matrix(len, len, (r, c) => (r === c ? array[r] : 0))
     }
   }
 
@@ -90,12 +90,12 @@ export class Matrix implements Structure {
   concat(mat: Matrix, type: 'horizontal' | 'vertical' = 'horizontal') {
     // TODO: Add diagonal concatenation
     let data: number[][] = []
-    if (type == 'horizontal') {
-      if (this.rows != mat.rows) throw new Error('The matrices need to have the same number of rows')
+    if (type === 'horizontal') {
+      if (this.rows !== mat.rows) throw new Error('The matrices need to have the same number of rows')
       data = this._data.map((arr, i) => arr.concat(mat._data[i]))
     }
-    else if (type == 'vertical') {
-      if (this.cols != mat.cols) throw new Error('The matrices need to have the same number of rows')
+    else if (type === 'vertical') {
+      if (this.cols !== mat.cols) throw new Error('The matrices need to have the same number of rows')
       data = this._data.concat(mat._data)
     }
     return Matrix.from(data)
@@ -125,7 +125,7 @@ export class Matrix implements Structure {
   operate(matrix: number[][] | Matrix, value: (left: number, right: number) => number) {
     const mat = matrix instanceof Matrix ? matrix : Matrix.from(matrix)
 
-    if (this.cols != mat.cols || this.rows != mat.rows)
+    if (this.cols !== mat.cols || this.rows !== mat.rows)
       throw new Error('The number of columns of the current matrix is different from the number of rows of the passed matrix')
 
     const data = this._data.map((row, i) => row.map((col, j) => value(col, mat.get(i, j))))
@@ -273,8 +273,8 @@ export class Matrix implements Structure {
    * @returns The inverse of the matrix.
    */
   inverse() {
-    if (this.rows != this.cols) throw new Error('Unable to calculate inverse for non-quadratic matrix')
-    else if (this.det() == 0) throw new Error('Matrix not invertible due to the determinant equal to zero')
+    if (this.rows !== this.cols) throw new Error('Unable to calculate inverse for non-quadratic matrix')
+    else if (this.det() === 0) throw new Error('Matrix not invertible due to the determinant equal to zero')
 
     const identity = new Matrix(this.rows, this.cols, 'identity').items
     const copy = this.items
@@ -322,7 +322,7 @@ export class Matrix implements Structure {
   dot(matrix: number[][] | Matrix) {
     const mat = matrix instanceof Matrix ? matrix : Matrix.from(matrix)
 
-    if (this.cols != mat.rows)
+    if (this.cols !== mat.rows)
       throw new Error('The number of columns of the current matrix is different from the number of rows of the passed matrix')
 
     const result: number[][] = []
@@ -347,7 +347,7 @@ export class Matrix implements Structure {
    * @returns A new matrix that is a submatrix of the current matrix with the specified row and column removed.
    */
   sub(row: number, col: number) {
-    return Matrix.from(this._data.filter((_, i) => i != row).map(r => r.filter((_, j) => j != col)))
+    return Matrix.from(this._data.filter((_, i) => i !== row).map(r => r.filter((_, j) => j !== col)))
   }
 
   /**
@@ -356,13 +356,13 @@ export class Matrix implements Structure {
    * @returns The determinant of the matrix.
    */
   det() {
-    if (this.rows != this.cols) throw new Error('Unable to calculate determinant for non-quadratic matrix')
+    if (this.rows !== this.cols) throw new Error('Unable to calculate determinant for non-quadratic matrix')
 
     const cofactorSign = (row: number, col: number) => (row + col) % 2 === 0 ? 1 : -1
 
     const determinant = (matrix: Matrix): number => {
-      if (matrix.rows == 1) return matrix.get(0, 0)
-      else if (matrix.rows == 2) return (matrix.get(0, 0) * matrix.get(1, 1)) - (matrix.get(0, 1) * matrix.get(1, 0))
+      if (matrix.rows === 1) return matrix.get(0, 0)
+      else if (matrix.rows === 2) return (matrix.get(0, 0) * matrix.get(1, 1)) - (matrix.get(0, 1) * matrix.get(1, 0))
 
       let det = 0
 
@@ -439,7 +439,7 @@ export class Matrix implements Structure {
    * @returns True if the matrix has room for more elements, false otherwise.
    */
   get hasRoom() {
-    return this.space != 0
+    return this.space !== 0
   }
 
   /**
@@ -447,7 +447,7 @@ export class Matrix implements Structure {
    * @returns True if the matrix is empty, false otherwise.
    */
   get isEmpty() {
-    return this.space == this.size()
+    return this.space === this.size()
   }
 
   /**
@@ -455,6 +455,6 @@ export class Matrix implements Structure {
    * @returns True if the matrix is full, false otherwise.
    */
   get isFull() {
-    return this.space == 0
+    return this.space === 0
   }
 }

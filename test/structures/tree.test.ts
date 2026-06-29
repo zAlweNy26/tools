@@ -1,5 +1,5 @@
+import { Tree, TreeLeaf } from '@structures/tree'
 import { describe, expect, test } from 'bun:test'
-import { Tree, TreeLeaf } from 'structures/tree'
 
 function buildTestTree() {
   const tree = new Tree(1)
