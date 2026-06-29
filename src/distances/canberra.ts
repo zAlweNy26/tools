@@ -7,16 +7,16 @@
  * @see {@link https://en.wikipedia.org/wiki/Canberra_distance}
  */
 export function canberra(a: number[], b: number[]) {
-    if (a.length != b.length) throw new Error('The vectors should have the same length')
+  if (a.length != b.length) throw new Error('The vectors should have the same length')
 
-    let distance = 0
+  let distance = 0
 
-    for (let i = 0; i < a.length; i++) {
-        const num = Math.abs(a[i] - b[i])
-        const den = Math.abs(a[i]) + Math.abs(b[i])
+  for (let i = 0; i < a.length; i++) {
+    const num = Math.abs(a[i] - b[i])
+    const den = Math.abs(a[i]) + Math.abs(b[i])
 
-        if (den !== 0) distance += num / den
-    }
+    if (den !== 0) distance += num / den
+  }
 
-    return distance
+  return distance
 }

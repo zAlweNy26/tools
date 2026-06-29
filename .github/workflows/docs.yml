@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: "pages"
+  group: pages
   cancel-in-progress: false
 
 permissions:
@@ -30,7 +30,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          cache: "pnpm"
+          cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm doc
       - uses: stefanzweifel/git-auto-commit-action@v4
@@ -42,7 +42,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: './docs'
+          path: ./docs
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2

@@ -5,7 +5,7 @@
  * @template T The type to check for.
  */
 export function isOfType<T>(value: unknown): value is T {
-    return typeof value === typeof ({} as T)
+  return typeof value === typeof ({} as T)
 }
 
 /**
@@ -15,7 +15,7 @@ export function isOfType<T>(value: unknown): value is T {
  * @template T The type of the elements to check for.
  */
 export function isRightArray<T>(array: unknown[]): array is T[] {
-    return array?.length > 0 && isOfType<T>(array[0])
+  return array?.length > 0 && isOfType<T>(array[0])
 }
 
 /**
@@ -25,7 +25,7 @@ export function isRightArray<T>(array: unknown[]): array is T[] {
  * @template T The type of the elements to check for.
  */
 export function isArray2D<T>(array: unknown[][]): array is T[][] {
-    return isRightArray(array) && array?.every(item => isRightArray(item))
+  return isRightArray(array) && array?.every(item => isRightArray(item))
 }
 
 /**
@@ -35,9 +35,9 @@ export function isArray2D<T>(array: unknown[][]): array is T[][] {
  * @returns The length of the longest common prefix between the two strings.
  */
 export function getLCP(str1: string, str2: string) {
-    let lcp = 0
-    while (lcp < Math.min(str1.length, str2.length) && str1[lcp] === str2[lcp]) lcp++
-    return lcp
+  let lcp = 0
+  while (lcp < Math.min(str1.length, str2.length) && str1[lcp] === str2[lcp]) lcp++
+  return lcp
 }
 
 /**
@@ -47,13 +47,13 @@ export function getLCP(str1: string, str2: string) {
  * @returns The time it took for the function to execute, in milliseconds.
  */
 export function measureTime<Args extends unknown[], Return>(
-    func: (...params: Args) => Return, 
-    ...params: Args
+  func: (...params: Args) => Return,
+  ...params: Args
 ): number {
-    const timeStart = performance.now()
-    func(...params)
-    const timeEnd = performance.now()
-    return timeEnd - timeStart
+  const timeStart = performance.now()
+  func(...params)
+  const timeEnd = performance.now()
+  return timeEnd - timeStart
 }
 
 /**
@@ -64,15 +64,15 @@ export function measureTime<Args extends unknown[], Return>(
  * @returns The updated property descriptor.
  */
 export function measure<T>(_target: unknown, _propertyKey: string, descriptor: PropertyDescriptor) {
-    const originalMethod = descriptor.value as (...args: unknown[]) => T
+  const originalMethod = descriptor.value as (...args: unknown[]) => T
 
-    descriptor.value = function (...args: unknown[]): T {
-        const timeStart = performance.now()
-        const result = originalMethod.apply(this, args)
-        const timeEnd = performance.now()
-        console.log(`Execution time: ${timeEnd - timeStart} ms`)
-        return result
-    }
+  descriptor.value = function (...args: unknown[]): T {
+    const timeStart = performance.now()
+    const result = originalMethod.apply(this, args)
+    const timeEnd = performance.now()
+    console.log(`Execution time: ${timeEnd - timeStart} ms`)
+    return result
+  }
 
-    return descriptor
+  return descriptor
 }
