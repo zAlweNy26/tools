@@ -2,7 +2,7 @@
 
 export * from './src/dim_red'
 export * from './src/distances'
+export * from './src/researches'
 export * from './src/sortings'
 export * from './src/structures'
-export * from './src/researches'
 export * from './src/utils'
