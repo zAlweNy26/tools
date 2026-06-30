@@ -43,7 +43,7 @@
   ],
   "scripts": {
     "build": "bun run generate && tsdown",
-    "release": "bun run build && changeset publish",
+    "release": "bun run build",
     "generate": "ctix create -p ./tsconfig.json -t -w --noBackup",
     "typecheck": "tsc --noEmit",
     "lint": "eslint --cache .",
@@ -56,8 +56,8 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^9.1.0",
-    "@changesets/cli": "^2.31.0",
     "@types/bun": "^1.3.14",
+    "changelogen": "^0.6.2",
     "ctix": "^2.8.1",
     "eslint": "^10.6.0",
     "tsdown": "^0.22.3",
@@ -69,5 +69,17 @@
     "typedoc-vitepress-theme": "^1.1.3",
     "typescript": "^6.0.3",
     "vitepress": "^1.6.4"
+  },
+  "changelog": {
+    "types": {
+      "feat": {
+        "title": "🚀 Enhancements",
+        "semver": "patch"
+      },
+      "refactor": {
+        "title": "💅 Refactors",
+        "semver": "minor"
+      }
+    }
   }
 }
