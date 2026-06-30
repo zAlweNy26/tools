@@ -1,4 +1,34 @@
-import { getLCP } from '../utils'
+function partitionNumbers(arr: number[], low: number, high: number) {
+  const pivot = arr[high]
+  let i = low - 1
+
+  for (let j = low; j <= high - 1; j++) {
+    if (arr[j] < pivot) {
+      i++;
+      [arr[i], arr[j]] = [arr[j], arr[i]]
+    }
+  }
+
+  [arr[i + 1], arr[high]] = [arr[high], arr[i + 1]]
+
+  return i + 1
+}
+
+function partitionStrings(arr: string[], low: number, high: number) {
+  const pivot = arr[high]
+  let i = low - 1
+
+  for (let j = low; j <= high - 1; j++) {
+    if (arr[j] < pivot) {
+      i++;
+      [arr[i], arr[j]] = [arr[j], arr[i]]
+    }
+  }
+
+  [arr[i + 1], arr[high]] = [arr[high], arr[i + 1]]
+
+  return i + 1
+}
 
 /**
  * Sorts an array of numbers using the quick sort algorithm.
@@ -48,43 +78,4 @@ export function quickSortStr(array: string[]) {
   qs(result, 0, result.length - 1)
 
   return result
-}
-
-function partitionNumbers(arr: number[], low: number, high: number) {
-  const pivot = arr[high]
-  let i = low - 1
-
-  for (let j = low; j <= high - 1; j++) {
-    if (arr[j] < pivot) {
-      i++;
-      [arr[i], arr[j]] = [arr[j], arr[i]]
-    }
-  }
-
-  [arr[i + 1], arr[high]] = [arr[high], arr[i + 1]]
-
-  return i + 1
-}
-
-function partitionStrings(arr: string[], low: number, high: number) {
-  const pivot = arr[high]
-  let i = low - 1
-
-  for (let j = low; j <= high - 1; j++) {
-    const lcp = getLCP(arr[j], pivot)
-    if (lcp < 0) {
-      i++;
-      [arr[i], arr[j]] = [arr[j], arr[i]]
-    }
-    else if (arr[j] === pivot) {
-      if (lcp === arr[j].length || lcp === pivot.length || arr[j][lcp] < pivot[lcp]) {
-        i++;
-        [arr[i], arr[j]] = [arr[j], arr[i]]
-      }
-    }
-  }
-
-  [arr[i + 1], arr[high]] = [arr[high], arr[i + 1]]
-
-  return i + 1
 }

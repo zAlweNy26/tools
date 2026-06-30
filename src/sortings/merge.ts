@@ -1,4 +1,40 @@
-import { getLCP } from '../utils'
+function mergeNumbers(left: number[], right: number[]) {
+  let result: number[] = []
+
+  while (left.length > 0 && right.length > 0) {
+    if (left[0] <= right[0]) {
+      result.push(left[0])
+      left.shift()
+    }
+    else {
+      result.push(right[0])
+      right.shift()
+    }
+  }
+
+  result = [...result, ...left, ...right]
+
+  return result
+}
+
+function mergeStrings(left: string[], right: string[]) {
+  let result: string[] = []
+
+  while (left.length > 0 && right.length > 0) {
+    if (left[0] <= right[0]) {
+      result.push(left[0])
+      left.shift()
+    }
+    else {
+      result.push(right[0])
+      right.shift()
+    }
+  }
+
+  result = [...result, ...left, ...right]
+
+  return result
+}
 
 /**
  * Sorts an array of numbers using the merge sort algorithm.
@@ -38,42 +74,4 @@ export function mergeSortStr(array: string[]) {
   right = mergeSortStr(right)
 
   return mergeStrings(left, right)
-}
-
-function mergeNumbers(left: number[], right: number[]) {
-  let result: number[] = []
-
-  while (left.length > 0 && right.length > 0) {
-    if (left[0] <= right[0]) {
-      result.push(left[0])
-      left.shift()
-    }
-    else {
-      result.push(right[0])
-      right.shift()
-    }
-  }
-
-  result = [...result, ...left, ...right]
-
-  return result
-}
-
-function mergeStrings(left: string[], right: string[]) {
-  let result: string[] = []
-
-  while (left.length > 0 && right.length > 0) {
-    if (getLCP(left[0], right[0]) <= 0) {
-      result.push(left[0])
-      left.shift()
-    }
-    else {
-      result.push(right[0])
-      right.shift()
-    }
-  }
-
-  result = [...result, ...left, ...right]
-
-  return result
 }
