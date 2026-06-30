@@ -13,9 +13,9 @@ export abstract class DimRed<P extends DimRedParams> {
   protected _randomizer!: Randomizer
   protected _initialized = false
   protected _iter = 0
-  _projection!: Matrix
-  _data!: Matrix
-  _result!: Matrix
+  protected _projection!: Matrix
+  protected _data!: Matrix
+  protected _result!: Matrix
 
   /**
    * Constructs a new instance of the DimRed class.

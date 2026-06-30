@@ -40,15 +40,6 @@ Creates a new queue with the specified size or elements.
 
 [`ListStructure`](ListStructure.md).[`constructor`](ListStructure.md#constructor)
 
-## Properties
-
-| Property | Modifier | Type | Default value | Inherited from |
-| ------ | ------ | ------ | ------ | ------ |
-| <a id="property-_capacity"></a> `_capacity` | `protected` | `number` | `0` | [`ListStructure`](ListStructure.md).[`_capacity`](ListStructure.md#property-capacity) |
-| <a id="property-_data"></a> `_data` | `protected` | `T`[] | `[]` | [`ListStructure`](ListStructure.md).[`_data`](ListStructure.md#property-data) |
-| <a id="property-_head"></a> `_head` | `protected` | `number` | `0` | - |
-| <a id="property-_tail"></a> `_tail` | `protected` | `number` | `0` | - |
-
 ## Accessors
 
 ### hasRoom

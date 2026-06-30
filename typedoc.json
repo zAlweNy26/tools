@@ -25,9 +25,10 @@
   "excludePrivate": true,
   "excludeInternal": true,
   "excludeExternals": true,
+  "excludeProtected": true,
   "categorizeByGroup": false,
   "hidePageHeader": true,
-  "exclude": ["**/node_modules /**/*", "**/test /**/*", "**/*.txt"],
+  "exclude": ["**/node_modules/**/*", "**/test/**/*", "**/*.txt"],
   "out": "./docs/api",
   "docsRoot": "./docs",
   "textContentMappings": {
@@ -35,7 +36,7 @@
     "title.memberPage": "{name}",
     "breadcrumbs.home": "Overview"
   },
-  "coverageLabel": "Documented",
+  "coverageLabel": "Coverage",
   "sidebar": {
     "autoConfiguration": true,
     "format": "vitepress",

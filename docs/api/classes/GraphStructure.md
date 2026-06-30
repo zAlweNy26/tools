@@ -38,12 +38,6 @@ Creates a new graph structure with the given node.
 
 `GraphStructure`\<`N`, `E`\>
 
-## Properties
-
-| Property | Modifier | Type |
-| ------ | ------ | ------ |
-| <a id="property-map"></a> `map` | `protected` | `Map`\<`N`, `E`[]\> |
-
 ## Accessors
 
 ### nodes

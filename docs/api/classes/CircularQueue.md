@@ -36,15 +36,6 @@ Creates a new instance of the CircularQueue class.
 
 [`Queue`](Queue.md).[`constructor`](Queue.md#constructor)
 
-## Properties
-
-| Property | Modifier | Type | Default value | Inherited from |
-| ------ | ------ | ------ | ------ | ------ |
-| <a id="property-_capacity"></a> `_capacity` | `protected` | `number` | `0` | [`Queue`](Queue.md).[`_capacity`](Queue.md#property-capacity) |
-| <a id="property-_data"></a> `_data` | `protected` | `T`[] | `[]` | [`Queue`](Queue.md).[`_data`](Queue.md#property-data) |
-| <a id="property-_head"></a> `_head` | `protected` | `number` | `0` | [`Queue`](Queue.md).[`_head`](Queue.md#property-head) |
-| <a id="property-_tail"></a> `_tail` | `protected` | `number` | `0` | [`Queue`](Queue.md).[`_tail`](Queue.md#property-tail) |
-
 ## Accessors
 
 ### hasRoom

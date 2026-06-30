@@ -33,18 +33,6 @@ Constructs a new instance of the DimRed class.
 
 `DimRed`\<`P`\>
 
-## Properties
-
-| Property | Modifier | Type | Default value |
-| ------ | ------ | ------ | ------ |
-| <a id="property-_data"></a> `_data` | `public` | [`Matrix`](Matrix.md) | `undefined` |
-| <a id="property-_initialized"></a> `_initialized` | `protected` | `boolean` | `false` |
-| <a id="property-_iter"></a> `_iter` | `protected` | `number` | `0` |
-| <a id="property-_params"></a> `_params` | `protected` | `P` & [`DimRedParams`](../interfaces/DimRedParams.md) | `undefined` |
-| <a id="property-_projection"></a> `_projection` | `public` | [`Matrix`](Matrix.md) | `undefined` |
-| <a id="property-_randomizer"></a> `_randomizer` | `protected` | [`Randomizer`](Randomizer.md) | `undefined` |
-| <a id="property-_result"></a> `_result` | `public` | [`Matrix`](Matrix.md) | `undefined` |
-
 ## Accessors
 
 ### dimensionality
@@ -103,18 +91,6 @@ Gets the seed used for generating random numbers.
 
 ## Methods
 
-### checkInit()
-
-> `protected` **checkInit**(): `void`
-
-Checks if the class has been initialized and initializes it if it hasn't.
-
-#### Returns
-
-`void`
-
-***
-
 ### generator()
 
 > **generator**(`iterations?`): `Generator`\<[`Matrix`](Matrix.md), [`Matrix`](Matrix.md), `unknown`\>
@@ -150,20 +126,6 @@ Initializes the needed stuff for the algorithm.
 `this`
 
 The instance of the class.
-
-***
-
-### next()
-
-> `abstract` `protected` **next**(): [`Matrix`](Matrix.md)
-
-Calculates the next projection of the data.
-
-#### Returns
-
-[`Matrix`](Matrix.md)
-
-The next projection of the data.
 
 ***
 
