@@ -20,13 +20,17 @@
 
 | Function | Description |
 | ------ | ------ |
+| [angular](functions/angular.md) | Calculates the angular distance between `a` and `b`. Defined as `acos(cosine_similarity) / π`, bounded in [0, 1]. |
 | [canberra](functions/canberra.md) | Calculates the Canberra distance between `a` and `b`. |
 | [chebyshev](functions/chebyshev.md) | Calculates the Chebyshev distance between `a` and `b`. |
 | [cosine](functions/cosine.md) | Calculates the cosine distance (not similarity) between `a` and `b`. |
 | [euclidean](functions/euclidean.md) | Calculates the Euclidean distance between `a` and `b`. |
 | [euclideanSquared](functions/euclideanSquared.md) | Calculates the squared Euclidean distance between `a` and `b`. |
+| [euclideanWeighted](functions/euclideanWeighted.md) | Returns a function that calculates the weighted Euclidean distance between `a` and `b` using the given per-dimension weight vector. |
 | [hamming](functions/hamming.md) | Calculates the Hamming distance between `a` and `b`. |
 | [manhattan](functions/manhattan.md) | Calculates the Manhattan distance between `a` and `b`. |
+| [minkowski](functions/minkowski.md) | Returns a function that calculates the Minkowski distance between `a` and `b` using order `p`. When `p = 1` it is equivalent to Manhattan distance, `p = 2` to Euclidean distance, and `p → ∞` to Chebyshev distance. |
+| [pearson](functions/pearson.md) | Calculates the Pearson correlation distance between `a` and `b`. Defined as `1 - r`, where `r` is the Pearson correlation coefficient. The result is bounded in [0, 2]; 0 means perfect positive correlation, 2 means perfect negative correlation. |
 
 ## Researches
 

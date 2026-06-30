@@ -361,7 +361,10 @@ describe('LinkedList', () => {
   test('some stops after first match', () => {
     const list = new LinkedList([1, 2, 3])
     let count = 0
-    const result = list.some((v) => { count++; return v === 1 })
+    const result = list.some((v) => {
+      count++
+      return v === 1
+    })
     expect(result).toBeTrue()
     expect(count).toBe(1)
   })
@@ -384,7 +387,10 @@ describe('LinkedList', () => {
   test('every stops after first failure', () => {
     const list = new LinkedList([1, 2, 3])
     let count = 0
-    const result = list.every((v) => { count++; return v < 2 })
+    const result = list.every((v) => {
+      count++
+      return v < 2
+    })
     expect(result).toBeFalse()
     expect(count).toBe(2)
   })

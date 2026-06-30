@@ -40,6 +40,10 @@
     "collapsed": true,
     "items": [
       {
+        "text": "angular",
+        "link": "/api/functions/angular.md"
+      },
+      {
         "text": "canberra",
         "link": "/api/functions/canberra.md"
       },
@@ -60,12 +64,24 @@
         "link": "/api/functions/euclideanSquared.md"
       },
       {
+        "text": "euclideanWeighted",
+        "link": "/api/functions/euclideanWeighted.md"
+      },
+      {
         "text": "hamming",
         "link": "/api/functions/hamming.md"
       },
       {
         "text": "manhattan",
         "link": "/api/functions/manhattan.md"
+      },
+      {
+        "text": "minkowski",
+        "link": "/api/functions/minkowski.md"
+      },
+      {
+        "text": "pearson",
+        "link": "/api/functions/pearson.md"
       }
     ]
   },

@@ -1,13 +1,14 @@
 /**
- * Calculates the cosine distance (not similarity) between `a` and `b`.
+ * Calculates the angular distance between `a` and `b`.
+ * Defined as `acos(cosine_similarity) / π`, bounded in [0, 1].
  * @param a The first vector.
  * @param b The second vector.
- * @returns The cosine distance between the two vectors.
+ * @returns The angular distance between the two vectors.
  * @throws An error if the vectors do not have the same length.
- * @see {@link https://en.wikipedia.org/wiki/Cosine_similarity#Cosine_distance}
+ * @see {@link https://en.wikipedia.org/wiki/Cosine_similarity#Angular_distance_and_similarity}
  * @group Distances
  */
-export function cosine(a: number[], b: number[]) {
+export function angular(a: number[], b: number[]) {
   if (a.length !== b.length) throw new Error('The vectors should have the same length')
 
   let product = 0
@@ -19,5 +20,5 @@ export function cosine(a: number[], b: number[]) {
 
   if (normA === 0 || normB === 0) return 1
 
-  return Math.acos(product / (normA * normB))
+  return Math.acos(product / (normA * normB)) / Math.PI
 }
