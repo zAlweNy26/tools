@@ -44,11 +44,17 @@
 
 | Function | Description |
 | ------ | ------ |
+| [bubbleSortNum](functions/bubbleSortNum.md) | Sorts an array of numbers using the bubble sort algorithm. |
+| [bubbleSortStr](functions/bubbleSortStr.md) | Sorts an array of strings using the bubble sort algorithm. |
 | [countingSort](functions/countingSort.md) | Sorts an array of numbers using the counting sort algorithm. |
+| [insertionSortNum](functions/insertionSortNum.md) | Sorts an array of numbers using the insertion sort algorithm. |
+| [insertionSortStr](functions/insertionSortStr.md) | Sorts an array of strings using the insertion sort algorithm. |
 | [mergeSortNum](functions/mergeSortNum.md) | Sorts an array of numbers using the merge sort algorithm. |
 | [mergeSortStr](functions/mergeSortStr.md) | Sorts an array of strings using the merge sort algorithm. |
 | [quickSortNum](functions/quickSortNum.md) | Sorts an array of numbers using the quick sort algorithm. |
 | [quickSortStr](functions/quickSortStr.md) | Sorts an array of strings using the quick sort algorithm. |
+| [selectionSortNum](functions/selectionSortNum.md) | Sorts an array of numbers using the selection sort algorithm. |
+| [selectionSortStr](functions/selectionSortStr.md) | Sorts an array of strings using the selection sort algorithm. |
 
 ## Structures
 

@@ -247,7 +247,7 @@ Concatenates two matrices either horizontally or vertically.
 | Parameter | Type | Default value | Description |
 | ------ | ------ | ------ | ------ |
 | `mat` | `Matrix` | `undefined` | The matrix to concatenate with. |
-| `type` | `"horizontal"` \| `"vertical"` | `'horizontal'` | The type of concatenation to perform. Can be 'horizontal' or 'vertical'. Defaults to 'horizontal'. |
+| `type` | `"horizontal"` \| `"vertical"` \| `"diagonal"` | `'horizontal'` | The type of concatenation to perform. Can be 'horizontal', 'vertical', or 'diagonal'. Defaults to 'horizontal'. |
 
 #### Returns
 
