@@ -33,6 +33,13 @@ export class WeightedGraph<N> extends GraphStructure<N, Edge<N>> {
     return this
   }
 
+  /**
+   * Removes an edge between two nodes in the weighted graph.
+   * @param v1 The first node.
+   * @param v2 The second node.
+   * @throws An error if either node is not found or if the edge does not exist.
+   * @returns The weighted graph instance.
+   */
   removeEdge(v1: N, v2: N) {
     const list = this.map.get(v1)
     if (list) {
@@ -50,6 +57,12 @@ export class WeightedGraph<N> extends GraphStructure<N, Edge<N>> {
     return this
   }
 
+  /**
+   * Removes a node from the weighted graph and all edges connected to it.
+   * @param node The node to remove.
+   * @throws An error if the node is not found.
+   * @returns The weighted graph instance.
+   */
   removeNode(node: N) {
     if (this.map.delete(node)) {
       for (const list of this.map.values()) {
@@ -61,6 +74,12 @@ export class WeightedGraph<N> extends GraphStructure<N, Edge<N>> {
     return this
   }
 
+  /**
+   * Returns an array of edges (as `[node, weight]` tuples) for the given node.
+   * @param node The node to get the edges for.
+   * @throws An error if the node is not found.
+   * @returns An array of edges, each represented as a `[node, weight]` tuple.
+   */
   getEdges(node: N) {
     const list = this.map.get(node)
     if (!list) throw new Error('Node not found')
@@ -86,12 +105,23 @@ export class WeightedGraph<N> extends GraphStructure<N, Edge<N>> {
     return weight
   }
 
+  /**
+   * Checks if two nodes are adjacent in the weighted graph.
+   * @param v1 The first node.
+   * @param v2 The second node.
+   * @throws An error if the first node is not found.
+   * @returns True if the nodes are adjacent, false otherwise.
+   */
   isAdjacent(v1: N, v2: N) {
     const list = this.map.get(v1)
     if (!list) throw new Error('First node not found')
     return list.map(e => e[0]).includes(v2)
   }
 
+  /**
+   * Checks if the weighted graph contains a cycle using depth-first search.
+   * @returns True if a cycle is detected, false otherwise.
+   */
   hasCycle() {
     const visited = new Set<N>()
 

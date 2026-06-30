@@ -35,7 +35,7 @@
     "title.memberPage": "{name}",
     "breadcrumbs.home": "Overview"
   },
-  "coverageLabel": "Coverage",
+  "coverageLabel": "Documented",
   "sidebar": {
     "autoConfiguration": true,
     "format": "vitepress",

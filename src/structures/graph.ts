@@ -6,6 +6,13 @@ import { GraphStructure } from './interfaces'
  * @group Structures
  */
 export class Graph<N> extends GraphStructure<N, N> {
+  /**
+   * Adds an edge between two nodes in the graph.
+   * @param v1 The first node.
+   * @param v2 The second node.
+   * @throws An error if the first node is not found or if the edge already exists.
+   * @returns The graph instance.
+   */
   addEdge(v1: N, v2: N) {
     const list = this.map.get(v1)
     if (list) {
@@ -19,6 +26,13 @@ export class Graph<N> extends GraphStructure<N, N> {
     return this
   }
 
+  /**
+   * Removes an edge between two nodes in the graph.
+   * @param v1 The first node.
+   * @param v2 The second node.
+   * @throws An error if either node is not found or if the edge does not exist.
+   * @returns The graph instance.
+   */
   removeEdge(v1: N, v2: N) {
     const list = this.map.get(v1)
     if (list) {
@@ -36,6 +50,12 @@ export class Graph<N> extends GraphStructure<N, N> {
     return this
   }
 
+  /**
+   * Removes a node from the graph and all edges connected to it.
+   * @param node The node to remove.
+   * @throws An error if the node is not found.
+   * @returns The graph instance.
+   */
   removeNode(node: N) {
     if (this.map.delete(node)) {
       for (const list of this.map.values()) {
@@ -47,18 +67,35 @@ export class Graph<N> extends GraphStructure<N, N> {
     return this
   }
 
+  /**
+   * Returns an array of nodes adjacent to the given node.
+   * @param node The node to get the adjacent nodes for.
+   * @throws An error if the node is not found.
+   * @returns An array of adjacent nodes.
+   */
   getEdges(node: N) {
     const list = this.map.get(node)
     if (!list) throw new Error('Node not found')
     return [...list]
   }
 
+  /**
+   * Checks if two nodes are adjacent in the graph.
+   * @param v1 The first node.
+   * @param v2 The second node.
+   * @throws An error if the first node is not found.
+   * @returns True if the nodes are adjacent, false otherwise.
+   */
   isAdjacent(v1: N, v2: N) {
     const list = this.map.get(v1)
     if (!list) throw new Error('First node not found')
     return list.includes(v2)
   }
 
+  /**
+   * Checks if the graph contains a cycle using depth-first search.
+   * @returns True if a cycle is detected, false otherwise.
+   */
   hasCycle() {
     const visited = new Set<N>()
 
