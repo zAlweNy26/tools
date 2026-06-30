@@ -26,29 +26,6 @@ $ deno add @danyalwe/tools
 
 :::
 
-## Import
-
-```ts
-import {
-  Stack,
-  Queue,
-  FixedArray,
-  euclidean,
-  cosine,
-  manhattan,
-  quickSortNum,
-  mergeSortStr,
-  countingSort,
-  Graph,
-  breadthFirstSearch,
-  depthFirstSearch,
-  TSNE,
-  Randomizer,
-  linearSpace,
-  measureTime,
-} from '@danyalwe/tools'
-```
-
 ## Data Structures
 
 ```ts
@@ -76,9 +53,9 @@ arr.push(30)
 ## Distance Functions
 
 ```ts
-euclidean([0, 0], [3, 4])  // 5
-cosine([1, 0], [0, 1])     // 1
-manhattan([0, 0], [3, 4])  // 7
+euclidean([0, 0], [3, 4]) // 5
+cosine([1, 0], [0, 1]) // 1
+manhattan([0, 0], [3, 4]) // 7
 ```
 
 ## Sorting Algorithms
@@ -98,7 +75,7 @@ graph.addEdge(1, 3)
 graph.addEdge(2, 4)
 
 breadthFirstSearch(graph) // [1, 2, 3, 4]
-depthFirstSearch(graph)   // [1, 3, 2, 4]
+depthFirstSearch(graph) // [1, 3, 2, 4]
 ```
 
 ## Dimensionality Reduction

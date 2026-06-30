@@ -20,19 +20,19 @@ A weighted graph data structure.
 
 > **new WeightedGraph**\<`N`\>(`node`): `WeightedGraph`\<`N`\>
 
-Creates a new graph structure with the given node.
+Creates a new weighted graph with the given node.
 
 #### Parameters
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `node` | `N` | The first node to add to the graph. |
+| `node` | `N` | The first node to add to the weighted graph. |
 
 #### Returns
 
 `WeightedGraph`\<`N`\>
 
-#### Inherited from
+#### Overrides
 
 [`GraphStructure`](GraphStructure.md).[`constructor`](GraphStructure.md#constructor)
 

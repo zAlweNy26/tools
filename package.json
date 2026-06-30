@@ -50,7 +50,7 @@
     "lint": "eslint --cache .",
     "lint:fix": "eslint --cache --fix .",
     "test": "bun test",
-    "generate": "typedoc && bun run docs/.vitepress/coverage-badge.ts",
+    "generate": "typedoc && bun run docs/.vitepress/coverage-badge.ts && bun run docs/.vitepress/build-sandbox.ts",
     "start": "tsx watch index.ts",
     "docs:dev": "bun run generate && vitepress dev docs",
     "docs:build": "bun run generate && vitepress build docs",
