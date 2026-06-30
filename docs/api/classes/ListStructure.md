@@ -37,13 +37,6 @@ Creates a new list structure with the given size or initial elements.
 
 `ListStructure`\<`T`\>
 
-## Properties
-
-| Property | Modifier | Type | Default value |
-| ------ | ------ | ------ | ------ |
-| <a id="property-_capacity"></a> `_capacity` | `protected` | `number` | `0` |
-| <a id="property-_data"></a> `_data` | `protected` | `T`[] | `[]` |
-
 ## Accessors
 
 ### hasRoom

@@ -36,12 +36,6 @@ Creates a new graph structure with the given node.
 
 [`GraphStructure`](GraphStructure.md).[`constructor`](GraphStructure.md#constructor)
 
-## Properties
-
-| Property | Modifier | Type | Inherited from |
-| ------ | ------ | ------ | ------ |
-| <a id="property-map"></a> `map` | `protected` | `Map`\<`N`, [`Edge`](../type-aliases/Edge.md)\<`N`\>[]\> | [`GraphStructure`](GraphStructure.md).[`map`](GraphStructure.md#property-map) |
-
 ## Accessors
 
 ### nodes

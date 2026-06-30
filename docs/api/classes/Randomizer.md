@@ -22,20 +22,6 @@ A Mersenne Twister random number generator.
 
 `Randomizer`
 
-## Properties
-
-| Property | Modifier | Type | Default value |
-| ------ | ------ | ------ | ------ |
-| <a id="property-_cmat"></a> `_cMat` | `protected` | `number` | `0x9908B0DF` |
-| <a id="property-_gval"></a> `_gVal?` | `protected` | `number` | `undefined` |
-| <a id="property-_init"></a> `_init` | `protected` | `number` | `undefined` |
-| <a id="property-_lowermask"></a> `_lowerMask` | `protected` | `number` | `0x7FFFFFFF` |
-| <a id="property-_pm"></a> `_pM` | `protected` | `number` | `397` |
-| <a id="property-_pn"></a> `_pN` | `protected` | `number` | `624` |
-| <a id="property-_seed"></a> `_seed` | `protected` | `number` | `undefined` |
-| <a id="property-_svec"></a> `_sVec` | `protected` | `number`[] | `undefined` |
-| <a id="property-_uppermask"></a> `_upperMask` | `protected` | `number` | `0x80000000` |
-
 ## Accessors
 
 ### seed

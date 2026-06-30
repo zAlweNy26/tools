@@ -36,13 +36,6 @@ Creates a new stack with the specified size or elements.
 
 [`ListStructure`](ListStructure.md).[`constructor`](ListStructure.md#constructor)
 
-## Properties
-
-| Property | Modifier | Type | Default value | Inherited from |
-| ------ | ------ | ------ | ------ | ------ |
-| <a id="property-_capacity"></a> `_capacity` | `protected` | `number` | `0` | [`ListStructure`](ListStructure.md).[`_capacity`](ListStructure.md#property-capacity) |
-| <a id="property-_data"></a> `_data` | `protected` | `T`[] | `[]` | [`ListStructure`](ListStructure.md).[`_data`](ListStructure.md#property-data) |
-
 ## Accessors
 
 ### hasRoom

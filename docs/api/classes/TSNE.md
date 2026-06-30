@@ -31,20 +31,6 @@ t-SNE algorithm for dimensionality reduction.
 
 [`DimRed`](DimRed.md).[`constructor`](DimRed.md#constructor)
 
-## Properties
-
-| Property | Modifier | Type | Default value | Inherited from |
-| ------ | ------ | ------ | ------ | ------ |
-| <a id="property-_data"></a> `_data` | `public` | [`Matrix`](Matrix.md) | `undefined` | [`DimRed`](DimRed.md).[`_data`](DimRed.md#property-data) |
-| <a id="property-_gains"></a> `_gains` | `protected` | [`Matrix`](Matrix.md) | `undefined` | - |
-| <a id="property-_initialized"></a> `_initialized` | `protected` | `boolean` | `false` | [`DimRed`](DimRed.md).[`_initialized`](DimRed.md#property-initialized) |
-| <a id="property-_iter"></a> `_iter` | `protected` | `number` | `0` | [`DimRed`](DimRed.md).[`_iter`](DimRed.md#property-iter) |
-| <a id="property-_params"></a> `_params` | `protected` | [`TSNEParams`](../interfaces/TSNEParams.md) & [`DimRedParams`](../interfaces/DimRedParams.md) | `undefined` | [`DimRed`](DimRed.md).[`_params`](DimRed.md#property-params) |
-| <a id="property-_projection"></a> `_projection` | `public` | [`Matrix`](Matrix.md) | `undefined` | [`DimRed`](DimRed.md).[`_projection`](DimRed.md#property-projection) |
-| <a id="property-_randomizer"></a> `_randomizer` | `protected` | [`Randomizer`](Randomizer.md) | `undefined` | [`DimRed`](DimRed.md).[`_randomizer`](DimRed.md#property-randomizer) |
-| <a id="property-_result"></a> `_result` | `public` | [`Matrix`](Matrix.md) | `undefined` | [`DimRed`](DimRed.md).[`_result`](DimRed.md#property-result) |
-| <a id="property-_ystep"></a> `_yStep` | `protected` | [`Matrix`](Matrix.md) | `undefined` | - |
-
 ## Accessors
 
 ### dimensionality
@@ -119,22 +105,6 @@ Gets the seed used for generating random numbers.
 
 ## Methods
 
-### checkInit()
-
-> `protected` **checkInit**(): `void`
-
-Checks if the class has been initialized and initializes it if it hasn't.
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-[`DimRed`](DimRed.md).[`checkInit`](DimRed.md#checkinit)
-
-***
-
 ### generator()
 
 > **generator**(`iterations?`): `Generator`\<[`Matrix`](Matrix.md), [`Matrix`](Matrix.md), `unknown`\>
@@ -179,24 +149,6 @@ The t-SNE instance.
 #### Overrides
 
 [`DimRed`](DimRed.md).[`init`](DimRed.md#init)
-
-***
-
-### next()
-
-> `protected` **next**(): [`Matrix`](Matrix.md)
-
-Calculates the next projection of the data.
-
-#### Returns
-
-[`Matrix`](Matrix.md)
-
-The next projection of the data.
-
-#### Overrides
-
-[`DimRed`](DimRed.md).[`next`](DimRed.md#next)
 
 ***
 

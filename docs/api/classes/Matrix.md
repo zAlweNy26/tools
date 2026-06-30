@@ -34,11 +34,10 @@ An error if the number of rows or columns is less than or equal to 1.
 
 ## Properties
 
-| Property | Modifier | Type | Default value | Description |
-| ------ | ------ | ------ | ------ | ------ |
-| <a id="property-_data"></a> `_data` | `protected` | `number`[][] | `[]` | - |
-| <a id="property-cols"></a> `cols` | `public` | `number` | `undefined` | The number of columns in the matrix. |
-| <a id="property-rows"></a> `rows` | `public` | `number` | `undefined` | The number of rows in the matrix. |
+| Property | Modifier | Type | Description |
+| ------ | ------ | ------ | ------ |
+| <a id="property-cols"></a> `cols` | `public` | `number` | The number of columns in the matrix. |
+| <a id="property-rows"></a> `rows` | `public` | `number` | The number of rows in the matrix. |
 
 ## Accessors
 
