@@ -7,17 +7,11 @@
     "moduleResolution": "bundler",
     "paths": {
       "@structures/*": ["./src/structures/*"],
-      "@structures": ["./src/structures/index.ts"],
       "@distances/*": ["./src/distances/*"],
-      "@distances": ["./src/distances/index.ts"],
       "@utils/*": ["./src/utils/*"],
-      "@utils": ["./src/utils/index.ts"],
       "@sortings/*": ["./src/sortings/*"],
-      "@sortings": ["./src/sortings/index.ts"],
       "@dim_red/*": ["./src/dim_red/*"],
-      "@dim_red": ["./src/dim_red/index.ts"],
-      "@researches/*": ["./src/researches/*"],
-      "@researches": ["./src/researches/index.ts"]
+      "@researches/*": ["./src/researches/*"]
     },
     "resolveJsonModule": true,
     "types": ["bun"],

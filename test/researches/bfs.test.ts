@@ -1,4 +1,4 @@
-import { breadthFirstSearch } from '@researches'
+import { breadthFirstSearch } from '@researches/bfs'
 import { Graph } from '@structures/graph'
 import { describe, expect, test } from 'bun:test'
 

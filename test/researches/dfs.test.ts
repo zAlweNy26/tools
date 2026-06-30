@@ -1,4 +1,4 @@
-import { depthFirstSearch } from '@researches'
+import { depthFirstSearch } from '@researches/dfs'
 import { Graph } from '@structures/graph'
 import { describe, expect, test } from 'bun:test'
 

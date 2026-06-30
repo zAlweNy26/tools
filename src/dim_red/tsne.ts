@@ -1,7 +1,7 @@
 import type { TSNEParams } from './interfaces'
 import { DimRed } from './dim_red'
-import { euclideanSquared } from '@distances'
-import { Matrix } from '@structures'
+import { euclideanSquared } from '@distances/euclidean_squared'
+import { Matrix } from '@structures/matrix'
 
 /**
  * Implementation of the t-Distributed Stochastic Neighbor Embedding (t-SNE) algorithm.
