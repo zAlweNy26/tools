@@ -5,7 +5,8 @@ import typedocSidebar from '../api/typedoc-sidebar.json'
 export default defineConfig({
 	title: 'Home',
 	titleTemplate: 'Alwe\'s Tools - :title',
-	description: 'Hackable and production-ready framework for developing AI agents on top of LLMs',
+	description: 'A collection of data structures, algorithms, and utilities for TypeScript',
+	head: [['link', { rel: 'icon', href: '/tools/favicon.svg' }]],
 	lastUpdated: true,
 	cleanUrls: true,
 	base: '/tools/',
