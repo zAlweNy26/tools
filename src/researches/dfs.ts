@@ -1,5 +1,5 @@
-import type { Graph } from '@structures'
-import { Stack } from '@structures'
+import type { Graph } from '@structures/graph'
+import { Stack } from '@structures/stack'
 
 /**
  * Performs a depth-first search traversal on a graph.

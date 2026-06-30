@@ -1,5 +1,5 @@
-import type { Graph } from '@structures'
-import { Queue } from '@structures'
+import type { Graph } from '@structures/graph'
+import { Queue } from '@structures/queue'
 
 /**
  * Performs a breadth-first search traversal on a graph.

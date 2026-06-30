@@ -1,4 +1,4 @@
-import { kruskal } from '@researches'
+import { kruskal } from '@researches/kruskal'
 import { WeightedGraph } from '@structures/weighted_graph'
 import { describe, expect, test } from 'bun:test'
 
