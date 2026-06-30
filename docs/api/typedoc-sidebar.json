@@ -1,0 +1,210 @@
+[
+  {
+    "text": "Dimensionality Reduction",
+    "collapsed": true,
+    "items": [
+      {
+        "text": "DimRed",
+        "link": "/api/classes/DimRed.md"
+      },
+      {
+        "text": "TSNE",
+        "link": "/api/classes/TSNE.md"
+      },
+      {
+        "text": "DimRedParams",
+        "link": "/api/interfaces/DimRedParams.md"
+      },
+      {
+        "text": "TSNEParams",
+        "link": "/api/interfaces/TSNEParams.md"
+      }
+    ]
+  },
+  {
+    "text": "Distances",
+    "collapsed": true,
+    "items": [
+      {
+        "text": "canberra",
+        "link": "/api/functions/canberra.md"
+      },
+      {
+        "text": "chebyshev",
+        "link": "/api/functions/chebyshev.md"
+      },
+      {
+        "text": "cosine",
+        "link": "/api/functions/cosine.md"
+      },
+      {
+        "text": "euclidean",
+        "link": "/api/functions/euclidean.md"
+      },
+      {
+        "text": "euclideanSquared",
+        "link": "/api/functions/euclideanSquared.md"
+      },
+      {
+        "text": "hamming",
+        "link": "/api/functions/hamming.md"
+      },
+      {
+        "text": "manhattan",
+        "link": "/api/functions/manhattan.md"
+      }
+    ]
+  },
+  {
+    "text": "Researches",
+    "collapsed": true,
+    "items": [
+      {
+        "text": "breadthFirstSearch",
+        "link": "/api/functions/breadthFirstSearch.md"
+      },
+      {
+        "text": "depthFirstSearch",
+        "link": "/api/functions/depthFirstSearch.md"
+      },
+      {
+        "text": "kruskal",
+        "link": "/api/functions/kruskal.md"
+      }
+    ]
+  },
+  {
+    "text": "Sortings",
+    "collapsed": true,
+    "items": [
+      {
+        "text": "countingSort",
+        "link": "/api/functions/countingSort.md"
+      },
+      {
+        "text": "mergeSortNum",
+        "link": "/api/functions/mergeSortNum.md"
+      },
+      {
+        "text": "mergeSortStr",
+        "link": "/api/functions/mergeSortStr.md"
+      },
+      {
+        "text": "quickSortNum",
+        "link": "/api/functions/quickSortNum.md"
+      },
+      {
+        "text": "quickSortStr",
+        "link": "/api/functions/quickSortStr.md"
+      }
+    ]
+  },
+  {
+    "text": "Structures",
+    "collapsed": true,
+    "items": [
+      {
+        "text": "CircularQueue",
+        "link": "/api/classes/CircularQueue.md"
+      },
+      {
+        "text": "FixedArray",
+        "link": "/api/classes/FixedArray.md"
+      },
+      {
+        "text": "Graph",
+        "link": "/api/classes/Graph.md"
+      },
+      {
+        "text": "GraphStructure",
+        "link": "/api/classes/GraphStructure.md"
+      },
+      {
+        "text": "ListStructure",
+        "link": "/api/classes/ListStructure.md"
+      },
+      {
+        "text": "Matrix",
+        "link": "/api/classes/Matrix.md"
+      },
+      {
+        "text": "Queue",
+        "link": "/api/classes/Queue.md"
+      },
+      {
+        "text": "Stack",
+        "link": "/api/classes/Stack.md"
+      },
+      {
+        "text": "Tree",
+        "link": "/api/classes/Tree.md"
+      },
+      {
+        "text": "TreeLeaf",
+        "link": "/api/classes/TreeLeaf.md"
+      },
+      {
+        "text": "WeightedGraph",
+        "link": "/api/classes/WeightedGraph.md"
+      },
+      {
+        "text": "Structure",
+        "link": "/api/interfaces/Structure.md"
+      },
+      {
+        "text": "Edge",
+        "link": "/api/type-aliases/Edge.md"
+      },
+      {
+        "text": "Weight",
+        "link": "/api/type-aliases/Weight.md"
+      }
+    ]
+  },
+  {
+    "text": "Utils",
+    "collapsed": true,
+    "items": [
+      {
+        "text": "Randomizer",
+        "link": "/api/classes/Randomizer.md"
+      },
+      {
+        "text": "Pipe",
+        "link": "/api/interfaces/Pipe.md"
+      },
+      {
+        "text": "getLCP",
+        "link": "/api/functions/getLCP.md"
+      },
+      {
+        "text": "isArray2D",
+        "link": "/api/functions/isArray2D.md"
+      },
+      {
+        "text": "isOfType",
+        "link": "/api/functions/isOfType.md"
+      },
+      {
+        "text": "isRightArray",
+        "link": "/api/functions/isRightArray.md"
+      },
+      {
+        "text": "linearSpace",
+        "link": "/api/functions/linearSpace.md"
+      },
+      {
+        "text": "measure",
+        "link": "/api/functions/measure.md"
+      },
+      {
+        "text": "measureTime",
+        "link": "/api/functions/measureTime.md"
+      },
+      {
+        "text": "pipe",
+        "link": "/api/functions/pipe.md"
+      }
+    ]
+  }
+]

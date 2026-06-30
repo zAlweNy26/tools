@@ -1,23 +1,45 @@
 {
   "$schema": "https://typedoc.org/schema.json",
-  "includeVersion": true,
-  "hideGenerator": true,
   "name": "Alwe's Tools",
-  "cleanOutputDir": true,
+  "entryPoints": ["./src"],
+  "entryPointStrategy": "expand",
+  "tsconfig": "tsconfig.json",
   "plugin": [
+    "typedoc-vitepress-theme",
+    "typedoc-plugin-markdown",
     "typedoc-plugin-coverage",
-    "typedoc-material-theme"
+    "typedoc-plugin-merge-modules"
   ],
-  "themeColor": "#cb9820",
-  "entryPoints": [
-    "./index.ts"
-  ],
-  "out": "./docs",
-  "navigation": {
-    "includeGroups": true
+  "readme": "none",
+  "indexFormat": "table",
+  "parametersFormat": "table",
+  "propertiesFormat": "table",
+  "enumMembersFormat": "table",
+  "propertyMembersFormat": "table",
+  "classPropertiesFormat": "table",
+  "typeDeclarationFormat": "table",
+  "interfacePropertiesFormat": "table",
+  "githubPages": false,
+  "useCodeBlocks": false,
+  "disableSources": true,
+  "excludePrivate": true,
+  "excludeInternal": true,
+  "excludeExternals": true,
+  "categorizeByGroup": false,
+  "hidePageHeader": true,
+  "exclude": ["**/node_modules /**/*", "**/test /**/*", "**/*.txt"],
+  "out": "./docs/api",
+  "docsRoot": "./docs",
+  "textContentMappings": {
+    "title.indexPage": "API Reference",
+    "title.memberPage": "{name}",
+    "breadcrumbs.home": "Overview"
   },
-  "navigationLinks": {
-    "GitHub": "https://github.com/zAlweNy26/tools",
-    "NPM": "https://www.npmjs.com/package/@danyalwe/tools"
+  "coverageLabel": "Coverage",
+  "sidebar": {
+    "autoConfiguration": true,
+    "format": "vitepress",
+    "pretty": true,
+    "collapsed": true
   }
 }

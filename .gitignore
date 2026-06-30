@@ -17,3 +17,7 @@ dist
 .env
 .env.*
 !.env.example
+
+# Docs
+docs/.vitepress/dist
+docs/.vitepress/cache

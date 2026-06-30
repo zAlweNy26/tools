@@ -23,7 +23,7 @@ export interface Pipe<A, B> {
  * ```
  * @group Utils
  */
-function pipe<A, B>(fn: (a: A) => B): Pipe<A, B> {
+export function pipe<A, B>(fn: (a: A) => B): Pipe<A, B> {
   function run(a: A) {
     return fn(a)
   }
@@ -34,5 +34,3 @@ function pipe<A, B>(fn: (a: A) => B): Pipe<A, B> {
 
   return run
 }
-
-export default pipe
