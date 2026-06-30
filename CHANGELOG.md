@@ -1,5 +1,17 @@
 # @danyalwe/tools
 
+## v0.1.2
+
+[compare changes](https://github.com/zAlweNy26/tools/compare/v0.1.1...v0.1.2)
+
+### 🏡 Chore
+
+- Small tweaks ([c9e31ae](https://github.com/zAlweNy26/tools/commit/c9e31ae))
+
+### ❤️ Contributors
+
+- Dany <alwe.dev@gmail.com>
+
 ## v0.1.1
 
 [compare changes](https://github.com/zAlweNy26/tools/compare/v0.1.0...v0.1.1)
