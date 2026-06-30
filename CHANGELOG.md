@@ -1,5 +1,21 @@
 # @danyalwe/tools
 
+## v0.1.4
+
+[compare changes](https://github.com/zAlweNy26/tools/compare/v0.1.3...v0.1.4)
+
+### 🚀 Enhancements
+
+- Add new sorting algorithms ([f65782c](https://github.com/zAlweNy26/tools/commit/f65782c))
+
+### 📦 Build
+
+- Minify and drop cjs ([081cb46](https://github.com/zAlweNy26/tools/commit/081cb46))
+
+### ❤️ Contributors
+
+- Dany <alwe.dev@gmail.com>
+
 ## v0.1.3
 
 [compare changes](https://github.com/zAlweNy26/tools/compare/v0.1.2...v0.1.3)
