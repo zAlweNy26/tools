@@ -13,7 +13,7 @@
   "homepage": "https://github.com/zAlweNy26/tools",
   "repository": {
     "type": "git",
-    "url": "https://github.com/zAlweNy26/tools.git"
+    "url": "git+https://github.com/zAlweNy26/tools.git"
   },
   "bugs": {
     "url": "https://github.com/zAlweNy26/tools/issues"
