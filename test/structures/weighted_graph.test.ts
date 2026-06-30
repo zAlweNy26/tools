@@ -78,4 +78,63 @@ describe('WeightedGraph', () => {
     g.addEdge('C', 'A', 3)
     expect(g.hasCycle()).toBeTrue()
   })
+
+  test('addEdge throws for unknown first node', () => {
+    const g = new WeightedGraph<string>('A')
+    expect(() => g.addEdge('Z', 'A')).toThrow('First node not found')
+  })
+
+  test('removeEdge throws for unknown node', () => {
+    const g = new WeightedGraph<string>('A')
+    expect(() => g.removeEdge('Z', 'A')).toThrow('Node not found')
+  })
+
+  test('removeEdge throws for non-existent edge', () => {
+    const g = new WeightedGraph<string>('A')
+    g.addEdge('A', 'B', 5)
+    expect(() => g.removeEdge('A', 'C')).toThrow('Edge not found')
+  })
+
+  test('removeNode throws for unknown node', () => {
+    const g = new WeightedGraph<string>('A')
+    expect(() => g.removeNode('Z')).toThrow('Node not found')
+  })
+
+  test('isAdjacent throws for unknown first node', () => {
+    const g = new WeightedGraph<string>('A')
+    expect(() => g.isAdjacent('Z', 'A')).toThrow('First node not found')
+  })
+
+  test('getEdges throws for unknown node', () => {
+    const g = new WeightedGraph<string>('A')
+    expect(() => g.getEdges('Z')).toThrow('Node not found')
+  })
+
+  test('getWeight throws for unknown first node', () => {
+    const g = new WeightedGraph<string>('A')
+    expect(() => g.getWeight('Z', 'A')).toThrow('First node not found')
+  })
+
+  test('getWeight throws for unknown second node', () => {
+    const g = new WeightedGraph<string>('A')
+    g.addEdge('A', 'B', 5)
+    expect(() => g.getWeight('A', 'Z')).toThrow('Second node not found')
+  })
+
+  test('hasCycle on line graph', () => {
+    const g = new WeightedGraph<string>('A')
+    g.addEdge('A', 'B', 1)
+    g.addEdge('B', 'C', 1)
+    g.addEdge('C', 'D', 1)
+    g.addEdge('D', 'E', 1)
+    expect(g.hasCycle()).toBeFalse()
+  })
+
+  test('hasCycle on branching tree', () => {
+    const g = new WeightedGraph<string>('A')
+    g.addEdge('A', 'B', 1)
+    g.addEdge('A', 'C', 1)
+    g.addEdge('B', 'D', 1)
+    expect(g.hasCycle()).toBeFalse()
+  })
 })

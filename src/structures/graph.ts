@@ -7,6 +7,14 @@ import { GraphStructure } from './interfaces'
  */
 export class Graph<N> extends GraphStructure<N, N> {
   /**
+   * Creates a new graph with the given node.
+   * @param node The first node to add to the graph.
+   */
+  constructor(node: N) {
+    super(node)
+  }
+
+  /**
    * Adds an edge between two nodes in the graph.
    * @param v1 The first node.
    * @param v2 The second node.

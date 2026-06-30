@@ -50,10 +50,11 @@
     "lint": "eslint --cache .",
     "lint:fix": "eslint --cache --fix .",
     "test": "bun test",
+    "generate": "typedoc && bun run docs/.vitepress/coverage-badge.ts",
     "start": "tsx watch index.ts",
-    "docs:dev": "typedoc && vitepress dev docs",
-    "docs:build": "typedoc && vitepress build docs",
-    "docs:preview": "typedoc && vitepress preview docs"
+    "docs:dev": "bun run generate && vitepress dev docs",
+    "docs:build": "bun run generate && vitepress build docs",
+    "docs:preview": "vitepress preview docs"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^9.1.0",

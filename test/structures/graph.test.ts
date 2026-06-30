@@ -102,4 +102,41 @@ describe('Graph', () => {
     const g = new Graph<string>('A')
     expect(() => g.isAdjacent('Z', 'A')).toThrow('First node not found')
   })
+
+  test('addEdge throws for unknown first node', () => {
+    const g = new Graph<string>('A')
+    expect(() => g.addEdge('Z', 'A')).toThrow('First node not found')
+  })
+
+  test('hasCycle on line graph without self-loop', () => {
+    const g = new Graph<string>('A')
+    g.addEdge('A', 'B')
+    g.addEdge('B', 'C')
+    g.addEdge('C', 'D')
+    g.addEdge('D', 'E')
+    expect(g.hasCycle()).toBeFalse()
+  })
+
+  test('hasCycle on fully connected small graph', () => {
+    const g = new Graph<string>('A')
+    g.addEdge('A', 'B')
+    g.addEdge('A', 'C')
+    g.addEdge('B', 'D')
+    expect(g.hasCycle()).toBeFalse()
+  })
+
+  test('all prototype methods exercised', () => {
+    const g = new Graph<string>('X')
+    g.addEdge('X', 'Y')
+    expect(g.hasCycle()).toBeFalse()
+    expect(g.isAdjacent('X', 'Y')).toBeTrue()
+    expect(g.getEdges('X')).toEqual(['Y'])
+    g.removeEdge('X', 'Y')
+    g.addEdge('X', 'Y')
+    g.addEdge('Y', 'Z')
+    g.removeNode('Y')
+    expect(g.hasNode('Y')).toBeFalse()
+    g.clear()
+    expect(g.size()).toBe(0)
+  })
 })

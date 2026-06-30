@@ -2,6 +2,8 @@
 
 ![Documentation Coverage](./api/coverage.svg)
 
+![Test Coverage](./api/test-coverage.svg)
+
 Just a bunch of tools made in TypeScript.
 
 It includes:
