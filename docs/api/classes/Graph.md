@@ -79,7 +79,11 @@ Adds an edge between two nodes in the graph.
 
 `Graph`\<`N`\>
 
-The graph structure instance.
+The graph instance.
+
+#### Throws
+
+An error if the first node is not found or if the edge already exists.
 
 #### Overrides
 
@@ -121,6 +125,10 @@ Returns an array of nodes adjacent to the given node.
 
 An array of adjacent nodes.
 
+#### Throws
+
+An error if the node is not found.
+
 #### Overrides
 
 [`GraphStructure`](GraphStructure.md).[`getEdges`](GraphStructure.md#getedges)
@@ -131,11 +139,13 @@ An array of adjacent nodes.
 
 > **hasCycle**(): `boolean`
 
-Checks if the graph contains a cycle.
+Checks if the graph contains a cycle using depth-first search.
 
 #### Returns
 
 `boolean`
+
+True if a cycle is detected, false otherwise.
 
 #### Overrides
 
@@ -169,7 +179,7 @@ Returns true if the graph contains the given node, false otherwise.
 
 > **isAdjacent**(`v1`, `v2`): `boolean`
 
-Returns a boolean indicating if two nodes are adjacent in the graph.
+Checks if two nodes are adjacent in the graph.
 
 #### Parameters
 
@@ -183,6 +193,10 @@ Returns a boolean indicating if two nodes are adjacent in the graph.
 `boolean`
 
 True if the nodes are adjacent, false otherwise.
+
+#### Throws
+
+An error if the first node is not found.
 
 #### Overrides
 
@@ -207,7 +221,11 @@ Removes an edge between two nodes in the graph.
 
 `Graph`\<`N`\>
 
-The graph structure instance.
+The graph instance.
+
+#### Throws
+
+An error if either node is not found or if the edge does not exist.
 
 #### Overrides
 
@@ -219,7 +237,7 @@ The graph structure instance.
 
 > **removeNode**(`node`): `Graph`\<`N`\>
 
-Removes a node from the graph.
+Removes a node from the graph and all edges connected to it.
 
 #### Parameters
 
@@ -231,7 +249,11 @@ Removes a node from the graph.
 
 `Graph`\<`N`\>
 
-The graph structure instance.
+The graph instance.
+
+#### Throws
+
+An error if the node is not found.
 
 #### Overrides
 

@@ -24,6 +24,10 @@ export abstract class ListStructure<T> implements Structure {
   protected _data: T[] = []
   protected _capacity: number = 0
 
+  /**
+   * Creates a new list structure with the given size or initial elements.
+   * @param size The maximum capacity (as a number) or an array of initial elements.
+   */
   constructor(size: number | T[]) {
     if (typeof size === 'number') {
       this._data = new FixedArray(size)

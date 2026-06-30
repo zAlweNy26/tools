@@ -24,11 +24,13 @@ A fixed-capacity array that extends the built-in Array class.
 
 > **new FixedArray**\<`T`\>(`capacity`): `FixedArray`\<`T`\>
 
+Creates a new fixed-capacity array.
+
 #### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `capacity` | `number` \| `T`[] |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `capacity` | `number` \| `T`[] | The maximum capacity (as a number) or an initial set of items (as an array). |
 
 #### Returns
 
@@ -44,17 +46,23 @@ A fixed-capacity array that extends the built-in Array class.
 
 > **push**(...`items`): `number`
 
-Appends new elements to the end of an array, and returns the new length of the array.
+Appends new elements to the end of the fixed-capacity array.
 
 #### Parameters
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| ...`items` | `T`[] | New elements to add to the array. |
+| ...`items` | `T`[] | The items to add. |
 
 #### Returns
 
 `number`
+
+The new length of the array.
+
+#### Throws
+
+An error if adding the items would exceed the array's capacity.
 
 #### Overrides
 
@@ -66,7 +74,7 @@ Appends new elements to the end of an array, and returns the new length of the a
 
 > `static` **from**\<`T`\>(`items`): `FixedArray`\<`T`\>
 
-Creates an array from an array-like object.
+Creates a new fixed-capacity array from an array of items.
 
 #### Type Parameters
 
@@ -76,13 +84,15 @@ Creates an array from an array-like object.
 
 #### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `items` | `T`[] |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `items` | `T`[] | The items to initialize the array with. |
 
 #### Returns
 
 `FixedArray`\<`T`\>
+
+A new fixed-capacity array with capacity equal to the number of items.
 
 #### Overrides
 

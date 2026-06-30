@@ -25,11 +25,13 @@ Abstract class representing a list structure.
 
 > **new ListStructure**\<`T`\>(`size`): `ListStructure`\<`T`\>
 
+Creates a new list structure with the given size or initial elements.
+
 #### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `size` | `number` \| `T`[] |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `size` | `number` \| `T`[] | The maximum capacity (as a number) or an array of initial elements. |
 
 #### Returns
 
