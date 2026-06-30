@@ -105,6 +105,29 @@ describe('Matrix', () => {
     expect(m.get(0, 1)).toBe(0)
   })
 
+  test('from throws for mismatched column lengths', () => {
+    expect(() => Matrix.from([[1, 2], [3]])).toThrow('Not all the columns of the matrix have the same length')
+  })
+
+  test('from throws for empty 2D array', () => {
+    expect(() => Matrix.from([])).toThrow('2D array is empty')
+  })
+
+  test('from throws for empty 1D array', () => {
+    expect(() => Matrix.from([], 'row')).toThrow('Array is empty')
+  })
+
+  test('inverse throws for singular matrix', () => {
+    const m = Matrix.from([[1, 2], [2, 4]])
+    expect(() => m.inverse()).toThrow('Matrix not invertible due to the determinant equal to zero')
+  })
+
+  test('dot throws for mismatched dimensions', () => {
+    const a = new Matrix(2, 2, 1)
+    const b = new Matrix(3, 2, 1)
+    expect(() => a.dot(b)).toThrow('The number of columns of the current matrix is different from the number of rows of the passed matrix')
+  })
+
   test('clear', () => {
     const m = new Matrix(2, 2, 1)
     m.clear()
@@ -120,5 +143,184 @@ describe('Matrix', () => {
     m.set(1, 0, 3)
     m.set(1, 1, 4)
     expect(m.isFull).toBeTrue()
+  })
+
+  test('concat horizontal', () => {
+    const a = Matrix.from([[1, 2], [3, 4]])
+    const b = Matrix.from([[5, 6], [7, 8]])
+    const c = a.concat(b, 'horizontal')
+    expect(c.rows).toBe(2)
+    expect(c.cols).toBe(4)
+    expect(c.get(0, 0)).toBe(1)
+    expect(c.get(0, 2)).toBe(5)
+    expect(c.get(1, 3)).toBe(8)
+  })
+
+  test('concat vertical', () => {
+    const a = Matrix.from([[1, 2], [3, 4]])
+    const b = Matrix.from([[5, 6], [7, 8]])
+    const c = a.concat(b, 'vertical')
+    expect(c.rows).toBe(4)
+    expect(c.cols).toBe(2)
+    expect(c.get(0, 0)).toBe(1)
+    expect(c.get(2, 0)).toBe(5)
+    expect(c.get(3, 1)).toBe(8)
+  })
+
+  test('concat horizontal throws for mismatched rows', () => {
+    const a = new Matrix(2, 2, 0)
+    const b = new Matrix(3, 2, 0)
+    expect(() => a.concat(b, 'horizontal')).toThrow('The matrices need to have the same number of rows')
+  })
+
+  test('concat vertical throws for mismatched cols', () => {
+    const a = new Matrix(2, 2, 0)
+    const b = new Matrix(2, 3, 0)
+    expect(() => a.concat(b, 'vertical')).toThrow('The matrices need to have the same number of rows')
+  })
+
+  test('update', () => {
+    const m = Matrix.from([[1, 2], [3, 4]])
+    const val = m.update(0, 0, old => old * 10)
+    expect(val).toBe(10)
+    expect(m.get(0, 0)).toBe(10)
+  })
+
+  test('operate', () => {
+    const a = Matrix.from([[1, 2], [3, 4]])
+    const b = Matrix.from([[5, 6], [7, 8]])
+    const res = a.operate(b, (l, r) => l + r)
+    expect(a.get(0, 0)).toBe(6)
+    expect(res[0][0]).toBe(6)
+    expect(res[1][1]).toBe(12)
+  })
+
+  test('operate with 2D array', () => {
+    const a = Matrix.from([[1, 2], [3, 4]])
+    a.operate([[5, 6], [7, 8]], (l, r) => l * r)
+    expect(a.get(0, 0)).toBe(5)
+    expect(a.get(1, 1)).toBe(32)
+  })
+
+  test('operate throws for mismatched dimensions', () => {
+    const a = new Matrix(2, 2, 0)
+    const b = new Matrix(3, 2, 0)
+    expect(() => a.operate(b, (l, r) => l + r)).toThrow('The number of columns of the current matrix is different from the number of rows of the passed matrix')
+  })
+
+  test('swapRows', () => {
+    const m = Matrix.from([[1, 2], [3, 4]])
+    m.swapRows(0, 1)
+    expect(m.get(0, 0)).toBe(3)
+    expect(m.get(1, 0)).toBe(1)
+  })
+
+  test('setRow', () => {
+    const m = Matrix.from([[1, 2], [3, 4]])
+    m.setRow(0, [9, 9])
+    expect(m.getRow(0)).toEqual([9, 9])
+  })
+
+  test('setRow throws for out of bounds row', () => {
+    const m = new Matrix(2, 2, 0)
+    expect(() => m.setRow(5, [1, 2])).toThrow('The passed index exceeds the total number of rows in the matrix')
+  })
+
+  test('setRow throws for too many values', () => {
+    const m = new Matrix(2, 2, 0)
+    expect(() => m.setRow(0, [1, 2, 3])).toThrow('The passed values exceed the total number of columns in the matrix')
+  })
+
+  test('getRow', () => {
+    const m = Matrix.from([[1, 2], [3, 4]])
+    expect(m.getRow(1)).toEqual([3, 4])
+  })
+
+  test('getRow throws for out of bounds', () => {
+    const m = new Matrix(2, 2, 0)
+    expect(() => m.getRow(5)).toThrow('The passed index exceeds the total number of rows in the matrix')
+  })
+
+  test('swapCols', () => {
+    const m = Matrix.from([[1, 2], [3, 4]])
+    m.swapCols(0, 1)
+    expect(m.get(0, 0)).toBe(2)
+    expect(m.get(0, 1)).toBe(1)
+  })
+
+  test('setCol', () => {
+    const m = Matrix.from([[1, 2], [3, 4]])
+    m.setCol(0, [5, 6])
+    expect(m.getCol(0)).toEqual([5, 6])
+  })
+
+  test('setCol throws for out of bounds col', () => {
+    const m = new Matrix(2, 2, 0)
+    expect(() => m.setCol(5, [1, 2])).toThrow('The passed index exceeds the total number of columns in the matrix')
+  })
+
+  test('setCol throws for too many values', () => {
+    const m = new Matrix(2, 2, 0)
+    expect(() => m.setCol(0, [1, 2, 3])).toThrow('The passed values exceed the total number of rows in the matrix')
+  })
+
+  test('getCol', () => {
+    const m = Matrix.from([[1, 2], [3, 4]])
+    expect(m.getCol(1)).toEqual([2, 4])
+  })
+
+  test('getCol throws for out of bounds', () => {
+    const m = new Matrix(2, 2, 0)
+    expect(() => m.getCol(5)).toThrow('The passed index exceeds the total number of columns in the matrix')
+  })
+
+  test('iterateRows', () => {
+    const m = Matrix.from([[1, 2], [3, 4]])
+    const rows = [...m.iterateRows()]
+    expect(rows).toEqual([[1, 2], [3, 4]])
+  })
+
+  test('iterateCols', () => {
+    const m = Matrix.from([[1, 2], [3, 4]])
+    const cols = [...m.iterateCols()]
+    expect(cols).toEqual([[1, 3], [2, 4]])
+  })
+
+  test('Symbol.iterator', () => {
+    const m = Matrix.from([[1, 2], [3, 4]])
+    const rows = [...m]
+    expect(rows).toEqual([[1, 2], [3, 4]])
+  })
+
+  test('sub', () => {
+    const m = Matrix.from([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+    const s = m.sub(0, 0)
+    expect(s.rows).toBe(2)
+    expect(s.cols).toBe(2)
+    expect(s.get(0, 0)).toBe(5)
+    expect(s.get(1, 1)).toBe(9)
+  })
+
+  test('space getter', () => {
+    const m = new Matrix(2, 3)
+    expect(m.space).toBe(6)
+    m.set(0, 0, 1)
+    expect(m.space).toBe(5)
+    m.set(0, 1, 2)
+    m.set(0, 2, 3)
+    m.set(1, 0, 4)
+    m.set(1, 1, 5)
+    m.set(1, 2, 6)
+    expect(m.space).toBe(0)
+  })
+
+  test('hasRoom getter', () => {
+    const m = new Matrix(2, 2)
+    expect(m.hasRoom).toBeTrue()
+    m.set(0, 0, 1)
+    m.set(0, 1, 2)
+    m.set(1, 0, 3)
+    m.set(1, 1, 4)
+    expect(m.hasRoom).toBeFalse()
   })
 })

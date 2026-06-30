@@ -13,6 +13,14 @@ export type Edge<V> = [V, Weight]
  */
 export class WeightedGraph<N> extends GraphStructure<N, Edge<N>> {
   /**
+   * Creates a new weighted graph with the given node.
+   * @param node The first node to add to the weighted graph.
+   */
+  constructor(node: N) {
+    super(node)
+  }
+
+  /**
    * Adds an edge between two nodes with an optional weight.
    * @param v1 The first node.
    * @param v2 The second node.

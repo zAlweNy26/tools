@@ -57,4 +57,15 @@ describe('CircularQueue', () => {
     expect(cq.dequeue()).toBe(30)
     expect(cq.dequeue()).toBe(40)
   })
+
+  test('space getter', () => {
+    const cq = new CircularQueue<number>(4)
+    expect(cq.space).toBe(4)
+    cq.enqueue(1)
+    expect(cq.space).toBe(3)
+    cq.enqueue(2)
+    cq.enqueue(3)
+    cq.enqueue(4)
+    expect(cq.space).toBe(0)
+  })
 })

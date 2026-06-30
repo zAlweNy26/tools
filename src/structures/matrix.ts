@@ -50,9 +50,10 @@ export class Matrix implements Structure {
   static from(...params: never[]) {
     if (params.length === 1) {
       const array = params[0] as number[][]
-      const rows = array.length, cols = array[0].length
+      const rows = array.length
       if (rows === 0) throw new Error('2D array is empty')
-      else if (array.some(arr => arr.length !== cols)) throw new Error('Not all the columns of the matrix have the same length')
+      const cols = array[0].length
+      if (array.some(arr => arr.length !== cols)) throw new Error('Not all the columns of the matrix have the same length')
       return new Matrix(rows, cols, (r, c) => array[r][c])
     }
     else {
