@@ -5,9 +5,10 @@ export default defineConfig({
     'lib/*': 'src/**/*.ts',
     'index': 'index.ts',
   },
-  format: ['esm', 'cjs'],
+  format: 'esm',
   dts: true,
-  outExtensions({ format }) {
-    return { js: format === 'cjs' ? '.cjs' : '.js' }
+  minify: true,
+  outputOptions: {
+    entryFileNames: '[name].js',
   },
 })
