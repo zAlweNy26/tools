@@ -1,4 +1,4 @@
-import type { TSNEParams } from './interfaces'
+import type { TSNEParams } from '../interfaces/dim-red'
 import { DimRed } from './dim_red'
 import { euclideanSquared } from '@distances/euclidean_squared'
 import { Matrix } from '@structures/matrix'

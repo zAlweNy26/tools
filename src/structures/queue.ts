@@ -1,4 +1,4 @@
-import { ListStructure } from './interfaces'
+import { ListStructure } from './structures'
 
 /**
  * A queue data structure.

@@ -20,7 +20,7 @@ A graph data structure.
 
 > **new Graph**\<`N`\>(`node`): `Graph`\<`N`\>
 
-Creates a new graph structure with the given node.
+Creates a new graph with the given node.
 
 #### Parameters
 
@@ -32,7 +32,7 @@ Creates a new graph structure with the given node.
 
 `Graph`\<`N`\>
 
-#### Inherited from
+#### Overrides
 
 [`GraphStructure`](GraphStructure.md).[`constructor`](GraphStructure.md#constructor)
 

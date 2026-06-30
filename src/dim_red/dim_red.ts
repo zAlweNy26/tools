@@ -1,4 +1,4 @@
-import type { DimRedParams } from './interfaces'
+import type { DimRedParams } from '../interfaces/dim-red'
 import { euclidean } from '@distances/euclidean'
 import { Matrix } from '@structures/matrix'
 import { Randomizer } from '@utils/randomizer'

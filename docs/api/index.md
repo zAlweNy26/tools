@@ -1,13 +1,20 @@
 # API Reference
 
+## Interfaces
+
+| Interface | Description |
+| ------ | ------ |
+| [DimRedParams](interfaces/DimRedParams.md) | Interface for the parameters used in dimensionality reduction algorithms. |
+| [Pipe](interfaces/Pipe.md) | Interface for a pipable function that allows chaining operations. |
+| [Structure](interfaces/Structure.md) | Interface for data structures. |
+| [TSNEParams](interfaces/TSNEParams.md) | Interface for t-SNE parameters, which extends the base dimensionality reduction parameters. |
+
 ## Dimensionality Reduction
 
-| Name | Description |
+| Class | Description |
 | ------ | ------ |
 | [DimRed](classes/DimRed.md) | A class for performing dimensionality reduction on a matrix of data. |
 | [TSNE](classes/TSNE.md) | Implementation of the t-Distributed Stochastic Neighbor Embedding (t-SNE) algorithm. |
-| [DimRedParams](interfaces/DimRedParams.md) | Interface for the parameters used in dimensionality reduction algorithms. |
-| [TSNEParams](interfaces/TSNEParams.md) | Interface for t-SNE parameters, which extends the base dimensionality reduction parameters. |
 
 ## Distances
 
@@ -54,7 +61,6 @@
 | [Tree](classes/Tree.md) | Represents a tree data structure. |
 | [TreeLeaf](classes/TreeLeaf.md) | Represents a leaf in a tree data structure. |
 | [WeightedGraph](classes/WeightedGraph.md) | A weighted graph data structure. |
-| [Structure](interfaces/Structure.md) | Interface for data structures. |
 | [Edge](type-aliases/Edge.md) | An edge represented as a tuple of a vertex and its weight. |
 | [Weight](type-aliases/Weight.md) | Weight value type used in weighted graphs. |
 
@@ -63,7 +69,6 @@
 | Name | Description |
 | ------ | ------ |
 | [Randomizer](classes/Randomizer.md) | A Mersenne Twister random number generator. |
-| [Pipe](interfaces/Pipe.md) | Interface for a pipable function that allows chaining operations. |
 | [getLCP](functions/getLCP.md) | Returns the length of the longest common prefix between two strings. |
 | [isArray2D](functions/isArray2D.md) | Type guard function that checks if an array is a 2D array of a specific type. |
 | [isOfType](functions/isOfType.md) | Type guard function that checks if a value is of a certain type. |

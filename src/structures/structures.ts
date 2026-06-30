@@ -1,19 +1,5 @@
+import type { Structure } from '../interfaces/structure'
 import { FixedArray } from './fixed_array'
-
-/**
- * Interface for data structures.
- * @group Structures
- */
-export interface Structure {
-  /**
-   * Clears the structure.
-   */
-  clear: () => void
-  /**
-   * The current number of elements in the structure.
-   */
-  size: () => number
-}
 
 /**
  * Abstract class representing a list structure.

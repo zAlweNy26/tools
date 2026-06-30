@@ -1,5 +1,27 @@
 [
   {
+    "text": "Interfaces",
+    "collapsed": true,
+    "items": [
+      {
+        "text": "DimRedParams",
+        "link": "/api/interfaces/DimRedParams.md"
+      },
+      {
+        "text": "Pipe",
+        "link": "/api/interfaces/Pipe.md"
+      },
+      {
+        "text": "Structure",
+        "link": "/api/interfaces/Structure.md"
+      },
+      {
+        "text": "TSNEParams",
+        "link": "/api/interfaces/TSNEParams.md"
+      }
+    ]
+  },
+  {
     "text": "Dimensionality Reduction",
     "collapsed": true,
     "items": [
@@ -10,14 +32,6 @@
       {
         "text": "TSNE",
         "link": "/api/classes/TSNE.md"
-      },
-      {
-        "text": "DimRedParams",
-        "link": "/api/interfaces/DimRedParams.md"
-      },
-      {
-        "text": "TSNEParams",
-        "link": "/api/interfaces/TSNEParams.md"
       }
     ]
   },
@@ -148,10 +162,6 @@
         "link": "/api/classes/WeightedGraph.md"
       },
       {
-        "text": "Structure",
-        "link": "/api/interfaces/Structure.md"
-      },
-      {
         "text": "Edge",
         "link": "/api/type-aliases/Edge.md"
       },
@@ -168,10 +178,6 @@
       {
         "text": "Randomizer",
         "link": "/api/classes/Randomizer.md"
-      },
-      {
-        "text": "Pipe",
-        "link": "/api/interfaces/Pipe.md"
       },
       {
         "text": "getLCP",

@@ -1,4 +1,4 @@
-import type { Structure } from './interfaces'
+import type { Structure } from '../interfaces/structure'
 
 /**
  * A matrix data structure.

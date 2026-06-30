@@ -1,6 +1,6 @@
 /**
  * Interface for the parameters used in dimensionality reduction algorithms.
- * @group Dimensionality Reduction
+ * @group Interfaces
  */
 export interface DimRedParams {
   /**
@@ -20,7 +20,7 @@ export interface DimRedParams {
 
 /**
  * Interface for t-SNE parameters, which extends the base dimensionality reduction parameters.
- * @group Dimensionality Reduction
+ * @group Interfaces
  */
 export interface TSNEParams extends DimRedParams {
   /**
