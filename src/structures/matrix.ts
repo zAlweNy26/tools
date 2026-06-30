@@ -2,6 +2,7 @@ import type { Structure } from './interfaces'
 
 /**
  * A matrix data structure.
+ * @group Structures
  */
 export class Matrix implements Structure {
   protected _data: number[][] = []
@@ -32,13 +33,19 @@ export class Matrix implements Structure {
   }
 
   /**
-   * Creates a new matrix instance from the given parameters.
-   * @param array The array to use for the new matrix instance.
-   * @param fill If the array is 1D, pass the fill method. Can be `row`, `col`, or `diag`.
+   * Creates a new matrix instance from a 2D array.
+   * @param array The 2D array to use for the new matrix instance.
    * @returns A new matrix instance.
    * @throws An error if the array is empty or not all the columns of the 2D array have the same length.
    */
   static from(array: number[][]): Matrix
+  /**
+   * Creates a new matrix instance from a 1D array with the specified fill method.
+   * @param array The 1D array to use for the new matrix instance.
+   * @param fill The fill method. Can be `row`, `col`, or `diag`.
+   * @returns A new matrix instance.
+   * @throws An error if the array is empty.
+   */
   static from(array: number[], fill: 'row' | 'col' | 'diag'): Matrix
   static from(...params: never[]) {
     if (params.length === 1) {

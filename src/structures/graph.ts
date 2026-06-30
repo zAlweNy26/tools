@@ -3,6 +3,7 @@ import { GraphStructure } from './interfaces'
 /**
  * A graph data structure.
  * @template N The type of the nodes in the graph.
+ * @group Structures
  */
 export class Graph<N> extends GraphStructure<N, N> {
   addEdge(v1: N, v2: N) {

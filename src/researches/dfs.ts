@@ -1,6 +1,12 @@
 import type { Graph } from '@structures'
 import { Stack } from '@structures'
 
+/**
+ * Performs a depth-first search traversal on a graph.
+ * @param graph The graph to traverse.
+ * @returns An array of nodes in DFS order.
+ * @group Researches
+ */
 export function depthFirstSearch<T>(graph: Graph<T>) {
   const visited = new Set()
   const stack = new Stack<T>(graph.nodes)

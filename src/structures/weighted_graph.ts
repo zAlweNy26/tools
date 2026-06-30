@@ -1,11 +1,15 @@
 import { GraphStructure } from './interfaces'
 
+/** Weight value type used in weighted graphs. @group Structures */
 export type Weight = number
+
+/** An edge represented as a tuple of a vertex and its weight. @group Structures */
 export type Edge<V> = [V, Weight]
 
 /**
  * A weighted graph data structure.
  * @template N The type of the nodes in the graph.
+ * @group Structures
  */
 export class WeightedGraph<N> extends GraphStructure<N, Edge<N>> {
   /**

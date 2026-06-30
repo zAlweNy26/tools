@@ -5,6 +5,7 @@
  * @returns The Hamming distance between the two vectors.
  * @throws An error if the vectors do not have the same length.
  * @see {@link https://en.wikipedia.org/wiki/Hamming_distance}
+ * @group Distances
  */
 export function hamming(a: number[], b: number[]) {
   if (a.length !== b.length) throw new Error('The vectors should have the same length')

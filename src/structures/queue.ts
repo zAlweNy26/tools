@@ -3,6 +3,7 @@ import { ListStructure } from './interfaces'
 /**
  * A queue data structure.
  * @template T The type of elements held in the queue.
+ * @group Structures
  */
 export class Queue<T> extends ListStructure<T> {
   protected _head = 0

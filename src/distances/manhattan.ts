@@ -5,6 +5,7 @@
  * @returns The Manhattan distance between the two vectors.
  * @throws An error if the vectors do not have the same length.
  * @see {@link https://en.wikipedia.org/wiki/Manhattan_distance}
+ * @group Distances
  */
 export function manhattan(a: number[], b: number[]) {
   if (a.length !== b.length) throw new Error('The vectors should have the same length')

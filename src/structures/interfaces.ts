@@ -2,6 +2,7 @@ import { FixedArray } from './fixed_array'
 
 /**
  * Interface for data structures.
+ * @group Structures
  */
 export interface Structure {
   /**
@@ -17,6 +18,7 @@ export interface Structure {
 /**
  * Abstract class representing a list structure.
  * @template T The type of elements held in the list.
+ * @group Structures
  */
 export abstract class ListStructure<T> implements Structure {
   protected _data: T[] = []
@@ -79,6 +81,7 @@ export abstract class ListStructure<T> implements Structure {
  * Abstract class representing a graph structure.
  * @template N The type of the nodes in the graph.
  * @template E The type of the values associated with the nodes.
+ * @group Structures
  */
 export abstract class GraphStructure<N, E> implements Structure {
   protected map = new Map<N, E[]>()

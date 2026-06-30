@@ -1,6 +1,7 @@
 /**
  * Represents a leaf in a tree data structure.
  * @template T The type of data stored in the leaf.
+ * @group Structures
  */
 export class TreeLeaf<T> {
   /**
@@ -80,6 +81,7 @@ function heightOrder<T>(node: TreeLeaf<T>, list: T[], first = true) { // leaves 
 /**
  * Represents a tree data structure.
  * @template T The type of data stored in the tree.
+ * @group Structures
  */
 export class Tree<T> {
   /** The root node of the tree. */

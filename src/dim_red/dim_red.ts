@@ -6,6 +6,7 @@ import { Randomizer } from '@utils/randomizer'
 /**
  * A class for performing dimensionality reduction on a matrix of data.
  * @template P The type of the parameters for the class.
+ * @group Dimensionality Reduction
  */
 export abstract class DimRed<P extends DimRedParams> {
   protected _params!: P & DimRedParams

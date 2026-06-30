@@ -1,3 +1,8 @@
+/**
+ * A fixed-capacity array that extends the built-in Array class.
+ * @template T The type of elements held in the array.
+ * @group Structures
+ */
 export class FixedArray<T> extends Array<T> {
   private _capacity: number
 

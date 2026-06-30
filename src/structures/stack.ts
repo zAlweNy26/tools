@@ -3,6 +3,7 @@ import { ListStructure } from './interfaces'
 /**
  * A stack data structure.
  * @template T The type of elements held in the stack.
+ * @group Structures
  */
 export class Stack<T> extends ListStructure<T> {
   /**

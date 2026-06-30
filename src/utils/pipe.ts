@@ -1,3 +1,9 @@
+/**
+ * Interface for a pipable function that allows chaining operations.
+ * @template A The input type.
+ * @template B The output type.
+ * @group Utils
+ */
 export interface Pipe<A, B> {
   (a: A): B
   pipe: <C>(fn2: (b: B) => C) => Pipe<A, C>
@@ -15,6 +21,7 @@ export interface Pipe<A, B> {
  *
  * console.log(pipeline.run(3)); // Outputs: 8
  * ```
+ * @group Utils
  */
 function pipe<A, B>(fn: (a: A) => B): Pipe<A, B> {
   function run(a: A) {

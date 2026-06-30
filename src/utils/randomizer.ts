@@ -3,6 +3,7 @@ import { Matrix } from '@structures/matrix'
 
 /**
  * A Mersenne Twister random number generator.
+ * @group Utils
  */
 export class Randomizer {
   protected _seed!: number

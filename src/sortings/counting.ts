@@ -1,3 +1,9 @@
+/**
+ * Sorts an array of numbers using the counting sort algorithm.
+ * @param array The array to be sorted.
+ * @returns The sorted array.
+ * @group Sortings
+ */
 export function countingSort(array: number[]) {
   if (array.length <= 1) return array
 

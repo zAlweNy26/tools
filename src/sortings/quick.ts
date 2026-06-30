@@ -4,6 +4,7 @@ import { getLCP } from '../utils'
  * Sorts an array of numbers using the quick sort algorithm.
  * @param array The array to be sorted.
  * @returns The sorted array.
+ * @group Sortings
  */
 export function quickSortNum(array: number[]) {
   if (array.length <= 1) return array
@@ -28,6 +29,7 @@ export function quickSortNum(array: number[]) {
  * Sorts an array of strings using the quick sort algorithm.
  * @param array The array to be sorted.
  * @returns The sorted array.
+ * @group Sortings
  */
 export function quickSortStr(array: string[]) {
   if (array.length <= 1) return array

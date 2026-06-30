@@ -6,15 +6,15 @@
   "cleanOutputDir": true,
   "plugin": [
     "typedoc-plugin-coverage",
-    "@mxssfd/typedoc-theme"
+    "typedoc-material-theme"
   ],
-  "theme": "my-theme",
+  "themeColor": "#cb9820",
   "entryPoints": [
     "./index.ts"
   ],
   "out": "./docs",
-  "searchGroupBoosts": {
-    "Classes": 1.5
+  "navigation": {
+    "includeGroups": true
   },
   "navigationLinks": {
     "GitHub": "https://github.com/zAlweNy26/tools",

@@ -3,6 +3,10 @@ import { DimRed } from './dim_red'
 import { euclideanSquared } from '@distances'
 import { Matrix } from '@structures'
 
+/**
+ * Implementation of the t-Distributed Stochastic Neighbor Embedding (t-SNE) algorithm.
+ * @group Dimensionality Reduction
+ */
 export class TSNE extends DimRed<TSNEParams> {
   protected _yStep!: Matrix
   protected _gains!: Matrix

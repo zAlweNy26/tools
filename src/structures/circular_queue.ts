@@ -3,6 +3,7 @@ import { Queue } from './queue'
 /**
  * A circular queue data structure.
  * @template T The type of elements held in the queue.
+ * @group Structures
  */
 export class CircularQueue<T> extends Queue<T> {
   /**
