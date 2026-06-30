@@ -179,6 +179,47 @@ describe('Matrix', () => {
     expect(() => a.concat(b, 'vertical')).toThrow('The matrices need to have the same number of rows')
   })
 
+  test('concat diagonal', () => {
+    const a = Matrix.from([[1, 2], [3, 4]])
+    const b = Matrix.from([[5, 6], [7, 8]])
+    const c = a.concat(b, 'diagonal')
+    expect(c.rows).toBe(4)
+    expect(c.cols).toBe(4)
+    // top-left
+    expect(c.get(0, 0)).toBe(1)
+    expect(c.get(0, 1)).toBe(2)
+    expect(c.get(1, 0)).toBe(3)
+    expect(c.get(1, 1)).toBe(4)
+    // bottom-right
+    expect(c.get(2, 2)).toBe(5)
+    expect(c.get(2, 3)).toBe(6)
+    expect(c.get(3, 2)).toBe(7)
+    expect(c.get(3, 3)).toBe(8)
+    // zero-fills
+    expect(c.get(0, 2)).toBe(0)
+    expect(c.get(0, 3)).toBe(0)
+    expect(c.get(1, 2)).toBe(0)
+    expect(c.get(1, 3)).toBe(0)
+    expect(c.get(2, 0)).toBe(0)
+    expect(c.get(2, 1)).toBe(0)
+    expect(c.get(3, 0)).toBe(0)
+    expect(c.get(3, 1)).toBe(0)
+  })
+
+  test('concat diagonal non-square', () => {
+    const a = Matrix.from([[1, 2, 3], [4, 5, 6]])
+    const b = Matrix.from([[7, 8]])
+    const c = a.concat(b, 'diagonal')
+    expect(c.rows).toBe(3)
+    expect(c.cols).toBe(5)
+    expect(c.get(0, 0)).toBe(1)
+    expect(c.get(1, 2)).toBe(6)
+    expect(c.get(2, 3)).toBe(7)
+    expect(c.get(2, 4)).toBe(8)
+    expect(c.get(0, 3)).toBe(0)
+    expect(c.get(2, 0)).toBe(0)
+  })
+
   test('update', () => {
     const m = Matrix.from([[1, 2], [3, 4]])
     const val = m.update(0, 0, old => old * 10)

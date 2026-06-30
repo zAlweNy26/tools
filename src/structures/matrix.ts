@@ -91,12 +91,11 @@ export class Matrix implements Structure {
   /**
    * Concatenates two matrices either horizontally or vertically.
    * @param mat The matrix to concatenate with.
-   * @param type The type of concatenation to perform. Can be 'horizontal' or 'vertical'. Defaults to 'horizontal'.
+   * @param type The type of concatenation to perform. Can be 'horizontal', 'vertical', or 'diagonal'. Defaults to 'horizontal'.
    * @returns A new matrix that is the result of the concatenation.
    * @throws An error if the matrices do not have the same number of rows (for horizontal concatenation) or columns (for vertical concatenation).
    */
-  concat(mat: Matrix, type: 'horizontal' | 'vertical' = 'horizontal') {
-    // TODO: Add diagonal concatenation
+  concat(mat: Matrix, type: 'horizontal' | 'vertical' | 'diagonal' = 'horizontal') {
     let data: number[][] = []
     if (type === 'horizontal') {
       if (this.rows !== mat.rows) throw new Error('The matrices need to have the same number of rows')
@@ -105,6 +104,13 @@ export class Matrix implements Structure {
     else if (type === 'vertical') {
       if (this.cols !== mat.cols) throw new Error('The matrices need to have the same number of rows')
       data = this._data.concat(mat._data)
+    }
+    else {
+      return new Matrix(this.rows + mat.rows, this.cols + mat.cols, (r, c) => {
+        if (r < this.rows && c < this.cols) return this._data[r][c]
+        if (r >= this.rows && c >= this.cols) return mat._data[r - this.rows][c - this.cols]
+        return 0
+      })
     }
     return Matrix.from(data)
   }
