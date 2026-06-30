@@ -48,7 +48,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint --cache .",
     "lint:fix": "eslint --cache --fix .",
-    "doc": "typedoc index.ts",
+    "docs": "typedoc index.ts",
     "test": "bun test",
     "start": "tsx watch index.ts"
   },
