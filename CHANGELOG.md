@@ -1,5 +1,31 @@
 # @danyalwe/tools
 
+## v0.1.3
+
+[compare changes](https://github.com/zAlweNy26/tools/compare/v0.1.2...v0.1.3)
+
+### 🚀 Enhancements
+
+- Add linked lists ([53f1d2b](https://github.com/zAlweNy26/tools/commit/53f1d2b))
+- Add new vector distances ([d8098b9](https://github.com/zAlweNy26/tools/commit/d8098b9))
+- **Matrix:** Add diagonal concatenation ([716beb1](https://github.com/zAlweNy26/tools/commit/716beb1))
+
+### 📖 Documentation
+
+- Update description and icon ([0945cfd](https://github.com/zAlweNy26/tools/commit/0945cfd))
+
+### 🏡 Chore
+
+- Move interfaces in separate folder ([e6e02b3](https://github.com/zAlweNy26/tools/commit/e6e02b3))
+
+### 🤖 CI
+
+- Ignore build on docs change ([7b1baae](https://github.com/zAlweNy26/tools/commit/7b1baae))
+
+### ❤️ Contributors
+
+- Dany <alwe.dev@gmail.com>
+
 ## v0.1.2
 
 [compare changes](https://github.com/zAlweNy26/tools/compare/v0.1.1...v0.1.2)
