@@ -1,5 +1,27 @@
 # @danyalwe/tools
 
+## v0.1.1
+
+[compare changes](https://github.com/zAlweNy26/tools/compare/v0.1.0...v0.1.1)
+
+### 📖 Documentation
+
+- Update jsdoc in methods ([4d97627](https://github.com/zAlweNy26/tools/commit/4d97627))
+- Complete documentation coverage ([870f327](https://github.com/zAlweNy26/tools/commit/870f327))
+
+### 🏡 Chore
+
+- Split build and remove barrel files ([2c78487](https://github.com/zAlweNy26/tools/commit/2c78487))
+
+### ✅ Tests
+
+- Add sortings tests ([711e1ab](https://github.com/zAlweNy26/tools/commit/711e1ab))
+- Complete coverage ([824269e](https://github.com/zAlweNy26/tools/commit/824269e))
+
+### ❤️ Contributors
+
+- Dany <alwe.dev@gmail.com>
+
 ## v0.1.0
 
 [compare changes](https://github.com/zAlweNy26/tools/compare/v0.0.2...v0.1.0)
