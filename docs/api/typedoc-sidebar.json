@@ -118,8 +118,20 @@
     "collapsed": true,
     "items": [
       {
+        "text": "BaseLinkedList",
+        "link": "/api/classes/BaseLinkedList.md"
+      },
+      {
         "text": "CircularQueue",
         "link": "/api/classes/CircularQueue.md"
+      },
+      {
+        "text": "DoublyLinkedList",
+        "link": "/api/classes/DoublyLinkedList.md"
+      },
+      {
+        "text": "DoublyListNode",
+        "link": "/api/classes/DoublyListNode.md"
       },
       {
         "text": "FixedArray",
@@ -132,6 +144,14 @@
       {
         "text": "GraphStructure",
         "link": "/api/classes/GraphStructure.md"
+      },
+      {
+        "text": "LinkedList",
+        "link": "/api/classes/LinkedList.md"
+      },
+      {
+        "text": "ListNode",
+        "link": "/api/classes/ListNode.md"
       },
       {
         "text": "ListStructure",

@@ -50,10 +50,15 @@
 
 | Name | Description |
 | ------ | ------ |
+| [BaseLinkedList](classes/BaseLinkedList.md) | Abstract base class for linked list implementations. |
 | [CircularQueue](classes/CircularQueue.md) | A circular queue data structure. |
+| [DoublyLinkedList](classes/DoublyLinkedList.md) | A doubly linked list data structure. |
+| [DoublyListNode](classes/DoublyListNode.md) | Represents a node in a doubly linked list. |
 | [FixedArray](classes/FixedArray.md) | A fixed-capacity array that extends the built-in Array class. |
 | [Graph](classes/Graph.md) | A graph data structure. |
 | [GraphStructure](classes/GraphStructure.md) | Abstract class representing a graph structure. |
+| [LinkedList](classes/LinkedList.md) | A singly linked list data structure. |
+| [ListNode](classes/ListNode.md) | Represents a node in a singly linked list. |
 | [ListStructure](classes/ListStructure.md) | Abstract class representing a list structure. |
 | [Matrix](classes/Matrix.md) | A matrix data structure. |
 | [Queue](classes/Queue.md) | A queue data structure. |

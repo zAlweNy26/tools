@@ -13,8 +13,6 @@ It includes:
 
 ## To-do
 
-- [ ] Add Linked List data structure
-- [ ] Add Double Linked List data structure
 - [ ] Add other sorting algorithms
 - [ ] Add other dimensionality reduction algorithms
 - [ ] Add other vectors distances
