@@ -23,3 +23,12 @@ Type guard function that checks if a value is of a certain type.
 `value is T`
 
 A boolean indicating whether the value is of the specified type.
+
+## Example
+
+```ts
+import { isOfType } from '@danyalwe/tools'
+
+isOfType<string>('hello') // true
+isOfType<number>('hello') // false
+```

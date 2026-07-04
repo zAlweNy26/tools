@@ -25,3 +25,16 @@ A decorator function that measures the execution time of a method and logs it to
 `PropertyDescriptor`
 
 The updated property descriptor.
+
+## Example
+
+```ts
+import { measure } from '@danyalwe/tools'
+
+class Example {
+  @measure
+  heavyComputation() {
+    // some heavy work
+  }
+}
+```

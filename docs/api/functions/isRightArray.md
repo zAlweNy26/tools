@@ -23,3 +23,12 @@ Type guard function that checks if an array is of type T[].
 `array is T[]`
 
 A boolean indicating whether the array is of the specified type.
+
+## Example
+
+```ts
+import { isRightArray } from '@danyalwe/tools'
+
+isRightArray<number>([1, 2, 3]) // true
+isRightArray<number>(['a', 'b']) // false
+```

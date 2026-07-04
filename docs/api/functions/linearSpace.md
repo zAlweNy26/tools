@@ -19,3 +19,13 @@ Returns an array of linearly spaced numbers between `start` and `end`.
 `number`[]
 
 An array of `num` linearly spaced numbers between `start` and `end`.
+
+## Example
+
+```ts
+import { linearSpace } from '@danyalwe/tools'
+
+linearSpace(1, 5)       // [1, 2, 3, 4, 5]
+linearSpace(0, 1, 3)    // [0, 0.5, 1]
+linearSpace(5, 1)       // [5, 4, 3, 2, 1]
+```

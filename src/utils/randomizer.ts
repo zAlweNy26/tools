@@ -3,6 +3,13 @@ import { Matrix } from '@structures/matrix'
 
 /**
  * A Mersenne Twister random number generator.
+ * @example
+ * ```ts
+ * import { Randomizer } from '@danyalwe/tools'
+ *
+ * const rng = new Randomizer(42) // seeded for reproducibility
+ * const rng2 = new Randomizer()  // seeded with Date.now()
+ * ```
  * @group Utils
  */
 export class Randomizer {
@@ -85,6 +92,12 @@ export class Randomizer {
   /**
    * Returns a random integer between 0 and MAX_INTEGER using the current time as the seed.
    * @returns A random integer.
+   * @example
+   * ```ts
+   * const rng = new Randomizer(42)
+   * rng.randomInt()          // seeded instance
+   * Randomizer.randomInt()   // static shortcut with random seed
+   * ```
    */
   static randomInt() {
     return new Randomizer(Date.now()).randomInt()
@@ -102,6 +115,12 @@ export class Randomizer {
   /**
    * Returns a random number between 0 (inclusive) and 1 (exclusive) generated using the current time as the seed.
    * @returns A random number between 0 (inclusive) and 1 (exclusive).
+   * @example
+   * ```ts
+   * const rng = new Randomizer(123)
+   * rng.random()          // e.g. 0.528... (seeded)
+   * Randomizer.random()   // static shortcut with random seed
+   * ```
    */
   static random() {
     return new Randomizer(Date.now()).random()
@@ -133,6 +152,12 @@ export class Randomizer {
   /**
    * Returns a random number using the Box-Muller transform to approximate a Gaussian distribution.
    * @returns A random number with a Gaussian distribution.
+   * @example
+   * ```ts
+   * const rng = new Randomizer(42)
+   * rng.randomGauss()          // e.g. 0.134... (seeded)
+   * Randomizer.randomGauss()   // static shortcut
+   * ```
    */
   static randomGauss() {
     return new Randomizer(Date.now()).randomGauss()
@@ -161,6 +186,13 @@ export class Randomizer {
    * @param data The data to sample from.
    * @param n The size of the sample to return.
    * @returns A random sample of size `n` from the given data.
+   * @example
+   * ```ts
+   * const rng = new Randomizer(42)
+   * const data = [[1, 2], [3, 4], [5, 6], [7, 8]]
+   * rng.samples(data, 2)          // e.g. [[5, 6], [1, 2]]
+   * Randomizer.samples(data, 2)   // static shortcut
+   * ```
    */
   static samples(data: Matrix | number[][], n: number) {
     return new Randomizer(Date.now()).samples(data, n)

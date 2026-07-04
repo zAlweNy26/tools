@@ -4,6 +4,15 @@
 
 A Mersenne Twister random number generator.
 
+## Example
+
+```ts
+import { Randomizer } from '@danyalwe/tools'
+
+const rng = new Randomizer(42) // seeded for reproducibility
+const rng2 = new Randomizer()  // seeded with Date.now()
+```
+
 ## Constructors
 
 ### Constructor
@@ -136,6 +145,14 @@ Returns a random number between 0 (inclusive) and 1 (exclusive) generated using 
 
 A random number between 0 (inclusive) and 1 (exclusive).
 
+#### Example
+
+```ts
+const rng = new Randomizer(123)
+rng.random()          // e.g. 0.528... (seeded)
+Randomizer.random()   // static shortcut with random seed
+```
+
 ***
 
 ### randomGauss()
@@ -150,6 +167,14 @@ Returns a random number using the Box-Muller transform to approximate a Gaussian
 
 A random number with a Gaussian distribution.
 
+#### Example
+
+```ts
+const rng = new Randomizer(42)
+rng.randomGauss()          // e.g. 0.134... (seeded)
+Randomizer.randomGauss()   // static shortcut
+```
+
 ***
 
 ### randomInt()
@@ -163,6 +188,14 @@ Returns a random integer between 0 and MAX_INTEGER using the current time as the
 `number`
 
 A random integer.
+
+#### Example
+
+```ts
+const rng = new Randomizer(42)
+rng.randomInt()          // seeded instance
+Randomizer.randomInt()   // static shortcut with random seed
+```
 
 ***
 
@@ -184,3 +217,12 @@ Returns a random sample of size `n` from the given data.
 `number`[][]
 
 A random sample of size `n` from the given data.
+
+#### Example
+
+```ts
+const rng = new Randomizer(42)
+const data = [[1, 2], [3, 4], [5, 6], [7, 8]]
+rng.samples(data, 2)          // e.g. [[5, 6], [1, 2]]
+Randomizer.samples(data, 2)   // static shortcut
+```

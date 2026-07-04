@@ -25,3 +25,15 @@ Measures the time it takes for a function to execute.
 `number`
 
 The time it took for the function to execute, in milliseconds.
+
+## Example
+
+```ts
+import { measureTime } from '@danyalwe/tools'
+
+const ms = measureTime(() => {
+  let sum = 0
+  for (let i = 0; i < 1e6; i++) sum += i
+})
+console.log(`Took ${ms}ms`)
+```

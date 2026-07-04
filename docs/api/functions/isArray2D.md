@@ -23,3 +23,12 @@ Type guard function that checks if an array is a 2D array of a specific type.
 `array is T[][]`
 
 boolean indicating whether the 2D array is of the specified type.
+
+## Example
+
+```ts
+import { isArray2D } from '@danyalwe/tools'
+
+isArray2D<number>([[1, 2], [3, 4]]) // true
+isArray2D<number>([[1, 2], ['a', 'b']]) // false
+```

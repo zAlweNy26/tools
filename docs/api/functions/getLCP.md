@@ -18,3 +18,12 @@ Returns the length of the longest common prefix between two strings.
 `number`
 
 The length of the longest common prefix between the two strings.
+
+## Example
+
+```ts
+import { getLCP } from '@danyalwe/tools'
+
+getLCP('hello', 'help')   // 3
+getLCP('abc', 'xyz')      // 0
+```
