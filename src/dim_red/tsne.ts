@@ -5,6 +5,16 @@ import { Matrix } from '@structures/matrix'
 
 /**
  * Implementation of the t-Distributed Stochastic Neighbor Embedding (t-SNE) algorithm.
+ * @example
+ * ```ts
+ * import { TSNE } from '@danyalwe/tools'
+ *
+ * const data = [[1, 2], [3, 4], [5, 6], [7, 8], [9, 10]]
+ * const tsne = new TSNE(data, { perplexity: 30, epsilon: 10, dimensionality: 2 })
+ * const projection = tsne.transform()
+ *
+ * projection.forEach(row => console.log(row)) // 2D coordinates
+ * ```
  * @group Dimensionality Reduction
  */
 export class TSNE extends DimRed<TSNEParams> {
@@ -32,6 +42,19 @@ export class TSNE extends DimRed<TSNEParams> {
    * Initializes the t-SNE algorithm by computing pairwise distances between data points and
    * computing probabilities for each pair of points. It also initializes the step and gains matrices.
    * @returns The t-SNE instance.
+   * @example
+   * ```ts
+   * import { Matrix } from '@danyalwe/tools'
+   *
+   * // Using precomputed distances
+   * const distances = new Matrix(3, 3, [
+   *   [0, 1, 4],
+   *   [1, 0, 2],
+   *   [4, 2, 0],
+   * ])
+   * const tsne = new TSNE(distances, { metric: 'precomputed', perplexity: 2 })
+   * const projection = tsne.transform()
+   * ```
    */
   init() {
     const data = this._data
@@ -39,11 +62,11 @@ export class TSNE extends DimRed<TSNEParams> {
     const metric = this._params.metric
     let delta = data.clone()
 
-    if (this.metric !== 'precomputed') {
+    if (metric !== 'precomputed') {
       delta = new Matrix(n, n, 0)
       for (let i = 0; i < n; ++i) {
         for (let j = i + 1; j < n; ++j) {
-          const distance = metric(data.getRow(i), data.getRow(j)) as number
+          const distance = metric(data.getRow(i), data.getRow(j))
           delta.set(i, j, distance)
           delta.set(j, i, distance)
         }
@@ -105,14 +128,14 @@ export class TSNE extends DimRed<TSNEParams> {
       }
     }
 
-    this._projection = P
+    this._probabilities = P
     return this
   }
 
   protected next() {
     const { dimensionality: dim, epsilon } = this._params
     const n = this._data.rows
-    const proj = this._projection
+    const proj = this._probabilities
     const yStep = this._yStep
     const gains = this._gains
     const res = this._result

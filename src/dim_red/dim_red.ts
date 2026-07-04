@@ -13,7 +13,7 @@ export abstract class DimRed<P extends DimRedParams> {
   protected _randomizer!: Randomizer
   protected _initialized = false
   protected _iter = 0
-  protected _projection!: Matrix
+  protected _probabilities!: Matrix
   protected _data!: Matrix
   protected _result!: Matrix
 
@@ -31,7 +31,7 @@ export abstract class DimRed<P extends DimRedParams> {
       ...params,
     } as P & DimRedParams
     this._randomizer = new Randomizer(this.seed)
-    this._result = new Matrix(this.dimensionality, this.dimensionality)
+    this._result = new Matrix(this._data.rows, this.dimensionality)
   }
 
   /**
@@ -60,13 +60,19 @@ export abstract class DimRed<P extends DimRedParams> {
    * Transforms the data by performing dimensionality reduction on it.
    * @param iterations The number of iterations to perform. Default to 500.
    * @returns The projection of the data after dimensionality reduction.
+   * @example
+   * ```ts
+   * const tsne = new TSNE([[1, 2], [3, 4], [5, 6], [7, 8]])
+   * const projection = tsne.transform()        // default 500 iterations
+   * const projection2 = tsne.transform(1000)    // custom iterations
+   * ```
    */
   transform(iterations = 500) {
     this.checkInit()
     for (let i = 0; i < iterations; ++i)
       this.next()
 
-    return this._projection
+    return this._result
   }
 
   /**
@@ -74,14 +80,23 @@ export abstract class DimRed<P extends DimRedParams> {
    * @param iterations The number of iterations to perform. Default to 500.
    * @yields The projection of the data after each iteration.
    * @returns The projection of the data after dimensionality reduction.
+   * @example
+   * ```ts
+   * const tsne = new TSNE([[1, 2], [3, 4], [5, 6], [7, 8]])
+   * const gen = tsne.generator(200)
+   * for (const intermediate of gen) {
+   *   // intermediate is the projection at each iteration
+   *   console.log(intermediate.rows)
+   * }
+   * ```
    */
   * generator(iterations = 500) {
     this.checkInit()
     for (let i = 0; i < iterations; ++i) {
       this.next()
-      yield this._projection
+      yield this._result
     }
-    return this._projection
+    return this._result
   }
 
   /**

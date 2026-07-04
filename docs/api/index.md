@@ -85,9 +85,6 @@
 | ------ | ------ |
 | [Randomizer](classes/Randomizer.md) | A Mersenne Twister random number generator. |
 | [getLCP](functions/getLCP.md) | Returns the length of the longest common prefix between two strings. |
-| [isArray2D](functions/isArray2D.md) | Type guard function that checks if an array is a 2D array of a specific type. |
-| [isOfType](functions/isOfType.md) | Type guard function that checks if a value is of a certain type. |
-| [isRightArray](functions/isRightArray.md) | Type guard function that checks if an array is of type T[]. |
 | [linearSpace](functions/linearSpace.md) | Returns an array of linearly spaced numbers between `start` and `end`. |
 | [measure](functions/measure.md) | A decorator function that measures the execution time of a method and logs it to the console. |
 | [measureTime](functions/measureTime.md) | Measures the time it takes for a function to execute. |

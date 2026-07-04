@@ -11,7 +11,7 @@ export interface DimRedParams {
    * The metric used to measure the distance between two points in the input data.
    * Can be a function that takes two arrays of numbers and returns a number, or the string 'precomputed'.
    */
-  metric: (a: number[], b: number[]) => number | 'precomputed'
+  metric: ((a: number[], b: number[]) => number) | 'precomputed'
   /**
    * The seed used to initialize the random number generator, if applicable.
    */

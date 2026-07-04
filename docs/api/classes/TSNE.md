@@ -4,6 +4,18 @@
 
 Implementation of the t-Distributed Stochastic Neighbor Embedding (t-SNE) algorithm.
 
+## Example
+
+```ts
+import { TSNE } from '@danyalwe/tools'
+
+const data = [[1, 2], [3, 4], [5, 6], [7, 8], [9, 10]]
+const tsne = new TSNE(data, { perplexity: 30, epsilon: 10, dimensionality: 2 })
+const projection = tsne.transform()
+
+projection.forEach(row => console.log(row)) // 2D coordinates
+```
+
 ## Extends
 
 - [`DimRed`](DimRed.md)\<[`TSNEParams`](../interfaces/TSNEParams.md)\>
@@ -127,6 +139,17 @@ The projection of the data after dimensionality reduction.
 
 The projection of the data after each iteration.
 
+#### Example
+
+```ts
+const tsne = new TSNE([[1, 2], [3, 4], [5, 6], [7, 8]])
+const gen = tsne.generator(200)
+for (const intermediate of gen) {
+  // intermediate is the projection at each iteration
+  console.log(intermediate.rows)
+}
+```
+
 #### Inherited from
 
 [`DimRed`](DimRed.md).[`generator`](DimRed.md#generator)
@@ -145,6 +168,21 @@ computing probabilities for each pair of points. It also initializes the step an
 `TSNE`
 
 The t-SNE instance.
+
+#### Example
+
+```ts
+import { Matrix } from '@danyalwe/tools'
+
+// Using precomputed distances
+const distances = new Matrix(3, 3, [
+  [0, 1, 4],
+  [1, 0, 2],
+  [4, 2, 0],
+])
+const tsne = new TSNE(distances, { metric: 'precomputed', perplexity: 2 })
+const projection = tsne.transform()
+```
 
 #### Overrides
 
@@ -169,6 +207,14 @@ Transforms the data by performing dimensionality reduction on it.
 [`Matrix`](Matrix.md)
 
 The projection of the data after dimensionality reduction.
+
+#### Example
+
+```ts
+const tsne = new TSNE([[1, 2], [3, 4], [5, 6], [7, 8]])
+const projection = tsne.transform()        // default 500 iterations
+const projection2 = tsne.transform(1000)    // custom iterations
+```
 
 #### Inherited from
 

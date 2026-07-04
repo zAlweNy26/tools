@@ -113,6 +113,17 @@ The projection of the data after dimensionality reduction.
 
 The projection of the data after each iteration.
 
+#### Example
+
+```ts
+const tsne = new TSNE([[1, 2], [3, 4], [5, 6], [7, 8]])
+const gen = tsne.generator(200)
+for (const intermediate of gen) {
+  // intermediate is the projection at each iteration
+  console.log(intermediate.rows)
+}
+```
+
 ***
 
 ### init()
@@ -146,3 +157,11 @@ Transforms the data by performing dimensionality reduction on it.
 [`Matrix`](Matrix.md)
 
 The projection of the data after dimensionality reduction.
+
+#### Example
+
+```ts
+const tsne = new TSNE([[1, 2], [3, 4], [5, 6], [7, 8]])
+const projection = tsne.transform()        // default 500 iterations
+const projection2 = tsne.transform(1000)    // custom iterations
+```

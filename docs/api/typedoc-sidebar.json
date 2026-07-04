@@ -244,18 +244,6 @@
         "link": "/api/functions/getLCP.md"
       },
       {
-        "text": "isArray2D",
-        "link": "/api/functions/isArray2D.md"
-      },
-      {
-        "text": "isOfType",
-        "link": "/api/functions/isOfType.md"
-      },
-      {
-        "text": "isRightArray",
-        "link": "/api/functions/isRightArray.md"
-      },
-      {
         "text": "linearSpace",
         "link": "/api/functions/linearSpace.md"
       },
