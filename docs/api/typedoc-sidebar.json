@@ -270,6 +270,10 @@
       {
         "text": "pipe",
         "link": "/api/functions/pipe.md"
+      },
+      {
+        "text": "tryCatch",
+        "link": "/api/functions/tryCatch.md"
       }
     ]
   }

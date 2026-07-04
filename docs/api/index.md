@@ -92,3 +92,4 @@
 | [measure](functions/measure.md) | A decorator function that measures the execution time of a method and logs it to the console. |
 | [measureTime](functions/measureTime.md) | Measures the time it takes for a function to execute. |
 | [pipe](functions/pipe.md) | Creates a pipeline of functions where the output of one function is passed as the input to the next. |
+| [tryCatch](functions/tryCatch.md) | Catches errors from a promise. |
