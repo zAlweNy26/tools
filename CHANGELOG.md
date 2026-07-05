@@ -1,5 +1,41 @@
 # @danyalwe/tools
 
+## v0.1.5
+
+[compare changes](https://github.com/zAlweNy26/tools/compare/v0.1.4...v0.1.5)
+
+### 🚀 Enhancements
+
+- Add tryCatch utility ([b3ce5c9](https://github.com/zAlweNy26/tools/commit/b3ce5c9))
+- Add Heap structure ([b7ffacc](https://github.com/zAlweNy26/tools/commit/b7ffacc))
+- Add DirectedGraph and WeightedDirectedGraph structures ([31cce45](https://github.com/zAlweNy26/tools/commit/31cce45))
+- Add BST, export tree traversals methods ([26ee92f](https://github.com/zAlweNy26/tools/commit/26ee92f))
+
+### 🔥 Performance
+
+- Improve overall code performance ([a318afd](https://github.com/zAlweNy26/tools/commit/a318afd))
+
+### 📖 Documentation
+
+- Add utils examples ([7f35cd1](https://github.com/zAlweNy26/tools/commit/7f35cd1))
+- Add examples for all the groups ([65b1c95](https://github.com/zAlweNy26/tools/commit/65b1c95))
+- Update documentation ([1e84dfc](https://github.com/zAlweNy26/tools/commit/1e84dfc))
+- Categorize by group ([09283be](https://github.com/zAlweNy26/tools/commit/09283be))
+- Fix documentation ([0152ddb](https://github.com/zAlweNy26/tools/commit/0152ddb))
+
+### 🏡 Chore
+
+- **Tree:** Implement `Structure` interface ([e2f7af5](https://github.com/zAlweNy26/tools/commit/e2f7af5))
+- Better naming for folders/files ([8a079be](https://github.com/zAlweNy26/tools/commit/8a079be))
+
+### ✅ Tests
+
+- Remove useless utils and update tsne ([750e3c0](https://github.com/zAlweNy26/tools/commit/750e3c0))
+
+### ❤️ Contributors
+
+- Dany <alwe.dev@gmail.com>
+
 ## v0.1.4
 
 [compare changes](https://github.com/zAlweNy26/tools/compare/v0.1.3...v0.1.4)
