@@ -1,6 +1,6 @@
 import type { Structure } from '@interfaces/structure'
-import { TreeNode } from './structures'
-import { heightOrder, inOrder, postOrder, preOrder } from '@utils/tree_traversals'
+import { TreeNode } from './base'
+import { heightOrder, inOrder, postOrder, preOrder } from '@traversals/tree'
 
 /**
  * A node in a binary search tree.

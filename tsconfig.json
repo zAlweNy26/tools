@@ -12,7 +12,7 @@
       "@interfaces/*": ["./src/interfaces/*"],
       "@sortings/*": ["./src/sortings/*"],
       "@dim_red/*": ["./src/dim_red/*"],
-      "@researches/*": ["./src/researches/*"]
+      "@traversals/*": ["./src/traversals/*"]
     },
     "resolveJsonModule": true,
     "types": ["bun"],

@@ -1,4 +1,4 @@
-import { GraphStructure } from './structures'
+import { GraphStructure } from './base'
 
 /**
  * A graph data structure.

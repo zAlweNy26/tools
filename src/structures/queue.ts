@@ -1,4 +1,4 @@
-import { ListStructure } from './structures'
+import { ListStructure } from './base'
 
 /**
  * A queue data structure.

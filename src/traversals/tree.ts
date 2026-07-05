@@ -1,4 +1,4 @@
-import type { TreeNode } from '@structures/structures'
+import type { TreeNode } from '@structures/base'
 
 export function preOrder<T>(node: TreeNode<T> | null, result: T[]) {
   if (!node) return

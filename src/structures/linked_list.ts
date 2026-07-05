@@ -1,4 +1,4 @@
-import { BaseLinkedList, ListNode } from './structures'
+import { BaseLinkedList, ListNode } from './base'
 
 export { ListNode }
 

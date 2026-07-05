@@ -1,4 +1,4 @@
-import { GraphStructure } from './structures'
+import { GraphStructure } from './base'
 
 /** Weight value type used in weighted graphs. @group Structures */
 export type Weight = number

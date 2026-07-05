@@ -1,5 +1,5 @@
-import { kruskal } from '@researches/kruskal'
 import { WeightedGraph } from '@structures/weighted_graph'
+import { kruskal } from '@traversals/kruskal'
 import { describe, expect, test } from 'bun:test'
 
 describe('kruskal', () => {
