@@ -10,6 +10,10 @@ Represents a tree data structure.
 | ------ | ------ |
 | `T` | The type of data stored in the tree. |
 
+## Implements
+
+- [`Structure`](../interfaces/Structure.md)
+
 ## Constructors
 
 ### Constructor
@@ -36,21 +40,37 @@ Creates a new tree with the specified data as the root node.
 
 ## Accessors
 
-### depth
+### height
 
 #### Get Signature
 
-> **get** **depth**(): `number`
+> **get** **height**(): `number`
 
-Gets the depth of the tree.
+Gets the height of the tree.
 
 ##### Returns
 
 `number`
 
-The depth of the tree.
+The height of the tree.
 
 ## Methods
+
+### clear()
+
+> **clear**(): `Tree`\<`T`\>
+
+Clears the structure.
+
+#### Returns
+
+`Tree`\<`T`\>
+
+#### Implementation of
+
+[`Structure`](../interfaces/Structure.md).[`clear`](../interfaces/Structure.md#property-clear)
+
+***
 
 ### search()
 
@@ -72,6 +92,22 @@ The node with the specified data, or undefined if not found.
 
 ***
 
+### size()
+
+> **size**(): `number`
+
+The current number of elements in the structure.
+
+#### Returns
+
+`number`
+
+#### Implementation of
+
+[`Structure`](../interfaces/Structure.md).[`size`](../interfaces/Structure.md#property-size)
+
+***
+
 ### traverse()
 
 > **traverse**(`order?`): `T`[]
@@ -82,7 +118,7 @@ Traverses the tree in the specified order and returns an array of the visited no
 
 | Parameter | Type | Default value | Description |
 | ------ | ------ | ------ | ------ |
-| `order` | `"post"` \| `"pre"` \| `"in"` \| `"height"` | `'pre'` | The order in which to traverse the tree. Defaults to "pre". |
+| `order` | `"pre"` \| `"in"` \| `"post"` \| `"height"` | `'pre'` | The order in which to traverse the tree. Defaults to "pre". |
 
 #### Returns
 

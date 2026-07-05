@@ -25,7 +25,7 @@ root.height  // 2
 
 ### Constructor
 
-> **new TreeLeaf**\<`T`\>(`data`, `leaves?`): `TreeLeaf`\<`T`\>
+> **new TreeLeaf**\<`T`\>(`data`, `children?`): `TreeLeaf`\<`T`\>
 
 Creates a new TreeLeaf instance.
 
@@ -34,18 +34,21 @@ Creates a new TreeLeaf instance.
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `data` | `T` | The data to store in the leaf. |
-| `leaves?` | `TreeLeaf`\<`T`\>[] | Optional child leaves to add to the leaf. |
+| `children?` | `TreeLeaf`\<`T`\>[] | Optional child leaves. |
 
 #### Returns
 
 `TreeLeaf`\<`T`\>
 
+#### Overrides
+
+`TreeNode<T>.constructor`
+
 ## Properties
 
-| Property | Modifier | Type | Default value | Description |
-| ------ | ------ | ------ | ------ | ------ |
-| <a id="property-data"></a> `data` | `public` | `T` | `undefined` | The data to store in the leaf. |
-| <a id="property-leaves"></a> `leaves` | `public` | `TreeLeaf`\<`T`\>[] | `[]` | The child leaves of this leaf. |
+| Property | Modifier | Type | Inherited from |
+| ------ | ------ | ------ | ------ |
+| <a id="property-data"></a> `data` | `public` | `T` | `TreeNode.data` |
 
 ## Accessors
 
@@ -53,13 +56,15 @@ Creates a new TreeLeaf instance.
 
 #### Get Signature
 
-> **get** **children**(): `T`[]
-
-Returns an array of the data stored in the child leaves of this leaf.
+> **get** **children**(): `TreeLeaf`\<`T`\>[]
 
 ##### Returns
 
-`T`[]
+`TreeLeaf`\<`T`\>[]
+
+#### Overrides
+
+`TreeNode.children`
 
 ***
 
@@ -69,11 +74,13 @@ Returns an array of the data stored in the child leaves of this leaf.
 
 > **get** **height**(): `number`
 
-Returns the height of the tree rooted at this leaf.
-
 ##### Returns
 
 `number`
+
+#### Inherited from
+
+`TreeNode.height`
 
 ## Methods
 

@@ -1,7 +1,5 @@
 import type { Structure } from '@interfaces/structure'
 
-export type CompareFn<T> = (a: T, b: T) => boolean
-
 /**
  * A binary heap data structure.
  * @template T The type of elements held in the heap.
@@ -19,14 +17,14 @@ export type CompareFn<T> = (a: T, b: T) => boolean
  */
 export class Heap<T> implements Structure {
   private _data: T[] = []
-  private _compare: CompareFn<T>
+  private _compare: (a: T, b: T) => boolean
 
   /**
    * Creates a new heap with an optional comparator function.
    * Default is a min-heap (`(a, b) => a < b`).
    * @param compare A comparator function that returns true if `a` should be above `b`.
    */
-  constructor(compare: CompareFn<T> = (a, b) => a < b) {
+  constructor(compare: (a: T, b: T) => boolean = (a, b) => a < b) {
     this._compare = compare
   }
 

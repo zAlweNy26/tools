@@ -16,10 +16,6 @@ const projection = tsne.transform()
 projection.forEach(row => console.log(row)) // 2D coordinates
 ```
 
-## Extends
-
-- [`DimRed`](DimRed.md)\<[`TSNEParams`](../interfaces/TSNEParams.md)\>
-
 ## Constructors
 
 ### Constructor
@@ -41,7 +37,7 @@ t-SNE algorithm for dimensionality reduction.
 
 #### Overrides
 
-[`DimRed`](DimRed.md).[`constructor`](DimRed.md#constructor)
+`DimRed<TSNEParams>.constructor`
 
 ## Accessors
 
@@ -59,7 +55,7 @@ Gets the dimensionality of the data after dimensionality reduction.
 
 #### Inherited from
 
-[`DimRed`](DimRed.md).[`dimensionality`](DimRed.md#dimensionality)
+`DimRed.dimensionality`
 
 ***
 
@@ -77,7 +73,7 @@ Gets the metric used for calculating distances between data points.
 
 #### Inherited from
 
-[`DimRed`](DimRed.md).[`metric`](DimRed.md#metric)
+`DimRed.metric`
 
 ***
 
@@ -95,7 +91,7 @@ Gets the parameters used for the algorithm.
 
 #### Inherited from
 
-[`DimRed`](DimRed.md).[`parameters`](DimRed.md#parameters)
+`DimRed.parameters`
 
 ***
 
@@ -113,7 +109,7 @@ Gets the seed used for generating random numbers.
 
 #### Inherited from
 
-[`DimRed`](DimRed.md).[`seed`](DimRed.md#seed)
+`DimRed.seed`
 
 ## Methods
 
@@ -152,7 +148,7 @@ for (const intermediate of gen) {
 
 #### Inherited from
 
-[`DimRed`](DimRed.md).[`generator`](DimRed.md#generator)
+`DimRed.generator`
 
 ***
 
@@ -186,7 +182,7 @@ const projection = tsne.transform()
 
 #### Overrides
 
-[`DimRed`](DimRed.md).[`init`](DimRed.md#init)
+`DimRed.init`
 
 ***
 
@@ -218,4 +214,4 @@ const projection2 = tsne.transform(1000)    // custom iterations
 
 #### Inherited from
 
-[`DimRed`](DimRed.md).[`transform`](DimRed.md#transform)
+`DimRed.transform`

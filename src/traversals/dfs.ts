@@ -14,7 +14,7 @@ import { Stack } from '@structures/stack'
  *
  * depthFirstSearch(graph) // [1, 3, 2, 4]
  * ```
- * @group Researches
+ * @group Traversals
  */
 export function depthFirstSearch<T>(graph: Graph<T>) {
   const visited = new Set()

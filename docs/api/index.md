@@ -13,7 +13,6 @@
 
 | Class | Description |
 | ------ | ------ |
-| [DimRed](classes/DimRed.md) | A class for performing dimensionality reduction on a matrix of data. |
 | [TSNE](classes/TSNE.md) | Implementation of the t-Distributed Stochastic Neighbor Embedding (t-SNE) algorithm. |
 
 ## Distances
@@ -32,52 +31,52 @@
 | [minkowski](functions/minkowski.md) | Returns a function that calculates the Minkowski distance between `a` and `b` using order `p`. When `p = 1` it is equivalent to Manhattan distance, `p = 2` to Euclidean distance, and `p → ∞` to Chebyshev distance. |
 | [pearson](functions/pearson.md) | Calculates the Pearson correlation distance between `a` and `b`. Defined as `1 - r`, where `r` is the Pearson correlation coefficient. The result is bounded in [0, 2]; 0 means perfect positive correlation, 2 means perfect negative correlation. |
 
-## Researches
-
-| Function | Description |
-| ------ | ------ |
-| [breadthFirstSearch](functions/breadthFirstSearch.md) | Performs a breadth-first search traversal on a graph. |
-| [depthFirstSearch](functions/depthFirstSearch.md) | Performs a depth-first search traversal on a graph. |
-| [kruskal](functions/kruskal.md) | Finds the minimum spanning tree of a weighted graph using Kruskal's algorithm. |
-
 ## Sortings
 
 | Function | Description |
 | ------ | ------ |
-| [bubbleSortNum](functions/bubbleSortNum.md) | Sorts an array of numbers using the bubble sort algorithm. |
-| [bubbleSortStr](functions/bubbleSortStr.md) | Sorts an array of strings using the bubble sort algorithm. |
-| [countingSort](functions/countingSort.md) | Sorts an array of numbers using the counting sort algorithm. |
-| [insertionSortNum](functions/insertionSortNum.md) | Sorts an array of numbers using the insertion sort algorithm. |
-| [insertionSortStr](functions/insertionSortStr.md) | Sorts an array of strings using the insertion sort algorithm. |
-| [mergeSortNum](functions/mergeSortNum.md) | Sorts an array of numbers using the merge sort algorithm. |
-| [mergeSortStr](functions/mergeSortStr.md) | Sorts an array of strings using the merge sort algorithm. |
-| [quickSortNum](functions/quickSortNum.md) | Sorts an array of numbers using the quick sort algorithm. |
-| [quickSortStr](functions/quickSortStr.md) | Sorts an array of strings using the quick sort algorithm. |
-| [selectionSortNum](functions/selectionSortNum.md) | Sorts an array of numbers using the selection sort algorithm. |
-| [selectionSortStr](functions/selectionSortStr.md) | Sorts an array of strings using the selection sort algorithm. |
+| [bubbleSort](functions/bubbleSort.md) | Sorts an array using the bubble sort algorithm. |
+| [countingSort](functions/countingSort.md) | Sorts an array using the counting sort algorithm. |
+| [insertionSort](functions/insertionSort.md) | Sorts an array using the insertion sort algorithm. |
+| [mergeSort](functions/mergeSort.md) | Sorts an array using the merge sort algorithm. |
+| [quickSort](functions/quickSort.md) | Sorts an array using the quick sort algorithm. |
+| [selectionSort](functions/selectionSort.md) | Sorts an array using the selection sort algorithm. |
 
 ## Structures
 
 | Name | Description |
 | ------ | ------ |
-| [BaseLinkedList](classes/BaseLinkedList.md) | Abstract base class for linked list implementations. |
+| [BinarySearchTree](classes/BinarySearchTree.md) | A binary search tree data structure. |
+| [BSTNode](classes/BSTNode.md) | A node in a binary search tree. |
 | [CircularQueue](classes/CircularQueue.md) | A circular queue data structure. |
+| [DirectedGraph](classes/DirectedGraph.md) | A directed graph data structure. Edges go in one direction only. |
 | [DoublyLinkedList](classes/DoublyLinkedList.md) | A doubly linked list data structure. |
 | [DoublyListNode](classes/DoublyListNode.md) | Represents a node in a doubly linked list. |
 | [FixedArray](classes/FixedArray.md) | A fixed-capacity array that extends the built-in Array class. |
 | [Graph](classes/Graph.md) | A graph data structure. |
-| [GraphStructure](classes/GraphStructure.md) | Abstract class representing a graph structure. |
+| [Heap](classes/Heap.md) | A binary heap data structure. |
 | [LinkedList](classes/LinkedList.md) | A singly linked list data structure. |
-| [ListNode](classes/ListNode.md) | Represents a node in a singly linked list. |
-| [ListStructure](classes/ListStructure.md) | Abstract class representing a list structure. |
 | [Matrix](classes/Matrix.md) | A matrix data structure. |
 | [Queue](classes/Queue.md) | A queue data structure. |
 | [Stack](classes/Stack.md) | A stack data structure. |
 | [Tree](classes/Tree.md) | Represents a tree data structure. |
 | [TreeLeaf](classes/TreeLeaf.md) | Represents a leaf in a tree data structure. |
+| [WeightedDirectedGraph](classes/WeightedDirectedGraph.md) | A directed, weighted graph data structure. Edges go in one direction only with weights. |
 | [WeightedGraph](classes/WeightedGraph.md) | A weighted graph data structure. |
 | [Edge](type-aliases/Edge.md) | An edge represented as a tuple of a vertex and its weight. |
 | [Weight](type-aliases/Weight.md) | Weight value type used in weighted graphs. |
+
+## Traversals
+
+| Function | Description |
+| ------ | ------ |
+| [breadthFirstSearch](functions/breadthFirstSearch.md) | Performs a breadth-first search traversal on a graph. |
+| [depthFirstSearch](functions/depthFirstSearch.md) | Performs a depth-first search traversal on a graph. |
+| [heightOrder](functions/heightOrder.md) | Traverses a tree by height (level order), visiting the root, then all nodes at each subsequent level. |
+| [inOrder](functions/inOrder.md) | Performs an in-order traversal of a tree. Visits children up to `splitAt`, then the root, then remaining children. |
+| [kruskal](functions/kruskal.md) | Finds the minimum spanning tree of a weighted graph using Kruskal's algorithm. |
+| [postOrder](functions/postOrder.md) | Traverses a tree in post-order (children left-to-right, then root). |
+| [preOrder](functions/preOrder.md) | Traverses a tree in pre-order (root first, then children left-to-right). |
 
 ## Utils
 

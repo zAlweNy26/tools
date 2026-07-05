@@ -1,23 +1,23 @@
-[Overview](../index.md) / WeightedGraph
+[Overview](../index.md) / WeightedDirectedGraph
 
-# WeightedGraph\<N\>
+# WeightedDirectedGraph\<N\>
 
-A weighted graph data structure.
+A directed, weighted graph data structure. Edges go in one direction only with weights.
 
 ## Example
 
 ```ts
-import { WeightedGraph } from '@danyalwe/tools'
+import { WeightedDirectedGraph } from '@danyalwe/tools'
 
-const graph = new WeightedGraph<string>('A')
+const graph = new WeightedDirectedGraph<string>('A')
 graph.addEdge('A', 'B', 5)
-graph.addEdge('A', 'C', 3)
 graph.getWeight('A', 'B')  // 5
+graph.isAdjacent('B', 'A') // false
 ```
 
-## Extended by
+## Extends
 
-- [`WeightedDirectedGraph`](WeightedDirectedGraph.md)
+- [`WeightedGraph`](WeightedGraph.md)\<`N`\>
 
 ## Type Parameters
 
@@ -29,23 +29,23 @@ graph.getWeight('A', 'B')  // 5
 
 ### Constructor
 
-> **new WeightedGraph**\<`N`\>(`node`): `WeightedGraph`\<`N`\>
+> **new WeightedDirectedGraph**\<`N`\>(`node`): `WeightedDirectedGraph`\<`N`\>
 
-Creates a new weighted graph with the given node.
+Creates a new weighted directed graph with the given node.
 
 #### Parameters
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `node` | `N` | The first node to add to the weighted graph. |
+| `node` | `N` | The first node to add to the graph. |
 
 #### Returns
 
-`WeightedGraph`\<`N`\>
+`WeightedDirectedGraph`\<`N`\>
 
 #### Overrides
 
-`GraphStructure<N, Edge<N>>.constructor`
+[`WeightedGraph`](WeightedGraph.md).[`constructor`](WeightedGraph.md#constructor)
 
 ## Accessors
 
@@ -63,13 +63,13 @@ Returns an array of nodes in the graph.
 
 #### Inherited from
 
-`GraphStructure.nodes`
+[`WeightedGraph`](WeightedGraph.md).[`nodes`](WeightedGraph.md#nodes)
 
 ## Methods
 
 ### addEdge()
 
-> **addEdge**(`v1`, `v2`, `weight?`): `WeightedGraph`\<`N`\>
+> **addEdge**(`v1`, `v2`, `weight?`): `WeightedDirectedGraph`\<`N`\>
 
 Adds an edge between two nodes with an optional weight.
 
@@ -83,7 +83,7 @@ Adds an edge between two nodes with an optional weight.
 
 #### Returns
 
-`WeightedGraph`\<`N`\>
+`WeightedDirectedGraph`\<`N`\>
 
 The updated weighted graph.
 
@@ -93,7 +93,27 @@ An error if the first node is not found or if the edge already exists.
 
 #### Overrides
 
-`GraphStructure.addEdge`
+[`WeightedGraph`](WeightedGraph.md).[`addEdge`](WeightedGraph.md#addedge)
+
+***
+
+### addNode()
+
+> **addNode**(`node`): `WeightedDirectedGraph`\<`N`\>
+
+Adds a node to the graph.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `N` | The node to add. |
+
+#### Returns
+
+`WeightedDirectedGraph`\<`N`\>
+
+The graph instance.
 
 ***
 
@@ -109,7 +129,7 @@ Clears the graph by removing all nodes and edges.
 
 #### Inherited from
 
-`GraphStructure.clear`
+[`WeightedGraph`](WeightedGraph.md).[`clear`](WeightedGraph.md#clear)
 
 ***
 
@@ -135,9 +155,9 @@ An array of edges, each represented as a `[node, weight]` tuple.
 
 An error if the node is not found.
 
-#### Overrides
+#### Inherited from
 
-`GraphStructure.getEdges`
+[`WeightedGraph`](WeightedGraph.md).[`getEdges`](WeightedGraph.md#getedges)
 
 ***
 
@@ -166,6 +186,10 @@ The weight of the edge between the nodes.
 
 Error if the first or second node is not found.
 
+#### Inherited from
+
+[`WeightedGraph`](WeightedGraph.md).[`getWeight`](WeightedGraph.md#getweight)
+
 ***
 
 ### hasCycle()
@@ -182,7 +206,7 @@ True if a cycle is detected, false otherwise.
 
 #### Overrides
 
-`GraphStructure.hasCycle`
+[`WeightedGraph`](WeightedGraph.md).[`hasCycle`](WeightedGraph.md#hascycle)
 
 ***
 
@@ -204,7 +228,7 @@ Returns true if the graph contains the given node, false otherwise.
 
 #### Inherited from
 
-`GraphStructure.hasNode`
+[`WeightedGraph`](WeightedGraph.md).[`hasNode`](WeightedGraph.md#hasnode)
 
 ***
 
@@ -231,15 +255,15 @@ True if the nodes are adjacent, false otherwise.
 
 An error if the first node is not found.
 
-#### Overrides
+#### Inherited from
 
-`GraphStructure.isAdjacent`
+[`WeightedGraph`](WeightedGraph.md).[`isAdjacent`](WeightedGraph.md#isadjacent)
 
 ***
 
 ### removeEdge()
 
-> **removeEdge**(`v1`, `v2`): `WeightedGraph`\<`N`\>
+> **removeEdge**(`v1`, `v2`): `WeightedDirectedGraph`\<`N`\>
 
 Removes an edge between two nodes in the weighted graph.
 
@@ -252,7 +276,7 @@ Removes an edge between two nodes in the weighted graph.
 
 #### Returns
 
-`WeightedGraph`\<`N`\>
+`WeightedDirectedGraph`\<`N`\>
 
 The weighted graph instance.
 
@@ -262,13 +286,13 @@ An error if either node is not found or if the edge does not exist.
 
 #### Overrides
 
-`GraphStructure.removeEdge`
+[`WeightedGraph`](WeightedGraph.md).[`removeEdge`](WeightedGraph.md#removeedge)
 
 ***
 
 ### removeNode()
 
-> **removeNode**(`node`): `WeightedGraph`\<`N`\>
+> **removeNode**(`node`): `WeightedDirectedGraph`\<`N`\>
 
 Removes a node from the weighted graph and all edges connected to it.
 
@@ -280,7 +304,7 @@ Removes a node from the weighted graph and all edges connected to it.
 
 #### Returns
 
-`WeightedGraph`\<`N`\>
+`WeightedDirectedGraph`\<`N`\>
 
 The weighted graph instance.
 
@@ -288,9 +312,9 @@ The weighted graph instance.
 
 An error if the node is not found.
 
-#### Overrides
+#### Inherited from
 
-`GraphStructure.removeNode`
+[`WeightedGraph`](WeightedGraph.md).[`removeNode`](WeightedGraph.md#removenode)
 
 ***
 
@@ -306,4 +330,4 @@ The current number of elements in the graph.
 
 #### Inherited from
 
-`GraphStructure.size`
+[`WeightedGraph`](WeightedGraph.md).[`size`](WeightedGraph.md#size)

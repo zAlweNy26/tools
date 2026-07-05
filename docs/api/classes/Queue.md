@@ -15,10 +15,6 @@ queue.enqueue('b')
 queue.dequeue() // 'a'
 ```
 
-## Extends
-
-- [`ListStructure`](ListStructure.md)\<`T`\>
-
 ## Extended by
 
 - [`CircularQueue`](CircularQueue.md)
@@ -49,7 +45,7 @@ Creates a new queue with the specified size or elements.
 
 #### Overrides
 
-[`ListStructure`](ListStructure.md).[`constructor`](ListStructure.md#constructor)
+`ListStructure<T>.constructor`
 
 ## Accessors
 
@@ -69,7 +65,7 @@ True if the queue has available space, false otherwise.
 
 #### Overrides
 
-[`ListStructure`](ListStructure.md).[`hasRoom`](ListStructure.md#hasroom)
+`ListStructure.hasRoom`
 
 ***
 
@@ -89,7 +85,7 @@ True if the queue is empty, false otherwise.
 
 #### Overrides
 
-[`ListStructure`](ListStructure.md).[`isEmpty`](ListStructure.md#isempty)
+`ListStructure.isEmpty`
 
 ***
 
@@ -109,7 +105,7 @@ True if the queue is full, false otherwise.
 
 #### Overrides
 
-[`ListStructure`](ListStructure.md).[`isFull`](ListStructure.md#isfull)
+`ListStructure.isFull`
 
 ***
 
@@ -127,7 +123,7 @@ An array of all the elements in the list.
 
 #### Inherited from
 
-[`ListStructure`](ListStructure.md).[`items`](ListStructure.md#items)
+`ListStructure.items`
 
 ***
 
@@ -147,7 +143,7 @@ The number of available spaces in the queue.
 
 #### Overrides
 
-[`ListStructure`](ListStructure.md).[`space`](ListStructure.md#space)
+`ListStructure.space`
 
 ## Methods
 
@@ -165,7 +161,7 @@ The queue instance.
 
 #### Overrides
 
-[`ListStructure`](ListStructure.md).[`clear`](ListStructure.md#clear)
+`ListStructure.clear`
 
 ***
 
@@ -223,7 +219,7 @@ The element at the front of the queue or undefined if the queue is empty.
 
 #### Overrides
 
-[`ListStructure`](ListStructure.md).[`peek`](ListStructure.md#peek)
+`ListStructure.peek`
 
 ***
 
@@ -239,4 +235,4 @@ The current number of elements in the queue.
 
 #### Overrides
 
-[`ListStructure`](ListStructure.md).[`size`](ListStructure.md#size)
+`ListStructure.size`

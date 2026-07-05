@@ -4,7 +4,7 @@
 
 > **countingSort**(`array`): `number`[]
 
-Sorts an array of numbers using the counting sort algorithm.
+Sorts an array using the counting sort algorithm.
 
 ## Parameters
 

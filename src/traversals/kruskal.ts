@@ -15,7 +15,7 @@ import { WeightedGraph } from '@structures/weighted_graph'
  * const mst = kruskal(graph)
  * // MST edges: B-C (1), A-B (2), B-D (4)
  * ```
- * @group Researches
+ * @group Traversals
  */
 export function kruskal<T>(graph: WeightedGraph<T>) {
   const edges: [T, T, number][] = []

@@ -4,10 +4,6 @@
 
 Represents a node in a doubly linked list.
 
-## Extends
-
-- [`ListNode`](ListNode.md)\<`T`\>
-
 ## Type Parameters
 
 | Type Parameter | Description |
@@ -36,12 +32,12 @@ Creates a new doubly linked list node.
 
 #### Overrides
 
-[`ListNode`](ListNode.md).[`constructor`](ListNode.md#constructor)
+`ListNode<T>.constructor`
 
 ## Properties
 
 | Property | Type | Description | Overrides | Inherited from |
 | ------ | ------ | ------ | ------ | ------ |
-| <a id="property-data"></a> `data` | `T` | The data stored in the node. | - | [`ListNode`](ListNode.md).[`data`](ListNode.md#property-data) |
-| <a id="property-next"></a> `next` | `DoublyListNode`\<`T`\> \| `null` | The next node in the list, or null if this is the last node. | [`ListNode`](ListNode.md).[`next`](ListNode.md#property-next) | - |
+| <a id="property-data"></a> `data` | `T` | The data stored in the node. | - | `ListNode.data` |
+| <a id="property-next"></a> `next` | `DoublyListNode`\<`T`\> \| `null` | The next node in the list, or null if this is the last node. | `ListNode.next` | - |
 | <a id="property-prev"></a> `prev` | `DoublyListNode`\<`T`\> \| `null` | The previous node in the list, or null if this is the first node. | - | - |

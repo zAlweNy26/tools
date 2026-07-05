@@ -16,10 +16,6 @@ stack.pop()   // 2
 stack.peek()  // 1
 ```
 
-## Extends
-
-- [`ListStructure`](ListStructure.md)\<`T`\>
-
 ## Type Parameters
 
 | Type Parameter | Description |
@@ -46,7 +42,7 @@ Creates a new stack with the specified size or elements.
 
 #### Overrides
 
-[`ListStructure`](ListStructure.md).[`constructor`](ListStructure.md#constructor)
+`ListStructure<T>.constructor`
 
 ## Accessors
 
@@ -66,7 +62,7 @@ True if the stack has room for more elements, false otherwise.
 
 #### Overrides
 
-[`ListStructure`](ListStructure.md).[`hasRoom`](ListStructure.md#hasroom)
+`ListStructure.hasRoom`
 
 ***
 
@@ -86,7 +82,7 @@ True if the stack is empty, false otherwise.
 
 #### Overrides
 
-[`ListStructure`](ListStructure.md).[`isEmpty`](ListStructure.md#isempty)
+`ListStructure.isEmpty`
 
 ***
 
@@ -106,7 +102,7 @@ True if the stack is full, false otherwise.
 
 #### Overrides
 
-[`ListStructure`](ListStructure.md).[`isFull`](ListStructure.md#isfull)
+`ListStructure.isFull`
 
 ***
 
@@ -124,7 +120,7 @@ An array of all the elements in the list.
 
 #### Inherited from
 
-[`ListStructure`](ListStructure.md).[`items`](ListStructure.md#items)
+`ListStructure.items`
 
 ***
 
@@ -144,7 +140,7 @@ The remaining space in the stack.
 
 #### Overrides
 
-[`ListStructure`](ListStructure.md).[`space`](ListStructure.md#space)
+`ListStructure.space`
 
 ## Methods
 
@@ -160,7 +156,7 @@ Clears the list.
 
 #### Inherited from
 
-[`ListStructure`](ListStructure.md).[`clear`](ListStructure.md#clear)
+`ListStructure.clear`
 
 ***
 
@@ -178,7 +174,7 @@ The element at the top of the stack.
 
 #### Overrides
 
-[`ListStructure`](ListStructure.md).[`peek`](ListStructure.md#peek)
+`ListStructure.peek`
 
 ***
 
@@ -234,4 +230,4 @@ The current number of elements in the list.
 
 #### Inherited from
 
-[`ListStructure`](ListStructure.md).[`size`](ListStructure.md#size)
+`ListStructure.size`

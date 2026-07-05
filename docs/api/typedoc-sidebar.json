@@ -26,10 +26,6 @@
     "collapsed": true,
     "items": [
       {
-        "text": "DimRed",
-        "link": "/api/classes/DimRed.md"
-      },
-      {
         "text": "TSNE",
         "link": "/api/classes/TSNE.md"
       }
@@ -86,70 +82,32 @@
     ]
   },
   {
-    "text": "Researches",
-    "collapsed": true,
-    "items": [
-      {
-        "text": "breadthFirstSearch",
-        "link": "/api/functions/breadthFirstSearch.md"
-      },
-      {
-        "text": "depthFirstSearch",
-        "link": "/api/functions/depthFirstSearch.md"
-      },
-      {
-        "text": "kruskal",
-        "link": "/api/functions/kruskal.md"
-      }
-    ]
-  },
-  {
     "text": "Sortings",
     "collapsed": true,
     "items": [
       {
-        "text": "bubbleSortNum",
-        "link": "/api/functions/bubbleSortNum.md"
-      },
-      {
-        "text": "bubbleSortStr",
-        "link": "/api/functions/bubbleSortStr.md"
+        "text": "bubbleSort",
+        "link": "/api/functions/bubbleSort.md"
       },
       {
         "text": "countingSort",
         "link": "/api/functions/countingSort.md"
       },
       {
-        "text": "insertionSortNum",
-        "link": "/api/functions/insertionSortNum.md"
+        "text": "insertionSort",
+        "link": "/api/functions/insertionSort.md"
       },
       {
-        "text": "insertionSortStr",
-        "link": "/api/functions/insertionSortStr.md"
+        "text": "mergeSort",
+        "link": "/api/functions/mergeSort.md"
       },
       {
-        "text": "mergeSortNum",
-        "link": "/api/functions/mergeSortNum.md"
+        "text": "quickSort",
+        "link": "/api/functions/quickSort.md"
       },
       {
-        "text": "mergeSortStr",
-        "link": "/api/functions/mergeSortStr.md"
-      },
-      {
-        "text": "quickSortNum",
-        "link": "/api/functions/quickSortNum.md"
-      },
-      {
-        "text": "quickSortStr",
-        "link": "/api/functions/quickSortStr.md"
-      },
-      {
-        "text": "selectionSortNum",
-        "link": "/api/functions/selectionSortNum.md"
-      },
-      {
-        "text": "selectionSortStr",
-        "link": "/api/functions/selectionSortStr.md"
+        "text": "selectionSort",
+        "link": "/api/functions/selectionSort.md"
       }
     ]
   },
@@ -158,12 +116,20 @@
     "collapsed": true,
     "items": [
       {
-        "text": "BaseLinkedList",
-        "link": "/api/classes/BaseLinkedList.md"
+        "text": "BinarySearchTree",
+        "link": "/api/classes/BinarySearchTree.md"
+      },
+      {
+        "text": "BSTNode",
+        "link": "/api/classes/BSTNode.md"
       },
       {
         "text": "CircularQueue",
         "link": "/api/classes/CircularQueue.md"
+      },
+      {
+        "text": "DirectedGraph",
+        "link": "/api/classes/DirectedGraph.md"
       },
       {
         "text": "DoublyLinkedList",
@@ -182,20 +148,12 @@
         "link": "/api/classes/Graph.md"
       },
       {
-        "text": "GraphStructure",
-        "link": "/api/classes/GraphStructure.md"
+        "text": "Heap",
+        "link": "/api/classes/Heap.md"
       },
       {
         "text": "LinkedList",
         "link": "/api/classes/LinkedList.md"
-      },
-      {
-        "text": "ListNode",
-        "link": "/api/classes/ListNode.md"
-      },
-      {
-        "text": "ListStructure",
-        "link": "/api/classes/ListStructure.md"
       },
       {
         "text": "Matrix",
@@ -218,6 +176,10 @@
         "link": "/api/classes/TreeLeaf.md"
       },
       {
+        "text": "WeightedDirectedGraph",
+        "link": "/api/classes/WeightedDirectedGraph.md"
+      },
+      {
         "text": "WeightedGraph",
         "link": "/api/classes/WeightedGraph.md"
       },
@@ -228,6 +190,40 @@
       {
         "text": "Weight",
         "link": "/api/type-aliases/Weight.md"
+      }
+    ]
+  },
+  {
+    "text": "Traversals",
+    "collapsed": true,
+    "items": [
+      {
+        "text": "breadthFirstSearch",
+        "link": "/api/functions/breadthFirstSearch.md"
+      },
+      {
+        "text": "depthFirstSearch",
+        "link": "/api/functions/depthFirstSearch.md"
+      },
+      {
+        "text": "heightOrder",
+        "link": "/api/functions/heightOrder.md"
+      },
+      {
+        "text": "inOrder",
+        "link": "/api/functions/inOrder.md"
+      },
+      {
+        "text": "kruskal",
+        "link": "/api/functions/kruskal.md"
+      },
+      {
+        "text": "postOrder",
+        "link": "/api/functions/postOrder.md"
+      },
+      {
+        "text": "preOrder",
+        "link": "/api/functions/preOrder.md"
       }
     ]
   },

@@ -1,24 +1,23 @@
-[Overview](../index.md) / Graph
+[Overview](../index.md) / DirectedGraph
 
-# Graph\<N\>
+# DirectedGraph\<N\>
 
-A graph data structure.
+A directed graph data structure. Edges go in one direction only.
 
 ## Example
 
 ```ts
-import { Graph } from '@danyalwe/tools'
+import { DirectedGraph } from '@danyalwe/tools'
 
-const graph = new Graph<string>('A')
+const graph = new DirectedGraph<string>('A')
 graph.addEdge('A', 'B')
-graph.addEdge('A', 'C')
 graph.isAdjacent('A', 'B')  // true
-graph.getEdges('A')         // ['B', 'C']
+graph.isAdjacent('B', 'A')  // false
 ```
 
-## Extended by
+## Extends
 
-- [`DirectedGraph`](DirectedGraph.md)
+- [`Graph`](Graph.md)\<`N`\>
 
 ## Type Parameters
 
@@ -30,9 +29,9 @@ graph.getEdges('A')         // ['B', 'C']
 
 ### Constructor
 
-> **new Graph**\<`N`\>(`node`): `Graph`\<`N`\>
+> **new DirectedGraph**\<`N`\>(`node`): `DirectedGraph`\<`N`\>
 
-Creates a new graph with the given node.
+Creates a new directed graph with the given node.
 
 #### Parameters
 
@@ -42,11 +41,11 @@ Creates a new graph with the given node.
 
 #### Returns
 
-`Graph`\<`N`\>
+`DirectedGraph`\<`N`\>
 
 #### Overrides
 
-`GraphStructure<N, N>.constructor`
+[`Graph`](Graph.md).[`constructor`](Graph.md#constructor)
 
 ## Accessors
 
@@ -64,13 +63,13 @@ Returns an array of nodes in the graph.
 
 #### Inherited from
 
-`GraphStructure.nodes`
+[`Graph`](Graph.md).[`nodes`](Graph.md#nodes)
 
 ## Methods
 
 ### addEdge()
 
-> **addEdge**(`v1`, `v2`): `Graph`\<`N`\>
+> **addEdge**(`v1`, `v2`): `DirectedGraph`\<`N`\>
 
 Adds an edge between two nodes in the graph.
 
@@ -83,7 +82,7 @@ Adds an edge between two nodes in the graph.
 
 #### Returns
 
-`Graph`\<`N`\>
+`DirectedGraph`\<`N`\>
 
 The graph instance.
 
@@ -93,7 +92,27 @@ An error if the first node is not found or if the edge already exists.
 
 #### Overrides
 
-`GraphStructure.addEdge`
+[`Graph`](Graph.md).[`addEdge`](Graph.md#addedge)
+
+***
+
+### addNode()
+
+> **addNode**(`node`): `DirectedGraph`\<`N`\>
+
+Adds a node to the graph.
+
+#### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `N` | The node to add. |
+
+#### Returns
+
+`DirectedGraph`\<`N`\>
+
+The graph instance.
 
 ***
 
@@ -109,7 +128,7 @@ Clears the graph by removing all nodes and edges.
 
 #### Inherited from
 
-`GraphStructure.clear`
+[`Graph`](Graph.md).[`clear`](Graph.md#clear)
 
 ***
 
@@ -135,9 +154,9 @@ An array of adjacent nodes.
 
 An error if the node is not found.
 
-#### Overrides
+#### Inherited from
 
-`GraphStructure.getEdges`
+[`Graph`](Graph.md).[`getEdges`](Graph.md#getedges)
 
 ***
 
@@ -155,7 +174,7 @@ True if a cycle is detected, false otherwise.
 
 #### Overrides
 
-`GraphStructure.hasCycle`
+[`Graph`](Graph.md).[`hasCycle`](Graph.md#hascycle)
 
 ***
 
@@ -177,7 +196,7 @@ Returns true if the graph contains the given node, false otherwise.
 
 #### Inherited from
 
-`GraphStructure.hasNode`
+[`Graph`](Graph.md).[`hasNode`](Graph.md#hasnode)
 
 ***
 
@@ -204,15 +223,15 @@ True if the nodes are adjacent, false otherwise.
 
 An error if the first node is not found.
 
-#### Overrides
+#### Inherited from
 
-`GraphStructure.isAdjacent`
+[`Graph`](Graph.md).[`isAdjacent`](Graph.md#isadjacent)
 
 ***
 
 ### removeEdge()
 
-> **removeEdge**(`v1`, `v2`): `Graph`\<`N`\>
+> **removeEdge**(`v1`, `v2`): `DirectedGraph`\<`N`\>
 
 Removes an edge between two nodes in the graph.
 
@@ -225,7 +244,7 @@ Removes an edge between two nodes in the graph.
 
 #### Returns
 
-`Graph`\<`N`\>
+`DirectedGraph`\<`N`\>
 
 The graph instance.
 
@@ -235,13 +254,13 @@ An error if either node is not found or if the edge does not exist.
 
 #### Overrides
 
-`GraphStructure.removeEdge`
+[`Graph`](Graph.md).[`removeEdge`](Graph.md#removeedge)
 
 ***
 
 ### removeNode()
 
-> **removeNode**(`node`): `Graph`\<`N`\>
+> **removeNode**(`node`): `DirectedGraph`\<`N`\>
 
 Removes a node from the graph and all edges connected to it.
 
@@ -253,7 +272,7 @@ Removes a node from the graph and all edges connected to it.
 
 #### Returns
 
-`Graph`\<`N`\>
+`DirectedGraph`\<`N`\>
 
 The graph instance.
 
@@ -261,9 +280,9 @@ The graph instance.
 
 An error if the node is not found.
 
-#### Overrides
+#### Inherited from
 
-`GraphStructure.removeNode`
+[`Graph`](Graph.md).[`removeNode`](Graph.md#removenode)
 
 ***
 
@@ -279,4 +298,4 @@ The current number of elements in the graph.
 
 #### Inherited from
 
-`GraphStructure.size`
+[`Graph`](Graph.md).[`size`](Graph.md#size)
