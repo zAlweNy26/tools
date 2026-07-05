@@ -4,9 +4,7 @@
 
 ![Test Coverage](./api/test-coverage.svg)
 
-[![NPM V  ersion](https://img.shields.io/npm/v/@danyalwe/tools)](https://www.npmjs.com/package/@danyalwe/tools)
-
-[![License](https://img.shields.io/npm/l/@danyalwe/tools)](./LICENSE)
+[![NPM Version](https://img.shields.io/npm/v/@danyalwe/tools)](https://www.npmjs.com/package/@danyalwe/tools)
 
 A collection of data structures, algorithms, and utilities for TypeScript. Zero dependencies, fully typed.
 
