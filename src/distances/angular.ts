@@ -18,14 +18,18 @@
 export function angular(a: number[], b: number[]) {
   if (a.length !== b.length) throw new Error('The vectors should have the same length')
 
-  let product = 0
+  let product = 0, normA = 0, normB = 0
 
-  for (let i = 0; i < a.length; i++) product += a[i] * b[i]
+  for (let i = 0; i < a.length; i++) {
+    product += a[i] * b[i]
+    normA += a[i] * a[i]
+    normB += b[i] * b[i]
+  }
 
-  const normA = Math.sqrt(a.reduce((p, c) => p + c ** 2, 0))
-  const normB = Math.sqrt(b.reduce((p, c) => p + c ** 2, 0))
+  const sqrtA = Math.sqrt(normA)
+  const sqrtB = Math.sqrt(normB)
 
-  if (normA === 0 || normB === 0) return 1
+  if (sqrtA === 0 || sqrtB === 0) return 1
 
-  return Math.acos(product / (normA * normB)) / Math.PI
+  return Math.acos(product / (sqrtA * sqrtB)) / Math.PI
 }

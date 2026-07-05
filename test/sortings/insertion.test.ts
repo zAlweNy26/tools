@@ -1,105 +1,78 @@
-import { insertionSortNum, insertionSortStr } from '@sortings/insertion'
+import { insertionSort } from '@sortings/insertion'
 import { describe, expect, test } from 'bun:test'
 
-describe('insertionSortNum', () => {
+describe('insertionSort', () => {
   test('returns empty array when input is empty', () => {
-    const result = insertionSortNum([])
-    expect(result).toEqual([])
+    expect(insertionSort([])).toEqual([])
   })
 
   test('returns same array for single element', () => {
-    const result = insertionSortNum([5])
-    expect(result).toEqual([5])
+    expect(insertionSort([5])).toEqual([5])
   })
 
   test('sorts already sorted array', () => {
-    const result = insertionSortNum([1, 2, 3, 4, 5])
-    expect(result).toEqual([1, 2, 3, 4, 5])
+    expect(insertionSort([1, 2, 3, 4, 5])).toEqual([1, 2, 3, 4, 5])
   })
 
   test('sorts reverse sorted array', () => {
-    const result = insertionSortNum([5, 4, 3, 2, 1])
-    expect(result).toEqual([1, 2, 3, 4, 5])
+    expect(insertionSort([5, 4, 3, 2, 1])).toEqual([1, 2, 3, 4, 5])
   })
 
   test('sorts unsorted array with duplicates', () => {
-    const result = insertionSortNum([4, 2, 2, 8, 3, 3, 1])
-    expect(result).toEqual([1, 2, 2, 3, 3, 4, 8])
+    expect(insertionSort([4, 2, 2, 8, 3, 3, 1])).toEqual([1, 2, 2, 3, 3, 4, 8])
   })
 
   test('handles array with all same values', () => {
-    const result = insertionSortNum([5, 5, 5, 5])
-    expect(result).toEqual([5, 5, 5, 5])
+    expect(insertionSort([5, 5, 5, 5])).toEqual([5, 5, 5, 5])
   })
 
   test('handles negative numbers', () => {
-    const result = insertionSortNum([-3, 7, -1, 0, 5, -10])
-    expect(result).toEqual([-10, -3, -1, 0, 5, 7])
+    expect(insertionSort([-3, 7, -1, 0, 5, -10])).toEqual([-10, -3, -1, 0, 5, 7])
   })
 
-  test('does not mutate the original array', () => {
+  test('does not mutate the original number array', () => {
     const original = [3, 1, 4, 1, 5]
     const copy = [...original]
-    insertionSortNum(original)
+    insertionSort(original)
     expect(original).toEqual(copy)
   })
-})
 
-describe('insertionSortStr', () => {
-  test('returns empty array when input is empty', () => {
-    const result = insertionSortStr([])
-    expect(result).toEqual([])
+  test('sorts strings', () => {
+    expect(insertionSort(['banana', 'apple', 'cherry'])).toEqual(['apple', 'banana', 'cherry'])
   })
 
-  test('returns same array for single element', () => {
-    const result = insertionSortStr(['hello'])
-    expect(result).toEqual(['hello'])
+  test('sorts already sorted strings', () => {
+    expect(insertionSort(['a', 'b', 'c'])).toEqual(['a', 'b', 'c'])
   })
 
-  test('sorts already sorted array', () => {
-    const result = insertionSortStr(['a', 'b', 'c'])
-    expect(result).toEqual(['a', 'b', 'c'])
-  })
-
-  test('sorts reverse sorted array', () => {
-    const result = insertionSortStr(['c', 'b', 'a'])
-    expect(result).toEqual(['a', 'b', 'c'])
-  })
-
-  test('sorts unsorted array', () => {
-    const result = insertionSortStr(['banana', 'apple', 'cherry'])
-    expect(result).toEqual(['apple', 'banana', 'cherry'])
+  test('sorts reverse sorted strings', () => {
+    expect(insertionSort(['c', 'b', 'a'])).toEqual(['a', 'b', 'c'])
   })
 
   test('sorts array with common prefixes', () => {
-    const result = insertionSortStr(['app', 'apple', 'apricot', 'application'])
-    expect(result).toEqual(['app', 'apple', 'application', 'apricot'])
+    expect(insertionSort(['app', 'apple', 'apricot', 'application'])).toEqual(['app', 'apple', 'application', 'apricot'])
   })
 
   test('handles case sensitivity', () => {
-    const result = insertionSortStr(['apple', 'Apple', 'APPLE'])
-    expect(result).toEqual(['APPLE', 'Apple', 'apple'])
+    expect(insertionSort(['apple', 'Apple', 'APPLE'])).toEqual(['APPLE', 'Apple', 'apple'])
   })
 
   test('handles empty strings in array', () => {
-    const result = insertionSortStr(['b', '', 'a', ''])
-    expect(result).toEqual(['', '', 'a', 'b'])
+    expect(insertionSort(['b', '', 'a', ''])).toEqual(['', '', 'a', 'b'])
   })
 
   test('handles single character strings', () => {
-    const result = insertionSortStr(['z', 'a', 'm', 'b'])
-    expect(result).toEqual(['a', 'b', 'm', 'z'])
+    expect(insertionSort(['z', 'a', 'm', 'b'])).toEqual(['a', 'b', 'm', 'z'])
   })
 
   test('handles strings of varying lengths', () => {
-    const result = insertionSortStr(['abc', 'a', 'ab'])
-    expect(result).toEqual(['a', 'ab', 'abc'])
+    expect(insertionSort(['abc', 'a', 'ab'])).toEqual(['a', 'ab', 'abc'])
   })
 
-  test('does not mutate the original array', () => {
+  test('does not mutate the original string array', () => {
     const original = ['c', 'a', 'b']
     const copy = [...original]
-    insertionSortStr(original)
+    insertionSort(original)
     expect(original).toEqual(copy)
   })
 })

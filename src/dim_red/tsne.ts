@@ -20,6 +20,8 @@ import { Matrix } from '@structures/matrix'
 export class TSNE extends DimRed<TSNEParams> {
   protected _yStep!: Matrix
   protected _gains!: Matrix
+  protected _grad!: Matrix
+  protected _qMat!: Matrix
 
   /**
    * t-SNE algorithm for dimensionality reduction.
@@ -73,8 +75,10 @@ export class TSNE extends DimRed<TSNEParams> {
       }
     }
 
-    this._yStep = new Matrix(data.rows, data.cols, 0)
-    this._gains = new Matrix(data.rows, data.cols, 1)
+    this._yStep = new Matrix(n, this._params.dimensionality, 0)
+    this._gains = new Matrix(n, this._params.dimensionality, 1)
+    this._grad = new Matrix(n, this._params.dimensionality, 0)
+    this._qMat = new Matrix(n, n, 0)
 
     const P = new Matrix(n, n, 0)
 
@@ -138,12 +142,12 @@ export class TSNE extends DimRed<TSNEParams> {
     const proj = this._probabilities
     const yStep = this._yStep
     const gains = this._gains
+    const grad = this._grad
+    const qMat = this._qMat
     const res = this._result
     const iter = ++this._iter
     const pMul = iter < 100 ? 4 : 1
 
-    // compute Q dist (unnormalized)
-    const Qu = new Matrix(n, n, 0)
     let qSum = 0
 
     for (let i = 0; i < n; ++i) {
@@ -154,26 +158,20 @@ export class TSNE extends DimRed<TSNEParams> {
           dSum += dHere * dHere
         }
         const qVal = 1 / (1 + dSum)
-        Qu.set(i, j, qVal)
-        Qu.set(j, i, qVal)
+        qMat.set(i, j, qVal)
+        qMat.set(j, i, qVal)
         qSum += 2 * qVal
       }
     }
 
-    // normalize Q dist
-    const Q = new Matrix(n, n, 0)
     for (let i = 0; i < n; ++i) {
-      for (let j = i + 1; j < n; ++j) {
-        const val = Math.max(Qu.get(i, j) / qSum, 1e-100)
-        Q.set(i, j, val)
-        Q.set(j, i, val)
-      }
+      for (let d = 0; d < dim; ++d)
+        grad.set(i, d, 0)
     }
 
-    const grad = new Matrix(n, dim, 0)
     for (let i = 0; i < n; ++i) {
       for (let j = 0; j < n; ++j) {
-        const Qij = Q.get(i, j)
+        const Qij = Math.max(qMat.get(i, j) / qSum, 1e-100)
         const preMult = 4 * (pMul * proj.get(i, j) - Qij) * Qij
         for (let d = 0; d < dim; ++d)
           grad.update(i, d, o => o + (preMult * (res.get(i, d) - res.get(j, d))))

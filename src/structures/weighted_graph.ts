@@ -132,7 +132,7 @@ export class WeightedGraph<N> extends GraphStructure<N, Edge<N>> {
   isAdjacent(v1: N, v2: N) {
     const list = this.map.get(v1)
     if (!list) throw new Error('First node not found')
-    return list.map(e => e[0]).includes(v2)
+    return list.some(e => e[0] === v2)
   }
 
   /**

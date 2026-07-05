@@ -300,14 +300,16 @@ export class Matrix implements Structure {
     if (this.rows !== this.cols) throw new Error('Unable to calculate inverse for non-quadratic matrix')
     else if (this.det() === 0) throw new Error('Matrix not invertible due to the determinant equal to zero')
 
-    const identity = new Matrix(this.rows, this.cols, 'identity').items
-    const copy = this.items
+    const n = this.rows
+    const identity: number[][] = Array.from({ length: n }, (_, i) =>
+      Array.from({ length: n }, (_, j) => i === j ? 1 : 0))
+    const copy = this._data.map(row => [...row])
 
-    for (let i = 0; i < this.rows; i++) {
+    for (let i = 0; i < n; i++) {
       let diagonalElement = copy[i][i]
 
       if (diagonalElement === 0) {
-        for (let j = i + 1; j < this.rows; j++) {
+        for (let j = i + 1; j < n; j++) {
           if (copy[j][i] !== 0) {
             [copy[i], copy[j]] = [copy[j], copy[i]];
             [identity[i], identity[j]] = [identity[j], identity[i]]
@@ -317,17 +319,17 @@ export class Matrix implements Structure {
         diagonalElement = copy[i][i]
       }
 
-      for (let j = 0; j < this.cols; j++) {
+      for (let j = 0; j < n; j++) {
         copy[i][j] /= diagonalElement
         identity[i][j] /= diagonalElement
       }
 
-      for (let j = 0; j < this.rows; j++) {
+      for (let j = 0; j < n; j++) {
         if (j === i) continue
 
         const elementToZero = copy[j][i]
 
-        for (let k = 0; k < this.cols; k++) {
+        for (let k = 0; k < n; k++) {
           copy[j][k] -= elementToZero * copy[i][k]
           identity[j][k] -= elementToZero * identity[i][k]
         }
@@ -349,16 +351,15 @@ export class Matrix implements Structure {
     if (this.cols !== mat.rows)
       throw new Error('The number of columns of the current matrix is different from the number of rows of the passed matrix')
 
-    const result: number[][] = []
+    const result: number[][] = Array.from({ length: this.rows }, () => Array.from<number>({ length: mat.cols }).fill(0))
 
     for (let i = 0; i < this.rows; i++) {
-      const newRow: number[] = []
-      for (let j = 0; j < mat.cols; j++) {
-        let sum = 0
-        for (let k = 0; k < this.cols; k++) sum += this.get(i, k) * mat.get(k, j)
-        newRow.push(sum)
+      for (let k = 0; k < this.cols; k++) {
+        const aik = this.get(i, k)
+        if (aik === 0) continue
+        for (let j = 0; j < mat.cols; j++)
+          result[i][j] += aik * mat.get(k, j)
       }
-      result.push(newRow)
     }
 
     return Matrix.from(result)

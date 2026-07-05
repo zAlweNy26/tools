@@ -90,10 +90,12 @@ export class Tree<T> implements Structure {
    */
   search(value: T): TreeLeaf<T> | undefined {
     const queue: TreeLeaf<T>[] = [this.root]
-    while (queue.length > 0) {
-      const node = queue.shift()!
+    let head = 0
+    while (head < queue.length) {
+      const node = queue[head++]
       if (node.data === value) return node
-      queue.push(...node.children)
+      for (const child of node.children)
+        queue.push(child)
     }
     return undefined
   }

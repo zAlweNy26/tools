@@ -1,54 +1,17 @@
-function mergeNumbers(left: number[], right: number[]) {
-  let result: number[] = []
-
-  while (left.length > 0 && right.length > 0) {
-    if (left[0] <= right[0]) {
-      result.push(left[0])
-      left.shift()
-    }
-    else {
-      result.push(right[0])
-      right.shift()
-    }
-  }
-
-  result = [...result, ...left, ...right]
-
-  return result
-}
-
-function mergeStrings(left: string[], right: string[]) {
-  let result: string[] = []
-
-  while (left.length > 0 && right.length > 0) {
-    if (left[0] <= right[0]) {
-      result.push(left[0])
-      left.shift()
-    }
-    else {
-      result.push(right[0])
-      right.shift()
-    }
-  }
-
-  result = [...result, ...left, ...right]
-
-  return result
-}
-
 /**
- * Sorts an array of numbers using the merge sort algorithm.
+ * Sorts an array using the merge sort algorithm.
  * @param array The array to be sorted.
  * @returns The sorted array.
  * @example
  * ```ts
- * import { mergeSortNum } from '@danyalwe/tools'
+ * import { mergeSort } from '@danyalwe/tools'
  *
- * mergeSortNum([3, 1, 4, 1, 5]) // [1, 1, 3, 4, 5]
+ * mergeSort([3, 1, 4, 1, 5]) // [1, 1, 3, 4, 5]
+ * mergeSort(['banana', 'apple', 'cherry']) // ['apple', 'banana', 'cherry']
  * ```
  * @group Sortings
  */
-export function mergeSortNum(array: number[]) {
+export function mergeSort<T>(array: T[]): T[] {
   if (array.length <= 1) return array
 
   const middle = Math.floor(array.length / 2)
@@ -56,34 +19,22 @@ export function mergeSortNum(array: number[]) {
   let left = array.slice(0, middle)
   let right = array.slice(middle)
 
-  left = mergeSortNum(left)
-  right = mergeSortNum(right)
+  left = mergeSort(left)
+  right = mergeSort(right)
 
-  return mergeNumbers(left, right)
+  return merge(left, right)
 }
 
-/**
- * Sorts an array of strings using the merge sort algorithm.
- * @param array The array to be sorted.
- * @returns The sorted array.
- * @example
- * ```ts
- * import { mergeSortStr } from '@danyalwe/tools'
- *
- * mergeSortStr(['banana', 'apple', 'cherry']) // ['apple', 'banana', 'cherry']
- * ```
- * @group Sortings
- */
-export function mergeSortStr(array: string[]) {
-  if (array.length <= 1) return array
+function merge<T>(left: T[], right: T[]) {
+  const result: T[] = []
+  let li = 0, ri = 0
+  const ll = left.length, rl = right.length
 
-  const middle = Math.floor(array.length / 2)
+  while (li < ll && ri < rl)
+    result.push(left[li] <= right[ri] ? left[li++] : right[ri++])
 
-  let left = array.slice(0, middle)
-  let right = array.slice(middle)
+  while (li < ll) result.push(left[li++])
+  while (ri < rl) result.push(right[ri++])
 
-  left = mergeSortStr(left)
-  right = mergeSortStr(right)
-
-  return mergeStrings(left, right)
+  return result
 }

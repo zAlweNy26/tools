@@ -47,9 +47,18 @@ export class Queue<T> extends ListStructure<T> {
   dequeue() {
     if (this.isEmpty) throw new Error('Queue is empty')
     const item = this._data[this._head]
-    delete this._data[this._head]
+    this._data[this._head] = undefined as unknown as T
     this._head++
+    if (this._head > (this._data.length >> 1)) this._compact()
     return item
+  }
+
+  private _compact() {
+    let writeIdx = 0
+    for (let readIdx = this._head; readIdx < this._tail; readIdx++)
+      this._data[writeIdx++] = this._data[readIdx]
+    this._tail -= this._head
+    this._head = 0
   }
 
   /**

@@ -1,105 +1,78 @@
-import { mergeSortNum, mergeSortStr } from '@sortings/merge'
+import { mergeSort } from '@sortings/merge'
 import { describe, expect, test } from 'bun:test'
 
-describe('mergeSortNum', () => {
+describe('mergeSort', () => {
   test('returns empty array when input is empty', () => {
-    const result = mergeSortNum([])
-    expect(result).toEqual([])
+    expect(mergeSort([])).toEqual([])
   })
 
   test('returns same array for single element', () => {
-    const result = mergeSortNum([5])
-    expect(result).toEqual([5])
+    expect(mergeSort([5])).toEqual([5])
   })
 
   test('sorts already sorted array', () => {
-    const result = mergeSortNum([1, 2, 3, 4, 5])
-    expect(result).toEqual([1, 2, 3, 4, 5])
+    expect(mergeSort([1, 2, 3, 4, 5])).toEqual([1, 2, 3, 4, 5])
   })
 
   test('sorts reverse sorted array', () => {
-    const result = mergeSortNum([5, 4, 3, 2, 1])
-    expect(result).toEqual([1, 2, 3, 4, 5])
+    expect(mergeSort([5, 4, 3, 2, 1])).toEqual([1, 2, 3, 4, 5])
   })
 
   test('sorts unsorted array with duplicates', () => {
-    const result = mergeSortNum([4, 2, 2, 8, 3, 3, 1])
-    expect(result).toEqual([1, 2, 2, 3, 3, 4, 8])
+    expect(mergeSort([4, 2, 2, 8, 3, 3, 1])).toEqual([1, 2, 2, 3, 3, 4, 8])
   })
 
   test('handles array with all same values', () => {
-    const result = mergeSortNum([5, 5, 5, 5])
-    expect(result).toEqual([5, 5, 5, 5])
+    expect(mergeSort([5, 5, 5, 5])).toEqual([5, 5, 5, 5])
   })
 
   test('handles negative numbers', () => {
-    const result = mergeSortNum([-3, 7, -1, 0, 5, -10])
-    expect(result).toEqual([-10, -3, -1, 0, 5, 7])
+    expect(mergeSort([-3, 7, -1, 0, 5, -10])).toEqual([-10, -3, -1, 0, 5, 7])
   })
 
-  test('does not mutate the original array', () => {
+  test('does not mutate the original number array', () => {
     const original = [3, 1, 4, 1, 5]
     const copy = [...original]
-    mergeSortNum(original)
+    mergeSort(original)
     expect(original).toEqual(copy)
   })
-})
 
-describe('mergeSortStr', () => {
-  test('returns empty array when input is empty', () => {
-    const result = mergeSortStr([])
-    expect(result).toEqual([])
+  test('sorts strings', () => {
+    expect(mergeSort(['banana', 'apple', 'cherry'])).toEqual(['apple', 'banana', 'cherry'])
   })
 
-  test('returns same array for single element', () => {
-    const result = mergeSortStr(['hello'])
-    expect(result).toEqual(['hello'])
+  test('sorts already sorted strings', () => {
+    expect(mergeSort(['a', 'b', 'c'])).toEqual(['a', 'b', 'c'])
   })
 
-  test('sorts already sorted array', () => {
-    const result = mergeSortStr(['a', 'b', 'c'])
-    expect(result).toEqual(['a', 'b', 'c'])
-  })
-
-  test('sorts reverse sorted array', () => {
-    const result = mergeSortStr(['c', 'b', 'a'])
-    expect(result).toEqual(['a', 'b', 'c'])
-  })
-
-  test('sorts unsorted array', () => {
-    const result = mergeSortStr(['banana', 'apple', 'cherry'])
-    expect(result).toEqual(['apple', 'banana', 'cherry'])
+  test('sorts reverse sorted strings', () => {
+    expect(mergeSort(['c', 'b', 'a'])).toEqual(['a', 'b', 'c'])
   })
 
   test('sorts array with common prefixes', () => {
-    const result = mergeSortStr(['app', 'apple', 'apricot', 'application'])
-    expect(result).toEqual(['app', 'apple', 'application', 'apricot'])
+    expect(mergeSort(['app', 'apple', 'apricot', 'application'])).toEqual(['app', 'apple', 'application', 'apricot'])
   })
 
   test('handles case sensitivity', () => {
-    const result = mergeSortStr(['apple', 'Apple', 'APPLE'])
-    expect(result).toEqual(['APPLE', 'Apple', 'apple'])
+    expect(mergeSort(['apple', 'Apple', 'APPLE'])).toEqual(['APPLE', 'Apple', 'apple'])
   })
 
   test('handles empty strings in array', () => {
-    const result = mergeSortStr(['b', '', 'a', ''])
-    expect(result).toEqual(['', '', 'a', 'b'])
+    expect(mergeSort(['b', '', 'a', ''])).toEqual(['', '', 'a', 'b'])
   })
 
   test('handles single character strings', () => {
-    const result = mergeSortStr(['z', 'a', 'm', 'b'])
-    expect(result).toEqual(['a', 'b', 'm', 'z'])
+    expect(mergeSort(['z', 'a', 'm', 'b'])).toEqual(['a', 'b', 'm', 'z'])
   })
 
   test('handles strings of varying lengths', () => {
-    const result = mergeSortStr(['abc', 'a', 'ab'])
-    expect(result).toEqual(['a', 'ab', 'abc'])
+    expect(mergeSort(['abc', 'a', 'ab'])).toEqual(['a', 'ab', 'abc'])
   })
 
-  test('does not mutate the original array', () => {
+  test('does not mutate the original string array', () => {
     const original = ['c', 'a', 'b']
     const copy = [...original]
-    mergeSortStr(original)
+    mergeSort(original)
     expect(original).toEqual(copy)
   })
 })
