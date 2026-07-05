@@ -3,6 +3,16 @@ import { GraphStructure } from './structures'
 /**
  * A graph data structure.
  * @template N The type of the nodes in the graph.
+ * @example
+ * ```ts
+ * import { Graph } from '@danyalwe/tools'
+ *
+ * const graph = new Graph<string>('A')
+ * graph.addEdge('A', 'B')
+ * graph.addEdge('A', 'C')
+ * graph.isAdjacent('A', 'B')  // true
+ * graph.getEdges('A')         // ['B', 'C']
+ * ```
  * @group Structures
  */
 export class Graph<N> extends GraphStructure<N, N> {

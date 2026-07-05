@@ -1,6 +1,15 @@
 /**
  * A fixed-capacity array that extends the built-in Array class.
  * @template T The type of elements held in the array.
+ * @example
+ * ```ts
+ * import { FixedArray } from '@danyalwe/tools'
+ *
+ * const arr = new FixedArray<number>(3)
+ * arr.push(10)
+ * arr.push(20)
+ * arr.length  // 2
+ * ```
  * @group Structures
  */
 export class FixedArray<T> extends Array<T> {

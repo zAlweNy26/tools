@@ -4,6 +4,13 @@
  * @param b The second vector.
  * @returns The squared Euclidean distance between the two vectors.
  * @throws An error if the vectors do not have the same length.
+ * @example
+ * ```ts
+ * import { euclideanSquared } from '@danyalwe/tools'
+ *
+ * euclideanSquared([0, 0], [3, 4])  // 25
+ * euclideanSquared([1, 1], [4, 5])  // 25
+ * ```
  * @see {@link https://en.wikipedia.org/wiki/Euclidean_distance}
  * @group Distances
  */

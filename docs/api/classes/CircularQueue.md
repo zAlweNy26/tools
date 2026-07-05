@@ -4,6 +4,19 @@
 
 A circular queue data structure.
 
+## Example
+
+```ts
+import { CircularQueue } from '@danyalwe/tools'
+
+const cq = new CircularQueue<number>(3)
+cq.enqueue(1)
+cq.enqueue(2)
+cq.enqueue(3)
+cq.enqueue(4) // overwrites the oldest (1)
+cq.peek()     // 2
+```
+
 ## Extends
 
 - [`Queue`](Queue.md)\<`T`\>

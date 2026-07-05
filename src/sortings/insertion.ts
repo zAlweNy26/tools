@@ -2,6 +2,12 @@
  * Sorts an array of numbers using the insertion sort algorithm.
  * @param array The array to be sorted.
  * @returns The sorted array.
+ * @example
+ * ```ts
+ * import { insertionSortNum } from '@danyalwe/tools'
+ *
+ * insertionSortNum([3, 1, 4, 1, 5]) // [1, 1, 3, 4, 5]
+ * ```
  * @group Sortings
  */
 export function insertionSortNum(array: number[]) {
@@ -26,6 +32,12 @@ export function insertionSortNum(array: number[]) {
  * Sorts an array of strings using the insertion sort algorithm.
  * @param array The array to be sorted.
  * @returns The sorted array.
+ * @example
+ * ```ts
+ * import { insertionSortStr } from '@danyalwe/tools'
+ *
+ * insertionSortStr(['banana', 'apple', 'cherry']) // ['apple', 'banana', 'cherry']
+ * ```
  * @group Sortings
  */
 export function insertionSortStr(array: string[]) {

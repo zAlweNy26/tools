@@ -23,3 +23,14 @@ Performs a breadth-first search traversal on a graph.
 `NonNullable`\<`T`\>[]
 
 An array of nodes in BFS order.
+
+## Example
+
+```ts
+import { Graph, breadthFirstSearch } from '@danyalwe/tools'
+
+const graph = new Graph(1)
+graph.addEdge(1, 2).addEdge(1, 3).addEdge(2, 4)
+
+breadthFirstSearch(graph) // [1, 2, 3, 4]
+```

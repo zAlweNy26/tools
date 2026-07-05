@@ -24,6 +24,16 @@ A distance function `(a: number[], b: number[]) => number`.
 
 An error if `p < 1`.
 
+## Example
+
+```ts
+import { minkowski } from '@danyalwe/tools'
+
+minkowski(1)([0, 0], [3, 4])   // 7 (Manhattan)
+minkowski(2)([0, 0], [3, 4])   // 5 (Euclidean)
+minkowski(3)([0, 0], [3, 4])   // ~4.498
+```
+
 ## See
 
 [https://en.wikipedia.org/wiki/Minkowski\_distance](https://en.wikipedia.org/wiki/Minkowski_distance)

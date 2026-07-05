@@ -3,6 +3,16 @@ import { ListStructure } from './structures'
 /**
  * A stack data structure.
  * @template T The type of elements held in the stack.
+ * @example
+ * ```ts
+ * import { Stack } from '@danyalwe/tools'
+ *
+ * const stack = new Stack<number>(5)
+ * stack.push(1)
+ * stack.push(2)
+ * stack.pop()   // 2
+ * stack.peek()  // 1
+ * ```
  * @group Structures
  */
 export class Stack<T> extends ListStructure<T> {

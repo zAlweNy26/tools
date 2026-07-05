@@ -17,3 +17,11 @@ Sorts an array of strings using the quick sort algorithm.
 `string`[]
 
 The sorted array.
+
+## Example
+
+```ts
+import { quickSortStr } from '@danyalwe/tools'
+
+quickSortStr(['banana', 'apple', 'cherry']) // ['apple', 'banana', 'cherry']
+```

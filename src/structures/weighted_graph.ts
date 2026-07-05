@@ -9,6 +9,15 @@ export type Edge<V> = [V, Weight]
 /**
  * A weighted graph data structure.
  * @template N The type of the nodes in the graph.
+ * @example
+ * ```ts
+ * import { WeightedGraph } from '@danyalwe/tools'
+ *
+ * const graph = new WeightedGraph<string>('A')
+ * graph.addEdge('A', 'B', 5)
+ * graph.addEdge('A', 'C', 3)
+ * graph.getWeight('A', 'B')  // 5
+ * ```
  * @group Structures
  */
 export class WeightedGraph<N> extends GraphStructure<N, Edge<N>> {

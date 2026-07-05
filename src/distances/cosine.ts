@@ -4,6 +4,13 @@
  * @param b The second vector.
  * @returns The cosine distance between the two vectors.
  * @throws An error if the vectors do not have the same length.
+ * @example
+ * ```ts
+ * import { cosine } from '@danyalwe/tools'
+ *
+ * cosine([1, 0], [0, 1])     // ~1.571 (orthogonal)
+ * cosine([1, 2], [2, 4])     // 0 (same direction)
+ * ```
  * @see {@link https://en.wikipedia.org/wiki/Cosine_similarity#Cosine_distance}
  * @group Distances
  */

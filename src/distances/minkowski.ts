@@ -5,6 +5,14 @@
  * @param p The order of the Minkowski distance. Must be ≥ 1.
  * @returns A distance function `(a: number[], b: number[]) => number`.
  * @throws An error if `p < 1`.
+ * @example
+ * ```ts
+ * import { minkowski } from '@danyalwe/tools'
+ *
+ * minkowski(1)([0, 0], [3, 4])   // 7 (Manhattan)
+ * minkowski(2)([0, 0], [3, 4])   // 5 (Euclidean)
+ * minkowski(3)([0, 0], [3, 4])   // ~4.498
+ * ```
  * @see {@link https://en.wikipedia.org/wiki/Minkowski_distance}
  * @group Distances
  */

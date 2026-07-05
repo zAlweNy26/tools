@@ -23,6 +23,15 @@ The Manhattan distance between the two vectors.
 
 An error if the vectors do not have the same length.
 
+## Example
+
+```ts
+import { manhattan } from '@danyalwe/tools'
+
+manhattan([0, 0], [3, 4])  // 7
+manhattan([1, 2], [4, 6])  // 7
+```
+
 ## See
 
 [https://en.wikipedia.org/wiki/Manhattan\_distance](https://en.wikipedia.org/wiki/Manhattan_distance)

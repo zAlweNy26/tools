@@ -1,5 +1,5 @@
-import { Randomizer } from '@utils/randomizer'
 import { Matrix } from '@structures/matrix'
+import { Randomizer } from '@utils/randomizer'
 import { describe, expect, test } from 'bun:test'
 
 describe('Randomizer', () => {

@@ -6,6 +6,13 @@
  * @param b The second vector.
  * @returns The Pearson correlation distance between the two vectors.
  * @throws An error if the vectors do not have the same length.
+ * @example
+ * ```ts
+ * import { pearson } from '@danyalwe/tools'
+ *
+ * pearson([1, 2, 3], [2, 4, 6])     // 0 (perfect positive correlation)
+ * pearson([1, 2, 3], [-1, -2, -3])  // 2 (perfect negative correlation)
+ * ```
  * @see {@link https://en.wikipedia.org/wiki/Pearson_correlation_coefficient}
  * @group Distances
  */

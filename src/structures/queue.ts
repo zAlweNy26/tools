@@ -3,6 +3,15 @@ import { ListStructure } from './structures'
 /**
  * A queue data structure.
  * @template T The type of elements held in the queue.
+ * @example
+ * ```ts
+ * import { Queue } from '@danyalwe/tools'
+ *
+ * const queue = new Queue<string>(5)
+ * queue.enqueue('a')
+ * queue.enqueue('b')
+ * queue.dequeue() // 'a'
+ * ```
  * @group Structures
  */
 export class Queue<T> extends ListStructure<T> {

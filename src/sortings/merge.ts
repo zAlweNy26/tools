@@ -40,6 +40,12 @@ function mergeStrings(left: string[], right: string[]) {
  * Sorts an array of numbers using the merge sort algorithm.
  * @param array The array to be sorted.
  * @returns The sorted array.
+ * @example
+ * ```ts
+ * import { mergeSortNum } from '@danyalwe/tools'
+ *
+ * mergeSortNum([3, 1, 4, 1, 5]) // [1, 1, 3, 4, 5]
+ * ```
  * @group Sortings
  */
 export function mergeSortNum(array: number[]) {
@@ -60,6 +66,12 @@ export function mergeSortNum(array: number[]) {
  * Sorts an array of strings using the merge sort algorithm.
  * @param array The array to be sorted.
  * @returns The sorted array.
+ * @example
+ * ```ts
+ * import { mergeSortStr } from '@danyalwe/tools'
+ *
+ * mergeSortStr(['banana', 'apple', 'cherry']) // ['apple', 'banana', 'cherry']
+ * ```
  * @group Sortings
  */
 export function mergeSortStr(array: string[]) {

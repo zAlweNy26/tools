@@ -1,6 +1,15 @@
 /**
  * Represents a leaf in a tree data structure.
  * @template T The type of data stored in the leaf.
+ * @example
+ * ```ts
+ * import { TreeLeaf } from '@danyalwe/tools'
+ *
+ * const root = new TreeLeaf('root')
+ * const child = root.push('child')
+ * child.push('grandchild')
+ * root.height  // 2
+ * ```
  * @group Structures
  */
 export class TreeLeaf<T> {

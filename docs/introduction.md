@@ -4,24 +4,24 @@
 
 ![Test Coverage](./api/test-coverage.svg)
 
-Just a bunch of tools made in TypeScript.
+[![NPM V  ersion](https://img.shields.io/npm/v/@danyalwe/tools)](https://www.npmjs.com/package/@danyalwe/tools)
 
-It includes:
+[![License](https://img.shields.io/npm/l/@danyalwe/tools)](./LICENSE)
 
-- Data structures
-- Sorting algorithms
-- Vectors distances
-- Dimensionality reduction algorithms
-- Randomizer
-- Various utils
+A collection of data structures, algorithms, and utilities for TypeScript. Zero dependencies, fully typed.
+
+| Group | Description |
+|-------|-------------|
+| **Structures** | Stack, Queue, CircularQueue, FixedArray, LinkedList, DoublyLinkedList, Tree, Matrix, Graph, WeightedGraph |
+| **Sortings** | Bubble, Counting, Insertion, Merge, Quick, Selection (numeric + string variants) |
+| **Distances** | Angular, Canberra, Chebyshev, Cosine, Euclidean, EuclideanSquared, EuclideanWeighted, Hamming, Manhattan, Minkowski, Pearson |
+| **Researches** | BFS, DFS, Kruskal's MST |
+| **Dimensionality Reduction** | t-SNE |
+| **Utils** | Randomizer (Mersenne Twister), pipe, measureTime, linearSpace, tryCatch |
 
 ## To-do
 
-- [ ] Add Linked List data structure
-- [ ] Add Double Linked List data structure
-- [ ] Add other sorting algorithms
 - [ ] Add other dimensionality reduction algorithms
-- [ ] Add other vectors distances
 - [ ] Add other utils
 
 ## Credits

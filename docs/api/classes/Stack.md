@@ -4,6 +4,18 @@
 
 A stack data structure.
 
+## Example
+
+```ts
+import { Stack } from '@danyalwe/tools'
+
+const stack = new Stack<number>(5)
+stack.push(1)
+stack.push(2)
+stack.pop()   // 2
+stack.peek()  // 1
+```
+
 ## Extends
 
 - [`ListStructure`](ListStructure.md)\<`T`\>

@@ -4,6 +4,18 @@
 
 A graph data structure.
 
+## Example
+
+```ts
+import { Graph } from '@danyalwe/tools'
+
+const graph = new Graph<string>('A')
+graph.addEdge('A', 'B')
+graph.addEdge('A', 'C')
+graph.isAdjacent('A', 'B')  // true
+graph.getEdges('A')         // ['B', 'C']
+```
+
 ## Extends
 
 - [`GraphStructure`](GraphStructure.md)\<`N`, `N`\>

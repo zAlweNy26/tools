@@ -4,6 +4,17 @@
 
 A doubly linked list data structure.
 
+## Example
+
+```ts
+import { DoublyLinkedList } from '@danyalwe/tools'
+
+const list = new DoublyLinkedList<number>([1, 2, 3])
+list.append(4)
+list.deleteLast()    // 4
+list.toArrayReverse() // [3, 2, 1]
+```
+
 ## Extends
 
 - [`BaseLinkedList`](BaseLinkedList.md)\<`T`\>

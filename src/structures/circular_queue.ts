@@ -3,6 +3,17 @@ import { Queue } from './queue'
 /**
  * A circular queue data structure.
  * @template T The type of elements held in the queue.
+ * @example
+ * ```ts
+ * import { CircularQueue } from '@danyalwe/tools'
+ *
+ * const cq = new CircularQueue<number>(3)
+ * cq.enqueue(1)
+ * cq.enqueue(2)
+ * cq.enqueue(3)
+ * cq.enqueue(4) // overwrites the oldest (1)
+ * cq.peek()     // 2
+ * ```
  * @group Structures
  */
 export class CircularQueue<T> extends Queue<T> {

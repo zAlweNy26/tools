@@ -4,6 +4,18 @@
 
 A singly linked list data structure.
 
+## Example
+
+```ts
+import { LinkedList } from '@danyalwe/tools'
+
+const list = new LinkedList<number>([1, 2, 3])
+list.append(4)
+list.prepend(0)
+list.toArray()       // [0, 1, 2, 3, 4]
+list.deleteAt(2)     // 2
+```
+
 ## Extends
 
 - [`BaseLinkedList`](BaseLinkedList.md)\<`T`\>

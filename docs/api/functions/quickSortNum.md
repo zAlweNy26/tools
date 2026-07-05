@@ -17,3 +17,11 @@ Sorts an array of numbers using the quick sort algorithm.
 `number`[]
 
 The sorted array.
+
+## Example
+
+```ts
+import { quickSortNum } from '@danyalwe/tools'
+
+quickSortNum([3, 1, 4, 1, 5]) // [1, 1, 3, 4, 5]
+```

@@ -4,6 +4,17 @@
 
 Represents a leaf in a tree data structure.
 
+## Example
+
+```ts
+import { TreeLeaf } from '@danyalwe/tools'
+
+const root = new TreeLeaf('root')
+const child = root.push('child')
+child.push('grandchild')
+root.height  // 2
+```
+
 ## Type Parameters
 
 | Type Parameter | Description |

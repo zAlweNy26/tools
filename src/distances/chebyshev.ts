@@ -4,6 +4,13 @@
  * @param b The second vector.
  * @returns The Chebyshev distance between the two vectors.
  * @throws An error if the vectors do not have the same length.
+ * @example
+ * ```ts
+ * import { chebyshev } from '@danyalwe/tools'
+ *
+ * chebyshev([0, 0], [3, 4])   // 4
+ * chebyshev([1, 5], [3, 2])   // 3
+ * ```
  * @see {@link https://en.wikipedia.org/wiki/Chebyshev_distance}
  * @group Distances
  */

@@ -17,3 +17,11 @@ Sorts an array of strings using the selection sort algorithm.
 `string`[]
 
 The sorted array.
+
+## Example
+
+```ts
+import { selectionSortStr } from '@danyalwe/tools'
+
+selectionSortStr(['banana', 'apple', 'cherry']) // ['apple', 'banana', 'cherry']
+```

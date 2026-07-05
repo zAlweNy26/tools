@@ -4,6 +4,17 @@
 
 A fixed-capacity array that extends the built-in Array class.
 
+## Example
+
+```ts
+import { FixedArray } from '@danyalwe/tools'
+
+const arr = new FixedArray<number>(3)
+arr.push(10)
+arr.push(20)
+arr.length  // 2
+```
+
 ## Extends
 
 - `Array`\<`T`\>

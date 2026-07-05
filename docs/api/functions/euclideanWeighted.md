@@ -19,6 +19,16 @@ A distance function `(a: number[], b: number[]) => number`.
 
 (`a`, `b`) => `number`
 
+## Example
+
+```ts
+import { euclideanWeighted } from '@danyalwe/tools'
+
+const weighted = euclideanWeighted([1, 2])
+weighted([0, 0], [3, 4])   // 5 (weighted: √(1·9 + 2·16))
+weighted([1, 1], [4, 5])   // 5
+```
+
 ## See
 
 [https://en.wikipedia.org/wiki/Euclidean\_distance#Weighted\_Euclidean\_distance](https://en.wikipedia.org/wiki/Euclidean_distance#Weighted_Euclidean_distance)

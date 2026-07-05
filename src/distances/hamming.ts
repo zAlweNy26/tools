@@ -4,6 +4,13 @@
  * @param b The second vector.
  * @returns The Hamming distance between the two vectors.
  * @throws An error if the vectors do not have the same length.
+ * @example
+ * ```ts
+ * import { hamming } from '@danyalwe/tools'
+ *
+ * hamming([1, 0, 1], [1, 1, 1])  // 0.333... (1 of 3 differs)
+ * hamming([0, 0], [1, 1])        // 1 (all differ)
+ * ```
  * @see {@link https://en.wikipedia.org/wiki/Hamming_distance}
  * @group Distances
  */

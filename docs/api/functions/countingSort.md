@@ -17,3 +17,11 @@ Sorts an array of numbers using the counting sort algorithm.
 `number`[]
 
 The sorted array.
+
+## Example
+
+```ts
+import { countingSort } from '@danyalwe/tools'
+
+countingSort([4, 2, 2, 8, 3, 3, 1]) // [1, 2, 2, 3, 3, 4, 8]
+```

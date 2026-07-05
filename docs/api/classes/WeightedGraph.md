@@ -4,6 +4,17 @@
 
 A weighted graph data structure.
 
+## Example
+
+```ts
+import { WeightedGraph } from '@danyalwe/tools'
+
+const graph = new WeightedGraph<string>('A')
+graph.addEdge('A', 'B', 5)
+graph.addEdge('A', 'C', 3)
+graph.getWeight('A', 'B')  // 5
+```
+
 ## Extends
 
 - [`GraphStructure`](GraphStructure.md)\<`N`, [`Edge`](../type-aliases/Edge.md)\<`N`\>\>

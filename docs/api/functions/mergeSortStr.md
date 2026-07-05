@@ -17,3 +17,11 @@ Sorts an array of strings using the merge sort algorithm.
 `string`[]
 
 The sorted array.
+
+## Example
+
+```ts
+import { mergeSortStr } from '@danyalwe/tools'
+
+mergeSortStr(['banana', 'apple', 'cherry']) // ['apple', 'banana', 'cherry']
+```

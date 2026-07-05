@@ -34,6 +34,12 @@ function partitionStrings(arr: string[], low: number, high: number) {
  * Sorts an array of numbers using the quick sort algorithm.
  * @param array The array to be sorted.
  * @returns The sorted array.
+ * @example
+ * ```ts
+ * import { quickSortNum } from '@danyalwe/tools'
+ *
+ * quickSortNum([3, 1, 4, 1, 5]) // [1, 1, 3, 4, 5]
+ * ```
  * @group Sortings
  */
 export function quickSortNum(array: number[]) {
@@ -59,6 +65,12 @@ export function quickSortNum(array: number[]) {
  * Sorts an array of strings using the quick sort algorithm.
  * @param array The array to be sorted.
  * @returns The sorted array.
+ * @example
+ * ```ts
+ * import { quickSortStr } from '@danyalwe/tools'
+ *
+ * quickSortStr(['banana', 'apple', 'cherry']) // ['apple', 'banana', 'cherry']
+ * ```
  * @group Sortings
  */
 export function quickSortStr(array: string[]) {

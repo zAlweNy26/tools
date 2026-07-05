@@ -24,6 +24,15 @@ The angular distance between the two vectors.
 
 An error if the vectors do not have the same length.
 
+## Example
+
+```ts
+import { angular } from '@danyalwe/tools'
+
+angular([1, 0], [0, 1]) // 0.5 (orthogonal vectors)
+angular([1, 2], [2, 4]) // 0 (identical direction)
+```
+
 ## See
 
 [https://en.wikipedia.org/wiki/Cosine\_similarity#Angular\_distance\_and\_similarity](https://en.wikipedia.org/wiki/Cosine_similarity#Angular_distance_and_similarity)

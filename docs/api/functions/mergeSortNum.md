@@ -17,3 +17,11 @@ Sorts an array of numbers using the merge sort algorithm.
 `number`[]
 
 The sorted array.
+
+## Example
+
+```ts
+import { mergeSortNum } from '@danyalwe/tools'
+
+mergeSortNum([3, 1, 4, 1, 5]) // [1, 1, 3, 4, 5]
+```

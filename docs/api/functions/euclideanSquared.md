@@ -23,6 +23,15 @@ The squared Euclidean distance between the two vectors.
 
 An error if the vectors do not have the same length.
 
+## Example
+
+```ts
+import { euclideanSquared } from '@danyalwe/tools'
+
+euclideanSquared([0, 0], [3, 4])  // 25
+euclideanSquared([1, 1], [4, 5])  // 25
+```
+
 ## See
 
 [https://en.wikipedia.org/wiki/Euclidean\_distance](https://en.wikipedia.org/wiki/Euclidean_distance)

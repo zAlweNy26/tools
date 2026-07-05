@@ -5,6 +5,13 @@
  * @param b The second vector.
  * @returns The angular distance between the two vectors.
  * @throws An error if the vectors do not have the same length.
+ * @example
+ * ```ts
+ * import { angular } from '@danyalwe/tools'
+ *
+ * angular([1, 0], [0, 1]) // 0.5 (orthogonal vectors)
+ * angular([1, 2], [2, 4]) // 0 (identical direction)
+ * ```
  * @see {@link https://en.wikipedia.org/wiki/Cosine_similarity#Angular_distance_and_similarity}
  * @group Distances
  */

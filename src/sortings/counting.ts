@@ -2,6 +2,12 @@
  * Sorts an array of numbers using the counting sort algorithm.
  * @param array The array to be sorted.
  * @returns The sorted array.
+ * @example
+ * ```ts
+ * import { countingSort } from '@danyalwe/tools'
+ *
+ * countingSort([4, 2, 2, 8, 3, 3, 1]) // [1, 2, 2, 3, 3, 4, 8]
+ * ```
  * @group Sortings
  */
 export function countingSort(array: number[]) {

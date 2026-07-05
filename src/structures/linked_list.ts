@@ -5,6 +5,16 @@ export { ListNode }
 /**
  * A singly linked list data structure.
  * @template T The type of elements held in the list.
+ * @example
+ * ```ts
+ * import { LinkedList } from '@danyalwe/tools'
+ *
+ * const list = new LinkedList<number>([1, 2, 3])
+ * list.append(4)
+ * list.prepend(0)
+ * list.toArray()       // [0, 1, 2, 3, 4]
+ * list.deleteAt(2)     // 2
+ * ```
  * @group Structures
  */
 export class LinkedList<T> extends BaseLinkedList<T> {

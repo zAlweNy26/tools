@@ -17,13 +17,17 @@ describe('tryCatch', () => {
 
   test('calls onSuccess callback on resolution', async () => {
     let called = false
-    await tryCatch(Promise.resolve('done'), { onSuccess: () => { called = true } })
+    await tryCatch(Promise.resolve('done'), {
+      onSuccess: () => { called = true },
+    })
     expect(called).toBeTrue()
   })
 
   test('calls onError callback on rejection', async () => {
     let called = false
-    await tryCatch(Promise.reject(new Error('fail')), { onError: () => { called = true } })
+    await tryCatch(Promise.reject(new Error('fail')), {
+      onError: () => { called = true },
+    })
     expect(called).toBeTrue()
   })
 

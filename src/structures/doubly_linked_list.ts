@@ -30,6 +30,15 @@ export class DoublyListNode<T> extends ListNode<T> {
 /**
  * A doubly linked list data structure.
  * @template T The type of elements held in the list.
+ * @example
+ * ```ts
+ * import { DoublyLinkedList } from '@danyalwe/tools'
+ *
+ * const list = new DoublyLinkedList<number>([1, 2, 3])
+ * list.append(4)
+ * list.deleteLast()    // 4
+ * list.toArrayReverse() // [3, 2, 1]
+ * ```
  * @group Structures
  */
 export class DoublyLinkedList<T> extends BaseLinkedList<T> {

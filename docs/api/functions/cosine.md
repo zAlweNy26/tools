@@ -23,6 +23,15 @@ The cosine distance between the two vectors.
 
 An error if the vectors do not have the same length.
 
+## Example
+
+```ts
+import { cosine } from '@danyalwe/tools'
+
+cosine([1, 0], [0, 1])     // ~1.571 (orthogonal)
+cosine([1, 2], [2, 4])     // 0 (same direction)
+```
+
 ## See
 
 [https://en.wikipedia.org/wiki/Cosine\_similarity#Cosine\_distance](https://en.wikipedia.org/wiki/Cosine_similarity#Cosine_distance)

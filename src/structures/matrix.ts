@@ -2,6 +2,16 @@ import type { Structure } from '../interfaces/structure'
 
 /**
  * A matrix data structure.
+ * @example
+ * ```ts
+ * import { Matrix } from '@danyalwe/tools'
+ *
+ * const m = new Matrix(2, 3, 0)
+ * m.set(0, 1, 5)
+ * m.get(0, 1)          // 5
+ *
+ * const id = new Matrix(3, 3, 'identity')  // 3x3 identity matrix
+ * ```
  * @group Structures
  */
 export class Matrix implements Structure {

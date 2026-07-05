@@ -5,6 +5,15 @@ import { Queue } from '@structures/queue'
  * Performs a breadth-first search traversal on a graph.
  * @param graph The graph to traverse.
  * @returns An array of nodes in BFS order.
+ * @example
+ * ```ts
+ * import { Graph, breadthFirstSearch } from '@danyalwe/tools'
+ *
+ * const graph = new Graph(1)
+ * graph.addEdge(1, 2).addEdge(1, 3).addEdge(2, 4)
+ *
+ * breadthFirstSearch(graph) // [1, 2, 3, 4]
+ * ```
  * @group Researches
  */
 export function breadthFirstSearch<T>(graph: Graph<T>) {

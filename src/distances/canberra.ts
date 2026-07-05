@@ -4,6 +4,13 @@
  * @param b The second vector.
  * @returns The Canberra distance between the two vectors.
  * @throws An error if the vectors do not have the same length.
+ * @example
+ * ```ts
+ * import { canberra } from '@danyalwe/tools'
+ *
+ * canberra([1, 2], [3, 4])   // 0.6...
+ * canberra([0, 0], [3, 4])   // 2
+ * ```
  * @see {@link https://en.wikipedia.org/wiki/Canberra_distance}
  * @group Distances
  */

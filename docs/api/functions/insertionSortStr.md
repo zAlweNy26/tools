@@ -17,3 +17,11 @@ Sorts an array of strings using the insertion sort algorithm.
 `string`[]
 
 The sorted array.
+
+## Example
+
+```ts
+import { insertionSortStr } from '@danyalwe/tools'
+
+insertionSortStr(['banana', 'apple', 'cherry']) // ['apple', 'banana', 'cherry']
+```

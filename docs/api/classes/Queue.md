@@ -4,6 +4,17 @@
 
 A queue data structure.
 
+## Example
+
+```ts
+import { Queue } from '@danyalwe/tools'
+
+const queue = new Queue<string>(5)
+queue.enqueue('a')
+queue.enqueue('b')
+queue.dequeue() // 'a'
+```
+
 ## Extends
 
 - [`ListStructure`](ListStructure.md)\<`T`\>
