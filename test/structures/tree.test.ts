@@ -15,7 +15,6 @@ describe('TreeLeaf', () => {
   test('constructor with data creates leaf with no children', () => {
     const leaf = new TreeLeaf(1)
     expect(leaf.data).toBe(1)
-    expect(leaf.leaves).toEqual([])
     expect(leaf.children).toEqual([])
     expect(leaf.height).toBe(0)
   })
@@ -24,8 +23,8 @@ describe('TreeLeaf', () => {
     const leaf = new TreeLeaf(1)
     const child = leaf.push(2)
     expect(child.data).toBe(2)
-    expect(leaf.leaves.length).toBe(1)
-    expect(leaf.children).toEqual([2])
+    expect(leaf.children.length).toBe(1)
+    expect(leaf.children[0].data).toBe(2)
     expect(child.height).toBe(0)
     expect(leaf.height).toBe(1)
   })
@@ -33,8 +32,8 @@ describe('TreeLeaf', () => {
   test('push multiple children', () => {
     const leaf = new TreeLeaf(1)
     leaf.push(2, 3, 4)
-    expect(leaf.leaves.length).toBe(3)
-    expect(leaf.children).toEqual([2, 3, 4])
+    expect(leaf.children.length).toBe(3)
+    expect(leaf.children.map(c => c.data)).toEqual([2, 3, 4])
   })
 
   test('height is max child height + 1', () => {
@@ -52,7 +51,7 @@ describe('Tree', () => {
   test('constructor creates root with given data', () => {
     const tree = new Tree(42)
     expect(tree.root.data).toBe(42)
-    expect(tree.depth).toBe(0)
+    expect(tree.height).toBe(0)
   })
 
   test('traverse pre-order', () => {
@@ -85,7 +84,7 @@ describe('Tree', () => {
     const found = tree.search(5)
     expect(found).toBeDefined()
     expect(found!.data).toBe(5)
-    expect(found!.leaves).toEqual([])
+    expect(found!.children).toEqual([])
   })
 
   test('search returns undefined for missing value', () => {
@@ -93,14 +92,14 @@ describe('Tree', () => {
     expect(tree.search(99)).toBeUndefined()
   })
 
-  test('depth returns tree height', () => {
+  test('height returns tree height', () => {
     const tree = buildTestTree()
-    expect(tree.depth).toBe(2)
+    expect(tree.height).toBe(2)
   })
 
-  test('single node tree depth is 0', () => {
+  test('single node tree height is 0', () => {
     const tree = new Tree(1)
-    expect(tree.depth).toBe(0)
+    expect(tree.height).toBe(0)
   })
 
   test('size counts all nodes', () => {
@@ -117,8 +116,8 @@ describe('Tree', () => {
     const tree = buildTestTree()
     tree.clear()
     expect(tree.root.data).toBe(1)
-    expect(tree.root.leaves).toEqual([])
+    expect(tree.root.children).toEqual([])
     expect(tree.size()).toBe(1)
-    expect(tree.depth).toBe(0)
+    expect(tree.height).toBe(0)
   })
 })

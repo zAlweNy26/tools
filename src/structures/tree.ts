@@ -1,4 +1,6 @@
-import type { Structure } from '../interfaces/structure'
+import type { Structure } from '@interfaces/structure'
+import { TreeNode } from './structures'
+import { heightOrder, inOrder, postOrder, preOrder } from '@utils/tree_traversals'
 
 /**
  * Represents a leaf in a tree data structure.
@@ -14,19 +16,17 @@ import type { Structure } from '../interfaces/structure'
  * ```
  * @group Structures
  */
-export class TreeLeaf<T> {
-  /**
-   * The child leaves of this leaf.
-   */
-  leaves: TreeLeaf<T>[] = []
+export class TreeLeaf<T> extends TreeNode<T> {
+  private _children: TreeLeaf<T>[] = []
 
   /**
    * Creates a new TreeLeaf instance.
    * @param data The data to store in the leaf.
-   * @param leaves Optional child leaves to add to the leaf.
+   * @param children Optional child leaves.
    */
-  constructor(public data: T, leaves?: TreeLeaf<T>[]) {
-    this.leaves = leaves ?? []
+  constructor(data: T, children?: TreeLeaf<T>[]) {
+    super(data)
+    this._children = children || []
   }
 
   /**
@@ -36,57 +36,18 @@ export class TreeLeaf<T> {
    * @returns The last leaf that was added.
    */
   push(data: T, ...datas: T[]) {
-    let leaf = new TreeLeaf(data, [])
-    this.leaves.push(leaf)
+    let leaf = new TreeLeaf(data)
+    this._children.push(leaf)
     for (const d of datas) {
-      leaf = new TreeLeaf(d, [])
-      this.leaves.push(leaf)
+      leaf = new TreeLeaf(d)
+      this._children.push(leaf)
     }
     return leaf
   }
 
-  /**
-   * Returns an array of the data stored in the child leaves of this leaf.
-   */
-  get children() {
-    return this.leaves.map(l => l.data)
+  get children(): TreeLeaf<T>[] {
+    return this._children
   }
-
-  /**
-   * Returns the height of the tree rooted at this leaf.
-   */
-  get height(): number {
-    return this.leaves.length > 0 ? 1 + Math.max(0, ...this.leaves.map(c => c.height)) : 0
-  }
-}
-
-function preOrder<T>(node: TreeLeaf<T>, list: T[]) { // root -> leaves
-  list.push(node.data)
-  for (const child of node.leaves) preOrder(child, list)
-}
-
-function postOrder<T>(node: TreeLeaf<T>, list: T[]) { // leaves -> root
-  for (const child of node.leaves) postOrder(child, list)
-  list.push(node.data)
-}
-
-function inOrder<T>(node: TreeLeaf<T>, list: T[]) { // first half -> root -> second half
-  if (node.leaves.length === 0) list.push(node.data)
-  else {
-    const n = node.leaves.length, nd = Math.round(n / 2)
-    for (let i = 0; i < nd; i++)
-      inOrder(node.leaves[i], list)
-
-    list.push(node.data)
-    for (let i = nd; i < n; i++)
-      inOrder(node.leaves[i], list)
-  }
-}
-
-function heightOrder<T>(node: TreeLeaf<T>, list: T[], first = true) { // leaves for each height from top to bottom
-  if (first) list.push(node.data)
-  list.push(...node.leaves.map(l => l.data))
-  for (const child of node.leaves) heightOrder(child, list, false)
 }
 
 /**
@@ -116,7 +77,7 @@ export class Tree<T> implements Structure {
 
     if (order === 'pre') preOrder(this.root, result)
     else if (order === 'post') postOrder(this.root, result)
-    else if (order === 'in') inOrder(this.root, result)
+    else if (order === 'in') inOrder(this.root, result, c => Math.round(c.length / 2))
     else if (order === 'height') heightOrder(this.root, result)
 
     return result
@@ -132,16 +93,16 @@ export class Tree<T> implements Structure {
     while (queue.length > 0) {
       const node = queue.shift()!
       if (node.data === value) return node
-      queue.push(...node.leaves)
+      queue.push(...node.children)
     }
     return undefined
   }
 
   /**
-   * Gets the depth of the tree.
-   * @returns The depth of the tree.
+   * Gets the height of the tree.
+   * @returns The height of the tree.
    */
-  get depth(): number {
+  get height(): number {
     return this.root.height
   }
 
@@ -152,7 +113,7 @@ export class Tree<T> implements Structure {
 
   size() {
     const count = (node: TreeLeaf<T>): number => {
-      return 1 + node.leaves.reduce((sum, child) => sum + count(child), 0)
+      return 1 + node.children.reduce((sum, child) => sum + count(child), 0)
     }
     return count(this.root)
   }

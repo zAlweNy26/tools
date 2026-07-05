@@ -10,6 +10,19 @@ describe('WeightedDirectedGraph', () => {
     expect(g.hasNode('B')).toBeTrue()
   })
 
+  test('addNode creates isolated node', () => {
+    const g = new WeightedDirectedGraph<string>('A')
+    g.addNode('B')
+    expect(g.hasNode('B')).toBeTrue()
+    expect(g.getEdges('B')).toEqual([])
+  })
+
+  test('addNode does nothing for existing node', () => {
+    const g = new WeightedDirectedGraph<string>('A')
+    g.addNode('A')
+    expect(g.size()).toBe(1)
+  })
+
   test('edges are one-directional', () => {
     const g = new WeightedDirectedGraph<string>('A')
     g.addEdge('A', 'B', 5)

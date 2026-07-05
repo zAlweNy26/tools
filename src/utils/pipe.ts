@@ -1,4 +1,4 @@
-import type { Pipe } from '../interfaces/pipe'
+import type { Pipe } from '@interfaces/pipe'
 
 /**
  * Creates a pipeline of functions where the output of one function is passed as the input to the next.
