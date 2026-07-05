@@ -102,4 +102,23 @@ describe('Tree', () => {
     const tree = new Tree(1)
     expect(tree.depth).toBe(0)
   })
+
+  test('size counts all nodes', () => {
+    const tree = buildTestTree()
+    expect(tree.size()).toBe(6)
+  })
+
+  test('size is 1 for single node tree', () => {
+    const tree = new Tree(1)
+    expect(tree.size()).toBe(1)
+  })
+
+  test('clear removes children, preserves root data', () => {
+    const tree = buildTestTree()
+    tree.clear()
+    expect(tree.root.data).toBe(1)
+    expect(tree.root.leaves).toEqual([])
+    expect(tree.size()).toBe(1)
+    expect(tree.depth).toBe(0)
+  })
 })

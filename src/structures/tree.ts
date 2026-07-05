@@ -1,3 +1,5 @@
+import type { Structure } from '../interfaces/structure'
+
 /**
  * Represents a leaf in a tree data structure.
  * @template T The type of data stored in the leaf.
@@ -92,7 +94,7 @@ function heightOrder<T>(node: TreeLeaf<T>, list: T[], first = true) { // leaves 
  * @template T The type of data stored in the tree.
  * @group Structures
  */
-export class Tree<T> {
+export class Tree<T> implements Structure {
   /** The root node of the tree. */
   root!: TreeLeaf<T>
 
@@ -141,5 +143,17 @@ export class Tree<T> {
    */
   get depth(): number {
     return this.root.height
+  }
+
+  clear() {
+    this.root = new TreeLeaf(this.root.data)
+    return this
+  }
+
+  size() {
+    const count = (node: TreeLeaf<T>): number => {
+      return 1 + node.leaves.reduce((sum, child) => sum + count(child), 0)
+    }
+    return count(this.root)
   }
 }
