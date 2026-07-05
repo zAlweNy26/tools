@@ -19,7 +19,7 @@ import {
   euclidean,
   Graph,
   LinkedList,
-  quickSortNum,
+  quickSort,
   Randomizer,
   TSNE,
 } from '@danyalwe/tools'
@@ -32,7 +32,7 @@ list.append(4)
 euclidean([0, 0], [3, 4]) // 5
 
 // Sorting
-quickSortNum([3, 1, 4, 1, 5]) // [1, 1, 3, 4, 5]
+quickSort([3, 1, 4, 1, 5]) // [1, 1, 3, 4, 5]
 
 // Graph algorithms
 const graph = new Graph(1)
@@ -54,10 +54,10 @@ Full API reference at [alwe.dev/tools](https://alwe.dev/tools).
 
 | Group | Description |
 |-------|-------------|
-| **Structures** | Stack, Queue, CircularQueue, FixedArray, LinkedList, DoublyLinkedList, Tree, Matrix, Graph, WeightedGraph |
-| **Sortings** | Bubble, Counting, Insertion, Merge, Quick, Selection (numeric + string variants) |
+| **Structures** | Stack, Queue, CircularQueue, FixedArray, LinkedList, DoublyLinkedList, Tree, BST, Heap, Matrix, Graph, DirectedGraph, WeightedGraph, WeightedDirectedGraph |
+| **Sortings** | Bubble, Counting, Insertion, Merge, Quick, Selection |
 | **Distances** | Angular, Canberra, Chebyshev, Cosine, Euclidean, EuclideanSquared, EuclideanWeighted, Hamming, Manhattan, Minkowski, Pearson |
-| **Researches** | BFS, DFS, Kruskal's MST |
+| **Traversals** | BFS, DFS, Kruskal's MST, Tree traversals |
 | **Dimensionality Reduction** | t-SNE |
 | **Utils** | Randomizer (Mersenne Twister), pipe, measureTime, linearSpace, tryCatch |
 

@@ -135,7 +135,7 @@ Clears the graph by removing all nodes and edges.
 
 ### getEdges()
 
-> **getEdges**(`node`): `Edge`\<`N`\>[]
+> **getEdges**(`node`): \[`N`, `number`\][]
 
 Returns an array of edges (as `[node, weight]` tuples) for the given node.
 
@@ -147,7 +147,7 @@ Returns an array of edges (as `[node, weight]` tuples) for the given node.
 
 #### Returns
 
-`Edge`\<`N`\>[]
+\[`N`, `number`\][]
 
 An array of edges, each represented as a `[node, weight]` tuple.
 

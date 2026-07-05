@@ -54,11 +54,19 @@ export class BinarySearchTree<T> implements Structure {
    * @param compare A comparator function that returns a negative number if `a < b`,
    *   zero if `a === b`, and a positive number if `a > b`.
    *   Defaults to numeric comparison (`a - b`).
-   * @param values Optional iterable of values to insert into the tree.
    */
   constructor(compare?: (a: T, b: T) => number)
+  /**
+   * Creates a new binary search tree with initial values.
+   * @param values Optional iterable of values to insert into the tree.
+   */
   constructor(values?: Iterable<T>)
-  constructor(compare?: (a: T, b: T) => number, values?: Iterable<T>)
+  /**
+   * Creates a new binary search tree with a comparator and initial values.
+   * @param compare A comparator function.
+   * @param values Optional iterable of values to insert into the tree.
+   */
+  constructor(compare: (a: T, b: T) => number, values: Iterable<T>)
   constructor(compare?: ((a: T, b: T) => number) | Iterable<T>, values?: Iterable<T>) {
     if (typeof compare === 'function') this._compare = compare
     else this._compare = (a, b) => (a as unknown as number) - (b as unknown as number)

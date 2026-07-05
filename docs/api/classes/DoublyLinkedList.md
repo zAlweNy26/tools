@@ -15,6 +15,10 @@ list.deleteLast()    // 4
 list.toArrayReverse() // [3, 2, 1]
 ```
 
+## Extends
+
+- [`BaseLinkedList`](BaseLinkedList.md)\<`T`\>
+
 ## Type Parameters
 
 | Type Parameter | Description |
@@ -41,13 +45,13 @@ Creates a new doubly linked list, optionally initialised with elements from an i
 
 #### Overrides
 
-`BaseLinkedList<T>.constructor`
+[`BaseLinkedList`](BaseLinkedList.md).[`constructor`](BaseLinkedList.md#constructor)
 
 ## Properties
 
 | Property | Type | Default value | Description | Inherited from |
 | ------ | ------ | ------ | ------ | ------ |
-| <a id="property-head"></a> `head` | `ListNode`\<`T`\> \| `null` | `null` | The first node in the list, or null if the list is empty. | `BaseLinkedList.head` |
+| <a id="property-head"></a> `head` | [`ListNode`](ListNode.md)\<`T`\> \| `null` | `null` | The first node in the list, or null if the list is empty. | [`BaseLinkedList`](BaseLinkedList.md).[`head`](BaseLinkedList.md#property-head) |
 
 ## Accessors
 
@@ -65,7 +69,7 @@ Returns true if the list is empty, false otherwise.
 
 #### Inherited from
 
-`BaseLinkedList.isEmpty`
+[`BaseLinkedList`](BaseLinkedList.md).[`isEmpty`](BaseLinkedList.md#isempty)
 
 ## Methods
 
@@ -83,7 +87,7 @@ An iterator over the list's elements.
 
 #### Inherited from
 
-`BaseLinkedList.[iterator]`
+[`BaseLinkedList`](BaseLinkedList.md).[`[iterator]`](BaseLinkedList.md#iterator)
 
 ***
 
@@ -107,7 +111,7 @@ The list instance.
 
 #### Overrides
 
-`BaseLinkedList.append`
+[`BaseLinkedList`](BaseLinkedList.md).[`append`](BaseLinkedList.md#append)
 
 ***
 
@@ -137,7 +141,7 @@ Clears the list, removing all elements.
 
 #### Inherited from
 
-`BaseLinkedList.clear`
+[`BaseLinkedList`](BaseLinkedList.md).[`clear`](BaseLinkedList.md#clear)
 
 ***
 
@@ -161,7 +165,7 @@ True if the element was found and removed, false otherwise.
 
 #### Overrides
 
-`BaseLinkedList.delete`
+[`BaseLinkedList`](BaseLinkedList.md).[`delete`](BaseLinkedList.md#delete)
 
 ***
 
@@ -185,7 +189,7 @@ The removed element, or undefined if the index is out of bounds.
 
 #### Overrides
 
-`BaseLinkedList.deleteAt`
+[`BaseLinkedList`](BaseLinkedList.md).[`deleteAt`](BaseLinkedList.md#deleteat)
 
 ***
 
@@ -223,7 +227,7 @@ True if all elements satisfy the predicate.
 
 #### Inherited from
 
-`BaseLinkedList.every`
+[`BaseLinkedList`](BaseLinkedList.md).[`every`](BaseLinkedList.md#every)
 
 ***
 
@@ -249,7 +253,7 @@ A new doubly linked list with the filtered elements.
 
 ### find()
 
-> **find**(`data`): `ListNode`\<`T`\> \| `undefined`
+> **find**(`data`): [`ListNode`](ListNode.md)\<`T`\> \| `undefined`
 
 Finds the first node containing the given data.
 
@@ -261,13 +265,13 @@ Finds the first node containing the given data.
 
 #### Returns
 
-`ListNode`\<`T`\> \| `undefined`
+[`ListNode`](ListNode.md)\<`T`\> \| `undefined`
 
 The node containing the data, or undefined if not found.
 
 #### Inherited from
 
-`BaseLinkedList.find`
+[`BaseLinkedList`](BaseLinkedList.md).[`find`](BaseLinkedList.md#find)
 
 ***
 
@@ -289,7 +293,7 @@ Calls a function for each element in the list.
 
 #### Inherited from
 
-`BaseLinkedList.forEach`
+[`BaseLinkedList`](BaseLinkedList.md).[`forEach`](BaseLinkedList.md#foreach)
 
 ***
 
@@ -313,7 +317,7 @@ The element at the given index, or undefined if out of bounds.
 
 #### Inherited from
 
-`BaseLinkedList.getAt`
+[`BaseLinkedList`](BaseLinkedList.md).[`getAt`](BaseLinkedList.md#getat)
 
 ***
 
@@ -337,7 +341,7 @@ True if the data is found, false otherwise.
 
 #### Inherited from
 
-`BaseLinkedList.includes`
+[`BaseLinkedList`](BaseLinkedList.md).[`includes`](BaseLinkedList.md#includes)
 
 ***
 
@@ -361,7 +365,7 @@ The index of the data, or -1 if not found.
 
 #### Inherited from
 
-`BaseLinkedList.indexOf`
+[`BaseLinkedList`](BaseLinkedList.md).[`indexOf`](BaseLinkedList.md#indexof)
 
 ***
 
@@ -390,7 +394,7 @@ An error if the index is out of bounds.
 
 #### Overrides
 
-`BaseLinkedList.insertAt`
+[`BaseLinkedList`](BaseLinkedList.md).[`insertAt`](BaseLinkedList.md#insertat)
 
 ***
 
@@ -440,7 +444,7 @@ The list instance.
 
 #### Overrides
 
-`BaseLinkedList.prepend`
+[`BaseLinkedList`](BaseLinkedList.md).[`prepend`](BaseLinkedList.md#prepend)
 
 ***
 
@@ -471,7 +475,7 @@ The reduced value.
 
 #### Inherited from
 
-`BaseLinkedList.reduce`
+[`BaseLinkedList`](BaseLinkedList.md).[`reduce`](BaseLinkedList.md#reduce)
 
 ***
 
@@ -489,7 +493,7 @@ The list instance.
 
 #### Overrides
 
-`BaseLinkedList.reverse`
+[`BaseLinkedList`](BaseLinkedList.md).[`reverse`](BaseLinkedList.md#reverse)
 
 ***
 
@@ -505,7 +509,7 @@ The current number of elements in the list.
 
 #### Inherited from
 
-`BaseLinkedList.size`
+[`BaseLinkedList`](BaseLinkedList.md).[`size`](BaseLinkedList.md#size)
 
 ***
 
@@ -529,7 +533,7 @@ True if any element satisfies the predicate.
 
 #### Inherited from
 
-`BaseLinkedList.some`
+[`BaseLinkedList`](BaseLinkedList.md).[`some`](BaseLinkedList.md#some)
 
 ***
 
@@ -547,7 +551,7 @@ An array of all elements in order.
 
 #### Inherited from
 
-`BaseLinkedList.toArray`
+[`BaseLinkedList`](BaseLinkedList.md).[`toArray`](BaseLinkedList.md#toarray)
 
 ***
 

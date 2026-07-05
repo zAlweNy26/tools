@@ -17,7 +17,7 @@ Visits children up to `splitAt`, then the root, then remaining children.
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `node` | `TreeNode`\<`T`\> \| `null` | The node to start traversal from. |
+| `node` | [`TreeNode`](../classes/TreeNode.md)\<`T`\> \| `null` | The node to start traversal from. |
 | `result` | `T`[] | The array to push visited node data into. |
 | `splitAt` | (`children`) => `number` | A function that returns the index in `node.children` where the root is visited. For binary trees, return `1` to visit left child, root, then right child. |
 

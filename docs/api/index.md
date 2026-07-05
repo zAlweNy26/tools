@@ -1,5 +1,13 @@
 # API Reference
 
+## Classes
+
+### Trees
+
+| Class | Description |
+| ------ | ------ |
+| [TreeNode](classes/TreeNode.md) | Abstract base class for tree nodes. |
+
 ## Interfaces
 
 | Interface | Description |
@@ -13,6 +21,7 @@
 
 | Class | Description |
 | ------ | ------ |
+| [DimRed](classes/DimRed.md) | A class for performing dimensionality reduction on a matrix of data. |
 | [TSNE](classes/TSNE.md) | Implementation of the t-Distributed Stochastic Neighbor Embedding (t-SNE) algorithm. |
 
 ## Distances
@@ -56,6 +65,7 @@
 | ------ | ------ |
 | [DirectedGraph](classes/DirectedGraph.md) | A directed graph data structure. Edges go in one direction only. |
 | [Graph](classes/Graph.md) | A graph data structure. |
+| [GraphStructure](classes/GraphStructure.md) | Abstract class representing a graph structure. |
 | [WeightedDirectedGraph](classes/WeightedDirectedGraph.md) | A directed, weighted graph data structure. Edges go in one direction only with weights. |
 | [WeightedGraph](classes/WeightedGraph.md) | A weighted graph data structure. |
 
@@ -69,9 +79,11 @@
 
 | Class | Description |
 | ------ | ------ |
+| [BaseLinkedList](classes/BaseLinkedList.md) | Abstract base class for linked list implementations. |
 | [DoublyLinkedList](classes/DoublyLinkedList.md) | A doubly linked list data structure. |
 | [DoublyListNode](classes/DoublyListNode.md) | Represents a node in a doubly linked list. |
 | [LinkedList](classes/LinkedList.md) | A singly linked list data structure. |
+| [ListNode](classes/ListNode.md) | Represents a node in a singly linked list. |
 
 ### Matrices
 
@@ -84,6 +96,7 @@
 | Class | Description |
 | ------ | ------ |
 | [CircularQueue](classes/CircularQueue.md) | A circular queue data structure. |
+| [ListStructure](classes/ListStructure.md) | Abstract class representing a list structure. |
 | [Queue](classes/Queue.md) | A queue data structure. |
 | [Stack](classes/Stack.md) | A stack data structure. |
 

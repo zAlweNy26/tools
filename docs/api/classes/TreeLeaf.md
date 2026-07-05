@@ -15,6 +15,10 @@ child.push('grandchild')
 root.height  // 2
 ```
 
+## Extends
+
+- [`TreeNode`](TreeNode.md)\<`T`\>
+
 ## Type Parameters
 
 | Type Parameter | Description |
@@ -42,13 +46,13 @@ Creates a new TreeLeaf instance.
 
 #### Overrides
 
-`TreeNode<T>.constructor`
+[`TreeNode`](TreeNode.md).[`constructor`](TreeNode.md#constructor)
 
 ## Properties
 
 | Property | Modifier | Type | Inherited from |
 | ------ | ------ | ------ | ------ |
-| <a id="property-data"></a> `data` | `public` | `T` | `TreeNode.data` |
+| <a id="property-data"></a> `data` | `public` | `T` | [`TreeNode`](TreeNode.md).[`data`](TreeNode.md#property-data) |
 
 ## Accessors
 
@@ -64,7 +68,7 @@ Creates a new TreeLeaf instance.
 
 #### Overrides
 
-`TreeNode.children`
+[`TreeNode`](TreeNode.md).[`children`](TreeNode.md#children)
 
 ***
 
@@ -80,7 +84,7 @@ Creates a new TreeLeaf instance.
 
 #### Inherited from
 
-`TreeNode.height`
+[`TreeNode`](TreeNode.md).[`height`](TreeNode.md#height)
 
 ## Methods
 

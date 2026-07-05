@@ -1,5 +1,21 @@
 [
   {
+    "text": "Classes",
+    "collapsed": true,
+    "items": [
+      {
+        "text": "Trees",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "TreeNode",
+            "link": "/api/classes/TreeNode.md"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "text": "Interfaces",
     "collapsed": true,
     "items": [
@@ -25,6 +41,10 @@
     "text": "Dimensionality Reduction",
     "collapsed": true,
     "items": [
+      {
+        "text": "DimRed",
+        "link": "/api/classes/DimRed.md"
+      },
       {
         "text": "TSNE",
         "link": "/api/classes/TSNE.md"
@@ -138,6 +158,10 @@
             "link": "/api/classes/Graph.md"
           },
           {
+            "text": "GraphStructure",
+            "link": "/api/classes/GraphStructure.md"
+          },
+          {
             "text": "WeightedDirectedGraph",
             "link": "/api/classes/WeightedDirectedGraph.md"
           },
@@ -162,6 +186,10 @@
         "collapsed": true,
         "items": [
           {
+            "text": "BaseLinkedList",
+            "link": "/api/classes/BaseLinkedList.md"
+          },
+          {
             "text": "DoublyLinkedList",
             "link": "/api/classes/DoublyLinkedList.md"
           },
@@ -172,6 +200,10 @@
           {
             "text": "LinkedList",
             "link": "/api/classes/LinkedList.md"
+          },
+          {
+            "text": "ListNode",
+            "link": "/api/classes/ListNode.md"
           }
         ]
       },
@@ -192,6 +224,10 @@
           {
             "text": "CircularQueue",
             "link": "/api/classes/CircularQueue.md"
+          },
+          {
+            "text": "ListStructure",
+            "link": "/api/classes/ListStructure.md"
           },
           {
             "text": "Queue",

@@ -1,9 +1,5 @@
 import { GraphStructure } from './base'
 
-type Weight = number
-
-type Edge<V> = [V, Weight]
-
 /**
  * A weighted graph data structure.
  * @template N The type of the nodes in the graph.
@@ -19,7 +15,7 @@ type Edge<V> = [V, Weight]
  * @category Graphs
  * @group Structures
  */
-export class WeightedGraph<N> extends GraphStructure<N, Edge<N>> {
+export class WeightedGraph<N> extends GraphStructure<N, [N, number]> {
   /**
    * Creates a new weighted graph with the given node.
    * @param node The first node to add to the weighted graph.

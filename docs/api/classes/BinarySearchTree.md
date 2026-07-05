@@ -47,11 +47,13 @@ Creates a new binary search tree.
 
 > **new BinarySearchTree**\<`T`\>(`values?`): `BinarySearchTree`\<`T`\>
 
+Creates a new binary search tree with initial values.
+
 #### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `values?` | `Iterable`\<`T`, `any`, `any`\> |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `values?` | `Iterable`\<`T`, `any`, `any`\> | Optional iterable of values to insert into the tree. |
 
 #### Returns
 
@@ -59,14 +61,16 @@ Creates a new binary search tree.
 
 ### Constructor
 
-> **new BinarySearchTree**\<`T`\>(`compare?`, `values?`): `BinarySearchTree`\<`T`\>
+> **new BinarySearchTree**\<`T`\>(`compare`, `values`): `BinarySearchTree`\<`T`\>
+
+Creates a new binary search tree with a comparator and initial values.
 
 #### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `compare?` | (`a`, `b`) => `number` |
-| `values?` | `Iterable`\<`T`, `any`, `any`\> |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `compare` | (`a`, `b`) => `number` | A comparator function. |
+| `values` | `Iterable`\<`T`\> | Optional iterable of values to insert into the tree. |
 
 #### Returns
 

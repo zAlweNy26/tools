@@ -1,47 +1,37 @@
-[Overview](../index.md) / TSNE
+[Overview](../index.md) / DimRed
 
-# TSNE
+# DimRed\<P\>
 
-Implementation of the t-Distributed Stochastic Neighbor Embedding (t-SNE) algorithm.
+A class for performing dimensionality reduction on a matrix of data.
 
-## Example
+## Extended by
 
-```ts
-import { TSNE } from '@danyalwe/tools'
+- [`TSNE`](TSNE.md)
 
-const data = [[1, 2], [3, 4], [5, 6], [7, 8], [9, 10]]
-const tsne = new TSNE(data, { perplexity: 30, epsilon: 10, dimensionality: 2 })
-const projection = tsne.transform()
+## Type Parameters
 
-projection.forEach(row => console.log(row)) // 2D coordinates
-```
-
-## Extends
-
-- [`DimRed`](DimRed.md)\<[`TSNEParams`](../interfaces/TSNEParams.md)\>
+| Type Parameter | Description |
+| ------ | ------ |
+| `P` *extends* [`DimRedParams`](../interfaces/DimRedParams.md) | The type of the parameters for the class. |
 
 ## Constructors
 
 ### Constructor
 
-> **new TSNE**(`data`, `params?`): `TSNE`
+> **new DimRed**\<`P`\>(`data`, `params?`): `DimRed`\<`P`\>
 
-t-SNE algorithm for dimensionality reduction.
+Constructs a new instance of the DimRed class.
 
 #### Parameters
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `data` | [`Matrix`](Matrix.md) \| `number`[][] | A 2D array or matrix whose dimensionality is to be reduced. |
-| `params?` | `Partial`\<[`TSNEParams`](../interfaces/TSNEParams.md)\> | Optional parameters for the algorithm. |
+| `data` | [`Matrix`](Matrix.md) \| `number`[][] | The matrix of data to perform dimensionality reduction on. |
+| `params?` | `Partial`\<`P`\> | Optional parameters for the algorithm. |
 
 #### Returns
 
-`TSNE`
-
-#### Overrides
-
-[`DimRed`](DimRed.md).[`constructor`](DimRed.md#constructor)
+`DimRed`\<`P`\>
 
 ## Accessors
 
@@ -57,10 +47,6 @@ Gets the dimensionality of the data after dimensionality reduction.
 
 `number`
 
-#### Inherited from
-
-[`DimRed`](DimRed.md).[`dimensionality`](DimRed.md#dimensionality)
-
 ***
 
 ### metric
@@ -74,10 +60,6 @@ Gets the metric used for calculating distances between data points.
 ##### Returns
 
 `string`
-
-#### Inherited from
-
-[`DimRed`](DimRed.md).[`metric`](DimRed.md#metric)
 
 ***
 
@@ -93,10 +75,6 @@ Gets the parameters used for the algorithm.
 
 `Omit`\<`P` & [`DimRedParams`](../interfaces/DimRedParams.md), `"dimensionality"` \| `"metric"` \| `"seed"`\>
 
-#### Inherited from
-
-[`DimRed`](DimRed.md).[`parameters`](DimRed.md#parameters)
-
 ***
 
 ### seed
@@ -110,10 +88,6 @@ Gets the seed used for generating random numbers.
 ##### Returns
 
 `number`
-
-#### Inherited from
-
-[`DimRed`](DimRed.md).[`seed`](DimRed.md#seed)
 
 ## Methods
 
@@ -150,43 +124,19 @@ for (const intermediate of gen) {
 }
 ```
 
-#### Inherited from
-
-[`DimRed`](DimRed.md).[`generator`](DimRed.md#generator)
-
 ***
 
 ### init()
 
-> **init**(): `TSNE`
+> `abstract` **init**(): `this`
 
-Initializes the t-SNE algorithm by computing pairwise distances between data points and
-computing probabilities for each pair of points. It also initializes the step and gains matrices.
+Initializes the needed stuff for the algorithm.
 
 #### Returns
 
-`TSNE`
+`this`
 
-The t-SNE instance.
-
-#### Example
-
-```ts
-import { Matrix } from '@danyalwe/tools'
-
-// Using precomputed distances
-const distances = new Matrix(3, 3, [
-  [0, 1, 4],
-  [1, 0, 2],
-  [4, 2, 0],
-])
-const tsne = new TSNE(distances, { metric: 'precomputed', perplexity: 2 })
-const projection = tsne.transform()
-```
-
-#### Overrides
-
-[`DimRed`](DimRed.md).[`init`](DimRed.md#init)
+The instance of the class.
 
 ***
 
@@ -215,7 +165,3 @@ const tsne = new TSNE([[1, 2], [3, 4], [5, 6], [7, 8]])
 const projection = tsne.transform()        // default 500 iterations
 const projection2 = tsne.transform(1000)    // custom iterations
 ```
-
-#### Inherited from
-
-[`DimRed`](DimRed.md).[`transform`](DimRed.md#transform)

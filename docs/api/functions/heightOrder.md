@@ -16,7 +16,7 @@ Traverses a tree by height (level order), visiting the root, then all nodes at e
 
 | Parameter | Type | Default value | Description |
 | ------ | ------ | ------ | ------ |
-| `node` | `TreeNode`\<`T`\> \| `null` | `undefined` | The node to start traversal from. |
+| `node` | [`TreeNode`](../classes/TreeNode.md)\<`T`\> \| `null` | `undefined` | The node to start traversal from. |
 | `result` | `T`[] | `undefined` | The array to push visited node data into. |
 | `first` | `boolean` | `true` | Internal flag used to track whether the root has been visited (defaults to `true`). |
 

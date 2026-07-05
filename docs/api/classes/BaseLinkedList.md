@@ -1,24 +1,13 @@
-[Overview](../index.md) / LinkedList
+[Overview](../index.md) / BaseLinkedList
 
-# LinkedList\<T\>
+# BaseLinkedList\<T\>
 
-A singly linked list data structure.
+Abstract base class for linked list implementations.
 
-## Example
+## Extended by
 
-```ts
-import { LinkedList } from '@danyalwe/tools'
-
-const list = new LinkedList<number>([1, 2, 3])
-list.append(4)
-list.prepend(0)
-list.toArray()       // [0, 1, 2, 3, 4]
-list.deleteAt(2)     // 2
-```
-
-## Extends
-
-- [`BaseLinkedList`](BaseLinkedList.md)\<`T`\>
+- [`DoublyLinkedList`](DoublyLinkedList.md)
+- [`LinkedList`](LinkedList.md)
 
 ## Type Parameters
 
@@ -26,33 +15,25 @@ list.deleteAt(2)     // 2
 | ------ | ------ |
 | `T` | The type of elements held in the list. |
 
+## Implements
+
+- [`Structure`](../interfaces/Structure.md)
+
 ## Constructors
 
 ### Constructor
 
-> **new LinkedList**\<`T`\>(`items?`): `LinkedList`\<`T`\>
-
-Creates a new linked list, optionally initialised with elements from an iterable.
-
-#### Parameters
-
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `items?` | `Iterable`\<`T`, `any`, `any`\> | An iterable of elements to initialise the list with. |
+> **new BaseLinkedList**\<`T`\>(): `BaseLinkedList`\<`T`\>
 
 #### Returns
 
-`LinkedList`\<`T`\>
-
-#### Overrides
-
-[`BaseLinkedList`](BaseLinkedList.md).[`constructor`](BaseLinkedList.md#constructor)
+`BaseLinkedList`\<`T`\>
 
 ## Properties
 
-| Property | Type | Default value | Description | Inherited from |
-| ------ | ------ | ------ | ------ | ------ |
-| <a id="property-head"></a> `head` | [`ListNode`](ListNode.md)\<`T`\> \| `null` | `null` | The first node in the list, or null if the list is empty. | [`BaseLinkedList`](BaseLinkedList.md).[`head`](BaseLinkedList.md#property-head) |
+| Property | Type | Default value | Description |
+| ------ | ------ | ------ | ------ |
+| <a id="property-head"></a> `head` | [`ListNode`](ListNode.md)\<`T`\> \| `null` | `null` | The first node in the list, or null if the list is empty. |
 
 ## Accessors
 
@@ -68,10 +49,6 @@ Returns true if the list is empty, false otherwise.
 
 `boolean`
 
-#### Inherited from
-
-[`BaseLinkedList`](BaseLinkedList.md).[`isEmpty`](BaseLinkedList.md#isempty)
-
 ## Methods
 
 ### \[iterator\]()
@@ -86,15 +63,11 @@ Iterator for the list, enabling for...of iteration.
 
 An iterator over the list's elements.
 
-#### Inherited from
-
-[`BaseLinkedList`](BaseLinkedList.md).[`[iterator]`](BaseLinkedList.md#iterator)
-
 ***
 
 ### append()
 
-> **append**(`data`): `this`
+> `abstract` **append**(`data`): `this`
 
 Adds an element to the end of the list.
 
@@ -110,10 +83,6 @@ Adds an element to the end of the list.
 
 The list instance.
 
-#### Overrides
-
-[`BaseLinkedList`](BaseLinkedList.md).[`append`](BaseLinkedList.md#append)
-
 ***
 
 ### clear()
@@ -126,15 +95,15 @@ Clears the list, removing all elements.
 
 `void`
 
-#### Inherited from
+#### Implementation of
 
-[`BaseLinkedList`](BaseLinkedList.md).[`clear`](BaseLinkedList.md#clear)
+[`Structure`](../interfaces/Structure.md).[`clear`](../interfaces/Structure.md#property-clear)
 
 ***
 
 ### delete()
 
-> **delete**(`data`): `boolean`
+> `abstract` **delete**(`data`): `boolean`
 
 Removes the first occurrence of the given data from the list.
 
@@ -150,15 +119,11 @@ Removes the first occurrence of the given data from the list.
 
 True if the element was found and removed, false otherwise.
 
-#### Overrides
-
-[`BaseLinkedList`](BaseLinkedList.md).[`delete`](BaseLinkedList.md#delete)
-
 ***
 
 ### deleteAt()
 
-> **deleteAt**(`index`): `T` \| `undefined`
+> `abstract` **deleteAt**(`index`): `T` \| `undefined`
 
 Removes and returns the element at the given index.
 
@@ -173,10 +138,6 @@ Removes and returns the element at the given index.
 `T` \| `undefined`
 
 The removed element, or undefined if the index is out of bounds.
-
-#### Overrides
-
-[`BaseLinkedList`](BaseLinkedList.md).[`deleteAt`](BaseLinkedList.md#deleteat)
 
 ***
 
@@ -198,30 +159,6 @@ Returns true if all elements satisfy the predicate.
 
 True if all elements satisfy the predicate.
 
-#### Inherited from
-
-[`BaseLinkedList`](BaseLinkedList.md).[`every`](BaseLinkedList.md#every)
-
-***
-
-### filter()
-
-> **filter**(`predicate`): `LinkedList`\<`T`\>
-
-Returns a new linked list with elements that pass the given predicate.
-
-#### Parameters
-
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `predicate` | (`value`, `index`) => `boolean` | The function to test each element. |
-
-#### Returns
-
-`LinkedList`\<`T`\>
-
-A new linked list with the filtered elements.
-
 ***
 
 ### find()
@@ -242,10 +179,6 @@ Finds the first node containing the given data.
 
 The node containing the data, or undefined if not found.
 
-#### Inherited from
-
-[`BaseLinkedList`](BaseLinkedList.md).[`find`](BaseLinkedList.md#find)
-
 ***
 
 ### forEach()
@@ -263,10 +196,6 @@ Calls a function for each element in the list.
 #### Returns
 
 `void`
-
-#### Inherited from
-
-[`BaseLinkedList`](BaseLinkedList.md).[`forEach`](BaseLinkedList.md#foreach)
 
 ***
 
@@ -288,10 +217,6 @@ Returns the element at the given index.
 
 The element at the given index, or undefined if out of bounds.
 
-#### Inherited from
-
-[`BaseLinkedList`](BaseLinkedList.md).[`getAt`](BaseLinkedList.md#getat)
-
 ***
 
 ### includes()
@@ -311,10 +236,6 @@ Returns true if the list includes the given data.
 `boolean`
 
 True if the data is found, false otherwise.
-
-#### Inherited from
-
-[`BaseLinkedList`](BaseLinkedList.md).[`includes`](BaseLinkedList.md#includes)
 
 ***
 
@@ -336,15 +257,11 @@ Returns the index of the first occurrence of the given data.
 
 The index of the data, or -1 if not found.
 
-#### Inherited from
-
-[`BaseLinkedList`](BaseLinkedList.md).[`indexOf`](BaseLinkedList.md#indexof)
-
 ***
 
 ### insertAt()
 
-> **insertAt**(`index`, `data`): `this`
+> `abstract` **insertAt**(`index`, `data`): `this`
 
 Inserts an element at the given index.
 
@@ -365,41 +282,11 @@ The list instance.
 
 An error if the index is out of bounds.
 
-#### Overrides
-
-[`BaseLinkedList`](BaseLinkedList.md).[`insertAt`](BaseLinkedList.md#insertat)
-
-***
-
-### map()
-
-> **map**\<`U`\>(`callback`): `LinkedList`\<`U`\>
-
-Returns a new linked list with the results of calling a function on each element.
-
-#### Type Parameters
-
-| Type Parameter |
-| ------ |
-| `U` |
-
-#### Parameters
-
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `callback` | (`value`, `index`) => `U` | The function to apply to each element. |
-
-#### Returns
-
-`LinkedList`\<`U`\>
-
-A new linked list with the mapped values.
-
 ***
 
 ### prepend()
 
-> **prepend**(`data`): `this`
+> `abstract` **prepend**(`data`): `this`
 
 Adds an element to the beginning of the list.
 
@@ -414,10 +301,6 @@ Adds an element to the beginning of the list.
 `this`
 
 The list instance.
-
-#### Overrides
-
-[`BaseLinkedList`](BaseLinkedList.md).[`prepend`](BaseLinkedList.md#prepend)
 
 ***
 
@@ -446,15 +329,11 @@ Reduces the list to a single value.
 
 The reduced value.
 
-#### Inherited from
-
-[`BaseLinkedList`](BaseLinkedList.md).[`reduce`](BaseLinkedList.md#reduce)
-
 ***
 
 ### reverse()
 
-> **reverse**(): `this`
+> `abstract` **reverse**(): `this`
 
 Reverses the list in place.
 
@@ -463,10 +342,6 @@ Reverses the list in place.
 `this`
 
 The list instance.
-
-#### Overrides
-
-[`BaseLinkedList`](BaseLinkedList.md).[`reverse`](BaseLinkedList.md#reverse)
 
 ***
 
@@ -480,9 +355,9 @@ The current number of elements in the list.
 
 `number`
 
-#### Inherited from
+#### Implementation of
 
-[`BaseLinkedList`](BaseLinkedList.md).[`size`](BaseLinkedList.md#size)
+[`Structure`](../interfaces/Structure.md).[`size`](../interfaces/Structure.md#property-size)
 
 ***
 
@@ -504,10 +379,6 @@ Returns true if at least one element satisfies the predicate.
 
 True if any element satisfies the predicate.
 
-#### Inherited from
-
-[`BaseLinkedList`](BaseLinkedList.md).[`some`](BaseLinkedList.md#some)
-
 ***
 
 ### toArray()
@@ -521,7 +392,3 @@ Returns an array containing all the elements in the list.
 `T`[]
 
 An array of all elements in order.
-
-#### Inherited from
-
-[`BaseLinkedList`](BaseLinkedList.md).[`toArray`](BaseLinkedList.md#toarray)

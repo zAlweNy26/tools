@@ -4,6 +4,10 @@
 
 A node in a binary search tree.
 
+## Extends
+
+- [`TreeNode`](TreeNode.md)\<`T`\>
+
 ## Type Parameters
 
 | Type Parameter | Description |
@@ -32,13 +36,13 @@ Creates a new BST node.
 
 #### Overrides
 
-`TreeNode<T>.constructor`
+[`TreeNode`](TreeNode.md).[`constructor`](TreeNode.md#constructor)
 
 ## Properties
 
 | Property | Modifier | Type | Default value | Inherited from |
 | ------ | ------ | ------ | ------ | ------ |
-| <a id="property-data"></a> `data` | `public` | `T` | `undefined` | `TreeNode.data` |
+| <a id="property-data"></a> `data` | `public` | `T` | `undefined` | [`TreeNode`](TreeNode.md).[`data`](TreeNode.md#property-data) |
 | <a id="property-left"></a> `left` | `public` | `BSTNode`\<`T`\> \| `null` | `null` | - |
 | <a id="property-right"></a> `right` | `public` | `BSTNode`\<`T`\> \| `null` | `null` | - |
 
@@ -48,15 +52,15 @@ Creates a new BST node.
 
 #### Get Signature
 
-> **get** **children**(): (`TreeNode`\<`T`\> \| `null`)[]
+> **get** **children**(): ([`TreeNode`](TreeNode.md)\<`T`\> \| `null`)[]
 
 ##### Returns
 
-(`TreeNode`\<`T`\> \| `null`)[]
+([`TreeNode`](TreeNode.md)\<`T`\> \| `null`)[]
 
 #### Overrides
 
-`TreeNode.children`
+[`TreeNode`](TreeNode.md).[`children`](TreeNode.md#children)
 
 ***
 
@@ -72,4 +76,4 @@ Creates a new BST node.
 
 #### Inherited from
 
-`TreeNode.height`
+[`TreeNode`](TreeNode.md).[`height`](TreeNode.md#height)

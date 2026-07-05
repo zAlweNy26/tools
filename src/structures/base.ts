@@ -4,7 +4,6 @@ import { FixedArray } from './fixed_array'
 /**
  * Abstract class representing a list structure.
  * @template T The type of elements held in the list.
- * @internal
  * @category Queues
  * @group Structures
  */
@@ -73,7 +72,6 @@ export abstract class ListStructure<T> implements Structure {
  * Abstract class representing a graph structure.
  * @template N The type of the nodes in the graph.
  * @template E The type of the values associated with the nodes.
- * @internal
  * @category Graphs
  * @group Structures
  */
@@ -164,7 +162,6 @@ export abstract class GraphStructure<N, E> implements Structure {
 /**
  * Represents a node in a singly linked list.
  * @template T The type of data stored in the node.
- * @internal
  * @category Linked Lists
  * @group Structures
  */
@@ -192,7 +189,6 @@ export class ListNode<T> {
 /**
  * Abstract base class for linked list implementations.
  * @template T The type of elements held in the list.
- * @internal
  * @category Linked Lists
  * @group Structures
  */
@@ -424,7 +420,7 @@ export abstract class BaseLinkedList<T> implements Structure {
 /**
  * Abstract base class for tree nodes.
  * @template T The type of data stored in the node.
- * @internal
+ * @category Trees
  */
 export abstract class TreeNode<T> {
   constructor(public data: T) {}

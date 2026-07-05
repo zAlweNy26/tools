@@ -36,8 +36,8 @@ import {
   euclidean,
   cosine,
   manhattan,
-  quickSortNum,
-  mergeSortStr,
+  quickSort,
+  mergeSort,
   countingSort,
   Graph,
   breadthFirstSearch,
@@ -84,8 +84,8 @@ manhattan([0, 0], [3, 4])  // 7
 ## Sorting Algorithms
 
 ```ts
-quickSortNum([3, 1, 4, 1, 5, 9]) // [1, 1, 3, 4, 5, 9]
-mergeSortStr(['banana', 'apple', 'cherry']) // ['apple', 'banana', 'cherry']
+quickSort([3, 1, 4, 1, 5, 9]) // [1, 1, 3, 4, 5, 9]
+mergeSort(['banana', 'apple', 'cherry']) // ['apple', 'banana', 'cherry']
 countingSort([4, 2, 2, 8, 3, 3, 1]) // [1, 2, 2, 3, 3, 4, 8]
 ```
 
@@ -120,5 +120,5 @@ rng.random() // 0.566...
 linearSpace(0, 10, 5) // [0, 2.5, 5, 7.5, 10]
 
 // Execution time measurement
-measureTime(quickSortNum, [3, 1, 4, 1, 5]) // time in ms
+measureTime(quickSort, [3, 1, 4, 1, 5]) // time in ms
 ```

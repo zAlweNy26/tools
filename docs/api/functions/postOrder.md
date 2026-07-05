@@ -16,7 +16,7 @@ Traverses a tree in post-order (children left-to-right, then root).
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `node` | `TreeNode`\<`T`\> \| `null` | The node to start traversal from. |
+| `node` | [`TreeNode`](../classes/TreeNode.md)\<`T`\> \| `null` | The node to start traversal from. |
 | `result` | `T`[] | The array to push visited node data into. |
 
 ## Returns

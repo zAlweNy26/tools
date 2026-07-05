@@ -12,10 +12,10 @@ A collection of data structures, algorithms, and utilities for TypeScript. Zero 
 
 | Group | Description |
 |-------|-------------|
-| **Structures** | Stack, Queue, CircularQueue, FixedArray, LinkedList, DoublyLinkedList, Tree, Matrix, Graph, WeightedGraph |
-| **Sortings** | Bubble, Counting, Insertion, Merge, Quick, Selection (numeric + string variants) |
+| **Structures** | Stack, Queue, CircularQueue, FixedArray, LinkedList, DoublyLinkedList, Tree, BST, Heap, Matrix, Graph, DirectedGraph, WeightedGraph, WeightedDirectedGraph |
+| **Sortings** | Bubble, Counting, Insertion, Merge, Quick, Selection |
 | **Distances** | Angular, Canberra, Chebyshev, Cosine, Euclidean, EuclideanSquared, EuclideanWeighted, Hamming, Manhattan, Minkowski, Pearson |
-| **Researches** | BFS, DFS, Kruskal's MST |
+| **Traversals** | BFS, DFS, Kruskal's MST, Tree traversals |
 | **Dimensionality Reduction** | t-SNE |
 | **Utils** | Randomizer (Mersenne Twister), pipe, measureTime, linearSpace, tryCatch |
 

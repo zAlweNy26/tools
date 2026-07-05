@@ -16,6 +16,10 @@ graph.isAdjacent('A', 'B')  // true
 graph.getEdges('A')         // ['B', 'C']
 ```
 
+## Extends
+
+- [`GraphStructure`](GraphStructure.md)\<`N`, `N`\>
+
 ## Extended by
 
 - [`DirectedGraph`](DirectedGraph.md)
@@ -46,7 +50,7 @@ Creates a new graph with the given node.
 
 #### Overrides
 
-`GraphStructure<N, N>.constructor`
+[`GraphStructure`](GraphStructure.md).[`constructor`](GraphStructure.md#constructor)
 
 ## Accessors
 
@@ -64,7 +68,7 @@ Returns an array of nodes in the graph.
 
 #### Inherited from
 
-`GraphStructure.nodes`
+[`GraphStructure`](GraphStructure.md).[`nodes`](GraphStructure.md#nodes)
 
 ## Methods
 
@@ -93,7 +97,7 @@ An error if the first node is not found or if the edge already exists.
 
 #### Overrides
 
-`GraphStructure.addEdge`
+[`GraphStructure`](GraphStructure.md).[`addEdge`](GraphStructure.md#addedge)
 
 ***
 
@@ -109,7 +113,7 @@ Clears the graph by removing all nodes and edges.
 
 #### Inherited from
 
-`GraphStructure.clear`
+[`GraphStructure`](GraphStructure.md).[`clear`](GraphStructure.md#clear)
 
 ***
 
@@ -137,7 +141,7 @@ An error if the node is not found.
 
 #### Overrides
 
-`GraphStructure.getEdges`
+[`GraphStructure`](GraphStructure.md).[`getEdges`](GraphStructure.md#getedges)
 
 ***
 
@@ -155,7 +159,7 @@ True if a cycle is detected, false otherwise.
 
 #### Overrides
 
-`GraphStructure.hasCycle`
+[`GraphStructure`](GraphStructure.md).[`hasCycle`](GraphStructure.md#hascycle)
 
 ***
 
@@ -177,7 +181,7 @@ Returns true if the graph contains the given node, false otherwise.
 
 #### Inherited from
 
-`GraphStructure.hasNode`
+[`GraphStructure`](GraphStructure.md).[`hasNode`](GraphStructure.md#hasnode)
 
 ***
 
@@ -206,7 +210,7 @@ An error if the first node is not found.
 
 #### Overrides
 
-`GraphStructure.isAdjacent`
+[`GraphStructure`](GraphStructure.md).[`isAdjacent`](GraphStructure.md#isadjacent)
 
 ***
 
@@ -235,7 +239,7 @@ An error if either node is not found or if the edge does not exist.
 
 #### Overrides
 
-`GraphStructure.removeEdge`
+[`GraphStructure`](GraphStructure.md).[`removeEdge`](GraphStructure.md#removeedge)
 
 ***
 
@@ -263,7 +267,7 @@ An error if the node is not found.
 
 #### Overrides
 
-`GraphStructure.removeNode`
+[`GraphStructure`](GraphStructure.md).[`removeNode`](GraphStructure.md#removenode)
 
 ***
 
@@ -279,4 +283,4 @@ The current number of elements in the graph.
 
 #### Inherited from
 
-`GraphStructure.size`
+[`GraphStructure`](GraphStructure.md).[`size`](GraphStructure.md#size)
