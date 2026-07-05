@@ -9,6 +9,7 @@
       "@structures/*": ["./src/structures/*"],
       "@distances/*": ["./src/distances/*"],
       "@utils/*": ["./src/utils/*"],
+      "@interfaces/*": ["./src/interfaces/*"],
       "@sortings/*": ["./src/sortings/*"],
       "@dim_red/*": ["./src/dim_red/*"],
       "@researches/*": ["./src/researches/*"]
