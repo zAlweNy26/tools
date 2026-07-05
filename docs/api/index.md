@@ -44,27 +44,57 @@
 
 ## Structures
 
-| Name | Description |
+### Arrays
+
+| Class | Description |
+| ------ | ------ |
+| [FixedArray](classes/FixedArray.md) | A fixed-capacity array that extends the built-in Array class. |
+
+### Graphs
+
+| Class | Description |
+| ------ | ------ |
+| [DirectedGraph](classes/DirectedGraph.md) | A directed graph data structure. Edges go in one direction only. |
+| [Graph](classes/Graph.md) | A graph data structure. |
+| [WeightedDirectedGraph](classes/WeightedDirectedGraph.md) | A directed, weighted graph data structure. Edges go in one direction only with weights. |
+| [WeightedGraph](classes/WeightedGraph.md) | A weighted graph data structure. |
+
+### Heaps
+
+| Class | Description |
+| ------ | ------ |
+| [Heap](classes/Heap.md) | A binary heap data structure. |
+
+### Linked Lists
+
+| Class | Description |
+| ------ | ------ |
+| [DoublyLinkedList](classes/DoublyLinkedList.md) | A doubly linked list data structure. |
+| [DoublyListNode](classes/DoublyListNode.md) | Represents a node in a doubly linked list. |
+| [LinkedList](classes/LinkedList.md) | A singly linked list data structure. |
+
+### Matrices
+
+| Class | Description |
+| ------ | ------ |
+| [Matrix](classes/Matrix.md) | A matrix data structure. |
+
+### Queues
+
+| Class | Description |
+| ------ | ------ |
+| [CircularQueue](classes/CircularQueue.md) | A circular queue data structure. |
+| [Queue](classes/Queue.md) | A queue data structure. |
+| [Stack](classes/Stack.md) | A stack data structure. |
+
+### Trees
+
+| Class | Description |
 | ------ | ------ |
 | [BinarySearchTree](classes/BinarySearchTree.md) | A binary search tree data structure. |
 | [BSTNode](classes/BSTNode.md) | A node in a binary search tree. |
-| [CircularQueue](classes/CircularQueue.md) | A circular queue data structure. |
-| [DirectedGraph](classes/DirectedGraph.md) | A directed graph data structure. Edges go in one direction only. |
-| [DoublyLinkedList](classes/DoublyLinkedList.md) | A doubly linked list data structure. |
-| [DoublyListNode](classes/DoublyListNode.md) | Represents a node in a doubly linked list. |
-| [FixedArray](classes/FixedArray.md) | A fixed-capacity array that extends the built-in Array class. |
-| [Graph](classes/Graph.md) | A graph data structure. |
-| [Heap](classes/Heap.md) | A binary heap data structure. |
-| [LinkedList](classes/LinkedList.md) | A singly linked list data structure. |
-| [Matrix](classes/Matrix.md) | A matrix data structure. |
-| [Queue](classes/Queue.md) | A queue data structure. |
-| [Stack](classes/Stack.md) | A stack data structure. |
 | [Tree](classes/Tree.md) | Represents a tree data structure. |
 | [TreeLeaf](classes/TreeLeaf.md) | Represents a leaf in a tree data structure. |
-| [WeightedDirectedGraph](classes/WeightedDirectedGraph.md) | A directed, weighted graph data structure. Edges go in one direction only with weights. |
-| [WeightedGraph](classes/WeightedGraph.md) | A weighted graph data structure. |
-| [Edge](type-aliases/Edge.md) | An edge represented as a tuple of a vertex and its weight. |
-| [Weight](type-aliases/Weight.md) | Weight value type used in weighted graphs. |
 
 ## Traversals
 

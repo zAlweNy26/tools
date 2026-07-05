@@ -14,6 +14,7 @@ import { Queue } from './queue'
  * cq.enqueue(4) // overwrites the oldest (1)
  * cq.peek()     // 2
  * ```
+ * @category Queues
  * @group Structures
  */
 export class CircularQueue<T> extends Queue<T> {

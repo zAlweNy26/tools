@@ -12,6 +12,7 @@ import { ListStructure } from './base'
  * queue.enqueue('b')
  * queue.dequeue() // 'a'
  * ```
+ * @category Queues
  * @group Structures
  */
 export class Queue<T> extends ListStructure<T> {

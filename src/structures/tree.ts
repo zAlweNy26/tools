@@ -14,6 +14,7 @@ import { heightOrder, inOrder, postOrder, preOrder } from '@traversals/tree'
  * child.push('grandchild')
  * root.height  // 2
  * ```
+ * @category Trees
  * @group Structures
  */
 export class TreeLeaf<T> extends TreeNode<T> {
@@ -53,6 +54,7 @@ export class TreeLeaf<T> extends TreeNode<T> {
 /**
  * Represents a tree data structure.
  * @template T The type of data stored in the tree.
+ * @category Trees
  * @group Structures
  */
 export class Tree<T> implements Structure {

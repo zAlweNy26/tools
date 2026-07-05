@@ -15,6 +15,7 @@ export { ListNode }
  * list.toArray()       // [0, 1, 2, 3, 4]
  * list.deleteAt(2)     // 2
  * ```
+ * @category Linked Lists
  * @group Structures
  */
 export class LinkedList<T> extends BaseLinkedList<T> {

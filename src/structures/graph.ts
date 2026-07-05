@@ -13,6 +13,7 @@ import { GraphStructure } from './base'
  * graph.isAdjacent('A', 'B')  // true
  * graph.getEdges('A')         // ['B', 'C']
  * ```
+ * @category Graphs
  * @group Structures
  */
 export class Graph<N> extends GraphStructure<N, N> {

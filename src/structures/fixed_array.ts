@@ -10,6 +10,7 @@
  * arr.push(20)
  * arr.length  // 2
  * ```
+ * @category Arrays
  * @group Structures
  */
 export class FixedArray<T> extends Array<T> {

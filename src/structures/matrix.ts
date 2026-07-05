@@ -12,6 +12,7 @@ import type { Structure } from '@interfaces/structure'
  *
  * const id = new Matrix(3, 3, 'identity')  // 3x3 identity matrix
  * ```
+ * @category Matrices
  * @group Structures
  */
 export class Matrix implements Structure {

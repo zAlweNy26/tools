@@ -116,80 +116,114 @@
     "collapsed": true,
     "items": [
       {
-        "text": "BinarySearchTree",
-        "link": "/api/classes/BinarySearchTree.md"
+        "text": "Arrays",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "FixedArray",
+            "link": "/api/classes/FixedArray.md"
+          }
+        ]
       },
       {
-        "text": "BSTNode",
-        "link": "/api/classes/BSTNode.md"
+        "text": "Graphs",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "DirectedGraph",
+            "link": "/api/classes/DirectedGraph.md"
+          },
+          {
+            "text": "Graph",
+            "link": "/api/classes/Graph.md"
+          },
+          {
+            "text": "WeightedDirectedGraph",
+            "link": "/api/classes/WeightedDirectedGraph.md"
+          },
+          {
+            "text": "WeightedGraph",
+            "link": "/api/classes/WeightedGraph.md"
+          }
+        ]
       },
       {
-        "text": "CircularQueue",
-        "link": "/api/classes/CircularQueue.md"
+        "text": "Heaps",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "Heap",
+            "link": "/api/classes/Heap.md"
+          }
+        ]
       },
       {
-        "text": "DirectedGraph",
-        "link": "/api/classes/DirectedGraph.md"
+        "text": "Linked Lists",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "DoublyLinkedList",
+            "link": "/api/classes/DoublyLinkedList.md"
+          },
+          {
+            "text": "DoublyListNode",
+            "link": "/api/classes/DoublyListNode.md"
+          },
+          {
+            "text": "LinkedList",
+            "link": "/api/classes/LinkedList.md"
+          }
+        ]
       },
       {
-        "text": "DoublyLinkedList",
-        "link": "/api/classes/DoublyLinkedList.md"
+        "text": "Matrices",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "Matrix",
+            "link": "/api/classes/Matrix.md"
+          }
+        ]
       },
       {
-        "text": "DoublyListNode",
-        "link": "/api/classes/DoublyListNode.md"
+        "text": "Queues",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "CircularQueue",
+            "link": "/api/classes/CircularQueue.md"
+          },
+          {
+            "text": "Queue",
+            "link": "/api/classes/Queue.md"
+          },
+          {
+            "text": "Stack",
+            "link": "/api/classes/Stack.md"
+          }
+        ]
       },
       {
-        "text": "FixedArray",
-        "link": "/api/classes/FixedArray.md"
-      },
-      {
-        "text": "Graph",
-        "link": "/api/classes/Graph.md"
-      },
-      {
-        "text": "Heap",
-        "link": "/api/classes/Heap.md"
-      },
-      {
-        "text": "LinkedList",
-        "link": "/api/classes/LinkedList.md"
-      },
-      {
-        "text": "Matrix",
-        "link": "/api/classes/Matrix.md"
-      },
-      {
-        "text": "Queue",
-        "link": "/api/classes/Queue.md"
-      },
-      {
-        "text": "Stack",
-        "link": "/api/classes/Stack.md"
-      },
-      {
-        "text": "Tree",
-        "link": "/api/classes/Tree.md"
-      },
-      {
-        "text": "TreeLeaf",
-        "link": "/api/classes/TreeLeaf.md"
-      },
-      {
-        "text": "WeightedDirectedGraph",
-        "link": "/api/classes/WeightedDirectedGraph.md"
-      },
-      {
-        "text": "WeightedGraph",
-        "link": "/api/classes/WeightedGraph.md"
-      },
-      {
-        "text": "Edge",
-        "link": "/api/type-aliases/Edge.md"
-      },
-      {
-        "text": "Weight",
-        "link": "/api/type-aliases/Weight.md"
+        "text": "Trees",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "BinarySearchTree",
+            "link": "/api/classes/BinarySearchTree.md"
+          },
+          {
+            "text": "BSTNode",
+            "link": "/api/classes/BSTNode.md"
+          },
+          {
+            "text": "Tree",
+            "link": "/api/classes/Tree.md"
+          },
+          {
+            "text": "TreeLeaf",
+            "link": "/api/classes/TreeLeaf.md"
+          }
+        ]
       }
     ]
   },

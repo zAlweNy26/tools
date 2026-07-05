@@ -13,6 +13,7 @@ import { ListStructure } from './base'
  * stack.pop()   // 2
  * stack.peek()  // 1
  * ```
+ * @category Queues
  * @group Structures
  */
 export class Stack<T> extends ListStructure<T> {

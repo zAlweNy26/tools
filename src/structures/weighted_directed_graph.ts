@@ -12,6 +12,7 @@ import { WeightedGraph } from './weighted_graph'
  * graph.getWeight('A', 'B')  // 5
  * graph.isAdjacent('B', 'A') // false
  * ```
+ * @category Graphs
  * @group Structures
  */
 export class WeightedDirectedGraph<N> extends WeightedGraph<N> {

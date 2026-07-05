@@ -12,6 +12,7 @@ import { Graph } from './graph'
  * graph.isAdjacent('A', 'B')  // true
  * graph.isAdjacent('B', 'A')  // false
  * ```
+ * @category Graphs
  * @group Structures
  */
 export class DirectedGraph<N> extends Graph<N> {

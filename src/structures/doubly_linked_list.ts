@@ -3,6 +3,7 @@ import { BaseLinkedList, ListNode } from './base'
 /**
  * Represents a node in a doubly linked list.
  * @template T The type of data stored in the node.
+ * @category Linked Lists
  * @group Structures
  */
 export class DoublyListNode<T> extends ListNode<T> {
@@ -39,6 +40,7 @@ export class DoublyListNode<T> extends ListNode<T> {
  * list.deleteLast()    // 4
  * list.toArrayReverse() // [3, 2, 1]
  * ```
+ * @category Linked Lists
  * @group Structures
  */
 export class DoublyLinkedList<T> extends BaseLinkedList<T> {

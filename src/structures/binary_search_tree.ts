@@ -5,6 +5,7 @@ import { heightOrder, inOrder, postOrder, preOrder } from '@traversals/tree'
 /**
  * A node in a binary search tree.
  * @template T The type of data stored in the node.
+ * @category Trees
  * @group Structures
  */
 export class BSTNode<T> extends TreeNode<T> {
@@ -40,6 +41,7 @@ export class BSTNode<T> extends TreeNode<T> {
  * bst.contains(3)  // true
  * bst.traverse()   // [3, 5, 7]
  * ```
+ * @category Trees
  * @group Structures
  */
 export class BinarySearchTree<T> implements Structure {

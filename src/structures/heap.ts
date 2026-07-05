@@ -13,6 +13,7 @@ import type { Structure } from '@interfaces/structure'
  * heap.extract() // 1
  * heap.extract() // 2
  * ```
+ * @category Heaps
  * @group Structures
  */
 export class Heap<T> implements Structure {
