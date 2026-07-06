@@ -53,12 +53,6 @@
 
 ## Structures
 
-### Arrays
-
-| Class | Description |
-| ------ | ------ |
-| [FixedArray](classes/FixedArray.md) | A fixed-capacity array that extends the built-in Array class. |
-
 ### Graphs
 
 | Class | Description |
@@ -75,15 +69,17 @@
 | ------ | ------ |
 | [Heap](classes/Heap.md) | A binary heap data structure. |
 
-### Linked Lists
+### Lists
 
 | Class | Description |
 | ------ | ------ |
 | [BaseLinkedList](classes/BaseLinkedList.md) | Abstract base class for linked list implementations. |
 | [DoublyLinkedList](classes/DoublyLinkedList.md) | A doubly linked list data structure. |
 | [DoublyListNode](classes/DoublyListNode.md) | Represents a node in a doubly linked list. |
+| [FixedArray](classes/FixedArray.md) | A fixed-capacity array that extends the built-in Array class. |
 | [LinkedList](classes/LinkedList.md) | A singly linked list data structure. |
 | [ListNode](classes/ListNode.md) | Represents a node in a singly linked list. |
+| [ListStructure](classes/ListStructure.md) | Abstract class representing a list structure. |
 
 ### Matrices
 
@@ -96,7 +92,6 @@
 | Class | Description |
 | ------ | ------ |
 | [CircularQueue](classes/CircularQueue.md) | A circular queue data structure. |
-| [ListStructure](classes/ListStructure.md) | Abstract class representing a list structure. |
 | [Queue](classes/Queue.md) | A queue data structure. |
 | [Stack](classes/Stack.md) | A stack data structure. |
 
@@ -104,6 +99,8 @@
 
 | Class | Description |
 | ------ | ------ |
+| [AVLNode](classes/AVLNode.md) | A node in an AVL tree. |
+| [AVLTree](classes/AVLTree.md) | A self-balancing AVL tree data structure. |
 | [BinarySearchTree](classes/BinarySearchTree.md) | A binary search tree data structure. |
 | [BSTNode](classes/BSTNode.md) | A node in a binary search tree. |
 | [Tree](classes/Tree.md) | Represents a tree data structure. |

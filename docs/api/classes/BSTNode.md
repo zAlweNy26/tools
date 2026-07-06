@@ -8,6 +8,10 @@ A node in a binary search tree.
 
 - [`TreeNode`](TreeNode.md)\<`T`\>
 
+## Extended by
+
+- [`AVLNode`](AVLNode.md)
+
 ## Type Parameters
 
 | Type Parameter | Description |
@@ -40,11 +44,11 @@ Creates a new BST node.
 
 ## Properties
 
-| Property | Modifier | Type | Default value | Inherited from |
-| ------ | ------ | ------ | ------ | ------ |
-| <a id="property-data"></a> `data` | `public` | `T` | `undefined` | [`TreeNode`](TreeNode.md).[`data`](TreeNode.md#property-data) |
-| <a id="property-left"></a> `left` | `public` | `BSTNode`\<`T`\> \| `null` | `null` | - |
-| <a id="property-right"></a> `right` | `public` | `BSTNode`\<`T`\> \| `null` | `null` | - |
+| Property | Modifier | Type | Default value | Description | Inherited from |
+| ------ | ------ | ------ | ------ | ------ | ------ |
+| <a id="property-data"></a> `data` | `public` | `T` | `undefined` | The data to store in the node. | [`TreeNode`](TreeNode.md).[`data`](TreeNode.md#property-data) |
+| <a id="property-left"></a> `left` | `public` | `BSTNode`\<`T`\> \| `null` | `null` | The left child node. | - |
+| <a id="property-right"></a> `right` | `public` | `BSTNode`\<`T`\> \| `null` | `null` | The right child node. | - |
 
 ## Accessors
 
@@ -53,6 +57,8 @@ Creates a new BST node.
 #### Get Signature
 
 > **get** **children**(): ([`TreeNode`](TreeNode.md)\<`T`\> \| `null`)[]
+
+Returns the children of this node as `[left, right]`.
 
 ##### Returns
 
@@ -69,6 +75,8 @@ Creates a new BST node.
 #### Get Signature
 
 > **get** **height**(): `number`
+
+Returns the height of the subtree rooted at this node.
 
 ##### Returns
 

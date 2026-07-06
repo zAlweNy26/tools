@@ -136,16 +136,6 @@
     "collapsed": true,
     "items": [
       {
-        "text": "Arrays",
-        "collapsed": true,
-        "items": [
-          {
-            "text": "FixedArray",
-            "link": "/api/classes/FixedArray.md"
-          }
-        ]
-      },
-      {
         "text": "Graphs",
         "collapsed": true,
         "items": [
@@ -182,7 +172,7 @@
         ]
       },
       {
-        "text": "Linked Lists",
+        "text": "Lists",
         "collapsed": true,
         "items": [
           {
@@ -198,12 +188,20 @@
             "link": "/api/classes/DoublyListNode.md"
           },
           {
+            "text": "FixedArray",
+            "link": "/api/classes/FixedArray.md"
+          },
+          {
             "text": "LinkedList",
             "link": "/api/classes/LinkedList.md"
           },
           {
             "text": "ListNode",
             "link": "/api/classes/ListNode.md"
+          },
+          {
+            "text": "ListStructure",
+            "link": "/api/classes/ListStructure.md"
           }
         ]
       },
@@ -226,10 +224,6 @@
             "link": "/api/classes/CircularQueue.md"
           },
           {
-            "text": "ListStructure",
-            "link": "/api/classes/ListStructure.md"
-          },
-          {
             "text": "Queue",
             "link": "/api/classes/Queue.md"
           },
@@ -243,6 +237,14 @@
         "text": "Trees",
         "collapsed": true,
         "items": [
+          {
+            "text": "AVLNode",
+            "link": "/api/classes/AVLNode.md"
+          },
+          {
+            "text": "AVLTree",
+            "link": "/api/classes/AVLTree.md"
+          },
           {
             "text": "BinarySearchTree",
             "link": "/api/classes/BinarySearchTree.md"

@@ -1,23 +1,22 @@
-[Overview](../index.md) / BinarySearchTree
+[Overview](../index.md) / AVLTree
 
-# BinarySearchTree\<T\>
+# AVLTree\<T\>
 
-A binary search tree data structure.
+A self-balancing AVL tree data structure.
 
 ## Example
 
 ```ts
-import { BinarySearchTree } from '@danyalwe/tools'
+import { AVLTree } from '@danyalwe/tools'
 
-const bst = new BinarySearchTree<number>()
-bst.insert(5).insert(3).insert(7)
-bst.contains(3)  // true
-bst.traverse()   // [3, 5, 7]
+const tree = new AVLTree<number>()
+tree.insert(3).insert(1).insert(2)
+tree.traverse() // [1, 2, 3]
 ```
 
-## Extended by
+## Extends
 
-- [`AVLTree`](AVLTree.md)
+- [`BinarySearchTree`](BinarySearchTree.md)\<`T`\>
 
 ## Type Parameters
 
@@ -25,15 +24,11 @@ bst.traverse()   // [3, 5, 7]
 | ------ | ------ |
 | `T` | The type of elements held in the tree. |
 
-## Implements
-
-- [`Structure`](../interfaces/Structure.md)
-
 ## Constructors
 
 ### Constructor
 
-> **new BinarySearchTree**\<`T`\>(`compare?`): `BinarySearchTree`\<`T`\>
+> **new AVLTree**\<`T`\>(`compare?`): `AVLTree`\<`T`\>
 
 Creates a new binary search tree.
 
@@ -45,11 +40,15 @@ Creates a new binary search tree.
 
 #### Returns
 
-`BinarySearchTree`\<`T`\>
+`AVLTree`\<`T`\>
+
+#### Inherited from
+
+[`BinarySearchTree`](BinarySearchTree.md).[`constructor`](BinarySearchTree.md#constructor)
 
 ### Constructor
 
-> **new BinarySearchTree**\<`T`\>(`values?`): `BinarySearchTree`\<`T`\>
+> **new AVLTree**\<`T`\>(`values?`): `AVLTree`\<`T`\>
 
 Creates a new binary search tree with initial values.
 
@@ -61,11 +60,15 @@ Creates a new binary search tree with initial values.
 
 #### Returns
 
-`BinarySearchTree`\<`T`\>
+`AVLTree`\<`T`\>
+
+#### Inherited from
+
+[`BinarySearchTree`](BinarySearchTree.md).[`constructor`](BinarySearchTree.md#constructor)
 
 ### Constructor
 
-> **new BinarySearchTree**\<`T`\>(`compare`, `values`): `BinarySearchTree`\<`T`\>
+> **new AVLTree**\<`T`\>(`compare`, `values`): `AVLTree`\<`T`\>
 
 Creates a new binary search tree with a comparator and initial values.
 
@@ -78,7 +81,17 @@ Creates a new binary search tree with a comparator and initial values.
 
 #### Returns
 
-`BinarySearchTree`\<`T`\>
+`AVLTree`\<`T`\>
+
+#### Inherited from
+
+[`BinarySearchTree`](BinarySearchTree.md).[`constructor`](BinarySearchTree.md#constructor)
+
+## Properties
+
+| Property | Type | Overrides |
+| ------ | ------ | ------ |
+| <a id="property-_root"></a> `_root` | [`AVLNode`](AVLNode.md)\<`T`\> \| `null` | `BinarySearchTree._root` |
 
 ## Accessors
 
@@ -94,6 +107,10 @@ Returns the height of the tree, or -1 if empty.
 
 `number`
 
+#### Inherited from
+
+[`BinarySearchTree`](BinarySearchTree.md).[`height`](BinarySearchTree.md#height)
+
 ***
 
 ### isEmpty
@@ -108,6 +125,10 @@ Returns true if the tree is empty, false otherwise.
 
 `boolean`
 
+#### Inherited from
+
+[`BinarySearchTree`](BinarySearchTree.md).[`isEmpty`](BinarySearchTree.md#isempty)
+
 ## Methods
 
 ### \[iterator\]()
@@ -120,23 +141,27 @@ Returns an in-order iterator over the tree values.
 
 `Generator`\<`T`, `void`, `unknown`\>
 
+#### Inherited from
+
+[`BinarySearchTree`](BinarySearchTree.md).[`[iterator]`](BinarySearchTree.md#iterator)
+
 ***
 
 ### clear()
 
-> **clear**(): `BinarySearchTree`\<`T`\>
+> **clear**(): `AVLTree`\<`T`\>
 
 Removes all elements from the tree.
 
 #### Returns
 
-`BinarySearchTree`\<`T`\>
+`AVLTree`\<`T`\>
 
 The tree instance.
 
-#### Implementation of
+#### Inherited from
 
-[`Structure`](../interfaces/Structure.md).[`clear`](../interfaces/Structure.md#property-clear)
+[`BinarySearchTree`](BinarySearchTree.md).[`clear`](BinarySearchTree.md#clear)
 
 ***
 
@@ -158,13 +183,17 @@ Checks if a value exists in the tree.
 
 True if the value exists, false otherwise.
 
+#### Inherited from
+
+[`BinarySearchTree`](BinarySearchTree.md).[`contains`](BinarySearchTree.md#contains)
+
 ***
 
 ### delete()
 
-> **delete**(`value`): `BinarySearchTree`\<`T`\>
+> **delete**(`value`): `AVLTree`\<`T`\>
 
-Removes a value from the tree.
+Removes a value from the AVL tree and rebalances it.
 
 #### Parameters
 
@@ -174,7 +203,7 @@ Removes a value from the tree.
 
 #### Returns
 
-`BinarySearchTree`\<`T`\>
+`AVLTree`\<`T`\>
 
 The tree instance.
 
@@ -182,13 +211,17 @@ The tree instance.
 
 An error if the value is not found.
 
+#### Overrides
+
+[`BinarySearchTree`](BinarySearchTree.md).[`delete`](BinarySearchTree.md#delete)
+
 ***
 
 ### insert()
 
-> **insert**(`value`): `BinarySearchTree`\<`T`\>
+> **insert**(`value`): `AVLTree`\<`T`\>
 
-Inserts a value into the tree.
+Inserts a value into the AVL tree and rebalances it.
 
 #### Parameters
 
@@ -198,9 +231,26 @@ Inserts a value into the tree.
 
 #### Returns
 
-`BinarySearchTree`\<`T`\>
+`AVLTree`\<`T`\>
 
 The tree instance.
+
+#### Overrides
+
+[`BinarySearchTree`](BinarySearchTree.md).[`insert`](BinarySearchTree.md#insert)
+
+***
+
+### isBalanced()
+
+> **isBalanced**(): `boolean`
+
+Returns true if the AVL tree satisfies the balance invariant:
+every node has a balance factor in the range [-1, 0, 1].
+
+#### Returns
+
+`boolean`
 
 ***
 
@@ -216,6 +266,10 @@ Returns the maximum value in the tree.
 
 The maximum value, or undefined if the tree is empty.
 
+#### Inherited from
+
+[`BinarySearchTree`](BinarySearchTree.md).[`max`](BinarySearchTree.md#max)
+
 ***
 
 ### min()
@@ -229,6 +283,10 @@ Returns the minimum value in the tree.
 `T` \| `undefined`
 
 The minimum value, or undefined if the tree is empty.
+
+#### Inherited from
+
+[`BinarySearchTree`](BinarySearchTree.md).[`min`](BinarySearchTree.md#min)
 
 ***
 
@@ -250,6 +308,10 @@ Searches for a value and returns the node containing it.
 
 The node containing the value, or undefined if not found.
 
+#### Inherited from
+
+[`BinarySearchTree`](BinarySearchTree.md).[`search`](BinarySearchTree.md#search)
+
 ***
 
 ### size()
@@ -262,9 +324,9 @@ Returns the number of elements in the tree.
 
 `number`
 
-#### Implementation of
+#### Inherited from
 
-[`Structure`](../interfaces/Structure.md).[`size`](../interfaces/Structure.md#property-size)
+[`BinarySearchTree`](BinarySearchTree.md).[`size`](BinarySearchTree.md#size)
 
 ***
 
@@ -285,3 +347,7 @@ Traverses the tree in the specified order.
 `T`[]
 
 An array of values in the specified order.
+
+#### Inherited from
+
+[`BinarySearchTree`](BinarySearchTree.md).[`traverse`](BinarySearchTree.md#traverse)
