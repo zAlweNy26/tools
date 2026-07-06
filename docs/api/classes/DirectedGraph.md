@@ -71,14 +71,14 @@ Returns an array of nodes in the graph.
 
 > **addEdge**(`v1`, `v2`): `DirectedGraph`\<`N`\>
 
-Adds an edge between two nodes in the graph.
+Adds a directed edge from `v1` to `v2`.
 
 #### Parameters
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `v1` | `N` | The first node. |
-| `v2` | `N` | The second node. |
+| `v1` | `N` | The source node. |
+| `v2` | `N` | The destination node. |
 
 #### Returns
 
@@ -88,7 +88,7 @@ The graph instance.
 
 #### Throws
 
-An error if the first node is not found or if the edge already exists.
+An error if the edge already exists or the source node is not found.
 
 #### Overrides
 
@@ -164,13 +164,13 @@ An error if the node is not found.
 
 > **hasCycle**(): `boolean`
 
-Checks if the graph contains a cycle using depth-first search.
+Checks if the directed graph contains a cycle using DFS.
 
 #### Returns
 
 `boolean`
 
-True if a cycle is detected, false otherwise.
+`true` if a cycle is detected, `false` otherwise.
 
 #### Overrides
 
@@ -233,14 +233,14 @@ An error if the first node is not found.
 
 > **removeEdge**(`v1`, `v2`): `DirectedGraph`\<`N`\>
 
-Removes an edge between two nodes in the graph.
+Removes a directed edge from `v1` to `v2`.
 
 #### Parameters
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `v1` | `N` | The first node. |
-| `v2` | `N` | The second node. |
+| `v1` | `N` | The source node. |
+| `v2` | `N` | The destination node. |
 
 #### Returns
 
@@ -250,7 +250,7 @@ The graph instance.
 
 #### Throws
 
-An error if either node is not found or if the edge does not exist.
+An error if the edge or the source node is not found.
 
 #### Overrides
 

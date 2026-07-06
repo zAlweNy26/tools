@@ -71,25 +71,25 @@ Returns an array of nodes in the graph.
 
 > **addEdge**(`v1`, `v2`, `weight?`): `WeightedDirectedGraph`\<`N`\>
 
-Adds an edge between two nodes with an optional weight.
+Adds a weighted directed edge from `v1` to `v2`.
 
 #### Parameters
 
 | Parameter | Type | Default value | Description |
 | ------ | ------ | ------ | ------ |
-| `v1` | `N` | `undefined` | The first node. |
-| `v2` | `N` | `undefined` | The second node. |
-| `weight` | `number` | `0` | The weight of the edge (default is 0). |
+| `v1` | `N` | `undefined` | The source node. |
+| `v2` | `N` | `undefined` | The destination node. |
+| `weight` | `number` | `0` | The edge weight (default 0). |
 
 #### Returns
 
 `WeightedDirectedGraph`\<`N`\>
 
-The updated weighted graph.
+The graph instance.
 
 #### Throws
 
-An error if the first node is not found or if the edge already exists.
+An error if the edge already exists or the source node is not found.
 
 #### Overrides
 
@@ -196,13 +196,13 @@ Error if the first or second node is not found.
 
 > **hasCycle**(): `boolean`
 
-Checks if the weighted graph contains a cycle using depth-first search.
+Checks if the weighted directed graph contains a cycle using DFS.
 
 #### Returns
 
 `boolean`
 
-True if a cycle is detected, false otherwise.
+`true` if a cycle is detected, `false` otherwise.
 
 #### Overrides
 
@@ -265,24 +265,24 @@ An error if the first node is not found.
 
 > **removeEdge**(`v1`, `v2`): `WeightedDirectedGraph`\<`N`\>
 
-Removes an edge between two nodes in the weighted graph.
+Removes a weighted directed edge from `v1` to `v2`.
 
 #### Parameters
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `v1` | `N` | The first node. |
-| `v2` | `N` | The second node. |
+| `v1` | `N` | The source node. |
+| `v2` | `N` | The destination node. |
 
 #### Returns
 
 `WeightedDirectedGraph`\<`N`\>
 
-The weighted graph instance.
+The graph instance.
 
 #### Throws
 
-An error if either node is not found or if the edge does not exist.
+An error if the edge or the source node is not found.
 
 #### Overrides
 

@@ -30,6 +30,7 @@
     "tsdown.config.ts",
     "./src/**/*.ts",
     "./test/**/*.ts",
+    "docs/.vitepress/*.ts",
     "index.ts"
   ]
 }

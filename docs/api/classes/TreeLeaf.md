@@ -50,9 +50,9 @@ Creates a new TreeLeaf instance.
 
 ## Properties
 
-| Property | Modifier | Type | Inherited from |
-| ------ | ------ | ------ | ------ |
-| <a id="property-data"></a> `data` | `public` | `T` | [`TreeNode`](TreeNode.md).[`data`](TreeNode.md#property-data) |
+| Property | Modifier | Type | Description | Inherited from |
+| ------ | ------ | ------ | ------ | ------ |
+| <a id="property-data"></a> `data` | `public` | `T` | The data to store in the node. | [`TreeNode`](TreeNode.md).[`data`](TreeNode.md#property-data) |
 
 ## Accessors
 
@@ -61,6 +61,8 @@ Creates a new TreeLeaf instance.
 #### Get Signature
 
 > **get** **children**(): `TreeLeaf`\<`T`\>[]
+
+Returns the children of this leaf.
 
 ##### Returns
 
@@ -77,6 +79,8 @@ Creates a new TreeLeaf instance.
 #### Get Signature
 
 > **get** **height**(): `number`
+
+Returns the height of the subtree rooted at this node.
 
 ##### Returns
 

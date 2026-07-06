@@ -34,6 +34,14 @@ export class WeightedDirectedGraph<N> extends WeightedGraph<N> {
     return this
   }
 
+  /**
+   * Adds a weighted directed edge from `v1` to `v2`.
+   * @param v1 The source node.
+   * @param v2 The destination node.
+   * @param weight The edge weight (default 0).
+   * @returns The graph instance.
+   * @throws An error if the edge already exists or the source node is not found.
+   */
   addEdge(v1: N, v2: N, weight = 0) {
     const list = this.map.get(v1)
     if (list) {
@@ -45,6 +53,13 @@ export class WeightedDirectedGraph<N> extends WeightedGraph<N> {
     return this
   }
 
+  /**
+   * Removes a weighted directed edge from `v1` to `v2`.
+   * @param v1 The source node.
+   * @param v2 The destination node.
+   * @returns The graph instance.
+   * @throws An error if the edge or the source node is not found.
+   */
   removeEdge(v1: N, v2: N) {
     const list = this.map.get(v1)
     if (list) {
@@ -56,6 +71,10 @@ export class WeightedDirectedGraph<N> extends WeightedGraph<N> {
     return this
   }
 
+  /**
+   * Checks if the weighted directed graph contains a cycle using DFS.
+   * @returns `true` if a cycle is detected, `false` otherwise.
+   */
   hasCycle() {
     const state = new Map<N, 0 | 1 | 2>()
     for (const node of this.map.keys()) state.set(node, 0)

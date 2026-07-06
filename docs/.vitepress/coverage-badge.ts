@@ -1,6 +1,6 @@
 import { writeFileSync } from 'node:fs'
 
-const label = 'Tests'
+const label = 'Tested'
 const outFile = 'docs/api/test-coverage.svg'
 
 function color(ratio: number): string {

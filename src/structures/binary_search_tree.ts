@@ -9,7 +9,9 @@ import { heightOrder, inOrder, postOrder, preOrder } from '@traversals/tree'
  * @group Structures
  */
 export class BSTNode<T> extends TreeNode<T> {
+  /** The left child node. */
   left: BSTNode<T> | null = null
+  /** The right child node. */
   right: BSTNode<T> | null = null
 
   /**
@@ -24,6 +26,9 @@ export class BSTNode<T> extends TreeNode<T> {
     this.right = right ?? null
   }
 
+  /**
+   * Returns the children of this node as `[left, right]`.
+   */
   get children(): (TreeNode<T> | null)[] {
     return [this.left, this.right]
   }
@@ -45,9 +50,9 @@ export class BSTNode<T> extends TreeNode<T> {
  * @group Structures
  */
 export class BinarySearchTree<T> implements Structure {
-  private _root: BSTNode<T> | null = null
-  private _size = 0
-  private _compare: (a: T, b: T) => number
+  protected _root: BSTNode<T> | null = null
+  protected _size = 0
+  protected _compare: (a: T, b: T) => number
 
   /**
    * Creates a new binary search tree.
@@ -204,16 +209,26 @@ export class BinarySearchTree<T> implements Structure {
     return current.data
   }
 
+  /**
+   * Removes all elements from the tree.
+   * @returns The tree instance.
+   */
   clear() {
     this._root = null
     this._size = 0
     return this
   }
 
+  /**
+   * Returns the number of elements in the tree.
+   */
   size() {
     return this._size
   }
 
+  /**
+   * Returns the height of the tree, or -1 if empty.
+   */
   get height() {
     return this._root?.height ?? -1
   }

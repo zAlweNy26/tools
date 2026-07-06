@@ -79,11 +79,13 @@ Returns a copy of the internal data array.
 
 > **clear**(): `Heap`\<`T`\>
 
-Clears the structure.
+Removes all elements from the heap.
 
 #### Returns
 
 `Heap`\<`T`\>
+
+The heap instance.
 
 #### Implementation of
 
@@ -143,7 +145,7 @@ The element at the top of the heap, or undefined if empty.
 
 > **size**(): `number`
 
-The current number of elements in the structure.
+Returns the number of elements in the heap.
 
 #### Returns
 

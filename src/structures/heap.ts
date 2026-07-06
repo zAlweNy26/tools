@@ -63,11 +63,18 @@ export class Heap<T> implements Structure {
     return this._data[0]
   }
 
+  /**
+   * Removes all elements from the heap.
+   * @returns The heap instance.
+   */
   clear() {
     this._data = []
     return this
   }
 
+  /**
+   * Returns the number of elements in the heap.
+   */
   size() {
     return this._data.length
   }

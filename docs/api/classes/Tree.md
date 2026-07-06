@@ -60,11 +60,13 @@ The height of the tree.
 
 > **clear**(): `Tree`\<`T`\>
 
-Clears the structure.
+Removes all elements from the tree, keeping only the root.
 
 #### Returns
 
 `Tree`\<`T`\>
+
+The tree instance.
 
 #### Implementation of
 
@@ -96,7 +98,7 @@ The node with the specified data, or undefined if not found.
 
 > **size**(): `number`
 
-The current number of elements in the structure.
+Returns the total number of nodes in the tree.
 
 #### Returns
 

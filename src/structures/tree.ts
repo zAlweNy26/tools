@@ -46,6 +46,9 @@ export class TreeLeaf<T> extends TreeNode<T> {
     return leaf
   }
 
+  /**
+   * Returns the children of this leaf.
+   */
   get children(): TreeLeaf<T>[] {
     return this._children
   }
@@ -110,11 +113,18 @@ export class Tree<T> implements Structure {
     return this.root.height
   }
 
+  /**
+   * Removes all elements from the tree, keeping only the root.
+   * @returns The tree instance.
+   */
   clear() {
     this.root = new TreeLeaf(this.root.data)
     return this
   }
 
+  /**
+   * Returns the total number of nodes in the tree.
+   */
   size() {
     const count = (node: TreeLeaf<T>): number => {
       return 1 + node.children.reduce((sum, child) => sum + count(child), 0)

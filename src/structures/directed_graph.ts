@@ -34,6 +34,13 @@ export class DirectedGraph<N> extends Graph<N> {
     return this
   }
 
+  /**
+   * Adds a directed edge from `v1` to `v2`.
+   * @param v1 The source node.
+   * @param v2 The destination node.
+   * @returns The graph instance.
+   * @throws An error if the edge already exists or the source node is not found.
+   */
   addEdge(v1: N, v2: N) {
     const list = this.map.get(v1)
     if (list) {
@@ -45,6 +52,13 @@ export class DirectedGraph<N> extends Graph<N> {
     return this
   }
 
+  /**
+   * Removes a directed edge from `v1` to `v2`.
+   * @param v1 The source node.
+   * @param v2 The destination node.
+   * @returns The graph instance.
+   * @throws An error if the edge or the source node is not found.
+   */
   removeEdge(v1: N, v2: N) {
     const list = this.map.get(v1)
     if (list) {
@@ -56,6 +70,10 @@ export class DirectedGraph<N> extends Graph<N> {
     return this
   }
 
+  /**
+   * Checks if the directed graph contains a cycle using DFS.
+   * @returns `true` if a cycle is detected, `false` otherwise.
+   */
   hasCycle() {
     const state = new Map<N, 0 | 1 | 2>()
     for (const node of this.map.keys()) state.set(node, 0)

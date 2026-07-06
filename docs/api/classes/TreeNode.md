@@ -21,11 +21,13 @@ Abstract base class for tree nodes.
 
 > **new TreeNode**\<`T`\>(`data`): `TreeNode`\<`T`\>
 
+Creates a new tree node.
+
 #### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `data` | `T` |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `data` | `T` | The data to store in the node. |
 
 #### Returns
 
@@ -33,9 +35,9 @@ Abstract base class for tree nodes.
 
 ## Properties
 
-| Property | Modifier | Type |
-| ------ | ------ | ------ |
-| <a id="property-data"></a> `data` | `public` | `T` |
+| Property | Modifier | Type | Description |
+| ------ | ------ | ------ | ------ |
+| <a id="property-data"></a> `data` | `public` | `T` | The data to store in the node. |
 
 ## Accessors
 
@@ -44,6 +46,8 @@ Abstract base class for tree nodes.
 #### Get Signature
 
 > **get** `abstract` **children**(): readonly (`TreeNode`\<`T`\> \| `null`)[]
+
+Returns the children of this node.
 
 ##### Returns
 
@@ -56,6 +60,8 @@ readonly (`TreeNode`\<`T`\> \| `null`)[]
 #### Get Signature
 
 > **get** **height**(): `number`
+
+Returns the height of the subtree rooted at this node.
 
 ##### Returns
 
