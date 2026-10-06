@@ -13,7 +13,7 @@ describe('Heap', () => {
   })
 
   test('max-heap via comparator', () => {
-    const heap = new Heap<number>((a, b) => a > b)
+    const heap = new Heap<number>([], { compare: (a, b) => b - a })
     heap.insert(3).insert(1).insert(2)
     expect(heap.peek()).toBe(3)
     expect(heap.extract()).toBe(3)
@@ -23,13 +23,13 @@ describe('Heap', () => {
 
   test('size and isEmpty', () => {
     const heap = new Heap<number>()
-    expect(heap.size()).toBe(0)
+    expect(heap.size).toBe(0)
     expect(heap.isEmpty).toBeTrue()
     heap.insert(5)
-    expect(heap.size()).toBe(1)
+    expect(heap.size).toBe(1)
     expect(heap.isEmpty).toBeFalse()
     heap.extract()
-    expect(heap.size()).toBe(0)
+    expect(heap.size).toBe(0)
     expect(heap.isEmpty).toBeTrue()
   })
 
@@ -37,15 +37,15 @@ describe('Heap', () => {
     const heap = new Heap<number>()
     heap.insert(1).insert(2).insert(3)
     heap.clear()
-    expect(heap.size()).toBe(0)
+    expect(heap.size).toBe(0)
     expect(heap.isEmpty).toBeTrue()
     expect(heap.peek()).toBeUndefined()
   })
 
-  test('items returns copy of internal data', () => {
+  test('toArray returns a copy of the internal data', () => {
     const heap = new Heap<number>()
     heap.insert(3).insert(1).insert(4).insert(2)
-    const arr = heap.items
+    const arr = heap.toArray()
     arr[0] = 99
     expect(heap.peek()).not.toBe(99)
   })
@@ -59,7 +59,7 @@ describe('Heap', () => {
   })
 
   test('custom object comparator', () => {
-    const heap = new Heap<{ v: number }>((a, b) => a.v < b.v)
+    const heap = new Heap<{ v: number }>([], { compare: (a, b) => a.v - b.v })
     heap.insert({ v: 5 }).insert({ v: 1 }).insert({ v: 3 })
     expect(heap.extract()!.v).toBe(1)
     expect(heap.extract()!.v).toBe(3)
@@ -87,5 +87,23 @@ describe('Heap', () => {
     heap.insert(1)
     const ret = heap.clear()
     expect(ret).toBe(heap)
+  })
+
+  test('builds a valid heap from initial items', () => {
+    const items = Array.from({ length: 200 }, (_, i) => (i * 37) % 101)
+    const heap = new Heap(items)
+    const result: number[] = []
+    while (!heap.isEmpty) result.push(heap.extract()!)
+    expect(result).toEqual([...items].sort((a, b) => a - b))
+  })
+
+  test('default comparator orders strings', () => {
+    const heap = new Heap(['pear', 'apple', 'fig'])
+    expect(heap.extract()).toBe('apple')
+  })
+
+  test('iterates over every element', () => {
+    const heap = new Heap([3, 1, 2])
+    expect([...heap].sort()).toEqual([1, 2, 3])
   })
 })

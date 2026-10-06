@@ -1,9 +1,13 @@
+import type { Comparator, CompareOptions, Structure } from '@interfaces/structure'
+import { defaultCompare } from '@utils/compare'
+
 /**
  * A fixed-capacity indexed binary min-heap.
  *
  * Stores elements at numeric indices and maintains them in heap order
  * by their associated values. Supports O(log n) `decreaseKey()` via
- * position tracking.
+ * position tracking. The structure's elements are the indices: `size`,
+ * `toArray()` and iteration all refer to the indices, in internal heap order.
  *
  * @template T The type of the values associated with each index.
  * @example
@@ -18,21 +22,24 @@
  * @category Heaps
  * @group Structures
  */
-export class IndexedMinHeap<T> {
+export class IndexedMinHeap<T> implements Structure<number> {
   private _size: number = 0
   private readonly _capacity: number
   private readonly _heap: number[]
   private readonly _values: (T | undefined)[]
   private readonly _position: number[]
+  private readonly _compare: Comparator<T>
 
   /**
    * Creates a new indexed min-heap with the given capacity.
    * @param capacity The maximum number of indices the heap can hold.
-   * @throws If capacity is less than or equal to 0.
+   * @param options The heap options.
+   * @throws A RangeError if the capacity is not a positive integer.
    */
-  constructor(capacity: number) {
-    if (capacity <= 0) throw new Error('Capacity must be greater than 0')
+  constructor(capacity: number, options: CompareOptions<T> = {}) {
+    if (!Number.isInteger(capacity) || capacity <= 0) throw new RangeError('Capacity must be greater than 0')
     this._capacity = capacity
+    this._compare = options.compare ?? defaultCompare
     this._heap = Array.from({ length: capacity })
     this._values = Array.from<T | undefined>({ length: capacity }).fill(undefined)
     this._position = Array.from<number>({ length: capacity }).fill(-1)
@@ -68,7 +75,7 @@ export class IndexedMinHeap<T> {
   decreaseKey(index: number, value: T): this {
     if (!this.contains(index))
       throw new Error('Index not found')
-    if (value > this._values[index]!)
+    if (this._compare(value, this._values[index] as T) > 0)
       throw new Error('New value must not be greater than current value')
     this._values[index] = value
     this._bubbleUp(this._position[index])
@@ -131,9 +138,9 @@ export class IndexedMinHeap<T> {
   }
 
   /**
-   * Returns the number of elements currently in the heap.
+   * The number of indices currently in the heap.
    */
-  size(): number {
+  get size(): number {
     return this._size
   }
 
@@ -145,14 +152,26 @@ export class IndexedMinHeap<T> {
   }
 
   /**
-   * Returns a snapshot of the indices in heap order.
+   * Returns the indices, in internal heap order, as a new array.
    */
-  get items(): number[] {
+  toArray(): number[] {
     return this._heap.slice(0, this._size)
+  }
+
+  /**
+   * Iterates over the indices in internal heap order.
+   * @returns An iterator over the indices.
+   */
+  [Symbol.iterator](): Iterator<number> {
+    return this.toArray()[Symbol.iterator]()
   }
 
   private _inRange(index: number): boolean {
     return Number.isInteger(index) && index >= 0 && index < this._capacity
+  }
+
+  private _less(a: number, b: number): boolean {
+    return this._compare(this._values[a] as T, this._values[b] as T) < 0
   }
 
   private _parent(i: number): number {
@@ -179,7 +198,7 @@ export class IndexedMinHeap<T> {
   private _bubbleUp(pos: number): void {
     while (pos > 0) {
       const parent = this._parent(pos)
-      if (this._values[this._heap[pos]]! < this._values[this._heap[parent]]!) {
+      if (this._less(this._heap[pos], this._heap[parent])) {
         this._swap(pos, parent)
         pos = parent
       }
@@ -193,9 +212,9 @@ export class IndexedMinHeap<T> {
       const left = this._left(pos)
       const right = this._right(pos)
       let smallest = pos
-      if (left < this._size && this._values[this._heap[left]]! < this._values[this._heap[smallest]]!)
+      if (left < this._size && this._less(this._heap[left], this._heap[smallest]))
         smallest = left
-      if (right < this._size && this._values[this._heap[right]]! < this._values[this._heap[smallest]]!)
+      if (right < this._size && this._less(this._heap[right], this._heap[smallest]))
         smallest = right
       if (smallest === pos) break
       this._swap(pos, smallest)

@@ -10,7 +10,7 @@ describe('IndexedMinHeap', () => {
   test('blank heap is empty and peekMin returns undefined', () => {
     const heap = new IndexedMinHeap<number>(10)
     expect(heap.isEmpty).toBeTrue()
-    expect(heap.size()).toBe(0)
+    expect(heap.size).toBe(0)
     expect(heap.peekMin()).toBeUndefined()
     expect(heap.extractMin()).toBeUndefined()
   })
@@ -18,7 +18,7 @@ describe('IndexedMinHeap', () => {
   test('insert updates size and contains', () => {
     const heap = new IndexedMinHeap<number>(10)
     heap.insert(0, 5).insert(1, 3).insert(2, 7)
-    expect(heap.size()).toBe(3)
+    expect(heap.size).toBe(3)
     expect(heap.contains(0)).toBeTrue()
     expect(heap.contains(1)).toBeTrue()
     expect(heap.contains(2)).toBeTrue()
@@ -63,7 +63,7 @@ describe('IndexedMinHeap', () => {
     const heap = new IndexedMinHeap<number>(10)
     heap.insert(0, 50).insert(1, 10).insert(2, 30)
     expect(heap.peekMin()).toBe(1)
-    expect(heap.size()).toBe(3)
+    expect(heap.size).toBe(3)
     expect(heap.peekMin()).toBe(1)
   })
 
@@ -100,7 +100,7 @@ describe('IndexedMinHeap', () => {
     const heap = new IndexedMinHeap<number>(10)
     heap.insert(0, 1).insert(1, 2).insert(2, 3)
     heap.clear()
-    expect(heap.size()).toBe(0)
+    expect(heap.size).toBe(0)
     expect(heap.isEmpty).toBeTrue()
     expect(heap.contains(0)).toBeFalse()
     expect(heap.contains(1)).toBeFalse()
@@ -110,7 +110,7 @@ describe('IndexedMinHeap', () => {
   test('items returns snapshot of current heap', () => {
     const heap = new IndexedMinHeap<number>(10)
     heap.insert(0, 30).insert(1, 10).insert(2, 20)
-    const arr = heap.items
+    const arr = heap.toArray()
     arr[0] = 99
     expect(heap.peekMin()).toBe(1)
     expect(heap.peekMin()).not.toBe(99)
@@ -187,5 +187,20 @@ describe('IndexedMinHeap', () => {
     expect(() => heap.decreaseKey(10, 5)).toThrow('Index not found')
     expect(heap.contains(10)).toBeFalse()
     expect(() => heap.insert(1.5, 1)).toThrow('Index out of range')
+  })
+
+  test('accepts a custom comparator', () => {
+    const heap = new IndexedMinHeap<number>(3, { compare: (a, b) => b - a })
+    heap.insert(0, 1).insert(1, 5).insert(2, 3)
+    expect(heap.extractMin()).toBe(1)
+    expect(() => heap.decreaseKey(2, 1)).toThrow('New value must not be greater than current value')
+    heap.decreaseKey(2, 10)
+    expect(heap.peekMin()).toBe(2)
+  })
+
+  test('iterates over the indices', () => {
+    const heap = new IndexedMinHeap<number>(3)
+    heap.insert(2, 1).insert(0, 2)
+    expect([...heap].sort()).toEqual([0, 2])
   })
 })
