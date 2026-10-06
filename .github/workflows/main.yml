@@ -7,33 +7,40 @@ on:
       - develop
     paths-ignore:
       - '**/*.md'
-      - '.*/**'
-      - 'docs/**'
+      - '.vscode/**'
   pull_request:
     paths-ignore:
       - '**/*.md'
-      - '.*/**'
-      - 'docs/**'
+      - '.vscode/**'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
+        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
 
       - name: Cache Bun dependencies
-        uses: actions/cache@v5
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ~/.bun/install/cache
           key: ${{ runner.os }}-bun-${{ hashFiles('bun.lock') }}
           restore-keys: ${{ runner.os }}-bun-
 
       - name: Install dependencies
-        run: bun install
+        run: bun install --frozen-lockfile
 
       - name: Lint
         run: bun run lint
@@ -46,3 +53,57 @@ jobs:
 
       - name: Build and check package
         run: bun run build
+
+  # the test suite runs on Bun, so check that the built package also loads on the supported Node versions
+  node:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [20, 22, 24]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+
+      - name: Cache Bun dependencies
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.bun/install/cache
+          key: ${{ runner.os }}-bun-${{ hashFiles('bun.lock') }}
+          restore-keys: ${{ runner.os }}-bun-
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build
+        run: bun run build
+
+      - name: Setup Node ${{ matrix.node-version }}
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: ${{ matrix.node-version }}
+          package-manager-cache: false
+
+      # self-referencing the package name resolves through the exports map, like a consumer would
+      - name: Load with require
+        run: |
+          node -e "
+            const assert = require('node:assert')
+            const { quickSort, Randomizer } = require('@danyalwe/tools')
+            assert.deepStrictEqual(quickSort([3, 1, 2]), [1, 2, 3])
+            assert.strictEqual(new Randomizer(5489).randomInt(), 3499211612)
+          "
+
+      - name: Load with import
+        run: |
+          node --input-type=module -e "
+            import assert from 'node:assert'
+            import { quickSort, Randomizer } from '@danyalwe/tools'
+            assert.deepStrictEqual(quickSort([3, 1, 2]), [1, 2, 3])
+            assert.strictEqual(new Randomizer(5489).randomInt(), 3499211612)
+          "
