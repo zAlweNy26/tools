@@ -1,7 +1,11 @@
+import type { Comparator } from '@interfaces/structure'
+import { defaultCompare } from '@utils/compare'
+
 /**
  * Sorts an array using the bubble sort algorithm.
- * @param array The array to be sorted.
- * @returns The sorted array.
+ * @param array The array to be sorted. It is not modified.
+ * @param compare The comparator deciding the order. Defaults to {@link defaultCompare}.
+ * @returns A new sorted array.
  * @example
  * ```ts
  * import { bubbleSort } from '@danyalwe/tools'
@@ -11,15 +15,13 @@
  * ```
  * @group Sortings
  */
-export function bubbleSort<T>(array: T[]) {
-  if (array.length <= 1) return array
-
+export function bubbleSort<T>(array: T[], compare: Comparator<T> = defaultCompare): T[] {
   const result = [...array]
 
   for (let i = 0; i < result.length - 1; i++) {
     let swapped = false
     for (let j = 0; j < result.length - 1 - i; j++) {
-      if (result[j] > result[j + 1]) {
+      if (compare(result[j], result[j + 1]) > 0) {
         [result[j], result[j + 1]] = [result[j + 1], result[j]]
         swapped = true
       }

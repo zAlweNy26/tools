@@ -1,7 +1,7 @@
 /**
  * Sorts an array using the counting sort algorithm.
- * @param array The array to be sorted.
- * @returns The sorted array.
+ * @param array The array to be sorted. It is not modified.
+ * @returns A new sorted array.
  * @throws An error if the array contains a value that is not an integer.
  * @remarks Allocates one counter per value between the minimum and the maximum, so it suits arrays with a small value range.
  * @example
@@ -12,8 +12,8 @@
  * ```
  * @group Sortings
  */
-export function countingSort(array: number[]) {
-  if (array.length <= 1) return array
+export function countingSort(array: number[]): number[] {
+  if (array.length <= 1) return [...array]
 
   let min = Infinity, max = -Infinity
   for (const value of array) {
