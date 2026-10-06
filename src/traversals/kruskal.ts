@@ -3,7 +3,7 @@ import { WeightedGraph } from '@structures/weighted_graph'
 /**
  * Finds the minimum spanning tree of a weighted graph using Kruskal's algorithm.
  * @param graph The weighted graph to find the MST for.
- * @returns The minimum spanning tree.
+ * @returns The minimum spanning tree, or a spanning forest if the graph is disconnected.
  * @example
  * ```ts
  * import { WeightedGraph, kruskal } from '@danyalwe/tools'
@@ -52,43 +52,13 @@ export function kruskal<T>(graph: WeightedGraph<T>) {
     return true
   }
 
-  const mstAdj = new Map<T, [T, number][]>()
-  for (const [u, v, w] of edges) {
-    if (union(u, v)) {
-      if (!mstAdj.has(u)) mstAdj.set(u, [])
-      if (!mstAdj.has(v)) mstAdj.set(v, [])
-      mstAdj.get(u)!.push([v, w])
-      mstAdj.get(v)!.push([u, w])
-    }
-  }
-
-  if (mstAdj.size === 0) return new WeightedGraph<T>(graph.nodes[0])
-
-  const first = [...mstAdj.keys()][0]
+  // every node is kept, so isolated nodes and disconnected components yield a spanning forest
+  const [first, ...rest] = graph.nodes
   const mst = new WeightedGraph<T>(first)
-  const added = new Set<T>()
+  for (const node of rest) mst.addNode(node)
 
-  for (const start of mstAdj.keys()) {
-    if (added.has(start)) continue
-
-    if (!mst.hasNode(start)) {
-      mst.addEdge(mst.nodes[0], start, 0)
-      mst.removeEdge(mst.nodes[0], start)
-    }
-
-    const stack: T[] = [start]
-    while (stack.length > 0) {
-      const node = stack.pop()!
-      if (added.has(node)) continue
-      added.add(node)
-      for (const [neighbor, weight] of mstAdj.get(node) ?? []) {
-        if (!added.has(neighbor)) {
-          mst.addEdge(node, neighbor, weight)
-          stack.push(neighbor)
-        }
-      }
-    }
-  }
+  for (const [u, v, w] of edges)
+    if (union(u, v)) mst.addEdge(u, v, w)
 
   return mst
 }

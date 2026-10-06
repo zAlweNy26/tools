@@ -44,4 +44,18 @@ describe('kruskal', () => {
     expect(mst.hasCycle()).toBeFalse()
     expect(mst.getWeight('A', 'B', 'C', 'D')).toBe(6)
   })
+
+  test('keeps nodes that have no edges', () => {
+    const g = new WeightedGraph<string>('A')
+    g.addNode('B').addNode('C').addEdge('A', 'B', 1)
+    const mst = kruskal(g)
+    expect(mst.nodes).toEqual(['A', 'B', 'C'])
+    expect(mst.getEdges('C')).toEqual([])
+  })
+
+  test('keeps every node of an edgeless graph', () => {
+    const g = new WeightedGraph<string>('A')
+    g.addNode('B')
+    expect(kruskal(g).nodes).toEqual(['A', 'B'])
+  })
 })
