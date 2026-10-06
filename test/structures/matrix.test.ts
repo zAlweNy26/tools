@@ -131,18 +131,13 @@ describe('Matrix', () => {
   test('clear', () => {
     const m = new Matrix(2, 2, 1)
     m.clear()
-    expect(m.get(0, 0)).toBeUndefined()
+    expect(m.items).toEqual([[0, 0], [0, 0]])
   })
 
-  test('isEmpty and isFull', () => {
-    const m = new Matrix(2, 2)
-    expect(m.isEmpty).toBeTrue()
-    expect(m.isFull).toBeFalse()
-    m.set(0, 0, 1)
-    m.set(0, 1, 2)
-    m.set(1, 0, 3)
-    m.set(1, 1, 4)
-    expect(m.isFull).toBeTrue()
+  test('defaults every cell to 0', () => {
+    const m = new Matrix(2, 3)
+    expect(m.items).toEqual([[0, 0, 0], [0, 0, 0]])
+    expect(m.sum).toBe(0)
   })
 
   test('concat horizontal', () => {
@@ -176,7 +171,7 @@ describe('Matrix', () => {
   test('concat vertical throws for mismatched cols', () => {
     const a = new Matrix(2, 2, 0)
     const b = new Matrix(2, 3, 0)
-    expect(() => a.concat(b, 'vertical')).toThrow('The matrices need to have the same number of rows')
+    expect(() => a.concat(b, 'vertical')).toThrow('The matrices need to have the same number of columns')
   })
 
   test('concat diagonal', () => {
@@ -246,7 +241,7 @@ describe('Matrix', () => {
   test('operate throws for mismatched dimensions', () => {
     const a = new Matrix(2, 2, 0)
     const b = new Matrix(3, 2, 0)
-    expect(() => a.operate(b, (l, r) => l + r)).toThrow('The number of columns of the current matrix is different from the number of rows of the passed matrix')
+    expect(() => a.operate(b, (l, r) => l + r)).toThrow('The matrices need to have the same dimensions')
   })
 
   test('swapRows', () => {
@@ -269,7 +264,7 @@ describe('Matrix', () => {
 
   test('setRow throws for too many values', () => {
     const m = new Matrix(2, 2, 0)
-    expect(() => m.setRow(0, [1, 2, 3])).toThrow('The passed values exceed the total number of columns in the matrix')
+    expect(() => m.setRow(0, [1, 2, 3])).toThrow('The number of passed values must match the number of columns in the matrix')
   })
 
   test('getRow', () => {
@@ -302,7 +297,7 @@ describe('Matrix', () => {
 
   test('setCol throws for too many values', () => {
     const m = new Matrix(2, 2, 0)
-    expect(() => m.setCol(0, [1, 2, 3])).toThrow('The passed values exceed the total number of rows in the matrix')
+    expect(() => m.setCol(0, [1, 2, 3])).toThrow('The number of passed values must match the number of rows in the matrix')
   })
 
   test('getCol', () => {
@@ -342,26 +337,45 @@ describe('Matrix', () => {
     expect(s.get(1, 1)).toBe(9)
   })
 
-  test('space getter', () => {
-    const m = new Matrix(2, 3)
-    expect(m.space).toBe(6)
-    m.set(0, 0, 1)
-    expect(m.space).toBe(5)
-    m.set(0, 1, 2)
-    m.set(0, 2, 3)
-    m.set(1, 0, 4)
-    m.set(1, 1, 5)
-    m.set(1, 2, 6)
-    expect(m.space).toBe(0)
+  test('supports 1x1 matrices', () => {
+    const m = Matrix.from([[5]])
+    expect(m.get(0, 0)).toBe(5)
+    expect(m.det()).toBe(5)
   })
 
-  test('hasRoom getter', () => {
-    const m = new Matrix(2, 2)
-    expect(m.hasRoom).toBeTrue()
-    m.set(0, 0, 1)
-    m.set(0, 1, 2)
-    m.set(1, 0, 3)
-    m.set(1, 1, 4)
-    expect(m.hasRoom).toBeFalse()
+  test('rejects sizes that are not positive integers', () => {
+    expect(() => new Matrix(0, 5)).toThrow('Unable to create a matrix of that size')
+    expect(() => new Matrix(-1, 2)).toThrow('Unable to create a matrix of that size')
+    expect(() => new Matrix(2, 1.5)).toThrow('Unable to create a matrix of that size')
+  })
+
+  test('get, set and update throw a RangeError outside the matrix', () => {
+    const m = new Matrix(2, 2, 0)
+    expect(() => m.get(2, 0)).toThrow(RangeError)
+    expect(() => m.set(0, -1, 1)).toThrow(RangeError)
+    expect(() => m.update(5, 5, v => v)).toThrow(RangeError)
+  })
+
+  test('setRow rejects short rows and negative indices', () => {
+    const m = new Matrix(2, 2, 0)
+    expect(() => m.setRow(0, [1])).toThrow('The number of passed values must match the number of columns in the matrix')
+    expect(() => m.setRow(-1, [1, 2])).toThrow('The passed index exceeds the total number of rows in the matrix')
+  })
+
+  test('setRow copies the passed values', () => {
+    const m = new Matrix(2, 2, 0)
+    const row = [1, 2]
+    m.setRow(0, row)
+    row[0] = 99
+    expect(m.get(0, 0)).toBe(1)
+  })
+
+  test('getRow, iteration and operate do not expose internal rows', () => {
+    const m = Matrix.from([[1, 2], [3, 4]])
+    m.getRow(0)[0] = 99
+    for (const row of m) row[1] = 99
+    for (const row of m.iterateRows()) row[1] = 99
+    m.operate([[0, 0], [0, 0]], (l, r) => l + r)[1][0] = 99
+    expect(m.items).toEqual([[1, 2], [3, 4]])
   })
 })

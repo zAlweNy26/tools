@@ -3,7 +3,7 @@
  * @param promise The promise to handle.
  * @param options Additional options for handling the promise.
  * @returns A tuple with either the error or the result of the promise.
- * @throws Will rethrow the error if it is not in the `errorsToCatch` array.
+ * @throws Will rethrow the error if it is not in the `errorsToCatch` array. Errors thrown by `transform` or `onSuccess` are not caught.
  * @example
  * ```ts
  * import { tryCatch } from '@danyalwe/tools'
@@ -24,16 +24,15 @@ export async function tryCatch<T = any, R = T, E extends new (...args: any[]) =>
     /** A callback function to execute on success */
     onSuccess?: (result: R) => void
     /** A callback function to execute on error */
-    onError?: (error: E) => void
+    onError?: (error: InstanceType<E>) => void
     /** A function to transform the result of the promise */
     transform?: (data: T) => R
   },
 ): Promise<[undefined, R] | [InstanceType<E>]> {
   const { errorsToCatch, logMessage, onError, onSuccess, transform } = options ?? {}
+  let data: T
   try {
-    const res = transform ? transform(await promise) : (await promise as R)
-    onSuccess?.(res)
-    return [undefined, res]
+    data = await promise
   }
   catch (error: any) {
     if (errorsToCatch === undefined || errorsToCatch.some(e => error instanceof e)) {
@@ -43,4 +42,9 @@ export async function tryCatch<T = any, R = T, E extends new (...args: any[]) =>
     }
     throw error
   }
+
+  // outside the try block, so a failing callback is not mistaken for a rejected promise
+  const res = transform ? transform(data) : (data as unknown as R)
+  onSuccess?.(res)
+  return [undefined, res]
 }

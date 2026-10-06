@@ -75,4 +75,16 @@ describe('quickSort', () => {
     quickSort(original)
     expect(original).toEqual(copy)
   })
+
+  test('handles large arrays made of a few repeated values', () => {
+    const allSame = Array.from<number>({ length: 50000 }).fill(7)
+    const alternating = Array.from({ length: 50000 }, (_, i) => i % 2)
+    expect(quickSort(allSame)).toEqual(allSame)
+    expect(quickSort(alternating)).toEqual([...alternating].sort((a, b) => a - b))
+  })
+
+  test('matches Array.prototype.sort on random input', () => {
+    const data = Array.from({ length: 2000 }, (_, i) => (i * 7919) % 211 - 100)
+    expect(quickSort(data)).toEqual([...data].sort((a, b) => a - b))
+  })
 })

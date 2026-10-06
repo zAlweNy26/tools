@@ -19,6 +19,24 @@ describe('Randomizer', () => {
     expect(rng.seed).toBe(100)
   })
 
+  test('randomInt matches the MT19937 reference sequence', () => {
+    const rng = new Randomizer(5489)
+    expect([rng.randomInt(), rng.randomInt(), rng.randomInt(), rng.randomInt(), rng.randomInt()])
+      .toEqual([3499211612, 581869302, 3890346734, 3586334585, 545404204])
+  })
+
+  test('randomInt matches the MT19937 reference after many regenerations', () => {
+    const rng = new Randomizer(5489)
+    let value = 0
+    for (let i = 0; i < 10000; i++) value = rng.randomInt()
+    expect(value).toBe(4123659995)
+  })
+
+  test('static shortcuts advance a single stream instead of repeating', () => {
+    const values = Array.from({ length: 50 }, () => Randomizer.randomInt())
+    expect(new Set(values).size).toBe(values.length)
+  })
+
   test('random returns a float between 0 and 1', () => {
     const rng = new Randomizer(42)
     for (let i = 0; i < 100; i++) {
@@ -95,5 +113,12 @@ describe('Randomizer', () => {
     const data = [[1, 2], [3, 4], [5, 6], [7, 8]]
     const result = Randomizer.samples(data, 2)
     expect(result).toHaveLength(2)
+  })
+
+  test('samples rejects a negative or fractional count', () => {
+    const rng = new Randomizer(42)
+    const data = [[1, 2], [3, 4], [5, 6]]
+    expect(() => rng.samples(data, 1.5)).toThrow('The number of samples must be a non-negative integer')
+    expect(() => rng.samples(data, -1)).toThrow('The number of samples must be a non-negative integer')
   })
 })

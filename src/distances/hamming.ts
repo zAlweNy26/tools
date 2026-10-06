@@ -2,7 +2,7 @@
  * Calculates the Hamming distance between `a` and `b`.
  * @param a The first vector.
  * @param b The second vector.
- * @returns The Hamming distance between the two vectors.
+ * @returns The Hamming distance between the two vectors, or 0 if both are empty.
  * @throws An error if the vectors do not have the same length.
  * @example
  * ```ts
@@ -21,5 +21,5 @@ export function hamming(a: number[], b: number[]) {
 
   for (let i = 0; i < a.length; i++) result += Number(a[i] !== b[i])
 
-  return result / a.length
+  return a.length === 0 ? 0 : result / a.length
 }

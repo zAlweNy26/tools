@@ -86,18 +86,25 @@ export class TSNE extends DimRed<TSNEParams> {
     const targetH = Math.log(this._params.perplexity)
     for (let i = 0; i < n; ++i) {
       const nDist = delta.getRow(i)
-      const pRow = P.getRow(i)
+      const pRow = Array.from<number>({ length: n }).fill(0)
       let betaMin = -Infinity, betaMax = Infinity
       let beta = 1, cnt = 50, done = false
       let pSum = 0, dpSum = 0
+
+      // shifting by the nearest distance leaves P and H unchanged but keeps exp() from underflowing to 0
+      let minDist = Infinity
+      nDist.forEach((v, j) => {
+        if (i !== j && v < minDist) minDist = v
+      })
 
       // compute entropy and kernel row with beta precision
       while (!done && cnt--) {
         pSum = dpSum = 0
 
         nDist.forEach((v, j) => {
-          const pj = i !== j ? Math.exp(-v * beta) : 0
-          dpSum += v * pj
+          const shifted = v - minDist
+          const pj = i !== j ? Math.exp(-shifted * beta) : 0
+          dpSum += shifted * pj
           pRow[j] = pj
           pSum += pj
         })
@@ -118,8 +125,11 @@ export class TSNE extends DimRed<TSNEParams> {
       }
 
       // normalize p
-      for (let j = 0; j < n; ++j)
-        pRow[j] /= pSum
+      if (pSum > 0) {
+        for (let j = 0; j < n; ++j)
+          pRow[j] /= pSum
+      }
+      P.setRow(i, pRow)
     }
 
     // compute probabilities
@@ -171,8 +181,9 @@ export class TSNE extends DimRed<TSNEParams> {
 
     for (let i = 0; i < n; ++i) {
       for (let j = 0; j < n; ++j) {
-        const Qij = Math.max(qMat.get(i, j) / qSum, 1e-100)
-        const preMult = 4 * (pMul * proj.get(i, j) - Qij) * Qij
+        const qVal = qMat.get(i, j)
+        const Qij = Math.max(qVal / qSum, 1e-100)
+        const preMult = 4 * (pMul * proj.get(i, j) - Qij) * qVal
         for (let d = 0; d < dim; ++d)
           grad.update(i, d, o => o + (preMult * (res.get(i, d) - res.get(j, d))))
       }
@@ -180,21 +191,17 @@ export class TSNE extends DimRed<TSNEParams> {
 
     // perform gradient step
     const resMean = Array.from<number>({ length: dim }).fill(0)
+    const mVal = iter < 250 ? 0.5 : 0.8
     for (let i = 0; i < n; ++i) {
       for (let d = 0; d < dim; ++d) {
         const gId = grad.get(i, d)
         const sId = yStep.get(i, d)
         const gainId = gains.get(i, d)
 
-        let newGain = 0
-
-        if (newGain < 0.01) newGain = 0.01
-        else if (Math.sign(gId) === Math.sign(sId)) newGain = gainId * 0.8
-        else newGain = gainId + 0.2
+        const newGain = Math.max(Math.sign(gId) === Math.sign(sId) ? gainId * 0.8 : gainId + 0.2, 0.01)
 
         gains.set(i, d, newGain)
 
-        const mVal = iter < 250 ? 0.5 : 0.8
         const sIdNew = mVal * sId - epsilon * newGain * gId
 
         yStep.set(i, d, sIdNew)

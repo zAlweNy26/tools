@@ -77,9 +77,8 @@ describe('BinarySearchTree', () => {
     expect(bst.contains(5)).toBeTrue()
     expect(bst.contains(7)).toBeTrue()
     expect(bst.contains(99)).toBeFalse()
-    const node = bst.search(3)
-    expect(node).toBeDefined()
-    expect(node!.data).toBe(3)
+    expect(bst.search(3)).toBe(3)
+    expect(bst.search(99)).toBeUndefined()
   })
 
   test('min and max', () => {
@@ -113,6 +112,24 @@ describe('BinarySearchTree', () => {
     const bst = new BinarySearchTree<number>()
     bst.insert(5).insert(3).insert(7).insert(2).insert(4).insert(6).insert(8)
     expect(bst.traverse('height')).toEqual([5, 3, 7, 2, 4, 6, 8])
+  })
+
+  test('height-order traversal visits deeper levels in order', () => {
+    const bst = new BinarySearchTree<number>()
+    for (const v of [8, 4, 12, 2, 6, 10, 14, 1]) bst.insert(v)
+    expect(bst.traverse('height')).toEqual([8, 4, 12, 2, 6, 10, 14, 1])
+  })
+
+  test('default comparator orders strings', () => {
+    const bst = new BinarySearchTree<string>(['b', 'a', 'c'])
+    expect(bst.size()).toBe(3)
+    expect(bst.traverse('in')).toEqual(['a', 'b', 'c'])
+  })
+
+  test('search returns the stored value for a key-based comparator', () => {
+    interface User { id: number, name: string }
+    const users = new BinarySearchTree<User>((a, b) => a.id - b.id, [{ id: 2, name: 'Bo' }, { id: 1, name: 'Al' }])
+    expect(users.search({ id: 2, name: '' })?.name).toBe('Bo')
   })
 
   test('clear', () => {

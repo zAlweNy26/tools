@@ -21,11 +21,13 @@ export class CircularQueue<T> extends Queue<T> {
   /**
    * Creates a new instance of the CircularQueue class.
    * @param size The maximum size of the queue, or an array of elements to initialize the queue with.
+   * @throws An error if the resulting capacity is not positive.
    */
   constructor(size: number | T[]) {
     super(size)
     if (!(typeof size === 'number'))
       this._capacity = size.length
+    if (this._capacity <= 0) throw new Error('Capacity must be greater than 0')
   }
 
   /**
@@ -49,6 +51,22 @@ export class CircularQueue<T> extends Queue<T> {
     delete this._data[this._head % this._capacity]
     this._head++
     return item
+  }
+
+  /**
+   * Returns the element at the front of the queue without removing it.
+   * @returns The element at the front of the queue or undefined if the queue is empty.
+   */
+  peek() {
+    if (this.isEmpty) return undefined
+    return this._data[this._head % this._capacity]
+  }
+
+  /**
+   * An array of all the elements in the queue, from front to back.
+   */
+  get items() {
+    return Array.from({ length: this.size() }, (_, i) => this._data[(this._head + i) % this._capacity])
   }
 
   /**

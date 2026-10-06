@@ -68,4 +68,23 @@ describe('CircularQueue', () => {
     cq.enqueue(4)
     expect(cq.space).toBe(0)
   })
+
+  test('peek returns the front element after wraparound', () => {
+    const cq = new CircularQueue<number>(3)
+    for (const v of [1, 2, 3, 4]) cq.enqueue(v)
+    cq.dequeue()
+    cq.dequeue()
+    expect(cq.peek()).toBe(4)
+  })
+
+  test('items are in queue order after wraparound', () => {
+    const cq = new CircularQueue<number>(3)
+    for (const v of [1, 2, 3, 4, 5]) cq.enqueue(v)
+    expect(cq.items).toEqual([3, 4, 5])
+  })
+
+  test('throws for a non-positive capacity', () => {
+    expect(() => new CircularQueue<number>(0)).toThrow('Capacity must be greater than 0')
+    expect(() => new CircularQueue<number>([])).toThrow('Capacity must be greater than 0')
+  })
 })

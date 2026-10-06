@@ -22,19 +22,20 @@ export class Matrix implements Structure {
    * Creates a new matrix with the specified number of rows and columns.
    * @param rows The number of rows in the matrix.
    * @param cols The number of columns in the matrix.
-   * @param value The initial value of the matrix. Can be a number, a function that returns a number, or the string `identity`.
+   * @param value The initial value of the matrix. Can be a number, a function that returns a number, or the string `identity`. Defaults to 0.
    *
    * If a number is provided, all elements of the matrix will be set to that number.
    *
    * If a function is provided, it will be called for each element of the matrix to determine its initial value.
    *
    * If `identity` is provided, the matrix will be initialized as an identity matrix.
-   * @throws An error if the number of rows or columns is less than or equal to 1.
+   * @throws An error if the number of rows or columns is not a positive integer.
    */
-  constructor(public rows: number, public cols: number, value?: ((row: number, col: number) => number) | 'identity' | number) {
-    if (rows <= 1 && cols <= 1) throw new Error('Unable to create a matrix of that size')
+  constructor(public readonly rows: number, public readonly cols: number, value?: ((row: number, col: number) => number) | 'identity' | number) {
+    if (!Number.isInteger(rows) || !Number.isInteger(cols) || rows < 1 || cols < 1)
+      throw new Error('Unable to create a matrix of that size')
     if (value === undefined)
-      this._data = Array.from({ length: rows }, () => Array.from({ length: cols }))
+      this._data = Array.from({ length: rows }, () => Array.from<number>({ length: cols }).fill(0))
     else if (value === 'identity')
       this._data = Array.from({ length: rows }, (_, i) => Array.from({ length: cols }, (_, j) => i === j ? 1 : 0))
     else if (typeof value === 'number')
@@ -82,8 +83,10 @@ export class Matrix implements Structure {
    * @param row The row index of the element to retrieve.
    * @param col The column index of the element to retrieve.
    * @returns The value at the specified row and column in the matrix.
+   * @throws A RangeError if the position is outside the matrix.
    */
   get(row: number, col: number) {
+    this._checkCell(row, col)
     return this._data[row][col]
   }
 
@@ -93,8 +96,10 @@ export class Matrix implements Structure {
    * @param col The column index of the cell to set.
    * @param value The value to set in the cell.
    * @returns The value that was set in the cell.
+   * @throws A RangeError if the position is outside the matrix.
    */
   set(row: number, col: number, value: number) {
+    this._checkCell(row, col)
     this._data[row][col] = value
     return value
   }
@@ -113,7 +118,7 @@ export class Matrix implements Structure {
       data = this._data.map((arr, i) => arr.concat(mat._data[i]))
     }
     else if (type === 'vertical') {
-      if (this.cols !== mat.cols) throw new Error('The matrices need to have the same number of rows')
+      if (this.cols !== mat.cols) throw new Error('The matrices need to have the same number of columns')
       data = this._data.concat(mat._data)
     }
     else {
@@ -132,30 +137,30 @@ export class Matrix implements Structure {
    * @param col The column index of the value to update.
    * @param value The update function that takes the old value as input and returns the new value.
    * @returns The new value after the update.
+   * @throws A RangeError if the position is outside the matrix.
    */
   update(row: number, col: number, value: (old: number) => number) {
+    this._checkCell(row, col)
     const val = value(this._data[row][col])
     this._data[row][col] = val
     return val
   }
 
   /**
-   * Applies a binary operation to each element of the current matrix and another matrix.
-   * @template T The type of the elements in the matrix.
+   * Applies a binary operation in place to each element of the current matrix and the matching element of another matrix.
    * @param matrix The matrix to operate with.
    * @param value The binary operation to apply to each element.
-   * @returns A new matrix with the result of the operation.
-   * @throws If the number of columns of the current matrix is different from the number of rows of the passed matrix.
+   * @returns A copy of the resulting data as a two-dimensional array.
+   * @throws If the two matrices do not have the same dimensions.
    */
   operate(matrix: number[][] | Matrix, value: (left: number, right: number) => number) {
     const mat = matrix instanceof Matrix ? matrix : Matrix.from(matrix)
 
     if (this.cols !== mat.cols || this.rows !== mat.rows)
-      throw new Error('The number of columns of the current matrix is different from the number of rows of the passed matrix')
+      throw new Error('The matrices need to have the same dimensions')
 
-    const data = this._data.map((row, i) => row.map((col, j) => value(col, mat.get(i, j))))
-    this._data = data
-    return data
+    this._data = this._data.map((row, i) => row.map((col, j) => value(col, mat.get(i, j))))
+    return this.items
   }
 
   /**
@@ -174,24 +179,24 @@ export class Matrix implements Structure {
    * @param row The index of the row to set.
    * @param values The values to set for the row.
    * @returns The updated matrix.
-   * @throws If the passed index exceeds the total number of rows in the matrix or if the passed values exceed the total number of rows in the matrix.
+   * @throws If the passed index is outside the matrix or the number of values differs from the number of columns.
    */
   setRow(row: number, values: number[]) {
-    if (row >= this.rows) throw new Error('The passed index exceeds the total number of rows in the matrix')
-    else if (values.length > this.cols) throw new Error('The passed values exceed the total number of columns in the matrix')
-    this._data[row] = values
+    this._checkRow(row)
+    if (values.length !== this.cols) throw new Error('The number of passed values must match the number of columns in the matrix')
+    this._data[row] = [...values]
     return this
   }
 
   /**
    * Returns the row at the specified index.
    * @param row The index of the row to retrieve.
-   * @returns The row at the specified index.
-   * @throws An error if the passed index exceeds the total number of rows in the matrix.
+   * @returns A copy of the row at the specified index.
+   * @throws An error if the passed index is outside the matrix.
    */
   getRow(row: number) {
-    if (row >= this.rows) throw new Error('The passed index exceeds the total number of rows in the matrix')
-    return this._data[row]
+    this._checkRow(row)
+    return [...this._data[row]]
   }
 
   /**
@@ -213,12 +218,12 @@ export class Matrix implements Structure {
    * @param col The index of the column to set.
    * @param values An array of values to set in the column.
    * @returns The updated matrix.
-   * @throws An error if the passed index exceeds the total number of columns in the matrix.
-   * @throws An error if the passed values exceed the total number of columns in the matrix.
+   * @throws An error if the passed index is outside the matrix.
+   * @throws An error if the number of values differs from the number of rows.
    */
   setCol(col: number, values: number[]) {
-    if (col >= this.cols) throw new Error('The passed index exceeds the total number of columns in the matrix')
-    else if (values.length > this.rows) throw new Error('The passed values exceed the total number of rows in the matrix')
+    this._checkCol(col)
+    if (values.length !== this.rows) throw new Error('The number of passed values must match the number of rows in the matrix')
     this._data = this._data.map((r, i) => {
       r[col] = values[i]
       return r
@@ -230,16 +235,16 @@ export class Matrix implements Structure {
    * Returns an array containing the elements of the specified column in the matrix.
    * @param col The index of the column to retrieve.
    * @returns An array containing the elements of the specified column.
-   * @throws An error if the passed index exceeds the total number of columns in the matrix.
+   * @throws An error if the passed index is outside the matrix.
    */
   getCol(col: number) {
-    if (col >= this.cols) throw new Error('The passed index exceeds the total number of columns in the matrix')
+    this._checkCol(col)
     return this._data.map(row => row[col])
   }
 
   /**
    * Returns a generator that iterates over the rows of the matrix.
-   * @yields The current row after each iteration.
+   * @yields A copy of the current row after each iteration.
    * @returns A generator that yields each row of the matrix.
    */
   * iterateRows() {
@@ -259,7 +264,7 @@ export class Matrix implements Structure {
 
   /**
    * Returns an iterator that yields each row of the matrix.
-   * @yields The current row after each iteration.
+   * @yields A copy of the current row after each iteration.
    * @returns An iterator that yields each row of the matrix.
    */
   * [Symbol.iterator]() {
@@ -268,7 +273,7 @@ export class Matrix implements Structure {
   }
 
   /**
-   * Removes all the values present in the matrix.
+   * Resets every value in the matrix to 0.
    * @returns The cleared matrix.
    */
   clear() {
@@ -452,35 +457,18 @@ export class Matrix implements Structure {
     return this._data.map(row => [...row])
   }
 
-  /**
-   * Returns the number of empty spaces in the matrix.
-   * @returns The number of empty spaces in the matrix.
-   */
-  get space() {
-    return this._data.reduce((p, arr) => p + arr.reduce((v, c) => v + (typeof c === 'undefined' ? 1 : 0), 0), 0)
+  private _checkRow(row: number) {
+    if (!Number.isInteger(row) || row < 0 || row >= this.rows)
+      throw new Error('The passed index exceeds the total number of rows in the matrix')
   }
 
-  /**
-   * Returns a boolean indicating whether the matrix has room for more elements.
-   * @returns True if the matrix has room for more elements, false otherwise.
-   */
-  get hasRoom() {
-    return this.space !== 0
+  private _checkCol(col: number) {
+    if (!Number.isInteger(col) || col < 0 || col >= this.cols)
+      throw new Error('The passed index exceeds the total number of columns in the matrix')
   }
 
-  /**
-   * Returns a boolean indicating whether the matrix is empty or not.
-   * @returns True if the matrix is empty, false otherwise.
-   */
-  get isEmpty() {
-    return this.space === this.size()
-  }
-
-  /**
-   * Returns a boolean indicating whether the matrix is full or not.
-   * @returns True if the matrix is full, false otherwise.
-   */
-  get isFull() {
-    return this.space === 0
+  private _checkCell(row: number, col: number) {
+    if (!(row >= 0 && row < this.rows && col >= 0 && col < this.cols))
+      throw new RangeError(`Position (${row}, ${col}) is outside the ${this.rows}x${this.cols} matrix`)
   }
 }

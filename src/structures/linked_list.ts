@@ -38,8 +38,8 @@ export class LinkedList<T> extends BaseLinkedList<T> {
    */
   append(data: T): this {
     const node = new ListNode(data)
-    if (!this.head) {
-      this.head = node
+    if (!this._head) {
+      this._head = node
       this._tail = node
     }
     else {
@@ -56,8 +56,8 @@ export class LinkedList<T> extends BaseLinkedList<T> {
    * @returns The list instance.
    */
   prepend(data: T): this {
-    const node = new ListNode(data, this.head)
-    this.head = node
+    const node = new ListNode(data, this._head)
+    this._head = node
     if (!this._tail)
       this._tail = node
     this._size++
@@ -91,9 +91,9 @@ export class LinkedList<T> extends BaseLinkedList<T> {
   deleteAt(index: number): T | undefined {
     if (index < 0 || index >= this._size) return undefined
     if (index === 0) {
-      const node = this.head!
-      this.head = node.next
-      if (!this.head) this._tail = null
+      const node = this._head!
+      this._head = node.next
+      if (!this._head) this._tail = null
       this._size--
       return node.data
     }
@@ -112,16 +112,16 @@ export class LinkedList<T> extends BaseLinkedList<T> {
    * @returns True if the element was found and removed, false otherwise.
    */
   delete(data: T): boolean {
-    if (!this.head) return false
+    if (!this._head) return false
 
-    if (this.head.data === data) {
-      this.head = this.head.next
-      if (!this.head) this._tail = null
+    if (this._head.data === data) {
+      this._head = this._head.next
+      if (!this._head) this._tail = null
       this._size--
       return true
     }
 
-    let current = this.head
+    let current = this._head
     while (current.next) {
       if (current.next.data === data) {
         current.next = current.next.next
@@ -139,11 +139,11 @@ export class LinkedList<T> extends BaseLinkedList<T> {
    * @returns The list instance.
    */
   reverse(): this {
-    if (!this.head || !this.head.next) return this
+    if (!this._head || !this._head.next) return this
 
-    this._tail = this.head
+    this._tail = this._head
     let prev: ListNode<T> | null = null
-    let current: ListNode<T> | null = this.head
+    let current: ListNode<T> | null = this._head
 
     while (current) {
       const next: ListNode<T> | null = current.next
@@ -152,7 +152,7 @@ export class LinkedList<T> extends BaseLinkedList<T> {
       current = next
     }
 
-    this.head = prev
+    this._head = prev
     return this
   }
 
@@ -163,7 +163,7 @@ export class LinkedList<T> extends BaseLinkedList<T> {
    */
   map<U>(callback: (value: T, index: number) => U): LinkedList<U> {
     const result = new LinkedList<U>()
-    let current = this.head
+    let current = this._head
     let index = 0
     while (current) {
       result.append(callback(current.data, index++))
@@ -179,7 +179,7 @@ export class LinkedList<T> extends BaseLinkedList<T> {
    */
   filter(predicate: (value: T, index: number) => boolean): LinkedList<T> {
     const result = new LinkedList<T>()
-    let current = this.head
+    let current = this._head
     let index = 0
     while (current) {
       if (predicate(current.data, index)) result.append(current.data)

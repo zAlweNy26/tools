@@ -1,5 +1,4 @@
 import type { Structure } from '@interfaces/structure'
-import { FixedArray } from './fixed_array'
 
 /**
  * Abstract class representing a list structure.
@@ -13,12 +12,13 @@ export abstract class ListStructure<T> implements Structure {
 
   /**
    * Creates a new list structure with the given size or initial elements.
-   * @param size The maximum capacity (as a number) or an array of initial elements.
+   * @param size The maximum capacity (as a number, 0 for unbounded) or an array of initial elements.
    */
   constructor(size: number | T[]) {
     if (typeof size === 'number') {
-      this._data = new FixedArray(size)
-      this._capacity = size
+      // a capacity of 0 means unbounded; subclasses enforce the capacity through isFull
+      this._data = []
+      this._capacity = Math.max(size, 0)
     }
     else
       this._data = [...size]
@@ -49,14 +49,14 @@ export abstract class ListStructure<T> implements Structure {
    * An array of all the elements in the list.
    */
   get items() {
-    return [...this._data].filter(v => v !== undefined) as T[]
+    return [...this._data]
   }
 
   /**
    * Clears the list.
    */
   clear() {
-    this._data = this._capacity > 0 ? new FixedArray(this._capacity) : []
+    this._data = []
     return this
   }
 
@@ -84,6 +84,16 @@ export abstract class GraphStructure<N, E> implements Structure {
    */
   constructor(node: N) {
     this.map.set(node, [])
+  }
+
+  /**
+   * Adds a node to the graph if it is not already present.
+   * @param node The node to add.
+   * @returns The graph structure instance.
+   */
+  addNode(node: N) {
+    if (!this.map.has(node)) this.map.set(node, [])
+    return this
   }
 
   /**
@@ -193,13 +203,16 @@ export class ListNode<T> {
  * @group Structures
  */
 export abstract class BaseLinkedList<T> implements Structure {
+  protected _head: ListNode<T> | null = null
+  protected _tail: ListNode<T> | null = null
+  protected _size = 0
+
   /**
    * The first node in the list, or null if the list is empty.
    */
-  head: ListNode<T> | null = null
-
-  protected _tail: ListNode<T> | null = null
-  protected _size = 0
+  get head() {
+    return this._head
+  }
 
   /**
    * Adds an element to the end of the list.
@@ -250,7 +263,7 @@ export abstract class BaseLinkedList<T> implements Structure {
    * @returns The node containing the data, or undefined if not found.
    */
   find(data: T): ListNode<T> | undefined {
-    let current = this.head
+    let current = this._head
     while (current) {
       if (current.data === data) return current
       current = current.next
@@ -279,7 +292,7 @@ export abstract class BaseLinkedList<T> implements Structure {
    * Clears the list, removing all elements.
    */
   clear(): void {
-    this.head = null
+    this._head = null
     this._tail = null
     this._size = 0
   }
@@ -297,7 +310,7 @@ export abstract class BaseLinkedList<T> implements Structure {
    */
   toArray(): T[] {
     const result: T[] = []
-    let current = this.head
+    let current = this._head
     while (current) {
       result.push(current.data)
       current = current.next
@@ -310,7 +323,7 @@ export abstract class BaseLinkedList<T> implements Structure {
    * @param callback The function to call for each element.
    */
   forEach(callback: (value: T, index: number) => void): void {
-    let current = this.head
+    let current = this._head
     let index = 0
     while (current) {
       callback(current.data, index++)
@@ -326,7 +339,7 @@ export abstract class BaseLinkedList<T> implements Structure {
    */
   reduce<U>(callback: (accumulator: U, value: T, index: number) => U, initialValue: U): U {
     let accumulator = initialValue
-    let current = this.head
+    let current = this._head
     let index = 0
     while (current) {
       accumulator = callback(accumulator, current.data, index++)
@@ -341,7 +354,7 @@ export abstract class BaseLinkedList<T> implements Structure {
    * @returns The index of the data, or -1 if not found.
    */
   indexOf(data: T): number {
-    let current = this.head
+    let current = this._head
     let index = 0
     while (current) {
       if (current.data === data) return index
@@ -367,7 +380,7 @@ export abstract class BaseLinkedList<T> implements Structure {
    * @returns True if any element satisfies the predicate.
    */
   some(predicate: (value: T, index: number) => boolean): boolean {
-    let current = this.head
+    let current = this._head
     let index = 0
     while (current) {
       if (predicate(current.data, index++)) return true
@@ -382,7 +395,7 @@ export abstract class BaseLinkedList<T> implements Structure {
    * @returns True if all elements satisfy the predicate.
    */
   every(predicate: (value: T, index: number) => boolean): boolean {
-    let current = this.head
+    let current = this._head
     let index = 0
     while (current) {
       if (!predicate(current.data, index++)) return false
@@ -396,7 +409,7 @@ export abstract class BaseLinkedList<T> implements Structure {
    * @returns An iterator over the list's elements.
    */
   [Symbol.iterator](): Iterator<T> {
-    let current = this.head
+    let current = this._head
     return {
       next: (): IteratorResult<T> => {
         if (current) {
@@ -410,7 +423,7 @@ export abstract class BaseLinkedList<T> implements Structure {
   }
 
   protected _nodeAt(index: number): ListNode<T> {
-    let current = this.head!
+    let current = this._head!
     for (let i = 0; i < index; i++)
       current = current.next!
     return current

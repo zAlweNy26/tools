@@ -46,11 +46,8 @@ export function measureTime<Args extends unknown[], Return>(
 }
 
 /**
- * A decorator function that measures the execution time of a method and logs it to the console.
- * @param _target The target object.
- * @param _propertyKey The name of the property.
- * @param descriptor The property descriptor.
- * @returns The updated property descriptor.
+ * A method decorator that measures the execution time of a method and logs it to the console.
+ * Works with both standard (TC39) decorators and legacy `experimentalDecorators`.
  * @example
  * ```ts
  * import { measure } from '@danyalwe/tools'
@@ -64,16 +61,24 @@ export function measureTime<Args extends unknown[], Return>(
  * ```
  * @group Utils
  */
-export function measure<T>(_target: unknown, _propertyKey: string, descriptor: PropertyDescriptor) {
-  const originalMethod = descriptor.value as (...args: unknown[]) => T
-
-  descriptor.value = function (...args: unknown[]): T {
+export function measure<This, Args extends unknown[], Return>(
+  target: (this: This, ...args: Args) => Return,
+  context: ClassMethodDecoratorContext<This, (this: This, ...args: Args) => Return>,
+): (this: This, ...args: Args) => Return
+export function measure(target: unknown, propertyKey: string | symbol, descriptor: PropertyDescriptor): PropertyDescriptor
+export function measure(target: unknown, contextOrKey: unknown, descriptor?: PropertyDescriptor) {
+  const timed = (method: (...args: unknown[]) => unknown) => function (this: unknown, ...args: unknown[]) {
     const timeStart = performance.now()
-    const result = originalMethod.apply(this, args)
+    const result = method.apply(this, args)
     const timeEnd = performance.now()
     console.log(`Execution time: ${timeEnd - timeStart} ms`)
     return result
   }
 
-  return descriptor
+  // legacy decorators receive (target, key, descriptor); standard ones receive (method, context)
+  if (descriptor) {
+    descriptor.value = timed(descriptor.value)
+    return descriptor
+  }
+  return timed(target as (...args: unknown[]) => unknown)
 }

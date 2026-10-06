@@ -9,7 +9,7 @@ describe('cosine', () => {
 
   test('returns correct distance for orthogonal vectors', () => {
     const result = cosine([1, 0], [0, 1])
-    expect(result).toBeCloseTo(Math.PI / 2)
+    expect(result).toBe(1)
   })
 
   test('returns 1 when any vector has zero norm', () => {
@@ -19,7 +19,15 @@ describe('cosine', () => {
 
   test('returns correct distance for opposite vectors', () => {
     const result = cosine([1, 0], [-1, 0])
-    expect(result).toBeCloseTo(Math.PI)
+    expect(result).toBe(2)
+  })
+
+  test('returns 1 - cosine similarity', () => {
+    expect(cosine([1, 0], [1, 1])).toBeCloseTo(1 - Math.SQRT1_2)
+  })
+
+  test('returns 0 instead of NaN for parallel vectors with rounding error', () => {
+    expect(cosine([0.1, 0.7], [0.2, 1.4])).toBe(0)
   })
 
   test('throws for mismatched dimensions', () => {

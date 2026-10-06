@@ -3,14 +3,17 @@ import type { Pipe } from '@interfaces/pipe'
 /**
  * Creates a pipeline of functions where the output of one function is passed as the input to the next.
  * @param fn The initial function to start the pipeline.
+ * @returns A callable pipeline that can be extended with `.pipe()`.
  * @example
  * ```ts
- * const addOne = (x: number) => x + 1;
- * const double = (x: number) => x * 2;
+ * import { pipe } from '@danyalwe/tools'
  *
- * const pipeline = pipe(addOne).pipe(double);
+ * const addOne = (x: number) => x + 1
+ * const double = (x: number) => x * 2
  *
- * console.log(pipeline.run(3)); // Outputs: 8
+ * const pipeline = pipe(addOne).pipe(double)
+ *
+ * pipeline(3) // 8
  * ```
  * @group Utils
  */

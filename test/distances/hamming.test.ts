@@ -20,4 +20,8 @@ describe('hamming', () => {
   test('throws for mismatched dimensions', () => {
     expect(() => hamming([1, 2], [1, 2, 3])).toThrow('The vectors should have the same length')
   })
+
+  test('returns 0 for two empty vectors', () => {
+    expect(hamming([], [])).toBe(0)
+  })
 })

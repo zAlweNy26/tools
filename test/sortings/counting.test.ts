@@ -48,4 +48,20 @@ describe('countingSort', () => {
     countingSort(original)
     expect(original).toEqual(copy)
   })
+
+  test('handles negative numbers', () => {
+    expect(countingSort([3, -2, 0, -5, 3])).toEqual([-5, -2, 0, 3, 3])
+  })
+
+  test('throws for values that are not integers', () => {
+    expect(() => countingSort([1.5, 0.5, 2.25])).toThrow('Counting sort only supports integers')
+    expect(() => countingSort([1, Number.NaN])).toThrow('Counting sort only supports integers')
+  })
+
+  test('handles arrays too large to spread into Math.min', () => {
+    const data = Array.from({ length: 1_000_000 }, (_, i) => (i * 31) % 1000)
+    const result = countingSort(data)
+    expect(result[0]).toBe(0)
+    expect(result.at(-1)).toBe(999)
+  })
 })

@@ -34,14 +34,15 @@ export class WeightedGraph<N> extends GraphStructure<N, [N, number]> {
    */
   addEdge(v1: N, v2: N, weight = 0) {
     const list = this.map.get(v1)
-    if (list) {
-      list.push([v2, weight])
+    if (!list) throw new Error('First node not found')
+    if (list.some(e => e[0] === v2)) throw new Error('Edge already present')
+    list.push([v2, weight])
+    // a self-loop is stored once
+    if (v1 !== v2) {
       const edge = this.map.get(v2)
-      if (edge?.map(e => e[0])?.includes(v1)) throw new Error('Edge already present')
-      else if (edge) edge.push([v1, weight])
+      if (edge) edge.push([v1, weight])
       else this.map.set(v2, [[v1, weight]])
     }
-    else throw new Error('First node not found')
     return this
   }
 
@@ -95,7 +96,7 @@ export class WeightedGraph<N> extends GraphStructure<N, [N, number]> {
   getEdges(node: N) {
     const list = this.map.get(node)
     if (!list) throw new Error('Node not found')
-    return [...list]
+    return list.map(([n, w]) => [n, w] as [N, number])
   }
 
   /**

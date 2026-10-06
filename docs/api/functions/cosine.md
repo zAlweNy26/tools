@@ -28,7 +28,7 @@ An error if the vectors do not have the same length.
 ```ts
 import { cosine } from '@danyalwe/tools'
 
-cosine([1, 0], [0, 1])     // ~1.571 (orthogonal)
+cosine([1, 0], [0, 1])     // 1 (orthogonal)
 cosine([1, 2], [2, 4])     // 0 (same direction)
 ```
 

@@ -172,4 +172,20 @@ describe('IndexedMinHeap', () => {
     expect(heap.extractMin()).toBe(3)
     expect(heap.extractMin()).toBe(2)
   })
+
+  test('out-of-range and non-integer indices are never contained', () => {
+    const heap = new IndexedMinHeap<number>(3)
+    heap.insert(0, 1)
+    expect(heap.contains(-1)).toBeFalse()
+    expect(heap.contains(99)).toBeFalse()
+    expect(heap.contains(1.5)).toBeFalse()
+    expect(heap.getValue(99)).toBeUndefined()
+  })
+
+  test('decreaseKey and insert reject invalid indices without side effects', () => {
+    const heap = new IndexedMinHeap<number>(3)
+    expect(() => heap.decreaseKey(10, 5)).toThrow('Index not found')
+    expect(heap.contains(10)).toBeFalse()
+    expect(() => heap.insert(1.5, 1)).toThrow('Index out of range')
+  })
 })

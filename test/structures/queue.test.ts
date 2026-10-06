@@ -80,4 +80,19 @@ describe('Queue', () => {
     expect(queue.hasRoom).toBeTrue()
     expect(queue.isFull).toBeFalse()
   })
+
+  test('items only contains queued elements after compaction', () => {
+    const queue = new Queue<number>([1, 2, 3, 4])
+    queue.dequeue()
+    queue.dequeue()
+    queue.dequeue()
+    expect(queue.items).toEqual([4])
+  })
+
+  test('items keeps undefined elements', () => {
+    const queue = new Queue<number | undefined>(0)
+    queue.enqueue(1)
+    queue.enqueue(undefined)
+    expect(queue.items).toStrictEqual([1, undefined])
+  })
 })

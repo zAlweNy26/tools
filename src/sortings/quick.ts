@@ -15,38 +15,50 @@ export function quickSort<T>(array: T[]): T[] {
   if (array.length <= 1) return array
 
   const result = [...array]
-
-  const qs = (arr: T[], low: number, high: number) => {
-    if (low < high) {
-      const pi = partition(arr, low, high)
-
-      qs(arr, low, pi - 1)
-      qs(arr, pi + 1, high)
-    }
-  }
-
   qs(result, 0, result.length - 1)
-
   return result
 }
 
-function partition<T>(arr: T[], low: number, high: number) {
-  const mid = (low + high) >> 1
-  if (arr[mid] < arr[low]) [arr[low], arr[mid]] = [arr[mid], arr[low]]
-  if (arr[high] < arr[low]) [arr[low], arr[high]] = [arr[high], arr[low]]
-  if (arr[mid] < arr[high]) [arr[mid], arr[high]] = [arr[high], arr[mid]]
-
-  const pivot = arr[high]
-  let i = low - 1
-
-  for (let j = low; j <= high - 1; j++) {
-    if (arr[j] < pivot) {
-      i++;
-      [arr[i], arr[j]] = [arr[j], arr[i]]
+function qs<T>(arr: T[], low: number, high: number) {
+  // recursing only into the smaller side keeps the stack depth O(log n)
+  while (low < high) {
+    const [lt, gt] = partition(arr, low, high)
+    if (lt - low < high - gt) {
+      qs(arr, low, lt - 1)
+      low = gt + 1
+    }
+    else {
+      qs(arr, gt + 1, high)
+      high = lt - 1
     }
   }
+}
 
-  [arr[i + 1], arr[high]] = [arr[high], arr[i + 1]]
+/**
+ * Three-way partition around a median-of-three pivot, so runs of equal values are handled in one pass.
+ * @returns The bounds `[lt, gt]` of the range holding values equal to the pivot.
+ */
+function partition<T>(arr: T[], low: number, high: number): [number, number] {
+  const pivot = medianOfThree(arr[low], arr[(low + high) >> 1], arr[high])
+  let lt = low, i = low, gt = high
 
-  return i + 1
+  while (i <= gt) {
+    if (arr[i] < pivot) {
+      [arr[lt], arr[i]] = [arr[i], arr[lt]]
+      lt++
+      i++
+    }
+    else if (pivot < arr[i]) {
+      [arr[i], arr[gt]] = [arr[gt], arr[i]]
+      gt--
+    }
+    else i++
+  }
+
+  return [lt, gt]
+}
+
+function medianOfThree<T>(a: T, b: T, c: T) {
+  if (a < b) return b < c ? b : a < c ? c : a
+  return a < c ? a : b < c ? c : b
 }

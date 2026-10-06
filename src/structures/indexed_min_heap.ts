@@ -48,7 +48,7 @@ export class IndexedMinHeap<T> implements Structure {
    * @throws If the index is out of range or already inserted.
    */
   insert(index: number, value: T): this {
-    if (index < 0 || index >= this._capacity)
+    if (!this._inRange(index))
       throw new Error('Index out of range')
     if (this._position[index] !== -1)
       throw new Error('Index already inserted')
@@ -68,7 +68,7 @@ export class IndexedMinHeap<T> implements Structure {
    * @throws If the index is not present or the new value is greater.
    */
   decreaseKey(index: number, value: T): this {
-    if (this._position[index] === -1)
+    if (!this.contains(index))
       throw new Error('Index not found')
     if (value > this._values[index]!)
       throw new Error('New value must not be greater than current value')
@@ -108,7 +108,7 @@ export class IndexedMinHeap<T> implements Structure {
    * @returns True if the index is present, false otherwise.
    */
   contains(index: number): boolean {
-    return this._position[index] !== -1
+    return this._inRange(index) && this._position[index] !== -1
   }
 
   /**
@@ -117,7 +117,7 @@ export class IndexedMinHeap<T> implements Structure {
    * @returns The associated value, or undefined if absent.
    */
   getValue(index: number): T | undefined {
-    if (this._position[index] === -1) return undefined
+    if (!this.contains(index)) return undefined
     return this._values[index]
   }
 
@@ -151,6 +151,10 @@ export class IndexedMinHeap<T> implements Structure {
    */
   get items(): number[] {
     return this._heap.slice(0, this._size)
+  }
+
+  private _inRange(index: number): boolean {
+    return Number.isInteger(index) && index >= 0 && index < this._capacity
   }
 
   private _parent(i: number): number {

@@ -62,4 +62,23 @@ describe('TSNE', () => {
     }
     expect(count).toBe(5)
   })
+
+  test('separates two well-separated clusters', () => {
+    const cluster = (offset: number) => Array.from({ length: 20 }, (_, i) => [offset + (i % 5) * 0.1, offset + Math.floor(i / 5) * 0.1])
+    const data = [...cluster(0), ...cluster(100)]
+    const result = new TSNE(data, { perplexity: 10 }).transform(500)
+    const rows = Array.from({ length: result.rows }, (_, i) => result.getRow(i))
+    const dist = (a: number[], b: number[]) => Math.hypot(a[0] - b[0], a[1] - b[1])
+    const centroid = (pts: number[][]) => [0, 1].map(d => pts.reduce((s, p) => s + p[d], 0) / pts.length)
+    const [a, b] = [rows.slice(0, 20), rows.slice(20)]
+    const [ca, cb] = [centroid(a), centroid(b)]
+    const spread = Math.max(...a.map(p => dist(p, ca)), ...b.map(p => dist(p, cb)))
+    expect(rows.flat().every(Number.isFinite)).toBeTrue()
+    expect(dist(ca, cb)).toBeGreaterThan(2 * spread)
+  })
+
+  test('stays finite when distances are huge', () => {
+    const tsne = new TSNE([[0], [1e10], [2e10], [3e10]], { perplexity: 2 })
+    expect(tsne.transform(50).getRow(0).every(Number.isFinite)).toBeTrue()
+  })
 })

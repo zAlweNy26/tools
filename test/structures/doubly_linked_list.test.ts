@@ -369,4 +369,11 @@ describe('DoublyLinkedList', () => {
     expect(list.head).toBeNull()
     expect(list.isEmpty).toBeTrue()
   })
+
+  test('backward can be used in for...of', () => {
+    const list = new DoublyLinkedList([1, 2, 3])
+    const result: number[] = []
+    for (const v of list.backward()) result.push(v)
+    expect(result).toEqual([3, 2, 1])
+  })
 })

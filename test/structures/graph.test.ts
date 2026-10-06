@@ -70,6 +70,30 @@ describe('Graph', () => {
     expect(g.size()).toBe(0)
   })
 
+  test('a rejected duplicate edge leaves the graph unchanged', () => {
+    const g = new Graph<number>(1)
+    g.addEdge(1, 2)
+    expect(() => g.addEdge(1, 2)).toThrow('Edge already present')
+    expect(() => g.addEdge(2, 1)).toThrow('Edge already present')
+    expect(g.getEdges(1)).toEqual([2])
+    expect(g.getEdges(2)).toEqual([1])
+  })
+
+  test('supports self-loops', () => {
+    const g = new Graph<number>(1)
+    g.addEdge(1, 1)
+    expect(g.getEdges(1)).toEqual([1])
+    expect(g.hasCycle()).toBeTrue()
+  })
+
+  test('can be reused after clear', () => {
+    const g = new Graph<string>('A')
+    g.addEdge('A', 'B')
+    g.clear()
+    g.addNode('X').addEdge('X', 'Y')
+    expect(g.nodes).toEqual(['X', 'Y'])
+  })
+
   test('nodes getter', () => {
     const g = new Graph<string>('A')
     g.addEdge('A', 'B')

@@ -2,9 +2,9 @@
  * Returns a function that calculates the Minkowski distance between `a` and `b` using order `p`.
  * When `p = 1` it is equivalent to Manhattan distance, `p = 2` to Euclidean distance,
  * and `p → ∞` to Chebyshev distance.
- * @param p The order of the Minkowski distance. Must be ≥ 1.
+ * @param p The order of the Minkowski distance. Must be ≥ 1; `Infinity` gives the Chebyshev distance.
  * @returns A distance function `(a: number[], b: number[]) => number`.
- * @throws An error if `p < 1`.
+ * @throws An error if `p` is less than 1 or NaN.
  * @example
  * ```ts
  * import { minkowski } from '@danyalwe/tools'
@@ -17,15 +17,19 @@
  * @group Distances
  */
 export function minkowski(p: number): (a: number[], b: number[]) => number {
-  if (p < 1) throw new Error('The Minkowski order p must be at least 1')
+  if (!(p >= 1)) throw new Error('The Minkowski order p must be at least 1')
 
   return (a: number[], b: number[]): number => {
     if (a.length !== b.length) throw new Error('The vectors should have the same length')
 
+    let max = 0
+    for (let i = 0; i < a.length; i++) max = Math.max(max, Math.abs(a[i] - b[i]))
+    if (p === Infinity || max === 0) return max
+
+    // dividing by the largest difference keeps |d|^p from overflowing for large p
     let sum = 0
+    for (let i = 0; i < a.length; i++) sum += (Math.abs(a[i] - b[i]) / max) ** p
 
-    for (let i = 0; i < a.length; i++) sum += Math.abs(a[i] - b[i]) ** p
-
-    return sum ** (1 / p)
+    return max * sum ** (1 / p)
   }
 }

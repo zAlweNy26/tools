@@ -32,5 +32,5 @@ import { Graph, depthFirstSearch } from '@danyalwe/tools'
 const graph = new Graph(1)
 graph.addEdge(1, 2).addEdge(1, 3).addEdge(2, 4)
 
-depthFirstSearch(graph) // [1, 3, 2, 4]
+depthFirstSearch(graph) // [1, 2, 4, 3]
 ```

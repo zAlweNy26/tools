@@ -58,7 +58,7 @@ export class BinarySearchTree<T> implements Structure {
    * Creates a new binary search tree.
    * @param compare A comparator function that returns a negative number if `a < b`,
    *   zero if `a === b`, and a positive number if `a > b`.
-   *   Defaults to numeric comparison (`a - b`).
+   *   Defaults to natural ordering via `<` and `>`, which works for numbers and strings.
    */
   constructor(compare?: (a: T, b: T) => number)
   /**
@@ -74,7 +74,7 @@ export class BinarySearchTree<T> implements Structure {
   constructor(compare: (a: T, b: T) => number, values: Iterable<T>)
   constructor(compare?: ((a: T, b: T) => number) | Iterable<T>, values?: Iterable<T>) {
     if (typeof compare === 'function') this._compare = compare
-    else this._compare = (a, b) => (a as unknown as number) - (b as unknown as number)
+    else this._compare = (a, b) => (a < b ? -1 : a > b ? 1 : 0)
 
     const iterable = (typeof compare === 'function' ? values : compare) ?? null
     if (iterable)
@@ -152,18 +152,13 @@ export class BinarySearchTree<T> implements Structure {
   }
 
   /**
-   * Searches for a value and returns the node containing it.
+   * Searches for a value and returns the stored value that compares equal to it.
+   * Useful with a key-based comparator, e.g. to look up a full record by its id.
    * @param value The value to search for.
-   * @returns The node containing the value, or undefined if not found.
+   * @returns The stored value, or undefined if not found.
    */
-  search(value: T) {
-    let current = this._root
-    while (current) {
-      const cmp = this._compare(value, current.data)
-      if (cmp === 0) return current
-      current = cmp < 0 ? current.left : current.right
-    }
-    return undefined
+  search(value: T): T | undefined {
+    return this._findNode(value)?.data
   }
 
   /**
@@ -172,7 +167,17 @@ export class BinarySearchTree<T> implements Structure {
    * @returns True if the value exists, false otherwise.
    */
   contains(value: T) {
-    return this.search(value) !== undefined
+    return this._findNode(value) !== null
+  }
+
+  private _findNode(value: T) {
+    let current = this._root
+    while (current) {
+      const cmp = this._compare(value, current.data)
+      if (cmp === 0) return current
+      current = cmp < 0 ? current.left : current.right
+    }
+    return null
   }
 
   /**

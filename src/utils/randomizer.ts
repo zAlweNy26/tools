@@ -22,6 +22,15 @@ export class Randomizer {
   protected _sVec = Array.from<number>({ length: this._pN })
   protected _init = this._pN + 1
   protected _gVal?: number = undefined
+  private static _shared?: Randomizer
+
+  /**
+   * A lazily created instance shared by the static shortcuts, so consecutive calls
+   * advance one stream instead of reseeding with `Date.now()` every time.
+   */
+  private static get shared() {
+    return (Randomizer._shared ??= new Randomizer())
+  }
 
   /**
    * A Mersenne Twister random number generator.
@@ -41,7 +50,7 @@ export class Randomizer {
 
   /**
    * Setter for the seed property of the Randomizer class.
-   * @param seed The seed value to set.
+   * @param seed The seed value to set. Only its low 32 bits are used to initialize the generator.
    */
   set seed(seed: number) {
     this._seed = seed
@@ -80,7 +89,7 @@ export class Randomizer {
       this._init = 0
     }
 
-    y = this._sVec[(this._init += 1)]
+    y = this._sVec[this._init++]
     y ^= y >>> 11
     y ^= (y << 7) & 0x9D2C5680
     y ^= (y << 15) & 0xEFC60000
@@ -90,7 +99,7 @@ export class Randomizer {
   }
 
   /**
-   * Returns a random integer between 0 and MAX_INTEGER using the current time as the seed.
+   * Returns a random integer between 0 and MAX_INTEGER using a shared generator seeded with the current time.
    * @returns A random integer.
    * @example
    * ```ts
@@ -100,7 +109,7 @@ export class Randomizer {
    * ```
    */
   static randomInt() {
-    return new Randomizer(Date.now()).randomInt()
+    return Randomizer.shared.randomInt()
   }
 
   /**
@@ -113,7 +122,7 @@ export class Randomizer {
   }
 
   /**
-   * Returns a random number between 0 (inclusive) and 1 (exclusive) generated using the current time as the seed.
+   * Returns a random number between 0 (inclusive) and 1 (exclusive) generated using a shared generator seeded with the current time.
    * @returns A random number between 0 (inclusive) and 1 (exclusive).
    * @example
    * ```ts
@@ -123,7 +132,7 @@ export class Randomizer {
    * ```
    */
   static random() {
-    return new Randomizer(Date.now()).random()
+    return Randomizer.shared.random()
   }
 
   /**
@@ -160,7 +169,7 @@ export class Randomizer {
    * ```
    */
   static randomGauss() {
-    return new Randomizer(Date.now()).randomGauss()
+    return Randomizer.shared.randomGauss()
   }
 
   /**
@@ -168,10 +177,11 @@ export class Randomizer {
    * @param data - The matrix or 2D array to sample from.
    * @param n - The number of samples to return.
    * @returns An array of `n` rows from the input data, randomly selected.
-   * @throws An error if `n` is greater than the number of rows in the input data.
+   * @throws An error if `n` is not a non-negative integer or is greater than the number of rows in the input data.
    */
   samples(data: Matrix | number[][], n: number) {
     const mat = data instanceof Matrix ? data : Matrix.from(data)
+    if (!Number.isInteger(n) || n < 0) throw new Error('The number of samples must be a non-negative integer')
     if (n > mat.rows) throw new Error('The number of samples can\'t be bigger than the number of rows of the matrix')
     const samples = Array.from<number>({ length: n })
     const indexList = linearSpace(0, mat.rows - 1)
@@ -195,6 +205,6 @@ export class Randomizer {
    * ```
    */
   static samples(data: Matrix | number[][], n: number) {
-    return new Randomizer(Date.now()).samples(data, n)
+    return Randomizer.shared.samples(data, n)
   }
 }

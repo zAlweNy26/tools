@@ -26,4 +26,9 @@ describe('euclideanWeighted', () => {
     expect(() => euclideanWeighted([1, 1])([1, 2], [1, 2, 3]))
       .toThrow('The vectors should have the same length')
   })
+
+  test('throws for negative or non-finite weights', () => {
+    expect(() => euclideanWeighted([-1, 1])).toThrow('The weights should be finite and non-negative')
+    expect(() => euclideanWeighted([Number.NaN, 1])).toThrow('The weights should be finite and non-negative')
+  })
 })

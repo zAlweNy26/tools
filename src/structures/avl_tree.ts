@@ -30,10 +30,10 @@ export class AVLNode<T> extends BSTNode<T> {
   }
 
   /**
-   * Sets the height of the subtree rooted at this node.
+   * Recomputes the height of this node from the heights of its children.
    */
-  set height(value: number) {
-    this._height = value
+  updateHeight() {
+    this._height = 1 + Math.max(this.left?.height ?? -1, this.right?.height ?? -1)
   }
 }
 
@@ -59,7 +59,7 @@ export class AVLTree<T> extends BinarySearchTree<T> {
   }
 
   private _updateHeight(node: AVLNode<T>) {
-    node.height = 1 + Math.max(this._getHeight(node.left), this._getHeight(node.right))
+    node.updateHeight()
   }
 
   private _balanceFactor(node: AVLNode<T>): number {
