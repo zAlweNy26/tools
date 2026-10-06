@@ -460,7 +460,7 @@ export abstract class BaseLinkedList<T> implements Structure<T> {
    * Returns the element at the given index.
    * @param index The index of the element to retrieve.
    * @returns The element at the given index, or undefined if out of bounds.
-   * @complexity O(n), walking from the head.
+   * @complexity O(n), walking from the head. DoublyLinkedList walks from whichever end is closer: O(min(index, n − index)).
    */
   getAt(index: number): T | undefined {
     if (index < 0 || index >= this._size) return undefined

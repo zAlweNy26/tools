@@ -101,7 +101,7 @@ export class DoublyLinkedList<T> extends BaseLinkedList<T> {
    * @param data The data to insert.
    * @returns The list instance.
    * @throws A RangeError if the index is out of bounds.
-   * @complexity O(n).
+   * @complexity O(min(index, n − index)), walking from the closer end.
    */
   insertAt(index: number, data: T): this {
     if (index < 0 || index > this._size)
@@ -109,7 +109,7 @@ export class DoublyLinkedList<T> extends BaseLinkedList<T> {
     if (index === 0) return this.prepend(data)
     if (index === this._size) return this.append(data)
 
-    const prev = this._nodeAt(index - 1) as DoublyListNode<T>
+    const prev = this._nodeAt(index - 1)
     const next = prev.next!
     const node = new DoublyListNode(data, next, prev)
     prev.next = node
@@ -122,7 +122,7 @@ export class DoublyLinkedList<T> extends BaseLinkedList<T> {
    * Removes and returns the element at the given index.
    * @param index The index of the element to remove.
    * @returns The removed element, or undefined if the index is out of bounds.
-   * @complexity O(n).
+   * @complexity O(min(index, n − index)), walking from the closer end.
    */
   deleteAt(index: number): T | undefined {
     if (index < 0 || index >= this._size) return undefined
@@ -138,7 +138,7 @@ export class DoublyLinkedList<T> extends BaseLinkedList<T> {
     }
     if (index === this._size - 1) return this.deleteLast()
 
-    const node = this._nodeAt(index) as DoublyListNode<T>
+    const node = this._nodeAt(index)
     node.prev!.next = node.next
     const next = node.next as DoublyListNode<T>
     next.prev = node.prev
@@ -247,6 +247,18 @@ export class DoublyLinkedList<T> extends BaseLinkedList<T> {
       yield current.data
       current = current.prev
     }
+  }
+
+  /**
+   * Finds the node at an index, walking from the tail when it is in the second half.
+   * @param index The index of the node, assumed to be in range.
+   * @returns The node at the index.
+   */
+  protected _nodeAt(index: number): DoublyListNode<T> {
+    if (index < this._size / 2) return super._nodeAt(index) as DoublyListNode<T>
+    let current = this._tail as DoublyListNode<T>
+    for (let i = this._size - 1; i > index; i--) current = current.prev!
+    return current
   }
 
   /**
