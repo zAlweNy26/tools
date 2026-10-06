@@ -29,4 +29,16 @@ describe('minkowski', () => {
   test('returned function throws for mismatched dimensions', () => {
     expect(() => minkowski(2)([1, 2], [1, 2, 3])).toThrow('The vectors should have the same length')
   })
+
+  test('p = Infinity gives the Chebyshev distance', () => {
+    expect(minkowski(Infinity)([0, 0], [3, 4])).toBe(4)
+  })
+
+  test('throws for NaN p', () => {
+    expect(() => minkowski(Number.NaN)).toThrow('The Minkowski order p must be at least 1')
+  })
+
+  test('large p does not overflow', () => {
+    expect(minkowski(1000)([0, 0], [3, 4])).toBeCloseTo(4)
+  })
 })
