@@ -43,3 +43,6 @@ jobs:
 
       - name: Test
         run: bun run test
+
+      - name: Build and check package
+        run: bun run build
