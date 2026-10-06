@@ -22,7 +22,7 @@ export class Matrix implements Structure {
    * Creates a new matrix with the specified number of rows and columns.
    * @param rows The number of rows in the matrix.
    * @param cols The number of columns in the matrix.
-   * @param value The initial value of the matrix. Can be a number, a function that returns a number, or the string `identity`.
+   * @param value The initial value of the matrix. Can be a number, a function that returns a number, or the string `identity`. Defaults to 0.
    *
    * If a number is provided, all elements of the matrix will be set to that number.
    *
@@ -35,7 +35,7 @@ export class Matrix implements Structure {
     if (!Number.isInteger(rows) || !Number.isInteger(cols) || rows < 1 || cols < 1)
       throw new Error('Unable to create a matrix of that size')
     if (value === undefined)
-      this._data = Array.from({ length: rows }, () => Array.from({ length: cols }))
+      this._data = Array.from({ length: rows }, () => Array.from<number>({ length: cols }).fill(0))
     else if (value === 'identity')
       this._data = Array.from({ length: rows }, (_, i) => Array.from({ length: cols }, (_, j) => i === j ? 1 : 0))
     else if (typeof value === 'number')
@@ -273,7 +273,7 @@ export class Matrix implements Structure {
   }
 
   /**
-   * Removes all the values present in the matrix.
+   * Resets every value in the matrix to 0.
    * @returns The cleared matrix.
    */
   clear() {
@@ -460,6 +460,7 @@ export class Matrix implements Structure {
   /**
    * Returns the number of empty spaces in the matrix.
    * @returns The number of empty spaces in the matrix.
+   * @deprecated Cells always hold numbers since unset cells default to 0, so this no longer reflects emptiness. It will be removed in a future version.
    */
   get space() {
     return this._data.reduce((p, arr) => p + arr.reduce((v, c) => v + (typeof c === 'undefined' ? 1 : 0), 0), 0)
@@ -468,6 +469,7 @@ export class Matrix implements Structure {
   /**
    * Returns a boolean indicating whether the matrix has room for more elements.
    * @returns True if the matrix has room for more elements, false otherwise.
+   * @deprecated Cells always hold numbers since unset cells default to 0, so this no longer reflects emptiness. It will be removed in a future version.
    */
   get hasRoom() {
     return this.space !== 0
@@ -476,6 +478,7 @@ export class Matrix implements Structure {
   /**
    * Returns a boolean indicating whether the matrix is empty or not.
    * @returns True if the matrix is empty, false otherwise.
+   * @deprecated Cells always hold numbers since unset cells default to 0, so this no longer reflects emptiness. It will be removed in a future version.
    */
   get isEmpty() {
     return this.space === this.size()
@@ -484,6 +487,7 @@ export class Matrix implements Structure {
   /**
    * Returns a boolean indicating whether the matrix is full or not.
    * @returns True if the matrix is full, false otherwise.
+   * @deprecated Cells always hold numbers since unset cells default to 0, so this no longer reflects emptiness. It will be removed in a future version.
    */
   get isFull() {
     return this.space === 0

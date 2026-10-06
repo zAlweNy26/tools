@@ -131,18 +131,17 @@ describe('Matrix', () => {
   test('clear', () => {
     const m = new Matrix(2, 2, 1)
     m.clear()
-    expect(m.get(0, 0)).toBeUndefined()
+    expect(m.items).toEqual([[0, 0], [0, 0]])
   })
 
-  test('isEmpty and isFull', () => {
-    const m = new Matrix(2, 2)
-    expect(m.isEmpty).toBeTrue()
-    expect(m.isFull).toBeFalse()
-    m.set(0, 0, 1)
-    m.set(0, 1, 2)
-    m.set(1, 0, 3)
-    m.set(1, 1, 4)
+  test('defaults every cell to 0', () => {
+    const m = new Matrix(2, 3)
+    expect(m.items).toEqual([[0, 0, 0], [0, 0, 0]])
+    expect(m.sum).toBe(0)
     expect(m.isFull).toBeTrue()
+    expect(m.isEmpty).toBeFalse()
+    expect(m.space).toBe(0)
+    expect(m.hasRoom).toBeFalse()
   })
 
   test('concat horizontal', () => {
@@ -340,29 +339,6 @@ describe('Matrix', () => {
     expect(s.cols).toBe(2)
     expect(s.get(0, 0)).toBe(5)
     expect(s.get(1, 1)).toBe(9)
-  })
-
-  test('space getter', () => {
-    const m = new Matrix(2, 3)
-    expect(m.space).toBe(6)
-    m.set(0, 0, 1)
-    expect(m.space).toBe(5)
-    m.set(0, 1, 2)
-    m.set(0, 2, 3)
-    m.set(1, 0, 4)
-    m.set(1, 1, 5)
-    m.set(1, 2, 6)
-    expect(m.space).toBe(0)
-  })
-
-  test('hasRoom getter', () => {
-    const m = new Matrix(2, 2)
-    expect(m.hasRoom).toBeTrue()
-    m.set(0, 0, 1)
-    m.set(0, 1, 2)
-    m.set(1, 0, 3)
-    m.set(1, 1, 4)
-    expect(m.hasRoom).toBeFalse()
   })
 
   test('supports 1x1 matrices', () => {
