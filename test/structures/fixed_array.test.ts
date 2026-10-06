@@ -42,4 +42,29 @@ describe('FixedArray', () => {
     expect(arr.pop()).toBeUndefined()
     expect(arr.length).toBe(0)
   })
+
+  test('from with a single number keeps it as an element', () => {
+    const arr = FixedArray.from([5])
+    expect(arr.length).toBe(1)
+    expect(arr[0]).toBe(5)
+  })
+
+  test('unshift and splice respect the capacity', () => {
+    const arr = new FixedArray<number>([1, 2])
+    expect(() => arr.unshift(0)).toThrow('Array is full')
+    expect(() => arr.splice(0, 0, 9)).toThrow('Array is full')
+    expect(arr.splice(0, 1, 9)).toEqual([1])
+    expect([...arr]).toEqual([9, 2])
+    expect(arr.splice(1)).toEqual([2])
+    arr.unshift(0)
+    expect([...arr]).toEqual([0, 9])
+  })
+
+  test('derived arrays are plain arrays', () => {
+    const arr = new FixedArray<number>([1, 2, 3])
+    const doubled = arr.map(v => v * 2)
+    expect(doubled).not.toBeInstanceOf(FixedArray)
+    doubled.push(8)
+    expect(doubled).toEqual([2, 4, 6, 8])
+  })
 })
