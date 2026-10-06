@@ -1,5 +1,6 @@
 /**
  * Calculates the cosine distance (not similarity) between `a` and `b`.
+ * Defined as `1 - cosine_similarity`, bounded in [0, 2]. A zero vector is treated as orthogonal to everything.
  * @param a The first vector.
  * @param b The second vector.
  * @returns The cosine distance between the two vectors.
@@ -8,8 +9,9 @@
  * ```ts
  * import { cosine } from '@danyalwe/tools'
  *
- * cosine([1, 0], [0, 1])     // ~1.571 (orthogonal)
+ * cosine([1, 0], [0, 1])     // 1 (orthogonal)
  * cosine([1, 2], [2, 4])     // 0 (same direction)
+ * cosine([1, 0], [-1, 0])    // 2 (opposite)
  * ```
  * @see {@link https://en.wikipedia.org/wiki/Cosine_similarity#Cosine_distance}
  * @group Distances
@@ -30,7 +32,7 @@ export function cosine(a: number[], b: number[]) {
 
   if (sqrtA === 0 || sqrtB === 0) return 1
 
-  // rounding can push the ratio slightly outside [-1, 1], where acos returns NaN
+  // rounding can push the ratio slightly outside [-1, 1]
   const similarity = Math.min(1, Math.max(-1, product / (sqrtA * sqrtB)))
-  return Math.acos(similarity)
+  return 1 - similarity
 }
