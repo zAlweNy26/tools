@@ -63,8 +63,8 @@ export class DoublyLinkedList<T> extends BaseLinkedList<T> {
    */
   append(data: T): this {
     const node = new DoublyListNode(data)
-    if (!this.head) {
-      this.head = node
+    if (!this._head) {
+      this._head = node
       this._tail = node
     }
     else {
@@ -83,10 +83,10 @@ export class DoublyLinkedList<T> extends BaseLinkedList<T> {
    * @returns The list instance.
    */
   prepend(data: T): this {
-    const node = new DoublyListNode(data, this.head as DoublyListNode<T> | null)
-    if (this.head)
-      (this.head as DoublyListNode<T>).prev = node
-    this.head = node
+    const node = new DoublyListNode(data, this._head as DoublyListNode<T> | null)
+    if (this._head)
+      (this._head as DoublyListNode<T>).prev = node
+    this._head = node
     if (!this._tail)
       this._tail = node
     this._size++
@@ -123,10 +123,10 @@ export class DoublyLinkedList<T> extends BaseLinkedList<T> {
   deleteAt(index: number): T | undefined {
     if (index < 0 || index >= this._size) return undefined
     if (index === 0) {
-      const node = this.head as DoublyListNode<T>
-      this.head = node.next
-      if (this.head)
-        (this.head as DoublyListNode<T>).prev = null
+      const node = this._head as DoublyListNode<T>
+      this._head = node.next
+      if (this._head)
+        (this._head as DoublyListNode<T>).prev = null
       else
         this._tail = null
       this._size--
@@ -148,14 +148,14 @@ export class DoublyLinkedList<T> extends BaseLinkedList<T> {
    * @returns True if the element was found and removed, false otherwise.
    */
   delete(data: T): boolean {
-    if (!this.head) return false
+    if (!this._head) return false
 
-    if (this.head.data === data) {
+    if (this._head.data === data) {
       this.deleteAt(0)
       return true
     }
 
-    let current = this.head as DoublyListNode<T>
+    let current = this._head as DoublyListNode<T>
     while (current.next) {
       if (current.next.data === data) {
         const removed = current.next
@@ -177,9 +177,9 @@ export class DoublyLinkedList<T> extends BaseLinkedList<T> {
    * @returns The list instance.
    */
   reverse(): this {
-    if (!this.head || !this.head.next) return this
+    if (!this._head || !this._head.next) return this
 
-    let current: DoublyListNode<T> | null = this.head as DoublyListNode<T>
+    let current: DoublyListNode<T> | null = this._head as DoublyListNode<T>
     const newHead = this._tail as DoublyListNode<T>
     this._tail = current
 
@@ -190,7 +190,7 @@ export class DoublyLinkedList<T> extends BaseLinkedList<T> {
       current = current.prev
     }
 
-    this.head = newHead
+    this._head = newHead
     return this
   }
 
@@ -202,7 +202,7 @@ export class DoublyLinkedList<T> extends BaseLinkedList<T> {
     if (!this._tail) return undefined
     const tail = this._tail as DoublyListNode<T>
     if (!tail.prev) {
-      this.head = null
+      this._head = null
       this._tail = null
       this._size = 0
       return tail.data
@@ -229,19 +229,14 @@ export class DoublyLinkedList<T> extends BaseLinkedList<T> {
 
   /**
    * Returns an iterator that traverses the list from tail to head.
-   * @returns An iterator over the list's elements in reverse order.
+   * @yields Each element from tail to head.
+   * @returns An iterable iterator over the list's elements in reverse order.
    */
-  backward(): Iterator<T> {
+  * backward(): Generator<T, void, undefined> {
     let current: DoublyListNode<T> | null = this._tail as DoublyListNode<T> | null
-    return {
-      next: (): IteratorResult<T> => {
-        if (current) {
-          const value = current.data
-          current = current.prev
-          return { value, done: false }
-        }
-        return { value: undefined, done: true }
-      },
+    while (current) {
+      yield current.data
+      current = current.prev
     }
   }
 
@@ -252,7 +247,7 @@ export class DoublyLinkedList<T> extends BaseLinkedList<T> {
    */
   map<U>(callback: (value: T, index: number) => U): DoublyLinkedList<U> {
     const result = new DoublyLinkedList<U>()
-    let current = this.head
+    let current = this._head
     let index = 0
     while (current) {
       result.append(callback(current.data, index++))
@@ -268,7 +263,7 @@ export class DoublyLinkedList<T> extends BaseLinkedList<T> {
    */
   filter(predicate: (value: T, index: number) => boolean): DoublyLinkedList<T> {
     const result = new DoublyLinkedList<T>()
-    let current = this.head
+    let current = this._head
     let index = 0
     while (current) {
       if (predicate(current.data, index)) result.append(current.data)

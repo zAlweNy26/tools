@@ -399,4 +399,13 @@ describe('LinkedList', () => {
     const list = new LinkedList<number>()
     expect(list.every(() => false)).toBeTrue()
   })
+
+  test('head cannot be reassigned', () => {
+    const list = new LinkedList([1, 2])
+    expect(() => {
+      // @ts-expect-error head is read-only
+      list.head = null
+    }).toThrow()
+    expect(list.toArray()).toEqual([1, 2])
+  })
 })
