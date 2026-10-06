@@ -13,7 +13,6 @@ export abstract class DimRed<P extends DimRedParams> {
   protected _randomizer!: Randomizer
   protected _initialized = false
   protected _iter = 0
-  protected _probabilities!: Matrix
   protected _data!: Matrix
   protected _result!: Matrix
 
