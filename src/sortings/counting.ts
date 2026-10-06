@@ -2,6 +2,8 @@
  * Sorts an array using the counting sort algorithm.
  * @param array The array to be sorted.
  * @returns The sorted array.
+ * @throws An error if the array contains a value that is not an integer.
+ * @remarks Allocates one counter per value between the minimum and the maximum, so it suits arrays with a small value range.
  * @example
  * ```ts
  * import { countingSort } from '@danyalwe/tools'
@@ -13,8 +15,13 @@
 export function countingSort(array: number[]) {
   if (array.length <= 1) return array
 
-  const min = Math.min(...array)
-  const max = Math.max(...array) - min
+  let min = Infinity, max = -Infinity
+  for (const value of array) {
+    if (!Number.isSafeInteger(value)) throw new Error('Counting sort only supports integers')
+    if (value < min) min = value
+    if (value > max) max = value
+  }
+  max -= min
   const count = Array.from<number>({ length: max + 1 }).fill(0)
 
   for (let i = 0; i < array.length; i++) count[array[i] - min]++
