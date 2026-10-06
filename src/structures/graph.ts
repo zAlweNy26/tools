@@ -34,14 +34,15 @@ export class Graph<N> extends GraphStructure<N, N> {
    */
   addEdge(v1: N, v2: N) {
     const list = this.map.get(v1)
-    if (list) {
-      list.push(v2)
+    if (!list) throw new Error('First node not found')
+    if (list.includes(v2)) throw new Error('Edge already present')
+    list.push(v2)
+    // a self-loop is stored once
+    if (v1 !== v2) {
       const edge = this.map.get(v2)
-      if (edge?.includes(v1)) throw new Error('Edge already present')
-      else if (edge) edge.push(v1)
+      if (edge) edge.push(v1)
       else this.map.set(v2, [v1])
     }
-    else throw new Error('First node not found')
     return this
   }
 

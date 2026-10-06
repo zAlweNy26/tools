@@ -87,6 +87,16 @@ export abstract class GraphStructure<N, E> implements Structure {
   }
 
   /**
+   * Adds a node to the graph if it is not already present.
+   * @param node The node to add.
+   * @returns The graph structure instance.
+   */
+  addNode(node: N) {
+    if (!this.map.has(node)) this.map.set(node, [])
+    return this
+  }
+
+  /**
    * Clears the graph by removing all nodes and edges.
    */
   clear() {

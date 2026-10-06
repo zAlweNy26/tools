@@ -137,4 +137,20 @@ describe('WeightedGraph', () => {
     g.addEdge('B', 'D', 1)
     expect(g.hasCycle()).toBeFalse()
   })
+
+  test('a rejected duplicate edge leaves the graph unchanged', () => {
+    const g = new WeightedGraph<number>(1)
+    g.addEdge(1, 2, 5)
+    expect(() => g.addEdge(1, 2, 7)).toThrow('Edge already present')
+    expect(g.getEdges(1)).toEqual([[2, 5]])
+    expect(g.getEdges(2)).toEqual([[1, 5]])
+  })
+
+  test('getEdges returns copies of the edge tuples', () => {
+    const g = new WeightedGraph<number>(1)
+    g.addEdge(1, 2, 5)
+    g.getEdges(1)[0][1] = 99
+    expect(g.getWeight(1, 2)).toBe(5)
+    expect(g.getWeight(2, 1)).toBe(5)
+  })
 })

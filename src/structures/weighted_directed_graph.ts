@@ -25,16 +25,6 @@ export class WeightedDirectedGraph<N> extends WeightedGraph<N> {
   }
 
   /**
-   * Adds a node to the graph.
-   * @param node The node to add.
-   * @returns The graph instance.
-   */
-  addNode(node: N) {
-    if (!this.map.has(node)) this.map.set(node, [])
-    return this
-  }
-
-  /**
    * Adds a weighted directed edge from `v1` to `v2`.
    * @param v1 The source node.
    * @param v2 The destination node.
