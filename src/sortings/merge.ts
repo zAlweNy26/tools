@@ -17,23 +17,26 @@ import { defaultCompare } from '@utils/compare'
  * @complexity O(n log n) time, O(n) extra space. Stable.
  */
 export function mergeSort<T>(array: T[], compare: Comparator<T> = defaultCompare): T[] {
-  if (array.length <= 1) return [...array]
+  const n = array.length
+  // bottom-up: merge runs of width 1, 2, 4, … back and forth between two buffers, with no recursion or slicing
+  let source = [...array]
+  let target = Array.from<T>({ length: n })
 
-  const middle = Math.floor(array.length / 2)
-  return merge(mergeSort(array.slice(0, middle), compare), mergeSort(array.slice(middle), compare), compare)
-}
+  for (let width = 1; width < n; width *= 2) {
+    for (let start = 0; start < n; start += 2 * width) {
+      const middle = Math.min(start + width, n)
+      const end = Math.min(start + 2 * width, n)
+      let left = start
+      let right = middle
+      let out = start
+      // taking from the left on ties keeps the sort stable
+      while (left < middle && right < end)
+        target[out++] = compare(source[left], source[right]) <= 0 ? source[left++] : source[right++]
+      while (left < middle) target[out++] = source[left++]
+      while (right < end) target[out++] = source[right++]
+    }
+    [source, target] = [target, source]
+  }
 
-function merge<T>(left: T[], right: T[], compare: Comparator<T>) {
-  const result: T[] = []
-  let li = 0, ri = 0
-  const ll = left.length, rl = right.length
-
-  while (li < ll && ri < rl)
-    // taking from the left on ties keeps the sort stable
-    result.push(compare(left[li], right[ri]) <= 0 ? left[li++] : right[ri++])
-
-  while (li < ll) result.push(left[li++])
-  while (ri < rl) result.push(right[ri++])
-
-  return result
+  return source
 }
