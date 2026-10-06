@@ -92,8 +92,9 @@ export abstract class ListStructure<T> implements Structure<T> {
 }
 
 /**
- * Abstract base shared by every graph. Nodes are stored in an adjacency map;
- * subclasses decide whether edges are directed and how an edge is represented.
+ * Abstract base shared by every graph. Each node maps its neighbors to edge weights,
+ * so edge lookups, insertions and removals are O(1); subclasses decide whether edges
+ * are directed and how an edge is represented.
  * Iteration and `toArray()` yield the nodes in insertion order.
  * @template N The type of the nodes in the graph.
  * @template E The type of an edge in the adjacency list (`N`, or `[N, number]` for weighted graphs).
@@ -101,7 +102,8 @@ export abstract class ListStructure<T> implements Structure<T> {
  * @group Structures
  */
 export abstract class GraphStructure<N, E> implements Structure<N> {
-  protected map = new Map<N, E[]>()
+  // node → (neighbor → weight); unweighted graphs store a weight of 1
+  protected map = new Map<N, Map<N, number>>()
 
   /**
    * Whether edges go from the first node to the second only.
@@ -113,27 +115,15 @@ export abstract class GraphStructure<N, E> implements Structure<N> {
    * @param node The first node to add to the graph.
    */
   constructor(node?: N) {
-    if (node !== undefined) this.map.set(node, [])
+    if (node !== undefined) this.map.set(node, new Map())
   }
 
   /**
-   * Returns the node an edge points to.
-   * @param edge The edge.
-   */
-  protected abstract _target(edge: E): N
-
-  /**
-   * Creates an edge pointing to a node.
+   * Creates the public representation of an edge.
    * @param target The node the edge points to.
    * @param weight The edge weight, ignored by unweighted graphs.
    */
   protected abstract _edge(target: N, weight: number): E
-
-  /**
-   * Returns the weight of an edge, 1 for unweighted graphs.
-   * @param edge The edge.
-   */
-  protected abstract _weight(edge: E): number
 
   /**
    * Adds a node to the graph if it is not already present.
@@ -142,7 +132,7 @@ export abstract class GraphStructure<N, E> implements Structure<N> {
    * @complexity O(1).
    */
   addNode(node: N) {
-    if (!this.map.has(node)) this.map.set(node, [])
+    if (!this.map.has(node)) this.map.set(node, new Map())
     return this
   }
 
@@ -159,12 +149,18 @@ export abstract class GraphStructure<N, E> implements Structure<N> {
    * Removes a node and every edge connected to it.
    * @param node The node to remove.
    * @returns True if the node was found and removed, false otherwise.
-   * @complexity O(V + E), since every adjacency list is scanned for edges to the node.
+   * @complexity O(deg(node)) for undirected graphs; O(V) for directed graphs, since any node may have an edge to it.
    */
   removeNode(node: N) {
-    if (!this.map.delete(node)) return false
-    for (const [key, edges] of this.map)
-      this.map.set(key, edges.filter(e => this._target(e) !== node))
+    const edges = this.map.get(node)
+    if (!edges) return false
+    this.map.delete(node)
+    if (this.directed)
+      for (const neighbors of this.map.values()) neighbors.delete(node)
+
+    else
+      for (const neighbor of edges.keys()) this.map.get(neighbor)?.delete(node)
+
     return true
   }
 
@@ -173,11 +169,11 @@ export abstract class GraphStructure<N, E> implements Structure<N> {
    * @param v1 The first node.
    * @param v2 The second node.
    * @returns True if the edge was found and removed, false otherwise.
-   * @complexity O(deg(v1) + deg(v2)).
+   * @complexity O(1).
    */
   removeEdge(v1: N, v2: N) {
-    if (!this._unlink(v1, v2)) return false
-    if (!this.directed && v1 !== v2) this._unlink(v2, v1)
+    if (!this.map.get(v1)?.delete(v2)) return false
+    if (!this.directed) this.map.get(v2)?.delete(v1)
     return true
   }
 
@@ -188,7 +184,8 @@ export abstract class GraphStructure<N, E> implements Structure<N> {
    * @complexity O(deg(node)).
    */
   getEdges(node: N): E[] | undefined {
-    return this.map.get(node)?.map(e => this._edge(this._target(e), this._weight(e)))
+    const edges = this.map.get(node)
+    return edges && Array.from(edges, ([target, weight]) => this._edge(target, weight))
   }
 
   /**
@@ -198,7 +195,8 @@ export abstract class GraphStructure<N, E> implements Structure<N> {
    * @complexity O(deg(node)).
    */
   neighbors(node: N): N[] | undefined {
-    return this.map.get(node)?.map(e => this._target(e))
+    const edges = this.map.get(node)
+    return edges && [...edges.keys()]
   }
 
   /**
@@ -206,10 +204,10 @@ export abstract class GraphStructure<N, E> implements Structure<N> {
    * @param v1 The first node.
    * @param v2 The second node.
    * @returns True if the nodes are adjacent, false otherwise, including when `v1` is not in the graph.
-   * @complexity O(deg(v1)).
+   * @complexity O(1).
    */
   isAdjacent(v1: N, v2: N) {
-    return this.map.get(v1)?.some(e => this._target(e) === v2) ?? false
+    return this.map.get(v1)?.has(v2) ?? false
   }
 
   /**
@@ -281,13 +279,12 @@ export abstract class GraphStructure<N, E> implements Structure<N> {
    * @throws An error if the first node is not found or the edge already exists.
    */
   protected _addEdge(v1: N, v2: N, weight: number) {
-    const list = this.map.get(v1)
-    if (!list) throw new Error('First node not found')
-    if (list.some(e => this._target(e) === v2)) throw new Error('Edge already present')
-    list.push(this._edge(v2, weight))
+    const edges = this.map.get(v1)
+    if (!edges) throw new Error('First node not found')
+    if (edges.has(v2)) throw new Error('Edge already present')
+    edges.set(v2, weight)
     this.addNode(v2)
-    // a self-loop is stored once
-    if (!this.directed && v1 !== v2) this.map.get(v2)!.push(this._edge(v1, weight))
+    if (!this.directed) this.map.get(v2)!.set(v1, weight)
     return this
   }
 
@@ -299,38 +296,38 @@ export abstract class GraphStructure<N, E> implements Structure<N> {
   protected _pathWeight(path: N[]) {
     let total = 0
     for (let i = 1; i < path.length; i++) {
-      const edge = this.map.get(path[i - 1])?.find(e => this._target(e) === path[i])
-      if (edge === undefined) return undefined
-      total += this._weight(edge)
+      const weight = this.map.get(path[i - 1])?.get(path[i])
+      if (weight === undefined) return undefined
+      total += weight
     }
     return total
-  }
-
-  private _unlink(from: N, to: N) {
-    const list = this.map.get(from)
-    const index = list?.findIndex(e => this._target(e) === to) ?? -1
-    if (index === -1) return false
-    list!.splice(index, 1)
-    return true
   }
 
   private _hasUndirectedCycle() {
     const visited = new Set<N>()
 
-    const dfs = (node: N, parent: N | undefined): boolean => {
-      visited.add(node)
-      for (const neighbor of this.neighbors(node) ?? []) {
-        if (!visited.has(neighbor)) {
-          if (dfs(neighbor, node)) return true
+    // iterative DFS: each frame keeps its node, the node it was reached from, and its remaining neighbors
+    for (const start of this.map.keys()) {
+      if (visited.has(start)) continue
+      visited.add(start)
+      const stack: [N, N | undefined, Iterator<N>][] = [[start, undefined, this.map.get(start)!.keys()]]
+      while (stack.length > 0) {
+        const [node, parent, neighbors] = stack[stack.length - 1]
+        const next = neighbors.next()
+        if (next.done) {
+          stack.pop()
+          continue
         }
-        // reaching a visited node other than the one we came from closes a cycle
-        else if (neighbor !== parent) return true
+        const neighbor = next.value
+        // reaching a visited node other than the one we came from closes a cycle; so does a self-loop
+        if (visited.has(neighbor)) {
+          if (neighbor !== parent || neighbor === node) return true
+          continue
+        }
+        visited.add(neighbor)
+        stack.push([neighbor, node, this.map.get(neighbor)!.keys()])
       }
-      return false
     }
-
-    for (const node of this.map.keys())
-      if (!visited.has(node) && dfs(node, undefined)) return true
     return false
   }
 
@@ -338,18 +335,26 @@ export abstract class GraphStructure<N, E> implements Structure<N> {
     // 1 = on the current DFS path, 2 = fully explored
     const state = new Map<N, 1 | 2>()
 
-    const dfs = (node: N): boolean => {
-      state.set(node, 1)
-      for (const neighbor of this.neighbors(node) ?? []) {
+    for (const start of this.map.keys()) {
+      if (state.has(start)) continue
+      state.set(start, 1)
+      const stack: [N, Iterator<N>][] = [[start, this.map.get(start)!.keys()]]
+      while (stack.length > 0) {
+        const [node, neighbors] = stack[stack.length - 1]
+        const next = neighbors.next()
+        if (next.done) {
+          state.set(node, 2)
+          stack.pop()
+          continue
+        }
+        const neighbor = next.value
         if (state.get(neighbor) === 1) return true
-        if (!state.has(neighbor) && dfs(neighbor)) return true
+        if (!state.has(neighbor)) {
+          state.set(neighbor, 1)
+          stack.push([neighbor, this.map.get(neighbor)!.keys()])
+        }
       }
-      state.set(node, 2)
-      return false
     }
-
-    for (const node of this.map.keys())
-      if (!state.has(node) && dfs(node)) return true
     return false
   }
 }

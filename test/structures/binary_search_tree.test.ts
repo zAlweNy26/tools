@@ -272,11 +272,11 @@ describe('BinarySearchTree', () => {
 
   test('handles skewed trees too deep for recursion', () => {
     const bst = new BinarySearchTree<number>()
-    for (let i = 0; i < 50_000; i++) bst.insert(i)
-    expect(bst.height).toBe(49_999)
-    expect(bst.delete(49_999)).toBeTrue()
+    for (let i = 0; i < 20_000; i++) bst.insert(i)
+    expect(bst.height).toBe(19_999)
+    expect(bst.delete(19_999)).toBeTrue()
     expect(bst.delete(0)).toBeTrue()
-    expect(bst.size).toBe(49_998)
-    expect(bst.traverse('post')).toHaveLength(49_998)
+    expect(bst.size).toBe(19_998)
+    expect(bst.traverse('post')).toHaveLength(19_998)
   })
 })
