@@ -1,7 +1,5 @@
 # @danyalwe/tools
 
-> From v0.2.0 onwards, release notes are published on [GitHub Releases](https://github.com/zAlweNy26/tools/releases). This file covers earlier versions only.
-
 ## v0.1.5
 
 [compare changes](https://github.com/zAlweNy26/tools/compare/v0.1.4...v0.1.5)

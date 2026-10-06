@@ -68,6 +68,46 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
+  # copy the release notes uppt just published into CHANGELOG.md on the base branch
+  changelog:
+    needs: release
+    runs-on: ubuntu-latest
+    concurrency:
+      group: changelog-${{ github.event.pull_request.base.ref }}
+      cancel-in-progress: false
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.pull_request.base.ref }}
+
+      # Node 24 runs the TypeScript script directly
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+          package-manager-cache: false
+
+      - name: Add release notes to CHANGELOG.md
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
+        run: |
+          tag="${HEAD_REF#release/}"
+          gh release view "$tag" --json body --jq .body > "$RUNNER_TEMP/notes.md"
+          node .github/scripts/changelog.ts "$tag" "$RUNNER_TEMP/notes.md"
+          echo "TAG=$tag" >> "$GITHUB_ENV"
+
+      # 'release' is not a type uppt recognises, so this commit stays out of the next release notes
+      - name: Commit and push
+        run: |
+          git diff --quiet -- CHANGELOG.md && exit 0
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m "release: add $TAG to changelog" -- CHANGELOG.md
+          git pull --rebase
+          git push
+
   # the chained dispatch lands here on the vX.Y.Z tag; build the tarball
   pack:
     if: github.event_name == 'workflow_dispatch' && startsWith(github.ref, 'refs/tags/v')
