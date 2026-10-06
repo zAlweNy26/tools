@@ -52,4 +52,16 @@ describe('measure', () => {
     const result = updated.value(2, 3)
     expect(result).toBe(5)
   })
+
+  test('works as a standard decorator', () => {
+    class Example {
+      factor = 2
+
+      @measure
+      scale(value: number) {
+        return value * this.factor
+      }
+    }
+    expect(new Example().scale(3)).toBe(6)
+  })
 })

@@ -59,4 +59,21 @@ describe('tryCatch', () => {
 
     expect(tryCatch(Promise.reject(new Error('generic')), { errorsToCatch: [CustomError] })).rejects.toThrow('generic')
   })
+
+  test('does not report a failing onSuccess callback as a rejection', async () => {
+    let onErrorCalled = false
+    const promise = tryCatch(Promise.resolve(1), {
+      onSuccess: () => { throw new Error('callback failed') },
+      onError: () => { onErrorCalled = true },
+    })
+    await expect(promise).rejects.toThrow('callback failed')
+    expect(onErrorCalled).toBeFalse()
+  })
+
+  test('does not report a failing transform as a rejection', async () => {
+    const promise = tryCatch(Promise.resolve(1), {
+      transform: () => { throw new Error('transform failed') },
+    })
+    await expect(promise).rejects.toThrow('transform failed')
+  })
 })
