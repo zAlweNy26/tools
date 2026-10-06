@@ -1,4 +1,6 @@
-import { writeFileSync } from 'node:fs'
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
+import { tmpdir } from 'node:os'
+import { join } from 'node:path'
 
 const label = 'Tested'
 const outFile = 'docs/api/test-coverage.svg'
@@ -16,7 +18,6 @@ function svg(label: string, ratio: number): string {
   const ratioTextX = ratioRectX + 20
   return `
 <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="20">
-  <script/>
   <linearGradient id="a" x2="0" y2="100%">
     <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
     <stop offset="1" stop-opacity=".1"/>
@@ -39,22 +40,26 @@ function svg(label: string, ratio: number): string {
 `.trim()
 }
 
-const output = Bun.spawnSync(['bun', 'test', '--coverage'], {
-  stdout: 'pipe',
-  stderr: 'pipe',
+// line coverage summed over every file in Bun's lcov report
+const dir = mkdtempSync(join(tmpdir(), 'coverage-'))
+const run = Bun.spawnSync(['bun', 'test', '--coverage', '--coverage-reporter=lcov', `--coverage-dir=${dir}`], {
+  stdout: 'ignore',
+  stderr: 'inherit',
 })
-
-const text = new TextDecoder().decode(output.stdout) + new TextDecoder().decode(output.stderr)
-const lines = text.split('\n')
-
-let ratio = 0
-for (const line of lines) {
-  if (line.startsWith('All files')) {
-    const parts = line.split('|').map(p => p.trim())
-    ratio = Math.round(Number.parseFloat(parts[1]))
-    break
-  }
+if (run.exitCode !== 0) {
+  rmSync(dir, { recursive: true, force: true })
+  throw new Error('Tests failed, not generating the coverage badge')
 }
 
+let found = 0
+let hit = 0
+for (const line of readFileSync(join(dir, 'lcov.info'), 'utf8').split('\n')) {
+  if (line.startsWith('LF:')) found += Number(line.slice(3))
+  else if (line.startsWith('LH:')) hit += Number(line.slice(3))
+}
+rmSync(dir, { recursive: true, force: true })
+
+const ratio = found === 0 ? 0 : Math.floor((hit / found) * 100)
+
 writeFileSync(outFile, svg(label, ratio))
-console.log(`Test coverage: ${ratio}% → ${outFile}`)
+console.log(`Test coverage: ${ratio}% of lines → ${outFile}`)

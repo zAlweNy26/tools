@@ -21,7 +21,7 @@ $ bun add @danyalwe/tools
 ```
 
 ```sh [deno]
-$ deno add @danyalwe/tools
+$ deno add npm:@danyalwe/tools
 ```
 
 :::
