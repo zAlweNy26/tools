@@ -252,4 +252,31 @@ describe('BinarySearchTree', () => {
     bst.delete(2)
     expect(bst.height).toBe(1)
   })
+
+  test('random inserts and deletes match a Set', () => {
+    let seed = 7
+    const next = () => (seed = (seed * 1103515245 + 12345) % 2147483648) % 500
+    const bst = new BinarySearchTree<number>()
+    const reference = new Set<number>()
+    for (let i = 0; i < 5000; i++) {
+      const value = next()
+      if (i % 3 === 0) expect(bst.delete(value)).toBe(reference.delete(value))
+      else {
+        bst.insert(value)
+        reference.add(value)
+      }
+    }
+    expect(bst.toArray()).toEqual([...reference].sort((a, b) => a - b))
+    expect(bst.size).toBe(reference.size)
+  })
+
+  test('handles skewed trees too deep for recursion', () => {
+    const bst = new BinarySearchTree<number>()
+    for (let i = 0; i < 50_000; i++) bst.insert(i)
+    expect(bst.height).toBe(49_999)
+    expect(bst.delete(49_999)).toBeTrue()
+    expect(bst.delete(0)).toBeTrue()
+    expect(bst.size).toBe(49_998)
+    expect(bst.traverse('post')).toHaveLength(49_998)
+  })
 })

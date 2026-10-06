@@ -643,12 +643,21 @@ export abstract class TreeNode<T> {
 
   /**
    * Returns the height of the subtree rooted at this node.
-   * @complexity O(n), computed recursively over the subtree.
+   * @complexity O(n), computed over the whole subtree on each access.
    */
   get height(): number {
-    const valid = this.children.filter((c): c is TreeNode<T> => c !== null)
-    return valid.length > 0
-      ? 1 + Math.max(...valid.map(c => c.height))
-      : 0
+    // count levels breadth-first instead of recursing, so deep trees can't overflow the call stack
+    let level: TreeNode<T>[] = [this]
+    let height = -1
+    while (level.length > 0) {
+      height++
+      const next: TreeNode<T>[] = []
+      for (const node of level) {
+        for (const child of node.children)
+          if (child) next.push(child)
+      }
+      level = next
+    }
+    return height
   }
 }

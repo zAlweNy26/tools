@@ -116,27 +116,35 @@ export class BinarySearchTree<T> implements Structure<T> {
    * @complexity O(h), where h is the tree height: O(log n) on average and O(n) for skewed input. AVLTree keeps h at O(log n).
    */
   delete(value: T) {
-    if (!this.contains(value)) return false
-    this._root = this._deleteNode(this._root, value)
-    this._size--
-    return true
-  }
+    let parent: BSTNode<T> | null = null
+    let node = this._root
+    while (node) {
+      const cmp = this._compare(value, node.data)
+      if (cmp === 0) break
+      parent = node
+      node = cmp < 0 ? node.left : node.right
+    }
+    if (!node) return false
 
-  private _deleteNode(node: BSTNode<T> | null, value: T): BSTNode<T> | null {
-    if (!node) throw new Error('Value not found')
-
-    const cmp = this._compare(value, node.data)
-    if (cmp < 0) node.left = this._deleteNode(node.left, value)
-    else if (cmp > 0) node.right = this._deleteNode(node.right, value)
-    else {
-      if (!node.left) return node.right
-      if (!node.right) return node.left
-      const successor = this._minNode(node.right)
+    // a node with two children takes its in-order successor's value, and the successor is removed instead
+    if (node.left && node.right) {
+      let successorParent = node
+      let successor = node.right
+      while (successor.left) {
+        successorParent = successor
+        successor = successor.left
+      }
       node.data = successor.data
-      node.right = this._deleteNode(node.right, successor.data)
+      parent = successorParent
+      node = successor
     }
 
-    return node
+    const child = node.left ?? node.right
+    if (!parent) this._root = child
+    else if (parent.left === node) parent.left = child
+    else parent.right = child
+    this._size--
+    return true
   }
 
   /**
