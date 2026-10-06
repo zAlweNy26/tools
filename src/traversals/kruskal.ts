@@ -20,7 +20,7 @@ import { WeightedGraph } from '@structures/weighted_graph'
 export function kruskal<T>(graph: WeightedGraph<T>) {
   const edges: [T, T, number][] = []
   for (const node of graph.nodes) {
-    for (const [neighbor, weight] of graph.getEdges(node))
+    for (const [neighbor, weight] of graph.getEdges(node)!)
       edges.push([node, neighbor, weight])
   }
 

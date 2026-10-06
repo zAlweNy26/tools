@@ -1,7 +1,7 @@
-import { Graph } from './graph'
+import { GraphStructure } from './base'
 
 /**
- * A directed graph data structure. Edges go in one direction only.
+ * A directed, unweighted graph. Edges go from the first node to the second only.
  * @template N The type of the nodes in the graph.
  * @example
  * ```ts
@@ -15,76 +15,29 @@ import { Graph } from './graph'
  * @category Graphs
  * @group Structures
  */
-export class DirectedGraph<N> extends Graph<N> {
-  /**
-   * Creates a new directed graph with the given node.
-   * @param node The first node to add to the graph.
-   */
-  constructor(node: N) {
-    super(node)
-  }
+export class DirectedGraph<N> extends GraphStructure<N, N> {
+  readonly directed = true
 
   /**
-   * Adds a directed edge from `v1` to `v2`.
-   * @param v1 The source node.
-   * @param v2 The destination node.
+   * Adds an edge from `v1` to `v2`. A missing `v2` is added to the graph.
+   * @param v1 The first node.
+   * @param v2 The second node.
    * @returns The graph instance.
-   * @throws An error if the edge already exists or the source node is not found.
+   * @throws An error if `v1` is not in the graph or the edge already exists.
    */
   addEdge(v1: N, v2: N) {
-    const list = this.map.get(v1)
-    if (list) {
-      if (list.includes(v2)) throw new Error('Edge already present')
-      list.push(v2)
-      if (!this.map.has(v2)) this.map.set(v2, [])
-    }
-    else throw new Error('First node not found')
-    return this
+    return this._addEdge(v1, v2, 1)
   }
 
-  /**
-   * Removes a directed edge from `v1` to `v2`.
-   * @param v1 The source node.
-   * @param v2 The destination node.
-   * @returns The graph instance.
-   * @throws An error if the edge or the source node is not found.
-   */
-  removeEdge(v1: N, v2: N) {
-    const list = this.map.get(v1)
-    if (list) {
-      const index = list.indexOf(v2)
-      if (index !== -1) list.splice(index, 1)
-      else throw new Error('Edge not found')
-    }
-    else throw new Error('Node not found')
-    return this
+  protected _target(edge: N) {
+    return edge
   }
 
-  /**
-   * Checks if the directed graph contains a cycle using DFS.
-   * @returns `true` if a cycle is detected, `false` otherwise.
-   */
-  hasCycle() {
-    const state = new Map<N, 0 | 1 | 2>()
-    for (const node of this.map.keys()) state.set(node, 0)
+  protected _edge(target: N) {
+    return target
+  }
 
-    const dfs = (node: N): boolean => {
-      state.set(node, 1)
-      const edges = this.map.get(node)
-      if (edges) {
-        for (const neighbor of edges) {
-          if (state.get(neighbor) === 1) return true
-          if (state.get(neighbor) === 0 && dfs(neighbor)) return true
-        }
-      }
-      state.set(node, 2)
-      return false
-    }
-
-    for (const node of this.map.keys()) {
-      if (state.get(node) === 0)
-        if (dfs(node)) return true
-    }
-    return false
+  protected _weight() {
+    return 1
   }
 }

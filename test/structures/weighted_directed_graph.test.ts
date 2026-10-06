@@ -6,7 +6,7 @@ describe('WeightedDirectedGraph', () => {
     const g = new WeightedDirectedGraph<string>('A')
     g.addEdge('A', 'B', 5)
     g.addEdge('A', 'C', 10)
-    expect(g.size()).toBe(3)
+    expect(g.size).toBe(3)
     expect(g.hasNode('B')).toBeTrue()
   })
 
@@ -20,7 +20,7 @@ describe('WeightedDirectedGraph', () => {
   test('addNode does nothing for existing node', () => {
     const g = new WeightedDirectedGraph<string>('A')
     g.addNode('A')
-    expect(g.size()).toBe(1)
+    expect(g.size).toBe(1)
   })
 
   test('edges are one-directional', () => {
@@ -35,7 +35,7 @@ describe('WeightedDirectedGraph', () => {
     const g = new WeightedDirectedGraph<string>('A')
     g.addEdge('A', 'B', 5)
     g.addEdge('A', 'C', 10)
-    const edges = g.getEdges('A')
+    const edges = g.getEdges('A')!
     expect(edges.length).toBe(2)
     expect(edges[0]).toEqual(['B', 5])
     expect(edges[1]).toEqual(['C', 10])
@@ -105,7 +105,7 @@ describe('WeightedDirectedGraph', () => {
     const g = new WeightedDirectedGraph<string>('A')
     g.addEdge('A', 'B', 5)
     g.clear()
-    expect(g.size()).toBe(0)
+    expect(g.size).toBe(0)
   })
 
   test('addEdge throws for unknown first node', () => {
@@ -113,40 +113,40 @@ describe('WeightedDirectedGraph', () => {
     expect(() => g.addEdge('Z', 'A')).toThrow('First node not found')
   })
 
-  test('removeEdge throws for unknown node', () => {
+  test('removeEdge returns false for an unknown node', () => {
     const g = new WeightedDirectedGraph<string>('A')
-    expect(() => g.removeEdge('Z', 'A')).toThrow('Node not found')
+    expect(g.removeEdge('Z', 'A')).toBeFalse()
   })
 
-  test('removeEdge throws for non-existent edge', () => {
+  test('removeEdge returns false for a missing edge', () => {
     const g = new WeightedDirectedGraph<string>('A')
     g.addEdge('A', 'B', 5)
-    expect(() => g.removeEdge('A', 'C')).toThrow('Edge not found')
+    expect(g.removeEdge('A', 'C')).toBeFalse()
   })
 
-  test('removeNode throws for unknown node', () => {
+  test('removeNode returns false for an unknown node', () => {
     const g = new WeightedDirectedGraph<string>('A')
-    expect(() => g.removeNode('Z')).toThrow('Node not found')
+    expect(g.removeNode('Z')).toBeFalse()
   })
 
-  test('isAdjacent throws for unknown first node', () => {
+  test('isAdjacent returns false for an unknown node', () => {
     const g = new WeightedDirectedGraph<string>('A')
-    expect(() => g.isAdjacent('Z', 'A')).toThrow('First node not found')
+    expect(g.isAdjacent('Z', 'A')).toBeFalse()
   })
 
-  test('getEdges throws for unknown node', () => {
+  test('getEdges returns undefined for an unknown node', () => {
     const g = new WeightedDirectedGraph<string>('A')
-    expect(() => g.getEdges('Z')).toThrow('Node not found')
+    expect(g.getEdges('Z')).toBeUndefined()
   })
 
-  test('getWeight throws for unknown first node', () => {
+  test('getWeight returns undefined for an unknown first node', () => {
     const g = new WeightedDirectedGraph<string>('A')
-    expect(() => g.getWeight('Z', 'A')).toThrow('First node not found')
+    expect(g.getWeight('Z', 'A')).toBeUndefined()
   })
 
-  test('getWeight throws for unknown second node', () => {
+  test('getWeight returns undefined when nodes are not adjacent', () => {
     const g = new WeightedDirectedGraph<string>('A')
     g.addEdge('A', 'B', 5)
-    expect(() => g.getWeight('A', 'Z')).toThrow('Second node not found')
+    expect(g.getWeight('A', 'Z')).toBeUndefined()
   })
 })

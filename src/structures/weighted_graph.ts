@@ -1,162 +1,56 @@
 import { GraphStructure } from './base'
 
 /**
- * A weighted graph data structure.
+ * An undirected graph whose edges carry a weight.
  * @template N The type of the nodes in the graph.
  * @example
  * ```ts
  * import { WeightedGraph } from '@danyalwe/tools'
  *
  * const graph = new WeightedGraph<string>('A')
- * graph.addEdge('A', 'B', 5)
- * graph.addEdge('A', 'C', 3)
- * graph.getWeight('A', 'B')  // 5
+ * graph.addEdge('A', 'B', 5).addEdge('B', 'C', 3)
+ * graph.getWeight('A', 'B')       // 5
+ * graph.getWeight('A', 'B', 'C')  // 8
+ * graph.getEdges('B')             // [['A', 5], ['C', 3]]
  * ```
  * @category Graphs
  * @group Structures
  */
 export class WeightedGraph<N> extends GraphStructure<N, [N, number]> {
-  /**
-   * Creates a new weighted graph with the given node.
-   * @param node The first node to add to the weighted graph.
-   */
-  constructor(node: N) {
-    super(node)
-  }
+  readonly directed = false
 
   /**
-   * Adds an edge between two nodes with an optional weight.
+   * Adds an edge between `v1` and `v2` with a weight. A missing `v2` is added to the graph.
    * @param v1 The first node.
    * @param v2 The second node.
-   * @param weight The weight of the edge (default is 0).
-   * @throws An error if the first node is not found or if the edge already exists.
-   * @returns The updated weighted graph.
+   * @param weight The weight of the edge (default 0).
+   * @returns The graph instance.
+   * @throws An error if `v1` is not in the graph or the edge already exists.
    */
   addEdge(v1: N, v2: N, weight = 0) {
-    const list = this.map.get(v1)
-    if (!list) throw new Error('First node not found')
-    if (list.some(e => e[0] === v2)) throw new Error('Edge already present')
-    list.push([v2, weight])
-    // a self-loop is stored once
-    if (v1 !== v2) {
-      const edge = this.map.get(v2)
-      if (edge) edge.push([v1, weight])
-      else this.map.set(v2, [[v1, weight]])
-    }
-    return this
+    return this._addEdge(v1, v2, weight)
   }
 
   /**
-   * Removes an edge between two nodes in the weighted graph.
+   * Returns the total weight of the path through the given nodes.
    * @param v1 The first node.
    * @param v2 The second node.
-   * @throws An error if either node is not found or if the edge does not exist.
-   * @returns The weighted graph instance.
-   */
-  removeEdge(v1: N, v2: N) {
-    const list = this.map.get(v1)
-    if (list) {
-      const index = list.findIndex(e => e[0] === v2)
-      if (index !== -1) list.splice(index, 1)
-      else throw new Error('Edge not found')
-
-      const edge = this.map.get(v2)
-      if (edge) {
-        const index = edge.findIndex(e => e[0] === v1)
-        if (index !== -1) edge.splice(index, 1)
-      }
-    }
-    else throw new Error('Node not found')
-    return this
-  }
-
-  /**
-   * Removes a node from the weighted graph and all edges connected to it.
-   * @param node The node to remove.
-   * @throws An error if the node is not found.
-   * @returns The weighted graph instance.
-   */
-  removeNode(node: N) {
-    if (this.map.delete(node)) {
-      for (const list of this.map.values()) {
-        const index = list.findIndex(e => e[0] === node)
-        if (index !== -1) list.splice(index, 1)
-      }
-    }
-    else throw new Error('Node not found')
-    return this
-  }
-
-  /**
-   * Returns an array of edges (as `[node, weight]` tuples) for the given node.
-   * @param node The node to get the edges for.
-   * @throws An error if the node is not found.
-   * @returns An array of edges, each represented as a `[node, weight]` tuple.
-   */
-  getEdges(node: N) {
-    const list = this.map.get(node)
-    if (!list) throw new Error('Node not found')
-    return list.map(([n, w]) => [n, w] as [N, number])
-  }
-
-  /**
-   * Returns the weight of the edge between the first node and the second node,
-   * and optionally additional nodes if provided.
-   * @param v1 The first node.
-   * @param v2 The second node.
-   * @param vn Additional nodes (optional).
-   * @returns The weight of the edge between the nodes.
-   * @throws Error if the first or second node is not found.
+   * @param vn Further nodes along the path.
+   * @returns The summed weight, or undefined if two consecutive nodes are not adjacent.
    */
   getWeight(v1: N, v2: N, ...vn: N[]) {
-    const list = this.map.get(v1)
-    if (!list) throw new Error('First node not found')
-    const edge = list.find(e => e[0] === v2)
-    if (!edge) throw new Error('Second node not found')
-    let weight = edge[1]
-    if (vn.length) weight += this.getWeight(v2, vn[0], ...vn.slice(1))
-    return weight
+    return this._pathWeight([v1, v2, ...vn])
   }
 
-  /**
-   * Checks if two nodes are adjacent in the weighted graph.
-   * @param v1 The first node.
-   * @param v2 The second node.
-   * @throws An error if the first node is not found.
-   * @returns True if the nodes are adjacent, false otherwise.
-   */
-  isAdjacent(v1: N, v2: N) {
-    const list = this.map.get(v1)
-    if (!list) throw new Error('First node not found')
-    return list.some(e => e[0] === v2)
+  protected _target(edge: [N, number]) {
+    return edge[0]
   }
 
-  /**
-   * Checks if the weighted graph contains a cycle using depth-first search.
-   * @returns True if a cycle is detected, false otherwise.
-   */
-  hasCycle() {
-    const visited = new Set<N>()
+  protected _edge(target: N, weight: number): [N, number] {
+    return [target, weight]
+  }
 
-    const dfs = (node: N, parent: N | null): boolean => {
-      visited.add(node)
-      const edges = this.map.get(node)
-      if (edges) {
-        for (const [neighbor] of edges) {
-          if (!visited.has(neighbor)) {
-            if (dfs(neighbor, node)) return true
-          }
-          else if (neighbor !== parent)
-            return true
-        }
-      }
-      return false
-    }
-
-    for (const node of this.map.keys()) {
-      if (!visited.has(node))
-        if (dfs(node, null)) return true
-    }
-    return false
+  protected _weight(edge: [N, number]) {
+    return edge[1]
   }
 }

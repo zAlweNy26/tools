@@ -1,9 +1,9 @@
-import type { Graph } from '@structures/graph'
+import type { GraphStructure } from '@structures/base'
 import { Stack } from '@structures/stack'
 
 /**
  * Performs a depth-first search traversal on a graph.
- * @param graph The graph to traverse.
+ * @param graph The graph to traverse: any of `Graph`, `DirectedGraph`, `WeightedGraph` or `WeightedDirectedGraph`.
  * @returns An array of nodes in DFS (pre-order), starting from the first node and then from each unvisited node in insertion order.
  * @example
  * ```ts
@@ -16,7 +16,7 @@ import { Stack } from '@structures/stack'
  * ```
  * @group Traversals
  */
-export function depthFirstSearch<T>(graph: Graph<T>) {
+export function depthFirstSearch<T>(graph: GraphStructure<T, unknown>) {
   const visited = new Set<T>()
   const result: T[] = []
 
@@ -30,7 +30,7 @@ export function depthFirstSearch<T>(graph: Graph<T>) {
       visited.add(node)
       result.push(node)
       // Pushed in reverse so the first neighbor is explored first
-      const neighbors = graph.getEdges(node)
+      const neighbors = graph.neighbors(node)!
       for (let i = neighbors.length - 1; i >= 0; i--)
         if (!visited.has(neighbors[i])) stack.push(neighbors[i])
     }

@@ -4,11 +4,11 @@ import { describe, expect, test } from 'bun:test'
 describe('Graph', () => {
   test('add nodes via edges', () => {
     const g = new Graph<string>('A')
-    expect(g.size()).toBe(1)
+    expect(g.size).toBe(1)
     expect(g.hasNode('A')).toBeTrue()
 
     g.addEdge('A', 'B')
-    expect(g.size()).toBe(2)
+    expect(g.size).toBe(2)
     expect(g.hasNode('B')).toBeTrue()
   })
 
@@ -67,7 +67,7 @@ describe('Graph', () => {
     const g = new Graph<string>('A')
     g.addEdge('A', 'B')
     g.clear()
-    expect(g.size()).toBe(0)
+    expect(g.size).toBe(0)
   })
 
   test('a rejected duplicate edge leaves the graph unchanged', () => {
@@ -101,30 +101,30 @@ describe('Graph', () => {
     expect(g.nodes.sort()).toEqual(['A', 'B', 'C'])
   })
 
-  test('getEdges throws for unknown node', () => {
+  test('getEdges returns undefined for an unknown node', () => {
     const g = new Graph<string>('A')
-    expect(() => g.getEdges('Z')).toThrow('Node not found')
+    expect(g.getEdges('Z')).toBeUndefined()
   })
 
-  test('removeEdge throws for unknown node', () => {
+  test('removeEdge returns false for an unknown node', () => {
     const g = new Graph<string>('A')
-    expect(() => g.removeEdge('Z', 'A')).toThrow('Node not found')
+    expect(g.removeEdge('Z', 'A')).toBeFalse()
   })
 
-  test('removeEdge throws for non-existent edge', () => {
+  test('removeEdge returns false for a missing edge', () => {
     const g = new Graph<string>('A')
     g.addEdge('A', 'B')
-    expect(() => g.removeEdge('A', 'C')).toThrow('Edge not found')
+    expect(g.removeEdge('A', 'C')).toBeFalse()
   })
 
-  test('removeNode throws for unknown node', () => {
+  test('removeNode returns false for an unknown node', () => {
     const g = new Graph<string>('A')
-    expect(() => g.removeNode('Z')).toThrow('Node not found')
+    expect(g.removeNode('Z')).toBeFalse()
   })
 
-  test('isAdjacent throws for unknown node', () => {
+  test('isAdjacent returns false for an unknown node', () => {
     const g = new Graph<string>('A')
-    expect(() => g.isAdjacent('Z', 'A')).toThrow('First node not found')
+    expect(g.isAdjacent('Z', 'A')).toBeFalse()
   })
 
   test('addEdge throws for unknown first node', () => {
@@ -161,6 +161,36 @@ describe('Graph', () => {
     g.removeNode('Y')
     expect(g.hasNode('Y')).toBeFalse()
     g.clear()
-    expect(g.size()).toBe(0)
+    expect(g.size).toBe(0)
+  })
+
+  test('can start empty', () => {
+    const g = new Graph<string>()
+    expect(g.isEmpty).toBeTrue()
+    g.addNode('A').addEdge('A', 'B')
+    expect(g.size).toBe(2)
+  })
+
+  test('neighbors, toArray and iteration', () => {
+    const g = new Graph<string>('A')
+    g.addEdge('A', 'B').addEdge('A', 'C')
+    expect(g.neighbors('A')).toEqual(['B', 'C'])
+    expect(g.neighbors('Z')).toBeUndefined()
+    expect(g.toArray()).toEqual(['A', 'B', 'C'])
+    expect([...g]).toEqual(['A', 'B', 'C'])
+  })
+
+  test('removeEdge removes both directions and returns true', () => {
+    const g = new Graph<string>('A')
+    g.addEdge('A', 'B')
+    expect(g.removeEdge('B', 'A')).toBeTrue()
+    expect(g.isAdjacent('A', 'B')).toBeFalse()
+    expect(g.isAdjacent('B', 'A')).toBeFalse()
+  })
+
+  test('is undirected and clear returns the graph', () => {
+    const g = new Graph<string>('A')
+    expect(g.directed).toBeFalse()
+    expect(g.clear()).toBe(g)
   })
 })

@@ -1,7 +1,7 @@
-import { WeightedGraph } from './weighted_graph'
+import { GraphStructure } from './base'
 
 /**
- * A directed, weighted graph data structure. Edges go in one direction only with weights.
+ * A directed graph whose edges carry a weight. Edges go from the first node to the second only.
  * @template N The type of the nodes in the graph.
  * @example
  * ```ts
@@ -9,83 +9,47 @@ import { WeightedGraph } from './weighted_graph'
  *
  * const graph = new WeightedDirectedGraph<string>('A')
  * graph.addEdge('A', 'B', 5)
- * graph.getWeight('A', 'B')  // 5
- * graph.isAdjacent('B', 'A') // false
+ * graph.getWeight('A', 'B')   // 5
+ * graph.isAdjacent('B', 'A')  // false
  * ```
  * @category Graphs
  * @group Structures
  */
-export class WeightedDirectedGraph<N> extends WeightedGraph<N> {
-  /**
-   * Creates a new weighted directed graph with the given node.
-   * @param node The first node to add to the graph.
-   */
-  constructor(node: N) {
-    super(node)
-  }
+export class WeightedDirectedGraph<N> extends GraphStructure<N, [N, number]> {
+  readonly directed = true
 
   /**
-   * Adds a weighted directed edge from `v1` to `v2`.
-   * @param v1 The source node.
-   * @param v2 The destination node.
-   * @param weight The edge weight (default 0).
+   * Adds an edge from `v1` to `v2` with a weight. A missing `v2` is added to the graph.
+   * @param v1 The first node.
+   * @param v2 The second node.
+   * @param weight The weight of the edge (default 0).
    * @returns The graph instance.
-   * @throws An error if the edge already exists or the source node is not found.
+   * @throws An error if `v1` is not in the graph or the edge already exists.
    */
   addEdge(v1: N, v2: N, weight = 0) {
-    const list = this.map.get(v1)
-    if (list) {
-      if (list.some(e => e[0] === v2)) throw new Error('Edge already present')
-      list.push([v2, weight])
-      if (!this.map.has(v2)) this.map.set(v2, [])
-    }
-    else throw new Error('First node not found')
-    return this
+    return this._addEdge(v1, v2, weight)
   }
 
   /**
-   * Removes a weighted directed edge from `v1` to `v2`.
-   * @param v1 The source node.
-   * @param v2 The destination node.
-   * @returns The graph instance.
-   * @throws An error if the edge or the source node is not found.
+   * Returns the total weight of the path through the given nodes.
+   * @param v1 The first node.
+   * @param v2 The second node.
+   * @param vn Further nodes along the path.
+   * @returns The summed weight, or undefined if two consecutive nodes are not adjacent.
    */
-  removeEdge(v1: N, v2: N) {
-    const list = this.map.get(v1)
-    if (list) {
-      const index = list.findIndex(e => e[0] === v2)
-      if (index !== -1) list.splice(index, 1)
-      else throw new Error('Edge not found')
-    }
-    else throw new Error('Node not found')
-    return this
+  getWeight(v1: N, v2: N, ...vn: N[]) {
+    return this._pathWeight([v1, v2, ...vn])
   }
 
-  /**
-   * Checks if the weighted directed graph contains a cycle using DFS.
-   * @returns `true` if a cycle is detected, `false` otherwise.
-   */
-  hasCycle() {
-    const state = new Map<N, 0 | 1 | 2>()
-    for (const node of this.map.keys()) state.set(node, 0)
+  protected _target(edge: [N, number]) {
+    return edge[0]
+  }
 
-    const dfs = (node: N): boolean => {
-      state.set(node, 1)
-      const edges = this.map.get(node)
-      if (edges) {
-        for (const [neighbor] of edges) {
-          if (state.get(neighbor) === 1) return true
-          if (state.get(neighbor) === 0 && dfs(neighbor)) return true
-        }
-      }
-      state.set(node, 2)
-      return false
-    }
+  protected _edge(target: N, weight: number): [N, number] {
+    return [target, weight]
+  }
 
-    for (const node of this.map.keys()) {
-      if (state.get(node) === 0)
-        if (dfs(node)) return true
-    }
-    return false
+  protected _weight(edge: [N, number]) {
+    return edge[1]
   }
 }

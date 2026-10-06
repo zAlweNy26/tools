@@ -1,4 +1,6 @@
+import { DirectedGraph } from '@structures/directed_graph'
 import { Graph } from '@structures/graph'
+import { WeightedGraph } from '@structures/weighted_graph'
 import { breadthFirstSearch } from '@traversals/bfs'
 import { describe, expect, test } from 'bun:test'
 
@@ -45,5 +47,15 @@ describe('breadthFirstSearch', () => {
     const g = new Graph(0)
     g.addEdge(0, 1).addEdge(1, 2)
     expect(breadthFirstSearch(g)).toEqual([0, 1, 2])
+  })
+
+  test('works on directed and weighted graphs', () => {
+    const directed = new DirectedGraph(1)
+    directed.addEdge(1, 2).addEdge(2, 3).addEdge(3, 1)
+    expect(breadthFirstSearch(directed)).toEqual([1, 2, 3])
+
+    const weighted = new WeightedGraph('A')
+    weighted.addEdge('A', 'B', 4).addEdge('A', 'C', 1).addEdge('B', 'D', 2)
+    expect(breadthFirstSearch(weighted)).toEqual(['A', 'B', 'C', 'D'])
   })
 })
