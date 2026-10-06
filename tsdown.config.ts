@@ -1,14 +1,11 @@
 import { defineConfig } from 'tsdown'
 
 export default defineConfig({
-  entry: {
-    'lib/*': 'src/**/*.ts',
-    'index': 'index.ts',
-  },
-  format: 'esm',
+  entry: 'index.ts',
+  format: ['esm', 'cjs'],
+  platform: 'neutral',
   dts: true,
-  minify: true,
-  outputOptions: {
-    entryFileNames: '[name].js',
-  },
+  exports: true,
+  publint: true,
+  attw: true,
 })

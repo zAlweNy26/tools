@@ -2,7 +2,7 @@
   "name": "@danyalwe/tools",
   "type": "module",
   "version": "0.1.5",
-  "packageManager": "bun@1.3.14",
+  "packageManager": "bun@1.4.2",
   "description": "A collection of data structures, algorithms, and utilities for TypeScript",
   "author": {
     "name": "zAlweNy26",
@@ -30,19 +30,23 @@
     "utils",
     "tools"
   ],
+  "sideEffects": false,
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
-    }
+    },
+    "./package.json": "./package.json"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/index.d.cts",
   "files": [
     "dist/**"
   ],
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "build": "tsdown",
     "release": "bun run build",
@@ -51,23 +55,24 @@
     "lint:fix": "eslint --cache --fix .",
     "test": "bun test",
     "generate": "typedoc && bun run docs/.vitepress/coverage-badge.ts",
-    "start": "tsx watch index.ts",
+    "start": "bun --watch index.ts",
     "docs:dev": "bun run generate && vitepress dev docs",
     "docs:build": "bun run generate && vitepress build docs",
     "docs:preview": "vitepress preview docs"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^9.1.0",
-    "@types/bun": "^1.3.14",
+    "@antfu/eslint-config": "^9.5.1",
+    "@arethetypeswrong/core": "^0.18.5",
+    "@types/bun": "^1.4.2",
     "changelogen": "^0.6.2",
-    "eslint": "^10.6.0",
-    "tsdown": "^0.22.3",
-    "tsx": "^4.23.0",
+    "eslint": "^10.12.0",
+    "publint": "^0.3.25",
+    "tsdown": "^0.23.0",
     "typedoc": "^0.28.20",
     "typedoc-plugin-coverage": "^4.0.3",
-    "typedoc-plugin-markdown": "^4.12.0",
+    "typedoc-plugin-markdown": "^4.13.1",
     "typedoc-plugin-merge-modules": "^7.0.0",
-    "typedoc-vitepress-theme": "^1.1.3",
+    "typedoc-vitepress-theme": "^1.1.4",
     "typescript": "^6.0.3",
     "vitepress": "^1.6.4"
   },
