@@ -1,9 +1,11 @@
+const ARRAY_INDEX = /^(?:0|[1-9]\d*)$/
+
 /**
  * A fixed-capacity array that extends the built-in Array class.
  *
- * `push`, `unshift` and `splice` enforce the capacity. Direct index assignment and
- * setting `length` are not checked. Methods that derive a new array (`map`, `filter`,
- * `slice`, …) return plain arrays.
+ * Every way of growing the array (`push`, `unshift`, `splice`, index assignment,
+ * setting `length`) is checked against the capacity. Methods that derive a new array
+ * (`map`, `filter`, `slice`, …) return plain arrays.
  * @template T The type of elements held in the array.
  * @example
  * ```ts
@@ -39,6 +41,22 @@ export class FixedArray<T> extends Array<T> {
       super()
       this._capacity = 0
     }
+
+    // a proxy is the only way to intercept index assignment and length changes on an array
+    const exceeds = (target: FixedArray<T>, prop: string | symbol, value: unknown) =>
+      (prop === 'length' && Number(value) > target._capacity)
+      || (typeof prop === 'string' && ARRAY_INDEX.test(prop) && Number(prop) >= target._capacity)
+
+    return new Proxy(this, {
+      set(target, prop, value, receiver) {
+        if (exceeds(target, prop, value)) throw new Error('Array is full')
+        return Reflect.set(target, prop, value, receiver)
+      },
+      defineProperty(target, prop, descriptor) {
+        if (exceeds(target, prop, descriptor.value)) throw new Error('Array is full')
+        return Reflect.defineProperty(target, prop, descriptor)
+      },
+    })
   }
 
   static get [Symbol.species]() {

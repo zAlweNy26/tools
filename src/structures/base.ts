@@ -1,5 +1,4 @@
 import type { Structure } from '@interfaces/structure'
-import { FixedArray } from './fixed_array'
 
 /**
  * Abstract class representing a list structure.
@@ -17,8 +16,8 @@ export abstract class ListStructure<T> implements Structure {
    */
   constructor(size: number | T[]) {
     if (typeof size === 'number') {
-      // a capacity of 0 means unbounded
-      this._data = size > 0 ? new FixedArray(size) : []
+      // a capacity of 0 means unbounded; subclasses enforce the capacity through isFull
+      this._data = []
       this._capacity = Math.max(size, 0)
     }
     else
@@ -57,7 +56,7 @@ export abstract class ListStructure<T> implements Structure {
    * Clears the list.
    */
   clear() {
-    this._data = this._capacity > 0 ? new FixedArray(this._capacity) : []
+    this._data = []
     return this
   }
 

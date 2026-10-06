@@ -67,4 +67,19 @@ describe('FixedArray', () => {
     doubled.push(8)
     expect(doubled).toEqual([2, 4, 6, 8])
   })
+
+  test('index assignment and length changes respect the capacity', () => {
+    const arr = new FixedArray<number>(2)
+    arr[0] = 1
+    arr[1] = 2
+    expect(() => {
+      arr[2] = 3
+    }).toThrow('Array is full')
+    expect(() => {
+      arr.length = 6
+    }).toThrow('Array is full')
+    arr.length = 1
+    expect([...arr]).toEqual([1])
+    expect(Array.isArray(arr)).toBeTrue()
+  })
 })
