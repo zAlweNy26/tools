@@ -158,7 +158,7 @@ export class Matrix {
       throw new Error('The matrices need to have the same dimensions')
 
     this._data = this._data.map((row, i) => row.map((col, j) => value(col, mat.get(i, j))))
-    return this.items
+    return this.toArray()
   }
 
   /**
@@ -280,9 +280,9 @@ export class Matrix {
   }
 
   /**
-   * The current number of elements in the matrix.
+   * The number of cells in the matrix.
    */
-  size() {
+  get size() {
     return this.rows * this.cols
   }
 
@@ -411,7 +411,7 @@ export class Matrix {
    * @returns A new matrix that is a clone of the current matrix instance.
    */
   clone() {
-    return Matrix.from(this.items)
+    return Matrix.from(this.toArray())
   }
 
   /**
@@ -451,7 +451,7 @@ export class Matrix {
    * Returns a copy of the matrix data as a two-dimensional array.
    * @returns A copy of the matrix data.
    */
-  get items() {
+  toArray() {
     return this._data.map(row => [...row])
   }
 

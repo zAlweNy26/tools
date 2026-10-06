@@ -6,7 +6,7 @@ describe('Matrix', () => {
     const m = new Matrix(2, 3, 0)
     expect(m.rows).toBe(2)
     expect(m.cols).toBe(3)
-    expect(m.size()).toBe(6)
+    expect(m.size).toBe(6)
     expect(m.get(0, 0)).toBe(0)
     expect(m.set(1, 2, 5)).toBe(5)
     expect(m.get(1, 2)).toBe(5)
@@ -131,12 +131,12 @@ describe('Matrix', () => {
   test('clear', () => {
     const m = new Matrix(2, 2, 1)
     m.clear()
-    expect(m.items).toEqual([[0, 0], [0, 0]])
+    expect(m.toArray()).toEqual([[0, 0], [0, 0]])
   })
 
   test('defaults every cell to 0', () => {
     const m = new Matrix(2, 3)
-    expect(m.items).toEqual([[0, 0, 0], [0, 0, 0]])
+    expect(m.toArray()).toEqual([[0, 0, 0], [0, 0, 0]])
     expect(m.sum).toBe(0)
   })
 
@@ -376,6 +376,6 @@ describe('Matrix', () => {
     for (const row of m) row[1] = 99
     for (const row of m.iterateRows()) row[1] = 99
     m.operate([[0, 0], [0, 0]], (l, r) => l + r)[1][0] = 99
-    expect(m.items).toEqual([[1, 2], [3, 4]])
+    expect(m.toArray()).toEqual([[1, 2], [3, 4]])
   })
 })
