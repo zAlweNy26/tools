@@ -86,7 +86,7 @@ export class TSNE extends DimRed<TSNEParams> {
     const targetH = Math.log(this._params.perplexity)
     for (let i = 0; i < n; ++i) {
       const nDist = delta.getRow(i)
-      const pRow = P.getRow(i)
+      const pRow = Array.from<number>({ length: n }).fill(0)
       let betaMin = -Infinity, betaMax = Infinity
       let beta = 1, cnt = 50, done = false
       let pSum = 0, dpSum = 0
@@ -129,6 +129,7 @@ export class TSNE extends DimRed<TSNEParams> {
         for (let j = 0; j < n; ++j)
           pRow[j] /= pSum
       }
+      P.setRow(i, pRow)
     }
 
     // compute probabilities
