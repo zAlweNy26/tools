@@ -19,173 +19,131 @@ describe('DoublyListNode', () => {
   })
 })
 
+// walking backwards follows every prev pointer from the tail, so matching both directions checks the links
+function expectLinked<T>(list: DoublyLinkedList<T>, expected: T[]) {
+  expect(list.toArray()).toEqual(expected)
+  expect(list.toArrayReverse()).toEqual([...expected].reverse())
+  expect(list.size).toBe(expected.length)
+}
+
 describe('DoublyLinkedList', () => {
   test('empty constructor creates an empty list', () => {
     const list = new DoublyLinkedList<number>()
-    expect(list.size()).toBe(0)
     expect(list.isEmpty).toBeTrue()
-    expect(list.head).toBeNull()
-    expect(list.toArray()).toEqual([])
+    expectLinked(list, [])
   })
 
   test('constructor from iterable initialises list', () => {
-    const list = new DoublyLinkedList([1, 2, 3])
-    expect(list.size()).toBe(3)
-    expect(list.toArray()).toEqual([1, 2, 3])
+    expectLinked(new DoublyLinkedList([1, 2, 3]), [1, 2, 3])
   })
 
   test('append wires prev pointers', () => {
     const list = new DoublyLinkedList<number>()
     list.append(1).append(2).append(3)
-
-    const head = list.head as DoublyListNode<number>
-    expect(head.data).toBe(1)
-    expect(head.prev).toBeNull()
-
-    const mid = head.next!
-    expect(mid.data).toBe(2)
-    expect((mid as DoublyListNode<number>).prev).toBe(head)
-
-    const tail = mid.next as DoublyListNode<number>
-    expect(tail.data).toBe(3)
-    expect(tail.prev).toBe(mid)
-    expect(tail.next).toBeNull()
+    expectLinked(list, [1, 2, 3])
   })
 
   test('prepend wires prev pointers', () => {
     const list = new DoublyLinkedList<number>()
     list.prepend(3).prepend(2).prepend(1)
-
-    const head = list.head as DoublyListNode<number>
-    expect(head.data).toBe(1)
-    expect(head.prev).toBeNull()
-
-    const mid = head.next!
-    expect(mid.data).toBe(2)
-    expect((mid as DoublyListNode<number>).prev).toBe(head)
-
-    const tail = mid.next as DoublyListNode<number>
-    expect(tail.data).toBe(3)
-    expect(tail.prev).toBe(mid)
+    expectLinked(list, [1, 2, 3])
   })
 
   test('prepend on empty list', () => {
     const list = new DoublyLinkedList<number>()
     list.prepend(1)
-    expect(list.size()).toBe(1)
-    expect(list.head!.data).toBe(1)
-    const node = list.head as DoublyListNode<number>
-    expect(node.prev).toBeNull()
-    expect(node.next).toBeNull()
+    expectLinked(list, [1])
   })
 
   test('insertAt wires prev pointers', () => {
     const list = new DoublyLinkedList([1, 3])
     list.insertAt(1, 2)
-    expect(list.toArray()).toEqual([1, 2, 3])
-
-    const head = list.head as DoublyListNode<number>
-    const mid = head.next as DoublyListNode<number>
-    const tail = mid.next as DoublyListNode<number>
-    expect(mid.prev).toBe(head)
-    expect(tail.prev).toBe(mid)
+    expectLinked(list, [1, 2, 3])
   })
 
   test('insertAt at index 0 prepends', () => {
     const list = new DoublyLinkedList([2, 3])
     list.insertAt(0, 1)
-    expect(list.toArray()).toEqual([1, 2, 3])
-    const head = list.head as DoublyListNode<number>
-    expect(head.prev).toBeNull()
-    expect((head.next as DoublyListNode<number>).prev).toBe(head)
+    expectLinked(list, [1, 2, 3])
   })
 
   test('insertAt at size appends', () => {
     const list = new DoublyLinkedList([1, 2])
     list.insertAt(2, 3)
-    expect(list.toArray()).toEqual([1, 2, 3])
-    const second = (list.head as DoublyListNode<number>).next as DoublyListNode<number>
-    const third = second.next as DoublyListNode<number>
-    expect(third.prev).toBe(second)
-    expect(third.next).toBeNull()
+    expectLinked(list, [1, 2, 3])
+  })
+
+  test('insertAt out of bounds throws a RangeError', () => {
+    const list = new DoublyLinkedList([1])
+    expect(() => list.insertAt(5, 2)).toThrow(RangeError)
+    expect(() => list.insertAt(-1, 2)).toThrow('Index out of bounds')
   })
 
   test('deleteAt maintains prev pointers (head)', () => {
     const list = new DoublyLinkedList([1, 2, 3])
-    list.deleteAt(0)
-    expect(list.toArray()).toEqual([2, 3])
-    const head = list.head as DoublyListNode<number>
-    expect(head.prev).toBeNull()
+    expect(list.deleteAt(0)).toBe(1)
+    expectLinked(list, [2, 3])
   })
 
   test('deleteAt maintains prev pointers (middle)', () => {
     const list = new DoublyLinkedList([1, 2, 3])
-    list.deleteAt(1)
-    expect(list.toArray()).toEqual([1, 3])
-    const head = list.head as DoublyListNode<number>
-    const tail = head.next as DoublyListNode<number>
-    expect(tail.prev).toBe(head)
+    expect(list.deleteAt(1)).toBe(2)
+    expectLinked(list, [1, 3])
   })
 
   test('deleteAt maintains prev pointers (tail)', () => {
     const list = new DoublyLinkedList([1, 2, 3])
-    list.deleteAt(2)
-    expect(list.toArray()).toEqual([1, 2])
-    const head = list.head as DoublyListNode<number>
-    const tail = head.next as DoublyListNode<number>
-    expect(tail.prev).toBe(head)
-    expect(tail.next).toBeNull()
+    expect(list.deleteAt(2)).toBe(3)
+    expectLinked(list, [1, 2])
   })
 
   test('deleteAt on single element returns data', () => {
     const list = new DoublyLinkedList([42])
     expect(list.deleteAt(0)).toBe(42)
-    expect(list.size()).toBe(0)
-    expect(list.head).toBeNull()
+    expectLinked(list, [])
+  })
+
+  test('deleteAt out of bounds returns undefined', () => {
+    const list = new DoublyLinkedList([1])
+    expect(list.deleteAt(3)).toBeUndefined()
+    expectLinked(list, [1])
   })
 
   test('delete removes by value and maintains prev pointers', () => {
     const list = new DoublyLinkedList([1, 2, 3])
-    list.delete(2)
-    expect(list.toArray()).toEqual([1, 3])
-    const head = list.head as DoublyListNode<number>
-    const tail = head.next as DoublyListNode<number>
-    expect(tail.prev).toBe(head)
+    expect(list.delete(2)).toBeTrue()
+    expectLinked(list, [1, 3])
   })
 
   test('delete head by value maintains prev', () => {
     const list = new DoublyLinkedList([1, 2, 3])
     list.delete(1)
-    expect(list.toArray()).toEqual([2, 3])
-    const head = list.head as DoublyListNode<number>
-    expect(head.prev).toBeNull()
+    expectLinked(list, [2, 3])
   })
 
   test('delete tail by value maintains prev', () => {
     const list = new DoublyLinkedList([1, 2, 3])
     list.delete(3)
-    expect(list.toArray()).toEqual([1, 2])
-    const second = (list.head as DoublyListNode<number>).next as DoublyListNode<number>
-    expect(second.next).toBeNull()
+    expectLinked(list, [1, 2])
+  })
+
+  test('delete returns false for a missing value', () => {
+    const list = new DoublyLinkedList([1, 2])
+    expect(list.delete(9)).toBeFalse()
+    expectLinked(list, [1, 2])
   })
 
   test('deleteLast removes and returns last element', () => {
     const list = new DoublyLinkedList([1, 2, 3])
     expect(list.deleteLast()).toBe(3)
-    expect(list.toArray()).toEqual([1, 2])
-    expect(list.size()).toBe(2)
-
-    const head = list.head as DoublyListNode<number>
-    const tail = head.next as DoublyListNode<number>
-    expect(tail.next).toBeNull()
+    expectLinked(list, [1, 2])
   })
 
   test('deleteLast on single element clears list', () => {
     const list = new DoublyLinkedList([42])
     expect(list.deleteLast()).toBe(42)
-    expect(list.size()).toBe(0)
-    expect(list.head).toBeNull()
     expect(list.isEmpty).toBeTrue()
+    expectLinked(list, [])
   })
 
   test('deleteLast on empty list returns undefined', () => {
@@ -197,50 +155,32 @@ describe('DoublyLinkedList', () => {
     const list = new DoublyLinkedList([1, 2, 3])
     list.deleteLast()
     list.append(4)
-    expect(list.toArray()).toEqual([1, 2, 4])
-    const tail = list.head!.next!.next as DoublyListNode<number>
-    expect(tail.prev!.data).toBe(2)
-    expect(tail.next).toBeNull()
+    expectLinked(list, [1, 2, 4])
   })
 
   test('reverse maintains prev pointers', () => {
     const list = new DoublyLinkedList([1, 2, 3])
     list.reverse()
-    expect(list.toArray()).toEqual([3, 2, 1])
-
-    const head = list.head as DoublyListNode<number>
-    expect(head.prev).toBeNull()
-    const mid = head.next as DoublyListNode<number>
-    expect(mid.prev).toBe(head)
-    const tail = mid.next as DoublyListNode<number>
-    expect(tail.prev).toBe(mid)
-    expect(tail.next).toBeNull()
+    expectLinked(list, [3, 2, 1])
   })
 
   test('reverse preserves ability to append after', () => {
     const list = new DoublyLinkedList([1, 2, 3])
     list.reverse()
     list.append(4)
-    expect(list.toArray()).toEqual([3, 2, 1, 4])
-
-    const tail = list.head!.next!.next!.next as DoublyListNode<number>
-    expect(tail.next).toBeNull()
-    expect(tail.prev!.data).toBe(1)
+    expectLinked(list, [3, 2, 1, 4])
   })
 
   test('reverse on empty list does nothing', () => {
     const list = new DoublyLinkedList<number>()
     list.reverse()
-    expect(list.toArray()).toEqual([])
+    expectLinked(list, [])
   })
 
   test('reverse on single element does nothing', () => {
     const list = new DoublyLinkedList([42])
     list.reverse()
-    expect(list.toArray()).toEqual([42])
-    const node = list.head as DoublyListNode<number>
-    expect(node.prev).toBeNull()
-    expect(node.next).toBeNull()
+    expectLinked(list, [42])
   })
 
   test('toArrayReverse returns elements tail to head', () => {
@@ -255,59 +195,31 @@ describe('DoublyLinkedList', () => {
 
   test('backward iterator traverses tail to head', () => {
     const list = new DoublyLinkedList([1, 2, 3])
-    const result: number[] = []
-    const iter = list.backward()
-    let item = iter.next()
-    while (!item.done) {
-      result.push(item.value)
-      item = iter.next()
-    }
-    expect(result).toEqual([3, 2, 1])
+    expect([...list.backward()]).toEqual([3, 2, 1])
   })
 
   test('backward iterator on empty list yields nothing', () => {
     const list = new DoublyLinkedList<number>()
-    const iter = list.backward()
-    expect(iter.next()).toEqual({ value: undefined, done: true })
+    expect(list.backward().next()).toEqual({ value: undefined, done: true })
   })
 
   test('map returns DoublyLinkedList with correct prev pointers', () => {
-    const list = new DoublyLinkedList([1, 2, 3])
-    const result = list.map(v => v * 10)
+    const result = new DoublyLinkedList([1, 2, 3]).map(v => v * 10)
     expect(result).toBeInstanceOf(DoublyLinkedList)
-    expect(result.toArray()).toEqual([10, 20, 30])
-
-    // Verify prev pointers in result
-    const head = result.head as DoublyListNode<number>
-    expect(head.prev).toBeNull()
-    const mid = head.next as DoublyListNode<number>
-    expect(mid.prev).toBe(head)
-    const tail = mid.next as DoublyListNode<number>
-    expect(tail.prev).toBe(mid)
-    expect(tail.next).toBeNull()
+    expectLinked(result, [10, 20, 30])
   })
 
   test('filter returns DoublyLinkedList with correct prev pointers', () => {
-    const list = new DoublyLinkedList([1, 2, 3, 4])
-    const result = list.filter(v => v % 2 === 0)
+    const result = new DoublyLinkedList([1, 2, 3, 4]).filter(v => v % 2 === 0)
     expect(result).toBeInstanceOf(DoublyLinkedList)
-    expect(result.toArray()).toEqual([2, 4])
-
-    const head = result.head as DoublyListNode<number>
-    expect(head.prev).toBeNull()
-    const tail = head.next as DoublyListNode<number>
-    expect(tail.prev).toBe(head)
-    expect(tail.next).toBeNull()
+    expectLinked(result, [2, 4])
   })
 
-  test('inherited: find returns node', () => {
-    const list = new DoublyLinkedList([1, 2, 3])
-    const node = list.find(2) as DoublyListNode<number>
-    expect(node).toBeDefined()
-    expect(node.data).toBe(2)
-    expect(node.prev).toBeDefined()
-    expect(node.prev!.data).toBe(1)
-    expect(node.next).toBeDefined()
+  test('inherited: find returns the first matching value', () => {
+    const list = new DoublyLinkedList([1, 2, 3, 4])
+    expect(list.find(v => v > 1)).toBe(2)
+    expect(list.find((_, i) => i === 3)).toBe(4)
+    expect(list.find(v => v > 9)).toBeUndefined()
   })
 
   test('inherited: getAt works', () => {
@@ -364,10 +276,9 @@ describe('DoublyLinkedList', () => {
 
   test('inherited: clear empties list', () => {
     const list = new DoublyLinkedList([1, 2, 3])
-    list.clear()
-    expect(list.size()).toBe(0)
-    expect(list.head).toBeNull()
+    expect(list.clear()).toBe(list)
     expect(list.isEmpty).toBeTrue()
+    expectLinked(list, [])
   })
 
   test('backward can be used in for...of', () => {

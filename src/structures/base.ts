@@ -218,17 +218,10 @@ export class ListNode<T> {
  * @category Lists
  * @group Structures
  */
-export abstract class BaseLinkedList<T> {
+export abstract class BaseLinkedList<T> implements Structure<T> {
   protected _head: ListNode<T> | null = null
   protected _tail: ListNode<T> | null = null
   protected _size = 0
-
-  /**
-   * The first node in the list, or null if the list is empty.
-   */
-  get head() {
-    return this._head
-  }
 
   /**
    * Adds an element to the end of the list.
@@ -274,14 +267,15 @@ export abstract class BaseLinkedList<T> {
   abstract reverse(): this
 
   /**
-   * Finds the first node containing the given data.
-   * @param data The data to search for.
-   * @returns The node containing the data, or undefined if not found.
+   * Returns the first element that satisfies the predicate.
+   * @param predicate The function to test each element with.
+   * @returns The first matching element, or undefined if none matches.
    */
-  find(data: T): ListNode<T> | undefined {
+  find(predicate: (value: T, index: number) => boolean): T | undefined {
     let current = this._head
+    let index = 0
     while (current) {
-      if (current.data === data) return current
+      if (predicate(current.data, index++)) return current.data
       current = current.next
     }
     return undefined
@@ -298,19 +292,21 @@ export abstract class BaseLinkedList<T> {
   }
 
   /**
-   * The current number of elements in the list.
+   * The number of elements in the list.
    */
-  size(): number {
+  get size(): number {
     return this._size
   }
 
   /**
-   * Clears the list, removing all elements.
+   * Removes every element.
+   * @returns The list instance.
    */
-  clear(): void {
+  clear(): this {
     this._head = null
     this._tail = null
     this._size = 0
+    return this
   }
 
   /**

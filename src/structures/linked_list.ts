@@ -69,11 +69,11 @@ export class LinkedList<T> extends BaseLinkedList<T> {
    * @param index The position at which to insert the element.
    * @param data The data to insert.
    * @returns The list instance.
-   * @throws An error if the index is out of bounds.
+   * @throws A RangeError if the index is out of bounds.
    */
   insertAt(index: number, data: T): this {
     if (index < 0 || index > this._size)
-      throw new Error('Index out of bounds')
+      throw new RangeError('Index out of bounds')
     if (index === 0) return this.prepend(data)
     if (index === this._size) return this.append(data)
 
