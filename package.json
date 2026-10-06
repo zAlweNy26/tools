@@ -49,7 +49,7 @@
   },
   "scripts": {
     "build": "tsdown",
-    "release": "bun run build",
+    "prepack": "bun run build",
     "typecheck": "tsc --noEmit",
     "lint": "eslint --cache .",
     "lint:fix": "eslint --cache --fix .",
@@ -64,7 +64,6 @@
     "@antfu/eslint-config": "^9.5.1",
     "@arethetypeswrong/core": "^0.18.5",
     "@types/bun": "^1.4.2",
-    "changelogen": "^0.6.2",
     "eslint": "^10.12.0",
     "publint": "^0.3.25",
     "tsdown": "^0.23.0",
@@ -75,17 +74,5 @@
     "typedoc-vitepress-theme": "^1.1.4",
     "typescript": "^6.0.3",
     "vitepress": "^1.6.4"
-  },
-  "changelog": {
-    "types": {
-      "feat": {
-        "title": "🚀 Enhancements",
-        "semver": "patch"
-      },
-      "refactor": {
-        "title": "💅 Refactors",
-        "semver": "minor"
-      }
-    }
   }
 }
