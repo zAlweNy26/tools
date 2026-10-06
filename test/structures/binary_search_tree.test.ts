@@ -77,9 +77,8 @@ describe('BinarySearchTree', () => {
     expect(bst.contains(5)).toBeTrue()
     expect(bst.contains(7)).toBeTrue()
     expect(bst.contains(99)).toBeFalse()
-    const node = bst.search(3)
-    expect(node).toBeDefined()
-    expect(node!.data).toBe(3)
+    expect(bst.search(3)).toBe(3)
+    expect(bst.search(99)).toBeUndefined()
   })
 
   test('min and max', () => {
@@ -125,6 +124,12 @@ describe('BinarySearchTree', () => {
     const bst = new BinarySearchTree<string>(['b', 'a', 'c'])
     expect(bst.size()).toBe(3)
     expect(bst.traverse('in')).toEqual(['a', 'b', 'c'])
+  })
+
+  test('search returns the stored value for a key-based comparator', () => {
+    interface User { id: number, name: string }
+    const users = new BinarySearchTree<User>((a, b) => a.id - b.id, [{ id: 2, name: 'Bo' }, { id: 1, name: 'Al' }])
+    expect(users.search({ id: 2, name: '' })?.name).toBe('Bo')
   })
 
   test('clear', () => {

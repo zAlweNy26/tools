@@ -83,9 +83,8 @@ describe('AVLTree', () => {
     tree.insert(5).insert(3).insert(7)
     expect(tree.contains(3)).toBeTrue()
     expect(tree.contains(99)).toBeFalse()
-    const node = tree.search(3)
-    expect(node).toBeDefined()
-    expect(node!.data).toBe(3)
+    expect(tree.search(3)).toBe(3)
+    expect(tree.search(99)).toBeUndefined()
   })
 
   test('min and max', () => {
@@ -275,5 +274,15 @@ describe('AVLTree', () => {
       expect(tree.size()).toBe(n - i - 1)
     }
     expect(tree.isEmpty).toBeTrue()
+  })
+
+  test('node height can only be recomputed from its children', () => {
+    const node = new AVLNode(2, new AVLNode(1))
+    node.updateHeight()
+    expect(node.height).toBe(1)
+    expect(() => {
+      // @ts-expect-error height is read-only
+      node.height = 99
+    }).toThrow()
   })
 })
