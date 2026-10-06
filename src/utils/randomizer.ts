@@ -50,7 +50,7 @@ export class Randomizer {
 
   /**
    * Setter for the seed property of the Randomizer class.
-   * @param seed The seed value to set.
+   * @param seed The seed value to set. Only its low 32 bits are used to initialize the generator.
    */
   set seed(seed: number) {
     this._seed = seed
@@ -177,10 +177,11 @@ export class Randomizer {
    * @param data - The matrix or 2D array to sample from.
    * @param n - The number of samples to return.
    * @returns An array of `n` rows from the input data, randomly selected.
-   * @throws An error if `n` is greater than the number of rows in the input data.
+   * @throws An error if `n` is not a non-negative integer or is greater than the number of rows in the input data.
    */
   samples(data: Matrix | number[][], n: number) {
     const mat = data instanceof Matrix ? data : Matrix.from(data)
+    if (!Number.isInteger(n) || n < 0) throw new Error('The number of samples must be a non-negative integer')
     if (n > mat.rows) throw new Error('The number of samples can\'t be bigger than the number of rows of the matrix')
     const samples = Array.from<number>({ length: n })
     const indexList = linearSpace(0, mat.rows - 1)

@@ -114,4 +114,11 @@ describe('Randomizer', () => {
     const result = Randomizer.samples(data, 2)
     expect(result).toHaveLength(2)
   })
+
+  test('samples rejects a negative or fractional count', () => {
+    const rng = new Randomizer(42)
+    const data = [[1, 2], [3, 4], [5, 6]]
+    expect(() => rng.samples(data, 1.5)).toThrow('The number of samples must be a non-negative integer')
+    expect(() => rng.samples(data, -1)).toThrow('The number of samples must be a non-negative integer')
+  })
 })
