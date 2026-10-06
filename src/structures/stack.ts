@@ -1,87 +1,60 @@
+import type { CapacityOptions } from '@interfaces/structure'
 import { ListStructure } from './base'
 
 /**
- * A stack data structure.
+ * A last-in, first-out stack.
+ * Iteration and `toArray()` go from the bottom of the stack to the top.
  * @template T The type of elements held in the stack.
  * @example
  * ```ts
  * import { Stack } from '@danyalwe/tools'
  *
- * const stack = new Stack<number>(5)
- * stack.push(1)
- * stack.push(2)
- * stack.pop()   // 2
- * stack.peek()  // 1
+ * const stack = new Stack([1, 2])
+ * stack.push(3)
+ * stack.pop()   // 3
+ * stack.peek()  // 2
+ *
+ * const bounded = new Stack<number>([], { capacity: 2 })
  * ```
  * @category Queues
  * @group Structures
  */
 export class Stack<T> extends ListStructure<T> {
   /**
-   * Creates a new stack with the specified size or elements.
-   * @param size The size of the stack or an array of elements to initialize the stack with.
+   * Creates a new stack.
+   * @param items The initial elements, from bottom to top.
+   * @param options The stack options.
+   * @throws A RangeError if the capacity is invalid or smaller than the number of items.
    */
-  constructor(size: number | T[]) {
-    super(size)
+  constructor(items?: Iterable<T>, options?: CapacityOptions) {
+    super(items, options)
   }
 
   /**
    * Adds an element to the top of the stack.
-   * @param element The element to add to the stack.
+   * @param element The element to add.
+   * @returns The stack instance.
    * @throws An error if the stack is full.
    */
   push(element: T) {
     if (this.isFull) throw new Error('Stack is full')
     this._data.push(element)
+    return this
   }
 
   /**
    * Removes and returns the element at the top of the stack.
-   * @returns The element at the top of the stack.
-   * @throws An error if the stack is empty.
+   * @returns The top element, or undefined if the stack is empty.
    */
   pop() {
-    if (this.isEmpty) throw new Error('Stack is empty')
     return this._data.pop()
   }
 
   /**
    * Returns the element at the top of the stack without removing it.
-   * @returns The element at the top of the stack.
+   * @returns The top element, or undefined if the stack is empty.
    */
   peek() {
-    return this._data[this._data.length - 1]
-  }
-
-  /**
-   * Returns the remaining space in the stack.
-   * @returns The remaining space in the stack.
-   */
-  get space() {
-    return this._capacity > 0 ? this._capacity - this.size() : Infinity
-  }
-
-  /**
-   * Returns true if the stack is empty, false otherwise.
-   * @returns True if the stack is empty, false otherwise.
-   */
-  get isEmpty() {
-    return this.size() === 0
-  }
-
-  /**
-   * Returns true if the stack is full, false otherwise.
-   * @returns True if the stack is full, false otherwise.
-   */
-  get isFull() {
-    return this._capacity > 0 && this.size() >= this._capacity
-  }
-
-  /**
-   * Returns true if the stack has room for more elements, false otherwise.
-   * @returns True if the stack has room for more elements, false otherwise.
-   */
-  get hasRoom() {
-    return !this.isFull
+    return this._data.at(-1)
   }
 }

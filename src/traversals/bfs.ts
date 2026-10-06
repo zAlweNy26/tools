@@ -1,9 +1,9 @@
-import type { Graph } from '@structures/graph'
+import type { GraphStructure } from '@structures/base'
 import { Queue } from '@structures/queue'
 
 /**
  * Performs a breadth-first search traversal on a graph.
- * @param graph The graph to traverse.
+ * @param graph The graph to traverse: any of `Graph`, `DirectedGraph`, `WeightedGraph` or `WeightedDirectedGraph`.
  * @returns An array of nodes in BFS order, starting from the first node and then from each unvisited node in insertion order.
  * @example
  * ```ts
@@ -16,7 +16,7 @@ import { Queue } from '@structures/queue'
  * ```
  * @group Traversals
  */
-export function breadthFirstSearch<T>(graph: Graph<T>) {
+export function breadthFirstSearch<T>(graph: GraphStructure<T, unknown>) {
   const visited = new Set<T>()
   const result: T[] = []
 
@@ -26,9 +26,9 @@ export function breadthFirstSearch<T>(graph: Graph<T>) {
     visited.add(root)
     const queue = new Queue<T>([root])
     while (!queue.isEmpty) {
-      const node = queue.dequeue()
+      const node = queue.dequeue() as T
       result.push(node)
-      for (const neighbor of graph.getEdges(node)) {
+      for (const neighbor of graph.neighbors(node)!) {
         if (visited.has(neighbor)) continue
         visited.add(neighbor)
         queue.enqueue(neighbor)

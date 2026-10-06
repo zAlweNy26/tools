@@ -1,12 +1,13 @@
 import { DirectedGraph } from '@structures/directed_graph'
+import { Graph } from '@structures/graph'
 import { describe, expect, test } from 'bun:test'
 
 describe('DirectedGraph', () => {
   test('add nodes via edges', () => {
     const g = new DirectedGraph<string>('A')
-    expect(g.size()).toBe(1)
+    expect(g.size).toBe(1)
     g.addEdge('A', 'B')
-    expect(g.size()).toBe(2)
+    expect(g.size).toBe(2)
     expect(g.hasNode('B')).toBeTrue()
   })
 
@@ -87,14 +88,14 @@ describe('DirectedGraph', () => {
     const g = new DirectedGraph<string>('A')
     g.addNode('B')
     expect(g.hasNode('B')).toBeTrue()
-    expect(g.size()).toBe(2)
+    expect(g.size).toBe(2)
     expect(g.getEdges('B')).toEqual([])
   })
 
   test('addNode does nothing for existing node', () => {
     const g = new DirectedGraph<string>('A')
     g.addNode('A')
-    expect(g.size()).toBe(1)
+    expect(g.size).toBe(1)
   })
 
   test('nodes getter', () => {
@@ -109,29 +110,51 @@ describe('DirectedGraph', () => {
     expect(() => g.addEdge('Z', 'A')).toThrow('First node not found')
   })
 
-  test('removeEdge throws for unknown node', () => {
+  test('removeEdge returns false for an unknown node', () => {
     const g = new DirectedGraph<string>('A')
-    expect(() => g.removeEdge('Z', 'A')).toThrow('Node not found')
+    expect(g.removeEdge('Z', 'A')).toBeFalse()
   })
 
-  test('removeEdge throws for non-existent edge', () => {
+  test('removeEdge returns false for a missing edge', () => {
     const g = new DirectedGraph<string>('A')
     g.addEdge('A', 'B')
-    expect(() => g.removeEdge('A', 'C')).toThrow('Edge not found')
+    expect(g.removeEdge('A', 'C')).toBeFalse()
   })
 
-  test('removeNode throws for unknown node', () => {
+  test('removeNode returns false for an unknown node', () => {
     const g = new DirectedGraph<string>('A')
-    expect(() => g.removeNode('Z')).toThrow('Node not found')
+    expect(g.removeNode('Z')).toBeFalse()
   })
 
-  test('isAdjacent throws for unknown node', () => {
+  test('isAdjacent returns false for an unknown node', () => {
     const g = new DirectedGraph<string>('A')
-    expect(() => g.isAdjacent('Z', 'A')).toThrow('First node not found')
+    expect(g.isAdjacent('Z', 'A')).toBeFalse()
   })
 
-  test('getEdges throws for unknown node', () => {
+  test('getEdges returns undefined for an unknown node', () => {
     const g = new DirectedGraph<string>('A')
-    expect(() => g.getEdges('Z')).toThrow('Node not found')
+    expect(g.getEdges('Z')).toBeUndefined()
+  })
+
+  test('is a separate class from the undirected Graph', () => {
+    const g = new DirectedGraph<string>('A')
+    expect(g).not.toBeInstanceOf(Graph)
+    expect(g.directed).toBeTrue()
+  })
+
+  test('removeEdge only removes the given direction', () => {
+    const g = new DirectedGraph<string>('A')
+    g.addEdge('A', 'B').addEdge('B', 'A')
+    expect(g.removeEdge('A', 'B')).toBeTrue()
+    expect(g.isAdjacent('A', 'B')).toBeFalse()
+    expect(g.isAdjacent('B', 'A')).toBeTrue()
+  })
+
+  test('removeNode also removes incoming edges', () => {
+    const g = new DirectedGraph<string>('A')
+    g.addEdge('A', 'B').addEdge('B', 'C')
+    expect(g.removeNode('B')).toBeTrue()
+    expect(g.neighbors('A')).toEqual([])
+    expect(g.nodes).toEqual(['A', 'C'])
   })
 })

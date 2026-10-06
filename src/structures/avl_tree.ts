@@ -44,9 +44,9 @@ export class AVLNode<T> extends BSTNode<T> {
  * ```ts
  * import { AVLTree } from '@danyalwe/tools'
  *
- * const tree = new AVLTree<number>()
- * tree.insert(3).insert(1).insert(2)
- * tree.traverse() // [1, 2, 3]
+ * const tree = new AVLTree([3, 1, 2])
+ * tree.toArray() // [1, 2, 3]
+ * tree.height    // 1
  * ```
  * @category Trees
  * @group Structures
@@ -159,12 +159,12 @@ export class AVLTree<T> extends BinarySearchTree<T> {
   /**
    * Removes a value from the AVL tree and rebalances it.
    * @param value The value to remove.
-   * @returns The tree instance.
-   * @throws An error if the value is not found.
+   * @returns True if the value was found and removed, false otherwise.
    */
   delete(value: T) {
+    if (!this.contains(value)) return false
     this._root = this._delete(this._root, value)
-    return this
+    return true
   }
 
   /**

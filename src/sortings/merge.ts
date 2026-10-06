@@ -1,7 +1,11 @@
+import type { Comparator } from '@interfaces/structure'
+import { defaultCompare } from '@utils/compare'
+
 /**
  * Sorts an array using the merge sort algorithm.
- * @param array The array to be sorted.
- * @returns The sorted array.
+ * @param array The array to be sorted. It is not modified.
+ * @param compare The comparator deciding the order. Defaults to {@link defaultCompare}.
+ * @returns A new sorted array.
  * @example
  * ```ts
  * import { mergeSort } from '@danyalwe/tools'
@@ -11,27 +15,21 @@
  * ```
  * @group Sortings
  */
-export function mergeSort<T>(array: T[]): T[] {
-  if (array.length <= 1) return array
+export function mergeSort<T>(array: T[], compare: Comparator<T> = defaultCompare): T[] {
+  if (array.length <= 1) return [...array]
 
   const middle = Math.floor(array.length / 2)
-
-  let left = array.slice(0, middle)
-  let right = array.slice(middle)
-
-  left = mergeSort(left)
-  right = mergeSort(right)
-
-  return merge(left, right)
+  return merge(mergeSort(array.slice(0, middle), compare), mergeSort(array.slice(middle), compare), compare)
 }
 
-function merge<T>(left: T[], right: T[]) {
+function merge<T>(left: T[], right: T[], compare: Comparator<T>) {
   const result: T[] = []
   let li = 0, ri = 0
   const ll = left.length, rl = right.length
 
   while (li < ll && ri < rl)
-    result.push(left[li] <= right[ri] ? left[li++] : right[ri++])
+    // taking from the left on ties keeps the sort stable
+    result.push(compare(left[li], right[ri]) <= 0 ? left[li++] : right[ri++])
 
   while (li < ll) result.push(left[li++])
   while (ri < rl) result.push(right[ri++])

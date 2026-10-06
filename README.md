@@ -54,12 +54,12 @@ Full API reference at [alwe.dev/tools](https://alwe.dev/tools).
 
 | Group | Description |
 |-------|-------------|
-| **Structures** | Stack, Queue, CircularQueue, FixedArray, LinkedList, DoublyLinkedList, Tree, BST, Heap, Matrix, Graph, DirectedGraph, WeightedGraph, WeightedDirectedGraph |
+| **Structures** | Stack, Queue, CircularQueue, FixedArray, LinkedList, DoublyLinkedList, Tree, BinarySearchTree, AVLTree, Heap, IndexedMinHeap, Matrix, Graph, DirectedGraph, WeightedGraph, WeightedDirectedGraph |
 | **Sortings** | Bubble, Counting, Insertion, Merge, Quick, Selection |
 | **Distances** | Angular, Canberra, Chebyshev, Cosine, Euclidean, EuclideanSquared, EuclideanWeighted, Hamming, Manhattan, Minkowski, Pearson |
 | **Traversals** | BFS, DFS, Kruskal's MST, Tree traversals |
 | **Dimensionality Reduction** | t-SNE |
-| **Utils** | Randomizer (Mersenne Twister), pipe, measureTime, linearSpace, tryCatch |
+| **Utils** | Randomizer (Mersenne Twister), defaultCompare, pipe, measureTime, measure, linearSpace, tryCatch |
 
 ## To-do
 

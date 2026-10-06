@@ -1,92 +1,92 @@
-import { Queue } from './queue'
+import { ListStructure } from './base'
 
 /**
- * A circular queue data structure.
+ * A fixed-capacity queue backed by a ring buffer.
+ * When full, enqueueing overwrites the oldest element instead of throwing.
+ * Iteration and `toArray()` go from the front of the queue to the back.
  * @template T The type of elements held in the queue.
  * @example
  * ```ts
  * import { CircularQueue } from '@danyalwe/tools'
  *
- * const cq = new CircularQueue<number>(3)
- * cq.enqueue(1)
- * cq.enqueue(2)
- * cq.enqueue(3)
+ * const cq = new CircularQueue<number>(3, [1, 2, 3])
  * cq.enqueue(4) // overwrites the oldest (1)
  * cq.peek()     // 2
+ * cq.toArray()  // [2, 3, 4]
  * ```
  * @category Queues
  * @group Structures
  */
-export class CircularQueue<T> extends Queue<T> {
+export class CircularQueue<T> extends ListStructure<T> {
+  private _head = 0
+  private _count = 0
+
   /**
-   * Creates a new instance of the CircularQueue class.
-   * @param size The maximum size of the queue, or an array of elements to initialize the queue with.
-   * @throws An error if the resulting capacity is not positive.
+   * Creates a new circular queue.
+   * @param capacity The number of elements the queue holds before it starts overwriting.
+   * @param items The initial elements, from front to back. Only the last `capacity` of them are kept.
+   * @throws A RangeError if the capacity is not a positive integer.
    */
-  constructor(size: number | T[]) {
-    super(size)
-    if (!(typeof size === 'number'))
-      this._capacity = size.length
-    if (this._capacity <= 0) throw new Error('Capacity must be greater than 0')
+  constructor(capacity: number, items: Iterable<T> = []) {
+    if (capacity === Infinity) throw new RangeError('Capacity must be finite')
+    super([], { capacity })
+    for (const item of items) this.enqueue(item)
   }
 
   /**
-   * Adds an element to the end of the queue.
-   * @param element The element to add to the queue.
+   * Adds an element to the back of the queue, overwriting the oldest element if the queue is full.
+   * @param element The element to add.
+   * @returns The queue instance.
    */
   enqueue(element: T) {
-    if (this.isFull) this._head++
-    this._data[this._tail % this._capacity] = element
-    this._tail++
+    this._data[(this._head + this._count) % this._capacity] = element
+    if (this.isFull) this._head = (this._head + 1) % this._capacity
+    else this._count++
+    return this
   }
 
   /**
    * Removes and returns the element at the front of the queue.
-   * @returns The element at the front of the queue.
-   * @throws An error if the queue is empty.
+   * @returns The front element, or undefined if the queue is empty.
    */
   dequeue() {
-    if (this.isEmpty) throw new Error('Queue is empty')
-    const item = this._data[this._head % this._capacity]
-    delete this._data[this._head % this._capacity]
-    this._head++
+    if (this.isEmpty) return undefined
+    const item = this._data[this._head]
+    this._data[this._head] = undefined as T
+    this._head = (this._head + 1) % this._capacity
+    this._count--
     return item
   }
 
   /**
    * Returns the element at the front of the queue without removing it.
-   * @returns The element at the front of the queue or undefined if the queue is empty.
+   * @returns The front element, or undefined if the queue is empty.
    */
   peek() {
-    if (this.isEmpty) return undefined
-    return this._data[this._head % this._capacity]
+    return this.isEmpty ? undefined : this._data[this._head]
   }
 
   /**
-   * An array of all the elements in the queue, from front to back.
+   * The number of elements in the queue.
    */
-  get items() {
-    return Array.from({ length: this.size() }, (_, i) => this._data[(this._head + i) % this._capacity])
+  get size() {
+    return this._count
   }
 
   /**
-   * Returns the number of available spaces in the queue.
+   * Removes every element.
+   * @returns The queue instance.
    */
-  get space() {
-    return this._capacity - this.size()
+  clear() {
+    this._head = 0
+    this._count = 0
+    return super.clear()
   }
 
   /**
-   * Returns whether the queue is full.
+   * Returns the elements, from front to back, as a new array.
    */
-  get isFull() {
-    return this._capacity > 0 && this.size() >= this._capacity
-  }
-
-  /**
-   * Returns whether the queue is empty.
-   */
-  get isEmpty() {
-    return this.size() === 0
+  toArray() {
+    return Array.from({ length: this._count }, (_, i) => this._data[(this._head + i) % this._capacity])
   }
 }

@@ -1,7 +1,11 @@
+import type { Comparator } from '@interfaces/structure'
+import { defaultCompare } from '@utils/compare'
+
 /**
  * Sorts an array using the selection sort algorithm.
- * @param array The array to be sorted.
- * @returns The sorted array.
+ * @param array The array to be sorted. It is not modified.
+ * @param compare The comparator deciding the order. Defaults to {@link defaultCompare}.
+ * @returns A new sorted array.
  * @example
  * ```ts
  * import { selectionSort } from '@danyalwe/tools'
@@ -11,15 +15,13 @@
  * ```
  * @group Sortings
  */
-export function selectionSort<T>(array: T[]) {
-  if (array.length <= 1) return array
-
+export function selectionSort<T>(array: T[], compare: Comparator<T> = defaultCompare): T[] {
   const result = [...array]
 
   for (let i = 0; i < result.length - 1; i++) {
     let minIdx = i
     for (let j = i + 1; j < result.length; j++) {
-      if (result[j] < result[minIdx])
+      if (compare(result[j], result[minIdx]) < 0)
         minIdx = j
     }
     if (minIdx !== i) [result[i], result[minIdx]] = [result[minIdx], result[i]]

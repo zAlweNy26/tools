@@ -56,11 +56,12 @@ export class TreeLeaf<T> extends TreeNode<T> {
 
 /**
  * Represents a tree data structure.
+ * Iteration and `toArray()` visit the nodes in pre-order.
  * @template T The type of data stored in the tree.
  * @category Trees
  * @group Structures
  */
-export class Tree<T> implements Structure {
+export class Tree<T> implements Structure<T> {
   /** The root node of the tree. */
   root!: TreeLeaf<T>
 
@@ -123,12 +124,34 @@ export class Tree<T> implements Structure {
   }
 
   /**
-   * Returns the total number of nodes in the tree.
+   * The total number of nodes in the tree.
    */
-  size() {
+  get size() {
     const count = (node: TreeLeaf<T>): number => {
       return 1 + node.children.reduce((sum, child) => sum + count(child), 0)
     }
     return count(this.root)
+  }
+
+  /**
+   * Always false, since a tree always has a root.
+   */
+  get isEmpty() {
+    return false
+  }
+
+  /**
+   * Returns the values in pre-order as a new array.
+   */
+  toArray() {
+    return this.traverse('pre')
+  }
+
+  /**
+   * Iterates over the values in pre-order.
+   * @returns An iterator over the values.
+   */
+  [Symbol.iterator](): Iterator<T> {
+    return this.toArray()[Symbol.iterator]()
   }
 }

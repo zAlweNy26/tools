@@ -1,32 +1,40 @@
-import type { Structure } from '@interfaces/structure'
+import type { Comparator, CompareOptions, Structure } from '@interfaces/structure'
+import { defaultCompare } from '@utils/compare'
 
 /**
- * A binary heap data structure.
+ * A binary heap. The element that sorts first according to the comparator is always on top,
+ * so the default comparator gives a min-heap.
+ * Iteration and `toArray()` yield the elements in internal heap order, not sorted order.
  * @template T The type of elements held in the heap.
  * @example
  * ```ts
  * import { Heap } from '@danyalwe/tools'
  *
- * const heap = new Heap<number>()
- * heap.insert(3).insert(1).insert(2)
+ * const heap = new Heap([3, 1, 2])
  * heap.peek()    // 1
  * heap.extract() // 1
  * heap.extract() // 2
+ *
+ * const maxHeap = new Heap([3, 1, 2], { compare: (a, b) => b - a })
+ * maxHeap.peek() // 3
  * ```
  * @category Heaps
  * @group Structures
  */
-export class Heap<T> implements Structure {
-  private _data: T[] = []
-  private _compare: (a: T, b: T) => boolean
+export class Heap<T> implements Structure<T> {
+  private _data: T[]
+  private readonly _compare: Comparator<T>
 
   /**
-   * Creates a new heap with an optional comparator function.
-   * Default is a min-heap (`(a, b) => a < b`).
-   * @param compare A comparator function that returns true if `a` should be above `b`.
+   * Creates a new heap.
+   * @param items The initial elements.
+   * @param options The heap options.
    */
-  constructor(compare: (a: T, b: T) => boolean = (a, b) => a < b) {
-    this._compare = compare
+  constructor(items: Iterable<T> = [], options: CompareOptions<T> = {}) {
+    this._compare = options.compare ?? defaultCompare
+    this._data = [...items]
+    // heapify bottom-up in O(n)
+    for (let i = (this._data.length >> 1) - 1; i >= 0; i--) this._sinkDown(i)
   }
 
   /**
@@ -73,9 +81,9 @@ export class Heap<T> implements Structure {
   }
 
   /**
-   * Returns the number of elements in the heap.
+   * The number of elements in the heap.
    */
-  size() {
+  get size() {
     return this._data.length
   }
 
@@ -87,16 +95,24 @@ export class Heap<T> implements Structure {
   }
 
   /**
-   * Returns a copy of the internal data array.
+   * Returns the elements, in internal heap order, as a new array.
    */
-  get items() {
+  toArray() {
     return [...this._data]
+  }
+
+  /**
+   * Iterates over the elements in internal heap order.
+   * @returns An iterator over the elements.
+   */
+  [Symbol.iterator](): Iterator<T> {
+    return this.toArray()[Symbol.iterator]()
   }
 
   private _bubbleUp(index: number) {
     while (index > 0) {
       const parent = (index - 1) >> 1
-      if (!this._compare(this._data[index], this._data[parent])) break
+      if (this._compare(this._data[index], this._data[parent]) >= 0) break
       this._swap(index, parent)
       index = parent
     }
@@ -109,9 +125,9 @@ export class Heap<T> implements Structure {
       const right = left + 1
       let smallest = index
 
-      if (left < n && this._compare(this._data[left], this._data[smallest]))
+      if (left < n && this._compare(this._data[left], this._data[smallest]) < 0)
         smallest = left
-      if (right < n && this._compare(this._data[right], this._data[smallest]))
+      if (right < n && this._compare(this._data[right], this._data[smallest]) < 0)
         smallest = right
 
       if (smallest === index) break

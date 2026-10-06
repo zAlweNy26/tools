@@ -2,71 +2,27 @@ import { CircularQueue } from '@structures/circular_queue'
 import { describe, expect, test } from 'bun:test'
 
 describe('CircularQueue', () => {
-  test('basic enqueue, dequeue', () => {
+  test('enqueue and dequeue follow first-in, first-out order', () => {
     const cq = new CircularQueue<number>(3)
-    cq.enqueue(1)
-    cq.enqueue(2)
-    cq.enqueue(3)
-    expect(cq.size()).toBe(3)
-    expect(cq.isFull).toBeTrue()
-
+    cq.enqueue(1).enqueue(2)
     expect(cq.dequeue()).toBe(1)
-    expect(cq.size()).toBe(2)
-    expect(cq.isFull).toBeFalse()
-  })
-
-  test('wrap-around overwrites oldest', () => {
-    const cq = new CircularQueue<number>(3)
-    cq.enqueue(1)
-    cq.enqueue(2)
-    cq.enqueue(3)
-    cq.enqueue(4)
-    expect(cq.size()).toBe(3)
     expect(cq.dequeue()).toBe(2)
-    expect(cq.dequeue()).toBe(3)
-    expect(cq.dequeue()).toBe(4)
     expect(cq.isEmpty).toBeTrue()
   })
 
-  test('wrap-around after dequeue', () => {
-    const cq = new CircularQueue<number>(3)
-    cq.enqueue(1)
-    cq.enqueue(2)
-    expect(cq.dequeue()).toBe(1)
-    cq.enqueue(3)
-    cq.enqueue(4)
-    expect(cq.size()).toBe(3)
-    expect(cq.isFull).toBeTrue()
-    expect(cq.dequeue()).toBe(2)
-    expect(cq.dequeue()).toBe(3)
-    expect(cq.dequeue()).toBe(4)
-  })
-
-  test('empty throws', () => {
+  test('dequeue and peek return undefined when empty', () => {
     const cq = new CircularQueue<number>(2)
-    expect(() => cq.dequeue()).toThrow('Queue is empty')
+    expect(cq.dequeue()).toBeUndefined()
+    expect(cq.peek()).toBeUndefined()
   })
 
-  test('array init', () => {
-    const cq = new CircularQueue<number>([10, 20, 30])
-    expect(cq.size()).toBe(3)
+  test('enqueueing when full overwrites the oldest element', () => {
+    const cq = new CircularQueue<number>(3)
+    for (const v of [1, 2, 3, 4, 5]) cq.enqueue(v)
+    expect(cq.size).toBe(3)
     expect(cq.isFull).toBeTrue()
-    expect(cq.dequeue()).toBe(10)
-    cq.enqueue(40)
-    expect(cq.dequeue()).toBe(20)
-    expect(cq.dequeue()).toBe(30)
-    expect(cq.dequeue()).toBe(40)
-  })
-
-  test('space getter', () => {
-    const cq = new CircularQueue<number>(4)
-    expect(cq.space).toBe(4)
-    cq.enqueue(1)
-    expect(cq.space).toBe(3)
-    cq.enqueue(2)
-    cq.enqueue(3)
-    cq.enqueue(4)
-    expect(cq.space).toBe(0)
+    expect(cq.toArray()).toEqual([3, 4, 5])
+    expect([...cq]).toEqual([3, 4, 5])
   })
 
   test('peek returns the front element after wraparound', () => {
@@ -77,14 +33,34 @@ describe('CircularQueue', () => {
     expect(cq.peek()).toBe(4)
   })
 
-  test('items are in queue order after wraparound', () => {
-    const cq = new CircularQueue<number>(3)
-    for (const v of [1, 2, 3, 4, 5]) cq.enqueue(v)
-    expect(cq.items).toEqual([3, 4, 5])
+  test('keeps order across many interleaved operations', () => {
+    const cq = new CircularQueue<number>(4)
+    const expected: number[] = []
+    for (let i = 0; i < 50; i++) {
+      cq.enqueue(i)
+      expected.push(i)
+      if (expected.length > 4) expected.shift()
+      if (i % 3 === 0) expect(cq.dequeue()).toBe(expected.shift())
+    }
+    expect(cq.toArray()).toEqual(expected)
   })
 
-  test('throws for a non-positive capacity', () => {
+  test('initial items keep only the last `capacity` elements', () => {
+    const cq = new CircularQueue(2, [10, 20, 30])
+    expect(cq.toArray()).toEqual([20, 30])
+    expect(cq.capacity).toBe(2)
+  })
+
+  test('clear removes every element and returns the queue', () => {
+    const cq = new CircularQueue(3, [1, 2, 3])
+    expect(cq.clear()).toBe(cq)
+    expect(cq.size).toBe(0)
+    cq.enqueue(7)
+    expect(cq.toArray()).toEqual([7])
+  })
+
+  test('throws for an invalid capacity', () => {
     expect(() => new CircularQueue<number>(0)).toThrow('Capacity must be greater than 0')
-    expect(() => new CircularQueue<number>([])).toThrow('Capacity must be greater than 0')
+    expect(() => new CircularQueue<number>(Infinity)).toThrow('Capacity must be finite')
   })
 })

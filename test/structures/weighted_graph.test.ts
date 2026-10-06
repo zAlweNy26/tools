@@ -6,7 +6,7 @@ describe('WeightedGraph', () => {
     const g = new WeightedGraph<string>('A')
     g.addEdge('A', 'B', 5)
     g.addEdge('A', 'C', 10)
-    expect(g.size()).toBe(3)
+    expect(g.size).toBe(3)
     expect(g.hasNode('B')).toBeTrue()
   })
 
@@ -14,7 +14,7 @@ describe('WeightedGraph', () => {
     const g = new WeightedGraph<string>('A')
     g.addEdge('A', 'B', 5)
     g.addEdge('A', 'C', 10)
-    const edges = g.getEdges('A')
+    const edges = g.getEdges('A')!
     expect(edges.length).toBe(2)
     expect(edges[0]).toEqual(['B', 5])
     expect(edges[1]).toEqual(['C', 10])
@@ -84,41 +84,41 @@ describe('WeightedGraph', () => {
     expect(() => g.addEdge('Z', 'A')).toThrow('First node not found')
   })
 
-  test('removeEdge throws for unknown node', () => {
+  test('removeEdge returns false for an unknown node', () => {
     const g = new WeightedGraph<string>('A')
-    expect(() => g.removeEdge('Z', 'A')).toThrow('Node not found')
+    expect(g.removeEdge('Z', 'A')).toBeFalse()
   })
 
-  test('removeEdge throws for non-existent edge', () => {
+  test('removeEdge returns false for a missing edge', () => {
     const g = new WeightedGraph<string>('A')
     g.addEdge('A', 'B', 5)
-    expect(() => g.removeEdge('A', 'C')).toThrow('Edge not found')
+    expect(g.removeEdge('A', 'C')).toBeFalse()
   })
 
-  test('removeNode throws for unknown node', () => {
+  test('removeNode returns false for an unknown node', () => {
     const g = new WeightedGraph<string>('A')
-    expect(() => g.removeNode('Z')).toThrow('Node not found')
+    expect(g.removeNode('Z')).toBeFalse()
   })
 
-  test('isAdjacent throws for unknown first node', () => {
+  test('isAdjacent returns false for an unknown node', () => {
     const g = new WeightedGraph<string>('A')
-    expect(() => g.isAdjacent('Z', 'A')).toThrow('First node not found')
+    expect(g.isAdjacent('Z', 'A')).toBeFalse()
   })
 
-  test('getEdges throws for unknown node', () => {
+  test('getEdges returns undefined for an unknown node', () => {
     const g = new WeightedGraph<string>('A')
-    expect(() => g.getEdges('Z')).toThrow('Node not found')
+    expect(g.getEdges('Z')).toBeUndefined()
   })
 
-  test('getWeight throws for unknown first node', () => {
+  test('getWeight returns undefined for an unknown first node', () => {
     const g = new WeightedGraph<string>('A')
-    expect(() => g.getWeight('Z', 'A')).toThrow('First node not found')
+    expect(g.getWeight('Z', 'A')).toBeUndefined()
   })
 
-  test('getWeight throws for unknown second node', () => {
+  test('getWeight returns undefined when nodes are not adjacent', () => {
     const g = new WeightedGraph<string>('A')
     g.addEdge('A', 'B', 5)
-    expect(() => g.getWeight('A', 'Z')).toThrow('Second node not found')
+    expect(g.getWeight('A', 'Z')).toBeUndefined()
   })
 
   test('hasCycle on line graph', () => {
@@ -149,8 +149,16 @@ describe('WeightedGraph', () => {
   test('getEdges returns copies of the edge tuples', () => {
     const g = new WeightedGraph<number>(1)
     g.addEdge(1, 2, 5)
-    g.getEdges(1)[0][1] = 99
+    g.getEdges(1)![0][1] = 99
     expect(g.getWeight(1, 2)).toBe(5)
     expect(g.getWeight(2, 1)).toBe(5)
+  })
+
+  test('getWeight sums a path and returns undefined for a broken one', () => {
+    const g = new WeightedGraph<string>('A')
+    g.addEdge('A', 'B', 5).addEdge('B', 'C', 3)
+    expect(g.getWeight('A', 'B', 'C')).toBe(8)
+    expect(g.getWeight('C', 'B', 'A')).toBe(8)
+    expect(g.getWeight('A', 'C')).toBeUndefined()
   })
 })

@@ -30,6 +30,7 @@ $ deno add @danyalwe/tools
 
 ```ts
 import {
+  Heap,
   Stack,
   Queue,
   FixedArray,
@@ -49,21 +50,32 @@ import {
 } from '@danyalwe/tools'
 ```
 
+## Conventions
+
+Every structure follows the same rules:
+
+- **Shared API**: `size` and `isEmpty` properties, `clear()` (which returns the structure), `toArray()`, and `for...of` iteration.
+- **Constructors**: collections take `(items?, options?)`, like `new Set(iterable)`. Options hold `capacity` for Stack and Queue, or `compare` for ordered structures.
+- **Comparators**: anything that orders elements accepts an `Array.prototype.sort`-style comparator, `(a, b) => number`. The default, `defaultCompare`, orders numbers and strings.
+- **Missing vs invalid**: reading or removing something that isn't there returns `undefined` (or `false` for removals), e.g. `pop()` on an empty stack. Invalid input throws, e.g. an out-of-range index or pushing onto a full stack.
+
 ## Data Structures
 
 ```ts
 // Stack
-const stack = new Stack<number>(5)
-stack.push(1)
-stack.push(2)
-stack.pop() // 2
-stack.peek() // 1
+const stack = new Stack([1, 2])
+stack.push(3)
+stack.pop() // 3
+stack.peek() // 2
 
-// Queue
-const queue = new Queue<string>(5)
-queue.enqueue('a')
-queue.enqueue('b')
+// Queue, limited to 5 elements
+const queue = new Queue<string>([], { capacity: 5 })
+queue.enqueue('a').enqueue('b')
 queue.dequeue() // 'a'
+
+// Heap with a custom comparator (max-heap)
+const heap = new Heap([3, 1, 2], { compare: (a, b) => b - a })
+heap.peek() // 3
 
 // FixedArray
 const arr = new FixedArray<number>(3)

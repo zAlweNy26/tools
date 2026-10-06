@@ -113,12 +113,12 @@ describe('Tree', () => {
 
   test('size counts all nodes', () => {
     const tree = buildTestTree()
-    expect(tree.size()).toBe(6)
+    expect(tree.size).toBe(6)
   })
 
   test('size is 1 for single node tree', () => {
     const tree = new Tree(1)
-    expect(tree.size()).toBe(1)
+    expect(tree.size).toBe(1)
   })
 
   test('clear removes children, preserves root data', () => {
@@ -126,7 +126,17 @@ describe('Tree', () => {
     tree.clear()
     expect(tree.root.data).toBe(1)
     expect(tree.root.children).toEqual([])
-    expect(tree.size()).toBe(1)
+    expect(tree.size).toBe(1)
     expect(tree.height).toBe(0)
+  })
+
+  test('toArray and iteration visit the nodes in pre-order', () => {
+    const tree = new Tree(1)
+    const node2 = tree.root.push(2)
+    tree.root.push(3)
+    node2.push(4)
+    expect(tree.toArray()).toEqual([1, 2, 4, 3])
+    expect([...tree]).toEqual([1, 2, 4, 3])
+    expect(tree.isEmpty).toBeFalse()
   })
 })

@@ -19,22 +19,21 @@ describe('ListNode', () => {
 describe('LinkedList', () => {
   test('empty constructor creates an empty list', () => {
     const list = new LinkedList<number>()
-    expect(list.size()).toBe(0)
+    expect(list.size).toBe(0)
     expect(list.isEmpty).toBeTrue()
-    expect(list.head).toBeNull()
     expect(list.toArray()).toEqual([])
   })
 
   test('constructor from iterable initialises list', () => {
     const list = new LinkedList([1, 2, 3])
-    expect(list.size()).toBe(3)
+    expect(list.size).toBe(3)
     expect(list.toArray()).toEqual([1, 2, 3])
   })
 
   test('append adds elements to the end', () => {
     const list = new LinkedList<number>()
     list.append(1).append(2).append(3)
-    expect(list.size()).toBe(3)
+    expect(list.size).toBe(3)
     expect(list.toArray()).toEqual([1, 2, 3])
   })
 
@@ -53,8 +52,8 @@ describe('LinkedList', () => {
   test('prepend works on empty list', () => {
     const list = new LinkedList<number>()
     list.prepend(1)
-    expect(list.size()).toBe(1)
-    expect(list.head!.data).toBe(1)
+    expect(list.size).toBe(1)
+    expect(list.getAt(0)).toBe(1)
   })
 
   test('insertAt inserts at a specific index', () => {
@@ -77,7 +76,7 @@ describe('LinkedList', () => {
 
   test('insertAt throws on negative index', () => {
     const list = new LinkedList([1, 2])
-    expect(() => list.insertAt(-1, 0)).toThrow('Index out of bounds')
+    expect(() => list.insertAt(-1, 0)).toThrow(RangeError)
   })
 
   test('insertAt throws on index greater than size', () => {
@@ -89,7 +88,7 @@ describe('LinkedList', () => {
     const list = new LinkedList([1, 2, 3])
     expect(list.deleteAt(1)).toBe(2)
     expect(list.toArray()).toEqual([1, 3])
-    expect(list.size()).toBe(2)
+    expect(list.size).toBe(2)
   })
 
   test('deleteAt removes head', () => {
@@ -121,7 +120,7 @@ describe('LinkedList', () => {
     const list = new LinkedList([1, 2, 3])
     expect(list.delete(2)).toBeTrue()
     expect(list.toArray()).toEqual([1, 3])
-    expect(list.size()).toBe(2)
+    expect(list.size).toBe(2)
   })
 
   test('delete removes head by value', () => {
@@ -154,23 +153,20 @@ describe('LinkedList', () => {
     expect(list.delete(1)).toBeFalse()
   })
 
-  test('find returns the node for existing data', () => {
-    const list = new LinkedList([1, 2, 3])
-    const node = list.find(2)
-    expect(node).toBeDefined()
-    expect(node!.data).toBe(2)
-    expect(node!.next).toBeDefined()
-    expect(node!.next!.data).toBe(3)
+  test('find returns the first value matching the predicate', () => {
+    const list = new LinkedList([1, 2, 3, 4])
+    expect(list.find(v => v > 1)).toBe(2)
+    expect(list.find((_, i) => i === 2)).toBe(3)
   })
 
-  test('find returns undefined for missing data', () => {
+  test('find returns undefined when nothing matches', () => {
     const list = new LinkedList([1, 2])
-    expect(list.find(99)).toBeUndefined()
+    expect(list.find(v => v > 9)).toBeUndefined()
   })
 
   test('find returns undefined on empty list', () => {
     const list = new LinkedList<number>()
-    expect(list.find(1)).toBeUndefined()
+    expect(list.find(() => true)).toBeUndefined()
   })
 
   test('getAt returns element at index', () => {
@@ -188,19 +184,18 @@ describe('LinkedList', () => {
 
   test('size returns correct count', () => {
     const list = new LinkedList<number>()
-    expect(list.size()).toBe(0)
+    expect(list.size).toBe(0)
     list.append(1)
-    expect(list.size()).toBe(1)
+    expect(list.size).toBe(1)
     list.append(2)
-    expect(list.size()).toBe(2)
+    expect(list.size).toBe(2)
   })
 
   test('clear empties the list', () => {
     const list = new LinkedList([1, 2, 3])
-    list.clear()
-    expect(list.size()).toBe(0)
+    expect(list.clear()).toBe(list)
+    expect(list.size).toBe(0)
     expect(list.isEmpty).toBeTrue()
-    expect(list.head).toBeNull()
     expect(list.toArray()).toEqual([])
   })
 
@@ -284,7 +279,7 @@ describe('LinkedList', () => {
   test('map on empty list returns empty list', () => {
     const list = new LinkedList<number>()
     const result = list.map(v => v * 2)
-    expect(result.size()).toBe(0)
+    expect(result.size).toBe(0)
   })
 
   test('filter keeps matching elements', () => {
@@ -296,7 +291,7 @@ describe('LinkedList', () => {
   test('filter on empty list returns empty list', () => {
     const list = new LinkedList<number>()
     const result = list.filter(() => true)
-    expect(result.size()).toBe(0)
+    expect(result.size).toBe(0)
   })
 
   test('reduce accumulates values', () => {
@@ -400,12 +395,8 @@ describe('LinkedList', () => {
     expect(list.every(() => false)).toBeTrue()
   })
 
-  test('head cannot be reassigned', () => {
+  test('does not expose its nodes', () => {
     const list = new LinkedList([1, 2])
-    expect(() => {
-      // @ts-expect-error head is read-only
-      list.head = null
-    }).toThrow()
-    expect(list.toArray()).toEqual([1, 2])
+    expect('head' in list).toBeFalse()
   })
 })

@@ -1,6 +1,7 @@
-import type { Structure } from '@interfaces/structure'
+import type { Comparator, CompareOptions, Structure } from '@interfaces/structure'
 import { TreeNode } from './base'
 import { heightOrder, inOrder, postOrder, preOrder } from '@traversals/tree'
+import { defaultCompare } from '@utils/compare'
 
 /**
  * A node in a binary search tree.
@@ -41,44 +42,28 @@ export class BSTNode<T> extends TreeNode<T> {
  * ```ts
  * import { BinarySearchTree } from '@danyalwe/tools'
  *
- * const bst = new BinarySearchTree<number>()
- * bst.insert(5).insert(3).insert(7)
+ * const bst = new BinarySearchTree([5, 3, 7])
  * bst.contains(3)  // true
- * bst.traverse()   // [3, 5, 7]
+ * bst.toArray()    // [3, 5, 7]
+ *
+ * const byLength = new BinarySearchTree(['ccc', 'a'], { compare: (a, b) => a.length - b.length })
  * ```
  * @category Trees
  * @group Structures
  */
-export class BinarySearchTree<T> implements Structure {
+export class BinarySearchTree<T> implements Structure<T> {
   protected _root: BSTNode<T> | null = null
   protected _size = 0
-  protected _compare: (a: T, b: T) => number
+  protected readonly _compare: Comparator<T>
 
   /**
-   * Creates a new binary search tree.
-   * @param compare A comparator function that returns a negative number if `a < b`,
-   *   zero if `a === b`, and a positive number if `a > b`.
-   *   Defaults to natural ordering via `<` and `>`, which works for numbers and strings.
+   * Creates a new binary search tree. Values that compare equal are stored once.
+   * @param items The initial values.
+   * @param options The tree options.
    */
-  constructor(compare?: (a: T, b: T) => number)
-  /**
-   * Creates a new binary search tree with initial values.
-   * @param values Optional iterable of values to insert into the tree.
-   */
-  constructor(values?: Iterable<T>)
-  /**
-   * Creates a new binary search tree with a comparator and initial values.
-   * @param compare A comparator function.
-   * @param values Optional iterable of values to insert into the tree.
-   */
-  constructor(compare: (a: T, b: T) => number, values: Iterable<T>)
-  constructor(compare?: ((a: T, b: T) => number) | Iterable<T>, values?: Iterable<T>) {
-    if (typeof compare === 'function') this._compare = compare
-    else this._compare = (a, b) => (a < b ? -1 : a > b ? 1 : 0)
-
-    const iterable = (typeof compare === 'function' ? values : compare) ?? null
-    if (iterable)
-      for (const v of iterable) this.insert(v)
+  constructor(items: Iterable<T> = [], options: CompareOptions<T> = {}) {
+    this._compare = options.compare ?? defaultCompare
+    for (const item of items) this.insert(item)
   }
 
   /**
@@ -125,13 +110,13 @@ export class BinarySearchTree<T> implements Structure {
   /**
    * Removes a value from the tree.
    * @param value The value to remove.
-   * @returns The tree instance.
-   * @throws An error if the value is not found.
+   * @returns True if the value was found and removed, false otherwise.
    */
   delete(value: T) {
+    if (!this.contains(value)) return false
     this._root = this._deleteNode(this._root, value)
     this._size--
-    return this
+    return true
   }
 
   private _deleteNode(node: BSTNode<T> | null, value: T): BSTNode<T> | null {
@@ -225,9 +210,9 @@ export class BinarySearchTree<T> implements Structure {
   }
 
   /**
-   * Returns the number of elements in the tree.
+   * The number of elements in the tree.
    */
-  size() {
+  get size() {
     return this._size
   }
 
@@ -246,9 +231,18 @@ export class BinarySearchTree<T> implements Structure {
   }
 
   /**
-   * Returns an in-order iterator over the tree values.
+   * Returns the values in order as a new array.
    */
-  * [Symbol.iterator]() {
+  toArray() {
+    return [...this]
+  }
+
+  /**
+   * Iterates over the values in order.
+   * @yields Each value, from smallest to largest.
+   * @returns An iterator over the values.
+   */
+  * [Symbol.iterator](): Generator<T, void, undefined> {
     const stack: BSTNode<T>[] = []
     let current = this._root
 

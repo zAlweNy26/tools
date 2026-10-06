@@ -20,7 +20,7 @@ describe('kruskal', () => {
     const g = new WeightedGraph<string>('A')
     const mst = kruskal(g)
     expect(mst.hasNode('A')).toBeTrue()
-    expect(mst.size()).toBe(1)
+    expect(mst.size).toBe(1)
   })
 
   test('handles disconnected graph', () => {
@@ -30,7 +30,7 @@ describe('kruskal', () => {
     g.removeEdge('A', 'C')
     g.addEdge('C', 'D', 2)
     const mst = kruskal(g)
-    expect(mst.size()).toBe(4)
+    expect(mst.size).toBe(4)
     expect(mst.hasCycle()).toBeFalse()
   })
 
