@@ -121,6 +121,12 @@ describe('BinarySearchTree', () => {
     expect(bst.traverse('height')).toEqual([8, 4, 12, 2, 6, 10, 14, 1])
   })
 
+  test('default comparator orders strings', () => {
+    const bst = new BinarySearchTree<string>(['b', 'a', 'c'])
+    expect(bst.size()).toBe(3)
+    expect(bst.traverse('in')).toEqual(['a', 'b', 'c'])
+  })
+
   test('clear', () => {
     const bst = new BinarySearchTree<number>()
     bst.insert(5).insert(3).insert(7)
