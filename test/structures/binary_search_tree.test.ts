@@ -46,7 +46,7 @@ describe('BSTNode', () => {
 describe('BinarySearchTree', () => {
   test('empty tree properties', () => {
     const bst = new BinarySearchTree<number>()
-    expect(bst.size()).toBe(0)
+    expect(bst.size).toBe(0)
     expect(bst.isEmpty).toBeTrue()
     expect(bst.min()).toBeUndefined()
     expect(bst.max()).toBeUndefined()
@@ -59,14 +59,14 @@ describe('BinarySearchTree', () => {
   test('insert and size', () => {
     const bst = new BinarySearchTree<number>()
     bst.insert(5).insert(3).insert(7)
-    expect(bst.size()).toBe(3)
+    expect(bst.size).toBe(3)
     expect(bst.isEmpty).toBeFalse()
   })
 
   test('insert duplicate replaces value', () => {
     const bst = new BinarySearchTree<number>()
     bst.insert(5).insert(5)
-    expect(bst.size()).toBe(1)
+    expect(bst.size).toBe(1)
     expect(bst.contains(5)).toBeTrue()
   })
 
@@ -122,36 +122,44 @@ describe('BinarySearchTree', () => {
 
   test('default comparator orders strings', () => {
     const bst = new BinarySearchTree<string>(['b', 'a', 'c'])
-    expect(bst.size()).toBe(3)
+    expect(bst.size).toBe(3)
     expect(bst.traverse('in')).toEqual(['a', 'b', 'c'])
   })
 
   test('search returns the stored value for a key-based comparator', () => {
     interface User { id: number, name: string }
-    const users = new BinarySearchTree<User>((a, b) => a.id - b.id, [{ id: 2, name: 'Bo' }, { id: 1, name: 'Al' }])
+    const users = new BinarySearchTree<User>([{ id: 2, name: 'Bo' }, { id: 1, name: 'Al' }], { compare: (a, b) => a.id - b.id })
     expect(users.search({ id: 2, name: '' })?.name).toBe('Bo')
+  })
+
+  test('toArray and iteration return the values in order', () => {
+    const bst = new BinarySearchTree([5, 3, 8, 1])
+    expect(bst.toArray()).toEqual([1, 3, 5, 8])
+    expect([...bst]).toEqual([1, 3, 5, 8])
   })
 
   test('clear', () => {
     const bst = new BinarySearchTree<number>()
     bst.insert(5).insert(3).insert(7)
     bst.clear()
-    expect(bst.size()).toBe(0)
+    expect(bst.size).toBe(0)
     expect(bst.isEmpty).toBeTrue()
     expect(bst.min()).toBeUndefined()
   })
 
   test('delete leaf node', () => {
     const bst = new BinarySearchTree<number>()
-    bst.insert(5).insert(3).insert(7).delete(3)
-    expect(bst.size()).toBe(2)
+    bst.insert(5).insert(3).insert(7)
+    bst.delete(3)
+    expect(bst.size).toBe(2)
     expect(bst.contains(3)).toBeFalse()
     expect(bst.traverse()).toEqual([5, 7])
   })
 
   test('delete node with one child', () => {
     const bst = new BinarySearchTree<number>()
-    bst.insert(5).insert(3).insert(4).delete(3)
+    bst.insert(5).insert(3).insert(4)
+    bst.delete(3)
     expect(bst.contains(3)).toBeFalse()
     expect(bst.contains(4)).toBeTrue()
     expect(bst.traverse()).toEqual([4, 5])
@@ -162,7 +170,7 @@ describe('BinarySearchTree', () => {
     bst.insert(5).insert(3).insert(7).insert(2).insert(4).insert(6).insert(8)
     bst.delete(3)
     expect(bst.contains(3)).toBeFalse()
-    expect(bst.size()).toBe(6)
+    expect(bst.size).toBe(6)
     expect(bst.traverse()).toEqual([2, 4, 5, 6, 7, 8])
   })
 
@@ -173,28 +181,30 @@ describe('BinarySearchTree', () => {
     expect(bst.contains(5)).toBeFalse()
     expect(bst.contains(3)).toBeTrue()
     expect(bst.contains(7)).toBeTrue()
-    expect(bst.size()).toBe(2)
+    expect(bst.size).toBe(2)
   })
 
-  test('delete non-existent throws', () => {
+  test('delete returns false for a missing value', () => {
     const bst = new BinarySearchTree<number>()
     bst.insert(5)
-    expect(() => bst.delete(99)).toThrow('Value not found')
+    expect(bst.delete(99)).toBeFalse()
+    expect(bst.delete(5)).toBeTrue()
+    expect(bst.size).toBe(0)
   })
 
   test('constructor with iterable', () => {
     const bst = new BinarySearchTree([3, 1, 2, 5, 4])
-    expect(bst.size()).toBe(5)
+    expect(bst.size).toBe(5)
     expect(bst.traverse()).toEqual([1, 2, 3, 4, 5])
   })
 
   test('constructor with iterable and comparator', () => {
-    const bst = new BinarySearchTree<string>((a, b) => a.localeCompare(b), ['c', 'a', 'b'])
+    const bst = new BinarySearchTree<string>(['c', 'a', 'b'], { compare: (a, b) => a.localeCompare(b) })
     expect(bst.traverse()).toEqual(['a', 'b', 'c'])
   })
 
   test('custom comparator (descending)', () => {
-    const bst = new BinarySearchTree<number>((a, b) => b - a)
+    const bst = new BinarySearchTree<number>([], { compare: (a, b) => b - a })
     bst.insert(3).insert(1).insert(2)
     expect(bst.traverse()).toEqual([3, 2, 1])
   })
@@ -202,13 +212,6 @@ describe('BinarySearchTree', () => {
   test('fluent insert returns this', () => {
     const bst = new BinarySearchTree<number>()
     const ret = bst.insert(1)
-    expect(ret).toBe(bst)
-  })
-
-  test('fluent delete returns this', () => {
-    const bst = new BinarySearchTree<number>()
-    bst.insert(1)
-    const ret = bst.delete(1)
     expect(ret).toBe(bst)
   })
 

@@ -29,7 +29,7 @@ describe('AVLNode', () => {
 describe('AVLTree', () => {
   test('empty tree properties', () => {
     const tree = new AVLTree<number>()
-    expect(tree.size()).toBe(0)
+    expect(tree.size).toBe(0)
     expect(tree.isEmpty).toBeTrue()
     expect(tree.height).toBe(-1)
     expect(tree.min()).toBeUndefined()
@@ -75,7 +75,7 @@ describe('AVLTree', () => {
   test('insert duplicate overwrites value', () => {
     const tree = new AVLTree<number>()
     tree.insert(5).insert(5)
-    expect(tree.size()).toBe(1)
+    expect(tree.size).toBe(1)
   })
 
   test('contains and search', () => {
@@ -126,25 +126,27 @@ describe('AVLTree', () => {
     expect(tree.traverse()).toEqual([3, 7])
   })
 
-  test('delete non-existent throws', () => {
+  test('delete returns false for a missing value', () => {
     const tree = new AVLTree<number>()
     tree.insert(5)
-    expect(() => tree.delete(99)).toThrow('Value not found')
+    expect(tree.delete(99)).toBeFalse()
+    expect(tree.delete(5)).toBeTrue()
+    expect(tree.size).toBe(0)
   })
 
   test('constructor with iterable', () => {
     const tree = new AVLTree([3, 1, 2, 5, 4])
-    expect(tree.size()).toBe(5)
+    expect(tree.size).toBe(5)
     expect(tree.traverse()).toEqual([1, 2, 3, 4, 5])
   })
 
   test('constructor with comparator and iterable', () => {
-    const tree = new AVLTree<string>((a, b) => a.localeCompare(b), ['c', 'a', 'b'])
+    const tree = new AVLTree<string>(['c', 'a', 'b'], { compare: (a, b) => a.localeCompare(b) })
     expect(tree.traverse()).toEqual(['a', 'b', 'c'])
   })
 
   test('custom comparator (descending)', () => {
-    const tree = new AVLTree<number>((a, b) => b - a)
+    const tree = new AVLTree<number>([], { compare: (a, b) => b - a })
     tree.insert(3).insert(1).insert(2)
     expect(tree.traverse()).toEqual([3, 2, 1])
   })
@@ -152,7 +154,6 @@ describe('AVLTree', () => {
   test('fluent API', () => {
     const tree = new AVLTree<number>()
     expect(tree.insert(1)).toBe(tree)
-    expect(tree.delete(1)).toBe(tree)
     expect(tree.clear()).toBe(tree)
   })
 
@@ -160,7 +161,7 @@ describe('AVLTree', () => {
     const tree = new AVLTree<number>()
     for (let i = 0; i < 100; i++) tree.insert(i)
     expect(tree.height).toBeLessThanOrEqual(10)
-    expect(tree.size()).toBe(100)
+    expect(tree.size).toBe(100)
   })
 
   test('traversal orders', () => {
@@ -190,7 +191,7 @@ describe('AVLTree', () => {
     const tree = new AVLTree<number>()
     tree.insert(5).insert(3).insert(7)
     tree.clear()
-    expect(tree.size()).toBe(0)
+    expect(tree.size).toBe(0)
     expect(tree.isEmpty).toBeTrue()
   })
 
@@ -229,9 +230,9 @@ describe('AVLTree', () => {
     expect(tree.isBalanced()).toBeTrue()
   })
 
-  test('delete from empty tree throws', () => {
+  test('delete from an empty tree returns false', () => {
     const tree = new AVLTree<number>()
-    expect(() => tree.delete(1)).toThrow('Value not found')
+    expect(tree.delete(1)).toBeFalse()
   })
 
   test('randomized operations maintain invariants', () => {
@@ -265,13 +266,13 @@ describe('AVLTree', () => {
     const tree = new AVLTree<number>()
     const n = 50
     for (let i = 0; i < n; i++) tree.insert(i)
-    expect(tree.size()).toBe(n)
+    expect(tree.size).toBe(n)
     expect(tree.isBalanced()).toBeTrue()
 
     for (let i = 0; i < n; i++) {
       tree.delete(i)
       expect(tree.isBalanced()).toBeTrue()
-      expect(tree.size()).toBe(n - i - 1)
+      expect(tree.size).toBe(n - i - 1)
     }
     expect(tree.isEmpty).toBeTrue()
   })
