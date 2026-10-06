@@ -51,6 +51,7 @@ export class IndexedMinHeap<T> implements Structure<number> {
    * @param value The value to associate with the index.
    * @returns The heap instance.
    * @throws If the index is out of range or already inserted.
+   * @complexity O(log n).
    */
   insert(index: number, value: T): this {
     if (!this._inRange(index))
@@ -71,6 +72,7 @@ export class IndexedMinHeap<T> implements Structure<number> {
    * @param value The new lower value.
    * @returns The heap instance.
    * @throws If the index is not present or the new value is greater.
+   * @complexity O(log n).
    */
   decreaseKey(index: number, value: T): this {
     if (!this.contains(index))
@@ -85,6 +87,7 @@ export class IndexedMinHeap<T> implements Structure<number> {
   /**
    * Removes and returns the index with the smallest value.
    * @returns The index with the smallest value, or undefined if empty.
+   * @complexity O(log n).
    */
   extractMin(): number | undefined {
     if (this._size === 0) return undefined
@@ -102,6 +105,7 @@ export class IndexedMinHeap<T> implements Structure<number> {
   /**
    * Returns the index with the smallest value without removing it.
    * @returns The min index, or undefined if empty.
+   * @complexity O(1).
    */
   peekMin(): number | undefined {
     return this._size === 0 ? undefined : this._heap[0]
@@ -111,6 +115,7 @@ export class IndexedMinHeap<T> implements Structure<number> {
    * Checks whether the given index is currently present in the heap.
    * @param index The index to check.
    * @returns True if the index is present, false otherwise.
+   * @complexity O(1).
    */
   contains(index: number): boolean {
     return this._inRange(index) && this._position[index] !== -1
@@ -120,6 +125,7 @@ export class IndexedMinHeap<T> implements Structure<number> {
    * Returns the current value associated with an index.
    * @param index The index to look up.
    * @returns The associated value, or undefined if absent.
+   * @complexity O(1).
    */
   getValue(index: number): T | undefined {
     if (!this.contains(index)) return undefined
@@ -129,6 +135,7 @@ export class IndexedMinHeap<T> implements Structure<number> {
   /**
    * Removes all elements from the heap.
    * @returns The heap instance.
+   * @complexity O(capacity).
    */
   clear(): this {
     this._position.fill(-1)
@@ -139,6 +146,7 @@ export class IndexedMinHeap<T> implements Structure<number> {
 
   /**
    * The number of indices currently in the heap.
+   * @complexity O(1).
    */
   get size(): number {
     return this._size
@@ -146,6 +154,7 @@ export class IndexedMinHeap<T> implements Structure<number> {
 
   /**
    * Returns true if the heap is empty, false otherwise.
+   * @complexity O(1).
    */
   get isEmpty(): boolean {
     return this._size === 0
@@ -153,6 +162,7 @@ export class IndexedMinHeap<T> implements Structure<number> {
 
   /**
    * Returns the indices, in internal heap order, as a new array.
+   * @complexity O(n).
    */
   toArray(): number[] {
     return this._heap.slice(0, this._size)
@@ -161,6 +171,7 @@ export class IndexedMinHeap<T> implements Structure<number> {
   /**
    * Iterates over the indices in internal heap order.
    * @returns An iterator over the indices.
+   * @complexity O(n) to iterate every index.
    */
   [Symbol.iterator](): Iterator<number> {
     return this.toArray()[Symbol.iterator]()

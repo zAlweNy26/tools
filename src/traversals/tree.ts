@@ -25,6 +25,7 @@ import type { TreeNode } from '@structures/base'
  * // result: [1, 2, 4, 5, 3, 6]
  * ```
  * @group Traversals
+ * @complexity O(n).
  */
 export function preOrder<T>(node: TreeNode<T> | null, result: T[]) {
   if (!node) return
@@ -58,6 +59,7 @@ export function preOrder<T>(node: TreeNode<T> | null, result: T[]) {
  * // result: [4, 5, 2, 6, 3, 1]
  * ```
  * @group Traversals
+ * @complexity O(n).
  */
 export function postOrder<T>(node: TreeNode<T> | null, result: T[]) {
   if (!node) return
@@ -94,6 +96,7 @@ export function postOrder<T>(node: TreeNode<T> | null, result: T[]) {
  * // result: [4, 2, 5, 1, 6, 3]
  * ```
  * @group Traversals
+ * @complexity O(n).
  */
 export function inOrder<T>(
   node: TreeNode<T> | null,
@@ -135,6 +138,7 @@ export function inOrder<T>(
  * // result: [1, 2, 3, 4, 5, 6]
  * ```
  * @group Traversals
+ * @complexity O(n).
  */
 export function heightOrder<T>(node: TreeNode<T> | null, result: T[]) {
   if (!node) return

@@ -17,6 +17,12 @@ export default defineConfig({
 	lastUpdated: true,
 	cleanUrls: true,
 	base: '/tools/',
+	vite: {
+		build: {
+			// the local search index holds the whole API reference and is only loaded when search opens
+			chunkSizeWarningLimit: 1000,
+		},
+	},
 	themeConfig: {
 		search: {
 			provider: 'local',

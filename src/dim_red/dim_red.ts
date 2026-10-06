@@ -66,6 +66,7 @@ export abstract class DimRed<P extends DimRedParams> {
    * const projection = tsne.transform()        // default 500 iterations
    * const projection2 = tsne.transform(1000)    // custom iterations
    * ```
+   * @complexity O(iterations) times the cost of one iteration, which is O(n²) for t-SNE.
    */
   transform(iterations = 500) {
     this.checkInit()

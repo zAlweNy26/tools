@@ -35,6 +35,7 @@ export class TreeLeaf<T> extends TreeNode<T> {
    * @param data The data to store in the new leaves.
    * @param datas Additional data to store in new leaves.
    * @returns The last leaf that was added.
+   * @complexity O(k) for k values.
    */
   push(data: T, ...datas: T[]) {
     let leaf = new TreeLeaf(data)
@@ -77,6 +78,7 @@ export class Tree<T> implements Structure<T> {
    * Traverses the tree in the specified order and returns an array of the visited nodes' data.
    * @param order The order in which to traverse the tree. Defaults to "pre".
    * @returns An array of the visited nodes' data.
+   * @complexity O(n).
    */
   traverse(order: 'post' | 'pre' | 'in' | 'height' = 'pre'): T[] {
     const result: T[] = []
@@ -93,6 +95,7 @@ export class Tree<T> implements Structure<T> {
    * Searches the tree for a node with the specified data and returns the node if found.
    * @param value The data to search for.
    * @returns The node with the specified data, or undefined if not found.
+   * @complexity O(n).
    */
   search(value: T): TreeLeaf<T> | undefined {
     const queue: TreeLeaf<T>[] = [this.root]
@@ -109,6 +112,7 @@ export class Tree<T> implements Structure<T> {
   /**
    * Gets the height of the tree.
    * @returns The height of the tree.
+   * @complexity O(n).
    */
   get height(): number {
     return this.root.height
@@ -117,6 +121,7 @@ export class Tree<T> implements Structure<T> {
   /**
    * Removes all elements from the tree, keeping only the root.
    * @returns The tree instance.
+   * @complexity O(1).
    */
   clear() {
     this.root = new TreeLeaf(this.root.data)
@@ -125,6 +130,7 @@ export class Tree<T> implements Structure<T> {
 
   /**
    * The total number of nodes in the tree.
+   * @complexity O(n): the nodes are counted on each access.
    */
   get size() {
     const count = (node: TreeLeaf<T>): number => {
@@ -135,6 +141,7 @@ export class Tree<T> implements Structure<T> {
 
   /**
    * Always false, since a tree always has a root.
+   * @complexity O(1).
    */
   get isEmpty() {
     return false
@@ -142,6 +149,7 @@ export class Tree<T> implements Structure<T> {
 
   /**
    * Returns the values in pre-order as a new array.
+   * @complexity O(n).
    */
   toArray() {
     return this.traverse('pre')
@@ -150,6 +158,7 @@ export class Tree<T> implements Structure<T> {
   /**
    * Iterates over the values in pre-order.
    * @returns An iterator over the values.
+   * @complexity O(n) to iterate every value.
    */
   [Symbol.iterator](): Iterator<T> {
     return this.toArray()[Symbol.iterator]()

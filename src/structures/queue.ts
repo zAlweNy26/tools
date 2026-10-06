@@ -36,6 +36,7 @@ export class Queue<T> extends ListStructure<T> {
    * @param element The element to add.
    * @returns The queue instance.
    * @throws An error if the queue is full.
+   * @complexity O(1) amortized.
    */
   enqueue(element: T) {
     if (this.isFull) throw new Error('Queue is full')
@@ -46,6 +47,7 @@ export class Queue<T> extends ListStructure<T> {
   /**
    * Removes and returns the element at the front of the queue.
    * @returns The front element, or undefined if the queue is empty.
+   * @complexity O(1) amortized: dequeued slots are dropped in batches.
    */
   dequeue() {
     if (this.isEmpty) return undefined
@@ -62,6 +64,7 @@ export class Queue<T> extends ListStructure<T> {
   /**
    * Returns the element at the front of the queue without removing it.
    * @returns The front element, or undefined if the queue is empty.
+   * @complexity O(1).
    */
   peek() {
     return this.isEmpty ? undefined : this._data[this._head]
@@ -69,6 +72,7 @@ export class Queue<T> extends ListStructure<T> {
 
   /**
    * The number of elements in the queue.
+   * @complexity O(1).
    */
   get size() {
     return this._data.length - this._head
@@ -77,6 +81,7 @@ export class Queue<T> extends ListStructure<T> {
   /**
    * Removes every element.
    * @returns The queue instance.
+   * @complexity O(1).
    */
   clear() {
     this._head = 0
@@ -85,6 +90,7 @@ export class Queue<T> extends ListStructure<T> {
 
   /**
    * Returns the elements, from front to back, as a new array.
+   * @complexity O(n).
    */
   toArray() {
     return this._data.slice(this._head)

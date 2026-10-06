@@ -57,6 +57,7 @@ export class TSNE extends DimRed<TSNEParams> {
    * const tsne = new TSNE(distances, { metric: 'precomputed', perplexity: 2 })
    * const projection = tsne.transform()
    * ```
+   * @complexity O(n² · d) for n points of dimension d: every pairwise distance is computed, then each row is calibrated by binary search.
    */
   init() {
     const data = this._data

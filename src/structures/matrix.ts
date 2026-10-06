@@ -47,6 +47,7 @@ export class Matrix {
    * @param array The 2D array to use for the new matrix instance.
    * @returns A new matrix instance.
    * @throws An error if the array is empty or not all the columns of the 2D array have the same length.
+   * @complexity O(r · c).
    */
   static from(array: number[][]): Matrix
   /**
@@ -55,6 +56,7 @@ export class Matrix {
    * @param fill The fill method. Can be `row`, `col`, or `diag`.
    * @returns A new matrix instance.
    * @throws An error if the array is empty.
+   * @complexity O(n) for `row` and `col`, O(n²) for `diag`.
    */
   static from(array: number[], fill: 'row' | 'col' | 'diag'): Matrix
   static from(...params: never[]) {
@@ -82,6 +84,7 @@ export class Matrix {
    * @param col The column index of the element to retrieve.
    * @returns The value at the specified row and column in the matrix.
    * @throws A RangeError if the position is outside the matrix.
+   * @complexity O(1).
    */
   get(row: number, col: number) {
     this._checkCell(row, col)
@@ -95,6 +98,7 @@ export class Matrix {
    * @param value The value to set in the cell.
    * @returns The value that was set in the cell.
    * @throws A RangeError if the position is outside the matrix.
+   * @complexity O(1).
    */
   set(row: number, col: number, value: number) {
     this._checkCell(row, col)
@@ -108,6 +112,7 @@ export class Matrix {
    * @param type The type of concatenation to perform. Can be 'horizontal', 'vertical', or 'diagonal'. Defaults to 'horizontal'.
    * @returns A new matrix that is the result of the concatenation.
    * @throws An error if the matrices do not have the same number of rows (for horizontal concatenation) or columns (for vertical concatenation).
+   * @complexity O((r₁ + r₂) · (c₁ + c₂)).
    */
   concat(mat: Matrix, type: 'horizontal' | 'vertical' | 'diagonal' = 'horizontal') {
     let data: number[][] = []
@@ -136,6 +141,7 @@ export class Matrix {
    * @param value The update function that takes the old value as input and returns the new value.
    * @returns The new value after the update.
    * @throws A RangeError if the position is outside the matrix.
+   * @complexity O(1).
    */
   update(row: number, col: number, value: (old: number) => number) {
     this._checkCell(row, col)
@@ -150,6 +156,7 @@ export class Matrix {
    * @param value The binary operation to apply to each element.
    * @returns A copy of the resulting data as a two-dimensional array.
    * @throws If the two matrices do not have the same dimensions.
+   * @complexity O(r · c).
    */
   operate(matrix: number[][] | Matrix, value: (left: number, right: number) => number) {
     const mat = matrix instanceof Matrix ? matrix : Matrix.from(matrix)
@@ -166,6 +173,7 @@ export class Matrix {
    * @param row1 The index of the first row to swap.
    * @param row2 The index of the second row to swap.
    * @returns The updated matrix with the swapped rows.
+   * @complexity O(1).
    */
   swapRows(row1: number, row2: number) {
     [this._data[row1], this._data[row2]] = [this._data[row2], this._data[row1]]
@@ -178,6 +186,7 @@ export class Matrix {
    * @param values The values to set for the row.
    * @returns The updated matrix.
    * @throws If the passed index is outside the matrix or the number of values differs from the number of columns.
+   * @complexity O(c).
    */
   setRow(row: number, values: number[]) {
     this._checkRow(row)
@@ -191,6 +200,7 @@ export class Matrix {
    * @param row The index of the row to retrieve.
    * @returns A copy of the row at the specified index.
    * @throws An error if the passed index is outside the matrix.
+   * @complexity O(c).
    */
   getRow(row: number) {
     this._checkRow(row)
@@ -202,6 +212,7 @@ export class Matrix {
    * @param col1 The index of the first column to swap.
    * @param col2 The index of the second column to swap.
    * @returns The updated matrix with the swapped columns.
+   * @complexity O(r).
    */
   swapCols(col1: number, col2: number) {
     this._data = this._data.map((row) => {
@@ -218,6 +229,7 @@ export class Matrix {
    * @returns The updated matrix.
    * @throws An error if the passed index is outside the matrix.
    * @throws An error if the number of values differs from the number of rows.
+   * @complexity O(r).
    */
   setCol(col: number, values: number[]) {
     this._checkCol(col)
@@ -234,6 +246,7 @@ export class Matrix {
    * @param col The index of the column to retrieve.
    * @returns An array containing the elements of the specified column.
    * @throws An error if the passed index is outside the matrix.
+   * @complexity O(r).
    */
   getCol(col: number) {
     this._checkCol(col)
@@ -244,6 +257,7 @@ export class Matrix {
    * Returns a generator that iterates over the rows of the matrix.
    * @yields A copy of the current row after each iteration.
    * @returns A generator that yields each row of the matrix.
+   * @complexity O(r · c) to iterate every row.
    */
   * iterateRows() {
     for (let i = 0; i < this.rows; i++)
@@ -254,6 +268,7 @@ export class Matrix {
    * Returns a generator that iterates over the columns of the matrix.
    * @yields The current column after each iteration.
    * @returns A generator that yields each column of the matrix.
+   * @complexity O(r · c) to iterate every column.
    */
   * iterateCols() {
     for (let i = 0; i < this.cols; i++)
@@ -264,6 +279,7 @@ export class Matrix {
    * Returns an iterator that yields each row of the matrix.
    * @yields A copy of the current row after each iteration.
    * @returns An iterator that yields each row of the matrix.
+   * @complexity O(r · c) to iterate every row.
    */
   * [Symbol.iterator]() {
     for (const row of this.iterateRows())
@@ -273,6 +289,7 @@ export class Matrix {
   /**
    * Resets every value in the matrix to 0.
    * @returns The cleared matrix.
+   * @complexity O(r · c).
    */
   clear() {
     this._data = new Matrix(this.rows, this.cols)._data
@@ -281,6 +298,7 @@ export class Matrix {
 
   /**
    * The number of cells in the matrix.
+   * @complexity O(1).
    */
   get size() {
     return this.rows * this.cols
@@ -289,6 +307,7 @@ export class Matrix {
   /**
    * Returns a new matrix that is the transpose of the current matrix.
    * @returns A new matrix that is the transpose of the current matrix.
+   * @complexity O(r · c).
    */
   transpose() {
     return new Matrix(this.cols, this.rows, (row, col) => this.get(col, row))
@@ -299,6 +318,7 @@ export class Matrix {
    * @throws An error if the matrix is not quadratic.
    * @throws An error if the matrix not invertible due to the determinant equal to zero.
    * @returns The inverse of the matrix.
+   * @complexity O(n!) for an n×n matrix, because it first computes the determinant by cofactor expansion; the Gauss-Jordan elimination itself is O(n³).
    */
   inverse() {
     if (this.rows !== this.cols) throw new Error('Unable to calculate inverse for non-quadratic matrix')
@@ -348,6 +368,7 @@ export class Matrix {
    * @param matrix The matrix to multiply with the current matrix.
    * @returns A new matrix that is the result of the dot product.
    * @throws An error if the number of columns of the current matrix is different from the number of rows of the passed matrix.
+   * @complexity O(r · c · p) for an r×c matrix times a c×p matrix.
    */
   dot(matrix: number[][] | Matrix) {
     const mat = matrix instanceof Matrix ? matrix : Matrix.from(matrix)
@@ -374,6 +395,7 @@ export class Matrix {
    * @param row The row to remove.
    * @param col The column to remove.
    * @returns A new matrix that is a submatrix of the current matrix with the specified row and column removed.
+   * @complexity O(r · c).
    */
   sub(row: number, col: number) {
     return Matrix.from(this._data.filter((_, i) => i !== row).map(r => r.filter((_, j) => j !== col)))
@@ -383,6 +405,7 @@ export class Matrix {
    * Calculates the determinant of a square matrix.
    * @throws An error if the matrix is not quadratic.
    * @returns The determinant of the matrix.
+   * @complexity O(n!) for an n×n matrix (cofactor expansion).
    */
   det() {
     if (this.rows !== this.cols) throw new Error('Unable to calculate determinant for non-quadratic matrix')
@@ -409,6 +432,7 @@ export class Matrix {
   /**
    * Returns a new matrix that is a clone of the current matrix instance.
    * @returns A new matrix that is a clone of the current matrix instance.
+   * @complexity O(r · c).
    */
   clone() {
     return Matrix.from(this.toArray())
@@ -417,6 +441,7 @@ export class Matrix {
   /**
    * Returns an array containing the mean value of each column in the matrix.
    * @returns An array containing the mean value of each column in the matrix.
+   * @complexity O(r · c).
    */
   get meanCols() {
     return Array.from({ length: this.cols }).map((_, i) => this.getCol(i).reduce((v, c) => v + c, 0) / this.rows)
@@ -425,6 +450,7 @@ export class Matrix {
   /**
    * Returns an array containing the mean value of each row in the matrix.
    * @returns An array containing the mean value of each row in the matrix.
+   * @complexity O(r · c).
    */
   get meanRows() {
     return this._data.map(arr => arr.reduce((v, c) => v + c, 0) / arr.length)
@@ -433,6 +459,7 @@ export class Matrix {
   /**
    * Returns the sum of all elements in the matrix.
    * @returns The sum of all elements in the matrix.
+   * @complexity O(r · c).
    */
   get sum() {
     return this._data.reduce((p, arr) => p + arr.reduce((v, c) => v + c, 0), 0)
@@ -442,6 +469,7 @@ export class Matrix {
    * Returns an array containing the diagonal elements of the matrix.
    * If the matrix is not square, the diagonal is truncated to the smaller dimension.
    * @returns An array containing the diagonal elements of the matrix.
+   * @complexity O(min(r, c)).
    */
   get diagonal() {
     return Array.from({ length: Math.min(this.rows, this.cols) }, (_, i) => this.get(i, i))
@@ -450,6 +478,7 @@ export class Matrix {
   /**
    * Returns a copy of the matrix data as a two-dimensional array.
    * @returns A copy of the matrix data.
+   * @complexity O(r · c).
    */
   toArray() {
     return this._data.map(row => [...row])

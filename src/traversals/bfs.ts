@@ -15,6 +15,7 @@ import { Queue } from '@structures/queue'
  * breadthFirstSearch(graph) // [1, 2, 3, 4]
  * ```
  * @group Traversals
+ * @complexity O(V + E).
  */
 export function breadthFirstSearch<T>(graph: GraphStructure<T, unknown>) {
   const visited = new Set<T>()

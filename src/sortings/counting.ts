@@ -11,6 +11,7 @@
  * countingSort([4, 2, 2, 8, 3, 3, 1]) // [1, 2, 2, 3, 3, 4, 8]
  * ```
  * @group Sortings
+ * @complexity O(n + k) time and space, where k is the difference between the largest and smallest value.
  */
 export function countingSort(array: number[]): number[] {
   if (array.length <= 1) return [...array]

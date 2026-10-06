@@ -15,6 +15,7 @@ import { Stack } from '@structures/stack'
  * depthFirstSearch(graph) // [1, 2, 4, 3]
  * ```
  * @group Traversals
+ * @complexity O(V + E).
  */
 export function depthFirstSearch<T>(graph: GraphStructure<T, unknown>) {
   const visited = new Set<T>()

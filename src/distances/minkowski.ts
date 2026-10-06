@@ -15,6 +15,7 @@
  * ```
  * @see {@link https://en.wikipedia.org/wiki/Minkowski_distance}
  * @group Distances
+ * @complexity O(n) per call of the returned function, for vectors of length n.
  */
 export function minkowski(p: number): (a: number[], b: number[]) => number {
   if (!(p >= 1)) throw new Error('The Minkowski order p must be at least 1')

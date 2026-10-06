@@ -14,6 +14,7 @@ import { defaultCompare } from '@utils/compare'
  * selectionSort(['banana', 'apple', 'cherry']) // ['apple', 'banana', 'cherry']
  * ```
  * @group Sortings
+ * @complexity O(n²) time in every case. O(n) extra space for the copy. Not stable.
  */
 export function selectionSort<T>(array: T[], compare: Comparator<T> = defaultCompare): T[] {
   const result = [...array]

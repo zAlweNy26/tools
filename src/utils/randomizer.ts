@@ -65,6 +65,7 @@ export class Randomizer {
   /**
    * Generates a random integer between 0 and MAX_INTEGER.
    * @returns A random integer.
+   * @complexity O(1) amortized: the internal state is regenerated every 624 draws.
    */
   randomInt() {
     const mag = [0x0, this._cMat]
@@ -178,6 +179,7 @@ export class Randomizer {
    * @param n - The number of samples to return.
    * @returns An array of `n` rows from the input data, randomly selected.
    * @throws An error if `n` is not a non-negative integer or is greater than the number of rows in the input data.
+   * @complexity O(r · n) for a matrix with r rows.
    */
   samples(data: Matrix | number[][], n: number) {
     const mat = data instanceof Matrix ? data : Matrix.from(data)

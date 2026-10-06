@@ -33,6 +33,7 @@ export abstract class ListStructure<T> implements Structure<T> {
 
   /**
    * The maximum number of elements, `Infinity` if unbounded.
+   * @complexity O(1).
    */
   get capacity() {
     return this._capacity
@@ -40,6 +41,7 @@ export abstract class ListStructure<T> implements Structure<T> {
 
   /**
    * The number of elements in the structure.
+   * @complexity O(1).
    */
   get size() {
     return this._data.length
@@ -47,6 +49,7 @@ export abstract class ListStructure<T> implements Structure<T> {
 
   /**
    * Whether the structure holds no elements.
+   * @complexity O(1).
    */
   get isEmpty() {
     return this.size === 0
@@ -54,6 +57,7 @@ export abstract class ListStructure<T> implements Structure<T> {
 
   /**
    * Whether the structure has reached its capacity.
+   * @complexity O(1).
    */
   get isFull() {
     return this.size >= this._capacity
@@ -62,6 +66,7 @@ export abstract class ListStructure<T> implements Structure<T> {
   /**
    * Removes every element.
    * @returns The structure instance.
+   * @complexity O(1).
    */
   clear() {
     this._data = []
@@ -70,6 +75,7 @@ export abstract class ListStructure<T> implements Structure<T> {
 
   /**
    * Returns the elements as a new array.
+   * @complexity O(n).
    */
   toArray() {
     return [...this._data]
@@ -78,6 +84,7 @@ export abstract class ListStructure<T> implements Structure<T> {
   /**
    * Iterates over the elements in the same order as `toArray()`.
    * @returns An iterator over the elements.
+   * @complexity O(n) to iterate every element.
    */
   [Symbol.iterator](): Iterator<T> {
     return this.toArray()[Symbol.iterator]()
@@ -132,6 +139,7 @@ export abstract class GraphStructure<N, E> implements Structure<N> {
    * Adds a node to the graph if it is not already present.
    * @param node The node to add.
    * @returns The graph instance.
+   * @complexity O(1).
    */
   addNode(node: N) {
     if (!this.map.has(node)) this.map.set(node, [])
@@ -141,6 +149,7 @@ export abstract class GraphStructure<N, E> implements Structure<N> {
   /**
    * Returns true if the graph contains the given node, false otherwise.
    * @param node The node to check for.
+   * @complexity O(1).
    */
   hasNode(node: N) {
     return this.map.has(node)
@@ -150,6 +159,7 @@ export abstract class GraphStructure<N, E> implements Structure<N> {
    * Removes a node and every edge connected to it.
    * @param node The node to remove.
    * @returns True if the node was found and removed, false otherwise.
+   * @complexity O(V + E), since every adjacency list is scanned for edges to the node.
    */
   removeNode(node: N) {
     if (!this.map.delete(node)) return false
@@ -163,6 +173,7 @@ export abstract class GraphStructure<N, E> implements Structure<N> {
    * @param v1 The first node.
    * @param v2 The second node.
    * @returns True if the edge was found and removed, false otherwise.
+   * @complexity O(deg(v1) + deg(v2)).
    */
   removeEdge(v1: N, v2: N) {
     if (!this._unlink(v1, v2)) return false
@@ -174,6 +185,7 @@ export abstract class GraphStructure<N, E> implements Structure<N> {
    * Returns the edges leaving a node.
    * @param node The node to get the edges for.
    * @returns A copy of the node's edges, or undefined if the node is not in the graph.
+   * @complexity O(deg(node)).
    */
   getEdges(node: N): E[] | undefined {
     return this.map.get(node)?.map(e => this._edge(this._target(e), this._weight(e)))
@@ -183,6 +195,7 @@ export abstract class GraphStructure<N, E> implements Structure<N> {
    * Returns the nodes reachable from a node through a single edge.
    * @param node The node to get the neighbors of.
    * @returns The neighboring nodes, or undefined if the node is not in the graph.
+   * @complexity O(deg(node)).
    */
   neighbors(node: N): N[] | undefined {
     return this.map.get(node)?.map(e => this._target(e))
@@ -193,6 +206,7 @@ export abstract class GraphStructure<N, E> implements Structure<N> {
    * @param v1 The first node.
    * @param v2 The second node.
    * @returns True if the nodes are adjacent, false otherwise, including when `v1` is not in the graph.
+   * @complexity O(deg(v1)).
    */
   isAdjacent(v1: N, v2: N) {
     return this.map.get(v1)?.some(e => this._target(e) === v2) ?? false
@@ -201,6 +215,7 @@ export abstract class GraphStructure<N, E> implements Structure<N> {
   /**
    * Checks whether the graph contains a cycle.
    * @returns True if a cycle is detected, false otherwise.
+   * @complexity O(V + E).
    */
   hasCycle() {
     return this.directed ? this._hasDirectedCycle() : this._hasUndirectedCycle()
@@ -208,6 +223,7 @@ export abstract class GraphStructure<N, E> implements Structure<N> {
 
   /**
    * The nodes in the graph, in insertion order.
+   * @complexity O(V).
    */
   get nodes() {
     return [...this.map.keys()]
@@ -215,6 +231,7 @@ export abstract class GraphStructure<N, E> implements Structure<N> {
 
   /**
    * The number of nodes in the graph.
+   * @complexity O(1).
    */
   get size() {
     return this.map.size
@@ -222,6 +239,7 @@ export abstract class GraphStructure<N, E> implements Structure<N> {
 
   /**
    * Whether the graph has no nodes.
+   * @complexity O(1).
    */
   get isEmpty() {
     return this.map.size === 0
@@ -230,6 +248,7 @@ export abstract class GraphStructure<N, E> implements Structure<N> {
   /**
    * Removes every node and edge.
    * @returns The graph instance.
+   * @complexity O(V).
    */
   clear() {
     this.map.clear()
@@ -238,6 +257,7 @@ export abstract class GraphStructure<N, E> implements Structure<N> {
 
   /**
    * Returns the nodes, in insertion order, as a new array.
+   * @complexity O(V).
    */
   toArray() {
     return this.nodes
@@ -246,6 +266,7 @@ export abstract class GraphStructure<N, E> implements Structure<N> {
   /**
    * Iterates over the nodes in insertion order.
    * @returns An iterator over the nodes.
+   * @complexity O(V) to iterate every node.
    */
   [Symbol.iterator](): Iterator<N> {
     return this.nodes[Symbol.iterator]()
@@ -418,6 +439,7 @@ export abstract class BaseLinkedList<T> implements Structure<T> {
    * Returns the first element that satisfies the predicate.
    * @param predicate The function to test each element with.
    * @returns The first matching element, or undefined if none matches.
+   * @complexity O(n).
    */
   find(predicate: (value: T, index: number) => boolean): T | undefined {
     let current = this._head
@@ -433,6 +455,7 @@ export abstract class BaseLinkedList<T> implements Structure<T> {
    * Returns the element at the given index.
    * @param index The index of the element to retrieve.
    * @returns The element at the given index, or undefined if out of bounds.
+   * @complexity O(n), walking from the head.
    */
   getAt(index: number): T | undefined {
     if (index < 0 || index >= this._size) return undefined
@@ -441,6 +464,7 @@ export abstract class BaseLinkedList<T> implements Structure<T> {
 
   /**
    * The number of elements in the list.
+   * @complexity O(1).
    */
   get size(): number {
     return this._size
@@ -449,6 +473,7 @@ export abstract class BaseLinkedList<T> implements Structure<T> {
   /**
    * Removes every element.
    * @returns The list instance.
+   * @complexity O(1).
    */
   clear(): this {
     this._head = null
@@ -459,6 +484,7 @@ export abstract class BaseLinkedList<T> implements Structure<T> {
 
   /**
    * Returns true if the list is empty, false otherwise.
+   * @complexity O(1).
    */
   get isEmpty(): boolean {
     return this._size === 0
@@ -467,6 +493,7 @@ export abstract class BaseLinkedList<T> implements Structure<T> {
   /**
    * Returns an array containing all the elements in the list.
    * @returns An array of all elements in order.
+   * @complexity O(n).
    */
   toArray(): T[] {
     const result: T[] = []
@@ -481,6 +508,7 @@ export abstract class BaseLinkedList<T> implements Structure<T> {
   /**
    * Calls a function for each element in the list.
    * @param callback The function to call for each element.
+   * @complexity O(n).
    */
   forEach(callback: (value: T, index: number) => void): void {
     let current = this._head
@@ -496,6 +524,7 @@ export abstract class BaseLinkedList<T> implements Structure<T> {
    * @param callback The function to call for each element.
    * @param initialValue The initial value for the accumulator.
    * @returns The reduced value.
+   * @complexity O(n).
    */
   reduce<U>(callback: (accumulator: U, value: T, index: number) => U, initialValue: U): U {
     let accumulator = initialValue
@@ -512,6 +541,7 @@ export abstract class BaseLinkedList<T> implements Structure<T> {
    * Returns the index of the first occurrence of the given data.
    * @param data The data to search for.
    * @returns The index of the data, or -1 if not found.
+   * @complexity O(n).
    */
   indexOf(data: T): number {
     let current = this._head
@@ -528,6 +558,7 @@ export abstract class BaseLinkedList<T> implements Structure<T> {
    * Returns true if the list includes the given data.
    * @param data The data to search for.
    * @returns True if the data is found, false otherwise.
+   * @complexity O(n).
    */
   includes(data: T): boolean {
     // eslint-disable-next-line e18e/prefer-includes, unicorn/prefer-includes
@@ -538,6 +569,7 @@ export abstract class BaseLinkedList<T> implements Structure<T> {
    * Returns true if at least one element satisfies the predicate.
    * @param predicate The function to test each element.
    * @returns True if any element satisfies the predicate.
+   * @complexity O(n).
    */
   some(predicate: (value: T, index: number) => boolean): boolean {
     let current = this._head
@@ -553,6 +585,7 @@ export abstract class BaseLinkedList<T> implements Structure<T> {
    * Returns true if all elements satisfy the predicate.
    * @param predicate The function to test each element.
    * @returns True if all elements satisfy the predicate.
+   * @complexity O(n).
    */
   every(predicate: (value: T, index: number) => boolean): boolean {
     let current = this._head
@@ -567,6 +600,7 @@ export abstract class BaseLinkedList<T> implements Structure<T> {
   /**
    * Iterator for the list, enabling for...of iteration.
    * @returns An iterator over the list's elements.
+   * @complexity O(n) to iterate every element.
    */
   [Symbol.iterator](): Iterator<T> {
     let current = this._head
@@ -609,6 +643,7 @@ export abstract class TreeNode<T> {
 
   /**
    * Returns the height of the subtree rooted at this node.
+   * @complexity O(n), computed recursively over the subtree.
    */
   get height(): number {
     const valid = this.children.filter((c): c is TreeNode<T> => c !== null)

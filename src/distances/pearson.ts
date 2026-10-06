@@ -15,6 +15,7 @@
  * ```
  * @see {@link https://en.wikipedia.org/wiki/Pearson_correlation_coefficient}
  * @group Distances
+ * @complexity O(n) for vectors of length n.
  */
 export function pearson(a: number[], b: number[]) {
   if (a.length !== b.length) throw new Error('The vectors should have the same length')

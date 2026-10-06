@@ -58,6 +58,7 @@ Every structure follows the same rules:
 - **Constructors**: collections take `(items?, options?)`, like `new Set(iterable)`. Options hold `capacity` for Stack and Queue, or `compare` for ordered structures.
 - **Comparators**: anything that orders elements accepts an `Array.prototype.sort`-style comparator, `(a, b) => number`. The default, `defaultCompare`, orders numbers and strings.
 - **Missing vs invalid**: reading or removing something that isn't there returns `undefined` (or `false` for removals), e.g. `pop()` on an empty stack. Invalid input throws, e.g. an out-of-range index or pushing onto a full stack.
+- **Complexity**: every method's time complexity is listed under *Complexity* in the [API reference](/api/).
 
 ## Data Structures
 

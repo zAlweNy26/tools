@@ -67,6 +67,7 @@ export class FixedArray<T> extends Array<T> {
    * Creates a new fixed-capacity array from an array of items.
    * @param items The items to initialize the array with.
    * @returns A new fixed-capacity array with capacity equal to the number of items.
+   * @complexity O(n).
    */
   static from<T>(items: T[]) {
     return new FixedArray(items)
@@ -77,6 +78,7 @@ export class FixedArray<T> extends Array<T> {
    * @param items The items to add.
    * @throws An error if adding the items would exceed the array's capacity.
    * @returns The new length of the array.
+   * @complexity O(k) for k items.
    */
   push(...items: T[]): number {
     if (this.length + items.length > this._capacity) throw new Error('Array is full')
@@ -88,6 +90,7 @@ export class FixedArray<T> extends Array<T> {
    * @param items The items to add.
    * @throws An error if adding the items would exceed the array's capacity.
    * @returns The new length of the array.
+   * @complexity O(n + k) for k items.
    */
   unshift(...items: T[]): number {
     if (this.length + items.length > this._capacity) throw new Error('Array is full')
@@ -101,6 +104,7 @@ export class FixedArray<T> extends Array<T> {
    * @param items The items to insert.
    * @throws An error if the change would exceed the array's capacity.
    * @returns The removed elements.
+   * @complexity O(n).
    */
   splice(start: number, deleteCount?: number, ...items: T[]): T[] {
     const from = start < 0 ? Math.max(this.length + start, 0) : Math.min(start, this.length)

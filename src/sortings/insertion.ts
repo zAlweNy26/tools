@@ -14,6 +14,7 @@ import { defaultCompare } from '@utils/compare'
  * insertionSort(['banana', 'apple', 'cherry']) // ['apple', 'banana', 'cherry']
  * ```
  * @group Sortings
+ * @complexity O(n²) time, O(n) when the input is already sorted. O(n) extra space for the copy. Stable.
  */
 export function insertionSort<T>(array: T[], compare: Comparator<T> = defaultCompare): T[] {
   const result = [...array]

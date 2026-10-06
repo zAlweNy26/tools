@@ -24,6 +24,7 @@ export class AVLNode<T> extends BSTNode<T> {
 
   /**
    * Returns the height of the subtree rooted at this node.
+   * @complexity O(1).
    */
   get height(): number {
     return this._height
@@ -31,6 +32,7 @@ export class AVLNode<T> extends BSTNode<T> {
 
   /**
    * Recomputes the height of this node from the heights of its children.
+   * @complexity O(1).
    */
   updateHeight() {
     this._height = 1 + Math.max(this.left?.height ?? -1, this.right?.height ?? -1)
@@ -123,6 +125,7 @@ export class AVLTree<T> extends BinarySearchTree<T> {
    * Inserts a value into the AVL tree and rebalances it.
    * @param value The value to insert.
    * @returns The tree instance.
+   * @complexity O(log n).
    */
   insert(value: T) {
     this._root = this._insert(this._root, value)
@@ -160,6 +163,7 @@ export class AVLTree<T> extends BinarySearchTree<T> {
    * Removes a value from the AVL tree and rebalances it.
    * @param value The value to remove.
    * @returns True if the value was found and removed, false otherwise.
+   * @complexity O(log n).
    */
   delete(value: T) {
     if (!this.contains(value)) return false
@@ -170,6 +174,7 @@ export class AVLTree<T> extends BinarySearchTree<T> {
   /**
    * Returns true if the AVL tree satisfies the balance invariant:
    * every node has a balance factor in the range [-1, 0, 1].
+   * @complexity O(n).
    */
   isBalanced(): boolean {
     return this._isBalanced(this._root)

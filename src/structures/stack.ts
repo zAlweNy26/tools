@@ -35,6 +35,7 @@ export class Stack<T> extends ListStructure<T> {
    * @param element The element to add.
    * @returns The stack instance.
    * @throws An error if the stack is full.
+   * @complexity O(1) amortized.
    */
   push(element: T) {
     if (this.isFull) throw new Error('Stack is full')
@@ -45,6 +46,7 @@ export class Stack<T> extends ListStructure<T> {
   /**
    * Removes and returns the element at the top of the stack.
    * @returns The top element, or undefined if the stack is empty.
+   * @complexity O(1).
    */
   pop() {
     return this._data.pop()
@@ -53,6 +55,7 @@ export class Stack<T> extends ListStructure<T> {
   /**
    * Returns the element at the top of the stack without removing it.
    * @returns The top element, or undefined if the stack is empty.
+   * @complexity O(1).
    */
   peek() {
     return this._data.at(-1)

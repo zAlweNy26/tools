@@ -35,6 +35,7 @@ export class LinkedList<T> extends BaseLinkedList<T> {
    * Adds an element to the end of the list.
    * @param data The data to append.
    * @returns The list instance.
+   * @complexity O(1).
    */
   append(data: T): this {
     const node = new ListNode(data)
@@ -54,6 +55,7 @@ export class LinkedList<T> extends BaseLinkedList<T> {
    * Adds an element to the beginning of the list.
    * @param data The data to prepend.
    * @returns The list instance.
+   * @complexity O(1).
    */
   prepend(data: T): this {
     const node = new ListNode(data, this._head)
@@ -70,6 +72,7 @@ export class LinkedList<T> extends BaseLinkedList<T> {
    * @param data The data to insert.
    * @returns The list instance.
    * @throws A RangeError if the index is out of bounds.
+   * @complexity O(n).
    */
   insertAt(index: number, data: T): this {
     if (index < 0 || index > this._size)
@@ -87,6 +90,7 @@ export class LinkedList<T> extends BaseLinkedList<T> {
    * Removes and returns the element at the given index.
    * @param index The index of the element to remove.
    * @returns The removed element, or undefined if the index is out of bounds.
+   * @complexity O(n).
    */
   deleteAt(index: number): T | undefined {
     if (index < 0 || index >= this._size) return undefined
@@ -110,6 +114,7 @@ export class LinkedList<T> extends BaseLinkedList<T> {
    * Removes the first occurrence of the given data from the list.
    * @param data The data to remove.
    * @returns True if the element was found and removed, false otherwise.
+   * @complexity O(n).
    */
   delete(data: T): boolean {
     if (!this._head) return false
@@ -137,6 +142,7 @@ export class LinkedList<T> extends BaseLinkedList<T> {
   /**
    * Reverses the list in place.
    * @returns The list instance.
+   * @complexity O(n).
    */
   reverse(): this {
     if (!this._head || !this._head.next) return this
@@ -160,6 +166,7 @@ export class LinkedList<T> extends BaseLinkedList<T> {
    * Returns a new linked list with the results of calling a function on each element.
    * @param callback The function to apply to each element.
    * @returns A new linked list with the mapped values.
+   * @complexity O(n).
    */
   map<U>(callback: (value: T, index: number) => U): LinkedList<U> {
     const result = new LinkedList<U>()
@@ -176,6 +183,7 @@ export class LinkedList<T> extends BaseLinkedList<T> {
    * Returns a new linked list with elements that pass the given predicate.
    * @param predicate The function to test each element.
    * @returns A new linked list with the filtered elements.
+   * @complexity O(n).
    */
   filter(predicate: (value: T, index: number) => boolean): LinkedList<T> {
     const result = new LinkedList<T>()
