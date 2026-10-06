@@ -457,42 +457,6 @@ export class Matrix implements Structure {
     return this._data.map(row => [...row])
   }
 
-  /**
-   * Returns the number of empty spaces in the matrix.
-   * @returns The number of empty spaces in the matrix.
-   * @deprecated Cells always hold numbers since unset cells default to 0, so this no longer reflects emptiness. It will be removed in a future version.
-   */
-  get space() {
-    return this._data.reduce((p, arr) => p + arr.reduce((v, c) => v + (typeof c === 'undefined' ? 1 : 0), 0), 0)
-  }
-
-  /**
-   * Returns a boolean indicating whether the matrix has room for more elements.
-   * @returns True if the matrix has room for more elements, false otherwise.
-   * @deprecated Cells always hold numbers since unset cells default to 0, so this no longer reflects emptiness. It will be removed in a future version.
-   */
-  get hasRoom() {
-    return this.space !== 0
-  }
-
-  /**
-   * Returns a boolean indicating whether the matrix is empty or not.
-   * @returns True if the matrix is empty, false otherwise.
-   * @deprecated Cells always hold numbers since unset cells default to 0, so this no longer reflects emptiness. It will be removed in a future version.
-   */
-  get isEmpty() {
-    return this.space === this.size()
-  }
-
-  /**
-   * Returns a boolean indicating whether the matrix is full or not.
-   * @returns True if the matrix is full, false otherwise.
-   * @deprecated Cells always hold numbers since unset cells default to 0, so this no longer reflects emptiness. It will be removed in a future version.
-   */
-  get isFull() {
-    return this.space === 0
-  }
-
   private _checkRow(row: number) {
     if (!Number.isInteger(row) || row < 0 || row >= this.rows)
       throw new Error('The passed index exceeds the total number of rows in the matrix')

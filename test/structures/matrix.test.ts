@@ -138,10 +138,6 @@ describe('Matrix', () => {
     const m = new Matrix(2, 3)
     expect(m.items).toEqual([[0, 0, 0], [0, 0, 0]])
     expect(m.sum).toBe(0)
-    expect(m.isFull).toBeTrue()
-    expect(m.isEmpty).toBeFalse()
-    expect(m.space).toBe(0)
-    expect(m.hasRoom).toBeFalse()
   })
 
   test('concat horizontal', () => {
