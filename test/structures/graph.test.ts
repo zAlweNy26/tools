@@ -193,4 +193,29 @@ describe('Graph', () => {
     expect(g.directed).toBeFalse()
     expect(g.clear()).toBe(g)
   })
+
+  test('hasCycle handles graphs too deep for recursion', () => {
+    const g = new Graph(0)
+    for (let i = 0; i < 100_000; i++) g.addEdge(i, i + 1)
+    expect(g.hasCycle()).toBeFalse()
+    g.addEdge(100_000, 0)
+    expect(g.hasCycle()).toBeTrue()
+  })
+
+  test('removeNode removes the node from its neighbors', () => {
+    const g = new Graph<string>('A')
+    g.addEdge('A', 'B').addEdge('B', 'C').addEdge('C', 'A')
+    expect(g.removeNode('B')).toBeTrue()
+    expect(g.neighbors('A')).toEqual(['C'])
+    expect(g.neighbors('C')).toEqual(['A'])
+    expect(g.hasCycle()).toBeFalse()
+  })
+
+  test('neighbors keep insertion order after removals', () => {
+    const g = new Graph<number>(0)
+    g.addEdge(0, 1).addEdge(0, 2).addEdge(0, 3)
+    g.removeEdge(0, 2)
+    g.addEdge(0, 2)
+    expect(g.neighbors(0)).toEqual([1, 3, 2])
+  })
 })

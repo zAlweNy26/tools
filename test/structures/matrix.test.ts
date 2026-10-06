@@ -378,4 +378,32 @@ describe('Matrix', () => {
     m.operate([[0, 0], [0, 0]], (l, r) => l + r)[1][0] = 99
     expect(m.toArray()).toEqual([[1, 2], [3, 4]])
   })
+
+  test('det matches known values for larger matrices', () => {
+    expect(Matrix.from([[2, -3, 1], [2, 0, -1], [1, 4, 5]]).det()).toBeCloseTo(49)
+    expect(Matrix.from([[1, 0, 2, -1], [3, 0, 0, 5], [2, 1, 4, -3], [1, 0, 5, 0]]).det()).toBeCloseTo(30)
+  })
+
+  test('det accounts for row swaps', () => {
+    expect(Matrix.from([[0, 1], [1, 0]]).det()).toBe(-1)
+  })
+
+  test('det is exactly 0 for singular matrices', () => {
+    expect(Matrix.from([[1, 2, 3], [4, 5, 6], [7, 8, 9]]).det()).toBe(0)
+    expect(Matrix.from([[0.1, 0.2], [0.3, 0.6]]).det()).toBe(0)
+  })
+
+  test('inverse multiplied by the matrix gives the identity', () => {
+    const n = 60
+    const m = new Matrix(n, n, (r, c) => (r === c ? n : 0) + Math.sin(r * 7 + c * 13))
+    const product = m.dot(m.inverse())
+    for (let r = 0; r < n; r++) {
+      for (let c = 0; c < n; c++)
+        expect(product.get(r, c)).toBeCloseTo(r === c ? 1 : 0, 10)
+    }
+  })
+
+  test('inverse rejects singular matrices', () => {
+    expect(() => Matrix.from([[1, 2, 3], [4, 5, 6], [7, 8, 9]]).inverse()).toThrow('Matrix not invertible due to the determinant equal to zero')
+  })
 })

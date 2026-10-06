@@ -287,4 +287,15 @@ describe('DoublyLinkedList', () => {
     for (const v of list.backward()) result.push(v)
     expect(result).toEqual([3, 2, 1])
   })
+
+  test('index operations are correct in both halves of the list', () => {
+    const values = Array.from({ length: 11 }, (_, i) => i)
+    const list = new DoublyLinkedList(values)
+    for (const i of values) expect(list.getAt(i)).toBe(i)
+    list.insertAt(8, 100)
+    list.insertAt(2, 200)
+    expect(list.deleteAt(9)).toBe(100)
+    expect(list.deleteAt(8)).toBe(7)
+    expectLinked(list, [0, 1, 200, 2, 3, 4, 5, 6, 8, 9, 10])
+  })
 })

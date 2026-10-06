@@ -29,9 +29,17 @@ import type { TreeNode } from '@structures/base'
  */
 export function preOrder<T>(node: TreeNode<T> | null, result: T[]) {
   if (!node) return
-  result.push(node.data)
-  for (const child of node.children)
-    if (child) preOrder(child, result)
+  // an explicit stack instead of recursion, so deep trees can't overflow the call stack
+  const stack: TreeNode<T>[] = [node]
+  while (stack.length > 0) {
+    const current = stack.pop()!
+    result.push(current.data)
+    const { children } = current
+    for (let i = children.length - 1; i >= 0; i--) {
+      const child = children[i]
+      if (child) stack.push(child)
+    }
+  }
 }
 
 /**
@@ -63,10 +71,16 @@ export function preOrder<T>(node: TreeNode<T> | null, result: T[]) {
  */
 export function postOrder<T>(node: TreeNode<T> | null, result: T[]) {
   if (!node) return
-  for (const child of node.children)
-    if (child) postOrder(child, result)
-
-  result.push(node.data)
+  // visiting node, then children last-to-first, gives the exact reverse of post-order
+  const stack: TreeNode<T>[] = [node]
+  const reversed: T[] = []
+  while (stack.length > 0) {
+    const current = stack.pop()!
+    reversed.push(current.data)
+    for (const child of current.children)
+      if (child) stack.push(child)
+  }
+  for (let i = reversed.length - 1; i >= 0; i--) result.push(reversed[i])
 }
 
 /**
@@ -104,13 +118,25 @@ export function inOrder<T>(
   splitAt: (children: readonly (TreeNode<T> | null)[]) => number,
 ) {
   if (!node) return
-  const mid = splitAt(node.children)
-  for (let i = 0; i < mid; i++)
-    if (node.children[i]) inOrder(node.children[i], result, splitAt)
-
-  result.push(node.data)
-  for (let i = mid; i < node.children.length; i++)
-    if (node.children[i]) inOrder(node.children[i], result, splitAt)
+  interface Frame { node: TreeNode<T>, mid: number, next: number, visited: boolean }
+  const frame = (n: TreeNode<T>): Frame => ({ node: n, mid: splitAt(n.children), next: 0, visited: false })
+  // each frame remembers which child comes next, replacing the recursive call stack
+  const stack: Frame[] = [frame(node)]
+  while (stack.length > 0) {
+    const top = stack[stack.length - 1]
+    if (!top.visited && top.next >= top.mid) {
+      result.push(top.node.data)
+      top.visited = true
+    }
+    if (top.next < top.node.children.length) {
+      const child = top.node.children[top.next++]
+      if (child) stack.push(frame(child))
+    }
+    else {
+      if (!top.visited) result.push(top.node.data)
+      stack.pop()
+    }
+  }
 }
 
 /**

@@ -133,10 +133,13 @@ export class Tree<T> implements Structure<T> {
    * @complexity O(n): the nodes are counted on each access.
    */
   get size() {
-    const count = (node: TreeLeaf<T>): number => {
-      return 1 + node.children.reduce((sum, child) => sum + count(child), 0)
+    let count = 0
+    const stack: TreeLeaf<T>[] = [this.root]
+    while (stack.length > 0) {
+      count++
+      for (const child of stack.pop()!.children) stack.push(child)
     }
-    return count(this.root)
+    return count
   }
 
   /**

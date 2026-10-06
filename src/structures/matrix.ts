@@ -314,53 +314,36 @@ export class Matrix {
   }
 
   /**
-   * Calculates the inverse of a square matrix.
+   * Calculates the inverse of a square matrix using LU decomposition with partial pivoting.
    * @throws An error if the matrix is not quadratic.
-   * @throws An error if the matrix not invertible due to the determinant equal to zero.
+   * @throws An error if the matrix is singular (its determinant is zero, within floating-point tolerance).
    * @returns The inverse of the matrix.
-   * @complexity O(n!) for an n×n matrix, because it first computes the determinant by cofactor expansion; the Gauss-Jordan elimination itself is O(n³).
+   * @complexity O(n³) for an n×n matrix.
    */
   inverse() {
     if (this.rows !== this.cols) throw new Error('Unable to calculate inverse for non-quadratic matrix')
-    else if (this.det() === 0) throw new Error('Matrix not invertible due to the determinant equal to zero')
+    const { lu, perm, singular } = this._decompose()
+    if (singular) throw new Error('Matrix not invertible due to the determinant equal to zero')
 
     const n = this.rows
-    const identity: number[][] = Array.from({ length: n }, (_, i) =>
-      Array.from({ length: n }, (_, j) => i === j ? 1 : 0))
-    const copy = this._data.map(row => [...row])
-
-    for (let i = 0; i < n; i++) {
-      let diagonalElement = copy[i][i]
-
-      if (diagonalElement === 0) {
-        for (let j = i + 1; j < n; j++) {
-          if (copy[j][i] !== 0) {
-            [copy[i], copy[j]] = [copy[j], copy[i]];
-            [identity[i], identity[j]] = [identity[j], identity[i]]
-            break
-          }
-        }
-        diagonalElement = copy[i][i]
+    const inverse: number[][] = Array.from({ length: n }, () => Array.from<number>({ length: n }).fill(0))
+    // solve LU · x = P · eⱼ for every column j of the identity
+    for (let col = 0; col < n; col++) {
+      const x = Array.from<number>({ length: n }).fill(0)
+      for (let i = 0; i < n; i++) {
+        let sum = perm[i] === col ? 1 : 0
+        for (let k = 0; k < i; k++) sum -= lu[i][k] * x[k]
+        x[i] = sum
       }
-
-      for (let j = 0; j < n; j++) {
-        copy[i][j] /= diagonalElement
-        identity[i][j] /= diagonalElement
+      for (let i = n - 1; i >= 0; i--) {
+        let sum = x[i]
+        for (let k = i + 1; k < n; k++) sum -= lu[i][k] * x[k]
+        x[i] = sum / lu[i][i]
       }
-
-      for (let j = 0; j < n; j++) {
-        if (j === i) continue
-
-        const elementToZero = copy[j][i]
-
-        for (let k = 0; k < n; k++) {
-          copy[j][k] -= elementToZero * copy[i][k]
-          identity[j][k] -= elementToZero * identity[i][k]
-        }
-      }
+      for (let i = 0; i < n; i++) inverse[i][col] = x[i]
     }
 
-    return Matrix.from(identity)
+    return Matrix.from(inverse)
   }
 
   /**
@@ -402,31 +385,19 @@ export class Matrix {
   }
 
   /**
-   * Calculates the determinant of a square matrix.
+   * Calculates the determinant of a square matrix using LU decomposition with partial pivoting.
+   * Singular matrices return exactly 0.
    * @throws An error if the matrix is not quadratic.
    * @returns The determinant of the matrix.
-   * @complexity O(n!) for an n×n matrix (cofactor expansion).
+   * @complexity O(n³) for an n×n matrix.
    */
   det() {
     if (this.rows !== this.cols) throw new Error('Unable to calculate determinant for non-quadratic matrix')
-
-    const cofactorSign = (row: number, col: number) => (row + col) % 2 === 0 ? 1 : -1
-
-    const determinant = (matrix: Matrix): number => {
-      if (matrix.rows === 1) return matrix.get(0, 0)
-      else if (matrix.rows === 2) return (matrix.get(0, 0) * matrix.get(1, 1)) - (matrix.get(0, 1) * matrix.get(1, 0))
-
-      let det = 0
-
-      for (let col = 0; col < matrix.cols; col++) {
-        const cofactor = matrix.get(0, col) * cofactorSign(0, col) * determinant(matrix.sub(0, col))
-        det += cofactor
-      }
-
-      return det
-    }
-
-    return determinant(this)
+    const { lu, sign, singular } = this._decompose()
+    if (singular) return 0
+    let det = sign
+    for (let i = 0; i < this.rows; i++) det *= lu[i][i]
+    return det
   }
 
   /**
@@ -482,6 +453,41 @@ export class Matrix {
    */
   toArray() {
     return this._data.map(row => [...row])
+  }
+
+  /**
+   * Doolittle LU decomposition with partial pivoting, storing L (unit diagonal, below) and U (on and above) in one matrix.
+   * @returns The combined LU matrix, the row permutation, its sign, and whether the matrix is singular.
+   */
+  private _decompose() {
+    const n = this.rows
+    const lu = this.toArray()
+    const perm = Array.from({ length: n }, (_, i) => i)
+    let sign = 1
+
+    // pivots this close to zero, relative to the largest entry, are treated as zero
+    let largest = 0
+    for (const row of lu) for (const v of row) largest = Math.max(largest, Math.abs(v))
+    const tolerance = n * Number.EPSILON * largest
+
+    for (let k = 0; k < n; k++) {
+      let pivot = k
+      for (let i = k + 1; i < n; i++)
+        if (Math.abs(lu[i][k]) > Math.abs(lu[pivot][k])) pivot = i
+      if (!(Math.abs(lu[pivot][k]) > tolerance)) return { lu, perm, sign, singular: true }
+      if (pivot !== k) {
+        [lu[k], lu[pivot]] = [lu[pivot], lu[k]];
+        [perm[k], perm[pivot]] = [perm[pivot], perm[k]]
+        sign = -sign
+      }
+      for (let i = k + 1; i < n; i++) {
+        const factor = lu[i][k] / lu[k][k]
+        lu[i][k] = factor
+        for (let j = k + 1; j < n; j++) lu[i][j] -= factor * lu[k][j]
+      }
+    }
+
+    return { lu, perm, sign, singular: false }
   }
 
   private _checkRow(row: number) {

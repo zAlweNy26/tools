@@ -157,4 +157,24 @@ describe('DirectedGraph', () => {
     expect(g.neighbors('A')).toEqual([])
     expect(g.nodes).toEqual(['A', 'C'])
   })
+
+  test('hasCycle handles graphs too deep for recursion', () => {
+    const g = new DirectedGraph(0)
+    for (let i = 0; i < 100_000; i++) g.addEdge(i, i + 1)
+    expect(g.hasCycle()).toBeFalse()
+    g.addEdge(100_000, 0)
+    expect(g.hasCycle()).toBeTrue()
+  })
+
+  test('hasCycle ignores edges that only rejoin a finished branch', () => {
+    const g = new DirectedGraph('A')
+    g.addEdge('A', 'B').addEdge('A', 'C').addEdge('B', 'D').addEdge('C', 'D')
+    expect(g.hasCycle()).toBeFalse()
+  })
+
+  test('a self-loop is a cycle', () => {
+    const g = new DirectedGraph('A')
+    g.addEdge('A', 'A')
+    expect(g.hasCycle()).toBeTrue()
+  })
 })

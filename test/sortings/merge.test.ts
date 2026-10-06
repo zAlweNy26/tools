@@ -75,4 +75,11 @@ describe('mergeSort', () => {
     mergeSort(original)
     expect(original).toEqual(copy)
   })
+
+  test('matches Array.prototype.sort for every length up to 70', () => {
+    for (let n = 0; n <= 70; n++) {
+      const data = Array.from({ length: n }, (_, i) => (i * 7919 + n * 31) % 23)
+      expect(mergeSort(data)).toEqual([...data].sort((a, b) => a - b))
+    }
+  })
 })
