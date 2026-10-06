@@ -1,4 +1,3 @@
-import type { Structure } from '@interfaces/structure'
 import { TreeNode } from './base'
 import { heightOrder, inOrder, postOrder, preOrder } from '@traversals/tree'
 
@@ -49,7 +48,7 @@ export class BSTNode<T> extends TreeNode<T> {
  * @category Trees
  * @group Structures
  */
-export class BinarySearchTree<T> implements Structure {
+export class BinarySearchTree<T> {
   protected _root: BSTNode<T> | null = null
   protected _size = 0
   protected _compare: (a: T, b: T) => number

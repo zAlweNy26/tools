@@ -1,5 +1,3 @@
-import type { Structure } from '@interfaces/structure'
-
 /**
  * A binary heap data structure.
  * @template T The type of elements held in the heap.
@@ -16,7 +14,7 @@ import type { Structure } from '@interfaces/structure'
  * @category Heaps
  * @group Structures
  */
-export class Heap<T> implements Structure {
+export class Heap<T> {
   private _data: T[] = []
   private _compare: (a: T, b: T) => boolean
 

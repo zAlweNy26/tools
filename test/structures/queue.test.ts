@@ -2,97 +2,70 @@ import { Queue } from '@structures/queue'
 import { describe, expect, test } from 'bun:test'
 
 describe('Queue', () => {
-  test('numeric capacity - enqueue, dequeue, peek', () => {
-    const queue = new Queue<number>(3)
-    expect(queue.size()).toBe(0)
-    expect(queue.isEmpty).toBeTrue()
-    expect(queue.isFull).toBeFalse()
-
-    queue.enqueue(1)
-    expect(queue.size()).toBe(1)
+  test('enqueue, dequeue and peek follow first-in, first-out order', () => {
+    const queue = new Queue<number>()
+    queue.enqueue(1).enqueue(2).enqueue(3)
     expect(queue.peek()).toBe(1)
-    queue.enqueue(2)
-    queue.enqueue(3)
-    expect(queue.size()).toBe(3)
-    expect(queue.isFull).toBeTrue()
-    expect(() => queue.enqueue(4)).toThrow('Queue is full')
-
     expect(queue.dequeue()).toBe(1)
-    expect(queue.size()).toBe(2)
-    expect(queue.peek()).toBe(2)
     expect(queue.dequeue()).toBe(2)
-    expect(queue.dequeue()).toBe(3)
-    expect(queue.isEmpty).toBeTrue()
+    expect(queue.size).toBe(1)
+  })
+
+  test('dequeue and peek return undefined when empty', () => {
+    const queue = new Queue<number>()
+    expect(queue.dequeue()).toBeUndefined()
     expect(queue.peek()).toBeUndefined()
-    expect(() => queue.dequeue()).toThrow('Queue is empty')
-  })
-
-  test('array initialization', () => {
-    const queue = new Queue([10, 20, 30])
-    expect(queue.size()).toBe(3)
-    expect(queue.isEmpty).toBeFalse()
-    expect(queue.peek()).toBe(10)
-    expect(queue.isFull).toBeFalse()
-
-    queue.enqueue(40)
-    expect(queue.size()).toBe(4)
-    expect(queue.dequeue()).toBe(10)
-    expect(queue.peek()).toBe(20)
-  })
-
-  test('clear', () => {
-    const queue = new Queue<number>(3)
-    queue.enqueue(1)
-    queue.enqueue(2)
-    queue.clear()
-    expect(queue.size()).toBe(0)
     expect(queue.isEmpty).toBeTrue()
+  })
+
+  test('initial items go from front to back', () => {
+    const queue = new Queue([10, 20, 30])
+    expect(queue.peek()).toBe(10)
+    expect(queue.toArray()).toEqual([10, 20, 30])
+    expect([...queue]).toEqual([10, 20, 30])
+  })
+
+  test('keeps order across many interleaved operations', () => {
+    const queue = new Queue<number>()
+    const expected: number[] = []
+    for (let i = 0; i < 100; i++) {
+      queue.enqueue(i)
+      expected.push(i)
+      if (i % 3 === 0) expect(queue.dequeue()).toBe(expected.shift())
+    }
+    expect(queue.toArray()).toEqual(expected)
+    expect(queue.size).toBe(expected.length)
+  })
+
+  test('toArray only contains queued elements after dequeues', () => {
+    const queue = new Queue([1, 2, 3, 4])
+    queue.dequeue()
+    queue.dequeue()
+    queue.dequeue()
+    expect(queue.toArray()).toEqual([4])
+  })
+
+  test('throws when enqueueing onto a full queue', () => {
+    const queue = new Queue<number>([], { capacity: 2 })
+    queue.enqueue(1).enqueue(2)
+    expect(() => queue.enqueue(3)).toThrow('Queue is full')
+    queue.dequeue()
+    expect(() => queue.enqueue(3)).not.toThrow()
+    expect(queue.toArray()).toEqual([2, 3])
+  })
+
+  test('clear removes every element and returns the queue', () => {
+    const queue = new Queue([1, 2, 3])
+    queue.dequeue()
+    expect(queue.clear()).toBe(queue)
+    expect(queue.size).toBe(0)
     queue.enqueue(5)
-    expect(queue.size()).toBe(1)
+    expect(queue.toArray()).toEqual([5])
   })
 
-  test('dequeue from middle maintains order', () => {
-    const queue = new Queue<number>(5)
-    queue.enqueue(1)
-    queue.enqueue(2)
-    queue.enqueue(3)
-    expect(queue.dequeue()).toBe(1)
-    expect(queue.dequeue()).toBe(2)
-    queue.enqueue(4)
-    queue.enqueue(5)
-    expect(queue.dequeue()).toBe(3)
-    expect(queue.dequeue()).toBe(4)
-    expect(queue.dequeue()).toBe(5)
-  })
-
-  test('items getter returns plain array', () => {
-    const queue = new Queue<number>(5)
-    queue.enqueue(1)
-    queue.enqueue(2)
-    queue.dequeue()
-    queue.enqueue(3)
-    expect(queue.items).toEqual([2, 3])
-  })
-
-  test('default space for unbounded', () => {
-    const queue = new Queue([1, 2])
-    expect(queue.space).toBe(Infinity)
-    expect(queue.hasRoom).toBeTrue()
-    expect(queue.isFull).toBeFalse()
-  })
-
-  test('items only contains queued elements after compaction', () => {
-    const queue = new Queue<number>([1, 2, 3, 4])
-    queue.dequeue()
-    queue.dequeue()
-    queue.dequeue()
-    expect(queue.items).toEqual([4])
-  })
-
-  test('items keeps undefined elements', () => {
-    const queue = new Queue<number | undefined>(0)
-    queue.enqueue(1)
-    queue.enqueue(undefined)
-    expect(queue.items).toStrictEqual([1, undefined])
+  test('keeps undefined elements', () => {
+    const queue = new Queue<number | undefined>()
+    queue.enqueue(1).enqueue(undefined)
+    expect(queue.toArray()).toStrictEqual([1, undefined])
   })
 })

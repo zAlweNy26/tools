@@ -1,132 +1,92 @@
+import type { CapacityOptions } from '@interfaces/structure'
 import { ListStructure } from './base'
 
 /**
- * A queue data structure.
+ * A first-in, first-out queue with amortized O(1) enqueue and dequeue.
+ * Iteration and `toArray()` go from the front of the queue to the back.
  * @template T The type of elements held in the queue.
  * @example
  * ```ts
  * import { Queue } from '@danyalwe/tools'
  *
- * const queue = new Queue<string>(5)
- * queue.enqueue('a')
+ * const queue = new Queue(['a'])
  * queue.enqueue('b')
  * queue.dequeue() // 'a'
+ * queue.peek()    // 'b'
  * ```
  * @category Queues
  * @group Structures
  */
 export class Queue<T> extends ListStructure<T> {
-  protected _head = 0
-  protected _tail = 0
+  // dequeued slots before _head are dropped in batches instead of shifting on every dequeue
+  private _head = 0
 
   /**
-   * Creates a new queue with the specified size or elements.
-   * @param size The size of the queue or an array of elements to initialize the queue with.
+   * Creates a new queue.
+   * @param items The initial elements, from front to back.
+   * @param options The queue options.
+   * @throws A RangeError if the capacity is invalid or smaller than the number of items.
    */
-  constructor(size: number | T[]) {
-    super(size)
-    if (!(typeof size === 'number'))
-      this._tail = size.length
+  constructor(items?: Iterable<T>, options?: CapacityOptions) {
+    super(items, options)
   }
 
   /**
-   * Adds an element to the end of the queue.
-   * @param element The element to add to the queue.
+   * Adds an element to the back of the queue.
+   * @param element The element to add.
+   * @returns The queue instance.
    * @throws An error if the queue is full.
    */
   enqueue(element: T) {
     if (this.isFull) throw new Error('Queue is full')
-    this._data[this._tail] = element
-    this._tail++
-  }
-
-  /**
-   * Removes and returns the element at the front of the queue.
-   * @returns The element at the front of the queue.
-   * @throws An error if the queue is empty.
-   */
-  dequeue() {
-    if (this.isEmpty) throw new Error('Queue is empty')
-    const item = this._data[this._head]
-    this._data[this._head] = undefined as unknown as T
-    this._head++
-    if (this._head > (this._data.length >> 1)) this._compact()
-    return item
-  }
-
-  private _compact() {
-    let writeIdx = 0
-    for (let readIdx = this._head; readIdx < this._tail; readIdx++)
-      this._data[writeIdx++] = this._data[readIdx]
-    this._tail -= this._head
-    this._head = 0
-    // drop the stale slots left behind the new tail
-    this._data.length = this._tail
-  }
-
-  /**
-   * Removes all elements from the queue.
-   * @returns The queue instance.
-   */
-  clear() {
-    super.clear()
-    this._head = 0
-    this._tail = 0
+    this._data.push(element)
     return this
   }
 
   /**
+   * Removes and returns the element at the front of the queue.
+   * @returns The front element, or undefined if the queue is empty.
+   */
+  dequeue() {
+    if (this.isEmpty) return undefined
+    const item = this._data[this._head]
+    this._data[this._head] = undefined as T
+    this._head++
+    if (this._head * 2 >= this._data.length) {
+      this._data = this._data.slice(this._head)
+      this._head = 0
+    }
+    return item
+  }
+
+  /**
    * Returns the element at the front of the queue without removing it.
-   * @returns The element at the front of the queue or undefined if the queue is empty.
+   * @returns The front element, or undefined if the queue is empty.
    */
   peek() {
-    if (this.isEmpty) return undefined
-    return this._data[this._head]
+    return this.isEmpty ? undefined : this._data[this._head]
   }
 
   /**
-   * An array of all the elements in the queue, from front to back.
+   * The number of elements in the queue.
    */
-  get items() {
-    return this._data.slice(this._head, this._tail)
+  get size() {
+    return this._data.length - this._head
   }
 
   /**
-   * The current number of elements in the queue.
+   * Removes every element.
+   * @returns The queue instance.
    */
-  size() {
-    return this._tail - this._head
+  clear() {
+    this._head = 0
+    return super.clear()
   }
 
   /**
-   * Returns the number of available spaces in the queue.
-   * @returns The number of available spaces in the queue.
+   * Returns the elements, from front to back, as a new array.
    */
-  get space() {
-    return this._capacity > 0 ? this._capacity - this.size() : Infinity
-  }
-
-  /**
-   * Returns true if the queue is empty.
-   * @returns True if the queue is empty, false otherwise.
-   */
-  get isEmpty() {
-    return this.size() === 0
-  }
-
-  /**
-   * Returns true if the queue is full.
-   * @returns True if the queue is full, false otherwise.
-   */
-  get isFull() {
-    return this._capacity > 0 && this.size() >= this._capacity
-  }
-
-  /**
-   * Returns true if the queue has available space.
-   * @returns True if the queue has available space, false otherwise.
-   */
-  get hasRoom() {
-    return !this.isFull
+  toArray() {
+    return this._data.slice(this._head)
   }
 }

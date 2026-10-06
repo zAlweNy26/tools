@@ -1,4 +1,3 @@
-import type { Structure } from '@interfaces/structure'
 import { TreeNode } from './base'
 import { heightOrder, inOrder, postOrder, preOrder } from '@traversals/tree'
 
@@ -60,7 +59,7 @@ export class TreeLeaf<T> extends TreeNode<T> {
  * @category Trees
  * @group Structures
  */
-export class Tree<T> implements Structure {
+export class Tree<T> {
   /** The root node of the tree. */
   root!: TreeLeaf<T>
 

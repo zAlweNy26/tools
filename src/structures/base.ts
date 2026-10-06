@@ -1,59 +1,67 @@
-import type { Structure } from '@interfaces/structure'
+import type { CapacityOptions, Structure } from '@interfaces/structure'
 
 /**
- * Abstract class representing a list structure.
+ * Abstract class for array-backed structures with an optional capacity.
  * @template T The type of elements held in the list.
  * @category Lists
  * @group Structures
  */
-export abstract class ListStructure<T> implements Structure {
-  protected _data: T[] = []
-  protected _capacity: number = 0
+export abstract class ListStructure<T> implements Structure<T> {
+  protected _data: T[]
+  protected readonly _capacity: number
 
   /**
-   * Creates a new list structure with the given size or initial elements.
-   * @param size The maximum capacity (as a number, 0 for unbounded) or an array of initial elements.
+   * Creates a new list structure.
+   * @param items The initial elements.
+   * @param options The structure options.
+   * @throws A RangeError if the capacity is not a positive integer or `Infinity`, or if there are more items than the capacity.
    */
-  constructor(size: number | T[]) {
-    if (typeof size === 'number') {
-      // a capacity of 0 means unbounded; subclasses enforce the capacity through isFull
-      this._data = []
-      this._capacity = Math.max(size, 0)
-    }
-    else
-      this._data = [...size]
+  constructor(items: Iterable<T> = [], options: CapacityOptions = {}) {
+    const capacity = options.capacity ?? Infinity
+    if (!(capacity > 0) || (capacity !== Infinity && !Number.isInteger(capacity)))
+      throw new RangeError('Capacity must be greater than 0')
+    this._capacity = capacity
+    this._data = [...items]
+    if (this._data.length > capacity) throw new RangeError('The initial items exceed the capacity')
   }
 
   /**
-   * The available space in the structure.
-   */
-  abstract get space(): number
-  /**
-   * Indicates whether the structure has room for more elements.
-   */
-  abstract get hasRoom(): boolean
-  /**
-   * Indicates whether the structure is empty.
-   */
-  abstract get isEmpty(): boolean
-  /**
-   * Indicates whether the structure is full.
-   */
-  abstract get isFull(): boolean
-  /**
-   * Gets the next element in the list without removing it.
+   * Gets the next element without removing it.
+   * @returns The next element, or undefined if the structure is empty.
    */
   abstract peek(): T | undefined
 
   /**
-   * An array of all the elements in the list.
+   * The maximum number of elements, `Infinity` if unbounded.
    */
-  get items() {
-    return [...this._data]
+  get capacity() {
+    return this._capacity
   }
 
   /**
-   * Clears the list.
+   * The number of elements in the structure.
+   */
+  get size() {
+    return this._data.length
+  }
+
+  /**
+   * Whether the structure holds no elements.
+   */
+  get isEmpty() {
+    return this.size === 0
+  }
+
+  /**
+   * Whether the structure has reached its capacity.
+   */
+  get isFull() {
+    return this.size >= this._capacity
+  }
+
+  /**
+   * Removes every element.
+   * @returns The structure instance.
    */
   clear() {
     this._data = []
@@ -61,10 +69,18 @@ export abstract class ListStructure<T> implements Structure {
   }
 
   /**
-   * The current number of elements in the list.
+   * Returns the elements as a new array.
    */
-  size() {
-    return this._data.length
+  toArray() {
+    return [...this._data]
+  }
+
+  /**
+   * Iterates over the elements in the same order as `toArray()`.
+   * @returns An iterator over the elements.
+   */
+  [Symbol.iterator](): Iterator<T> {
+    return this.toArray()[Symbol.iterator]()
   }
 }
 
@@ -75,7 +91,7 @@ export abstract class ListStructure<T> implements Structure {
  * @category Graphs
  * @group Structures
  */
-export abstract class GraphStructure<N, E> implements Structure {
+export abstract class GraphStructure<N, E> {
   protected map = new Map<N, E[]>()
 
   /**
@@ -202,7 +218,7 @@ export class ListNode<T> {
  * @category Lists
  * @group Structures
  */
-export abstract class BaseLinkedList<T> implements Structure {
+export abstract class BaseLinkedList<T> {
   protected _head: ListNode<T> | null = null
   protected _tail: ListNode<T> | null = null
   protected _size = 0

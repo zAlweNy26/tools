@@ -1,5 +1,3 @@
-import type { Structure } from '@interfaces/structure'
-
 /**
  * A fixed-capacity indexed binary min-heap.
  *
@@ -20,7 +18,7 @@ import type { Structure } from '@interfaces/structure'
  * @category Heaps
  * @group Structures
  */
-export class IndexedMinHeap<T> implements Structure {
+export class IndexedMinHeap<T> {
   private _size: number = 0
   private readonly _capacity: number
   private readonly _heap: number[]

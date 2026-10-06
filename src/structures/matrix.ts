@@ -1,5 +1,3 @@
-import type { Structure } from '@interfaces/structure'
-
 /**
  * A matrix data structure.
  * @example
@@ -15,7 +13,7 @@ import type { Structure } from '@interfaces/structure'
  * @category Matrices
  * @group Structures
  */
-export class Matrix implements Structure {
+export class Matrix {
   protected _data: number[][] = []
 
   /**

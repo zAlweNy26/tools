@@ -26,7 +26,7 @@ export function breadthFirstSearch<T>(graph: Graph<T>) {
     visited.add(root)
     const queue = new Queue<T>([root])
     while (!queue.isEmpty) {
-      const node = queue.dequeue()
+      const node = queue.dequeue() as T
       result.push(node)
       for (const neighbor of graph.getEdges(node)) {
         if (visited.has(neighbor)) continue
