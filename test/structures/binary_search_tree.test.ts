@@ -115,6 +115,12 @@ describe('BinarySearchTree', () => {
     expect(bst.traverse('height')).toEqual([5, 3, 7, 2, 4, 6, 8])
   })
 
+  test('height-order traversal visits deeper levels in order', () => {
+    const bst = new BinarySearchTree<number>()
+    for (const v of [8, 4, 12, 2, 6, 10, 14, 1]) bst.insert(v)
+    expect(bst.traverse('height')).toEqual([8, 4, 12, 2, 6, 10, 14, 1])
+  })
+
   test('clear', () => {
     const bst = new BinarySearchTree<number>()
     bst.insert(5).insert(3).insert(7)

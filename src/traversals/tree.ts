@@ -114,7 +114,6 @@ export function inOrder<T>(
  * Traverses a tree by height (level order), visiting the root, then all nodes at each subsequent level.
  * @param node The node to start traversal from.
  * @param result The array to push visited node data into.
- * @param first Internal flag used to track whether the root has been visited (defaults to `true`).
  * @example
  * ```ts
  * import { Tree, heightOrder } from '@danyalwe/tools'
@@ -137,11 +136,12 @@ export function inOrder<T>(
  * ```
  * @group Traversals
  */
-export function heightOrder<T>(node: TreeNode<T> | null, result: T[], first = true) {
+export function heightOrder<T>(node: TreeNode<T> | null, result: T[]) {
   if (!node) return
-  if (first) result.push(node.data)
-  for (const child of node.children)
-    if (child) result.push(child.data)
-  for (const child of node.children)
-    if (child) heightOrder(child, result, false)
+  const queue: TreeNode<T>[] = [node]
+  for (let i = 0; i < queue.length; i++) {
+    result.push(queue[i].data)
+    for (const child of queue[i].children)
+      if (child) queue.push(child)
+  }
 }

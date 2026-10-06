@@ -74,6 +74,15 @@ describe('Tree', () => {
     expect(tree.traverse('height')).toEqual([1, 2, 3, 4, 5, 6])
   })
 
+  test('traverse height-order visits deeper levels in order', () => {
+    const tree = new Tree(1)
+    const node2 = tree.root.push(2)
+    const node3 = tree.root.push(3)
+    node2.push(4).push(8)
+    node3.push(6)
+    expect(tree.traverse('height')).toEqual([1, 2, 3, 4, 6, 8])
+  })
+
   test('default traverse is pre-order', () => {
     const tree = buildTestTree()
     expect(tree.traverse()).toEqual(tree.traverse('pre'))
