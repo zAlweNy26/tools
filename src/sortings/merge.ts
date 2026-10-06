@@ -14,6 +14,7 @@ import { defaultCompare } from '@utils/compare'
  * mergeSort(['banana', 'apple', 'cherry']) // ['apple', 'banana', 'cherry']
  * ```
  * @group Sortings
+ * @complexity O(n log n) time, O(n) extra space. Stable.
  */
 export function mergeSort<T>(array: T[], compare: Comparator<T> = defaultCompare): T[] {
   if (array.length <= 1) return [...array]

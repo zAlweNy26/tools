@@ -50,7 +50,7 @@ rng.random()
 
 ## Documentation
 
-Full API reference at [alwe.dev/tools](https://alwe.dev/tools).
+Full documentation and API reference at [danyalwe.me/tools](https://danyalwe.me/tools/).
 
 | Group | Description |
 |-------|-------------|

@@ -14,6 +14,7 @@ import { defaultCompare } from '@utils/compare'
  * quickSort(['banana', 'apple', 'cherry']) // ['apple', 'banana', 'cherry']
  * ```
  * @group Sortings
+ * @complexity O(n log n) expected time, O(n²) in the worst case (made unlikely by the median-of-three pivot). O(log n) stack depth. Not stable.
  */
 export function quickSort<T>(array: T[], compare: Comparator<T> = defaultCompare): T[] {
   const result = [...array]

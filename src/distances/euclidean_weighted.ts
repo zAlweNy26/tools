@@ -14,6 +14,7 @@
  * ```
  * @see {@link https://en.wikipedia.org/wiki/Euclidean_distance#Weighted_Euclidean_distance}
  * @group Distances
+ * @complexity O(n) per call of the returned function, for vectors of length n.
  */
 export function euclideanWeighted(weights: number[]): (a: number[], b: number[]) => number {
   if (weights.some(w => !(w >= 0 && w < Infinity))) throw new Error('The weights should be finite and non-negative')

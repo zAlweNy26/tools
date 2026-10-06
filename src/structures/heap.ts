@@ -29,6 +29,7 @@ export class Heap<T> implements Structure<T> {
    * Creates a new heap.
    * @param items The initial elements.
    * @param options The heap options.
+   * @complexity O(n): initial items are heapified bottom-up.
    */
   constructor(items: Iterable<T> = [], options: CompareOptions<T> = {}) {
     this._compare = options.compare ?? defaultCompare
@@ -41,6 +42,7 @@ export class Heap<T> implements Structure<T> {
    * Inserts a value into the heap.
    * @param value The value to insert.
    * @returns The heap instance.
+   * @complexity O(log n).
    */
   insert(value: T) {
     this._data.push(value)
@@ -51,6 +53,7 @@ export class Heap<T> implements Structure<T> {
   /**
    * Removes and returns the element at the top of the heap.
    * @returns The element at the top of the heap, or undefined if empty.
+   * @complexity O(log n).
    */
   extract() {
     if (this._data.length === 0) return undefined
@@ -66,6 +69,7 @@ export class Heap<T> implements Structure<T> {
   /**
    * Returns the element at the top of the heap without removing it.
    * @returns The element at the top of the heap, or undefined if empty.
+   * @complexity O(1).
    */
   peek() {
     return this._data[0]
@@ -74,6 +78,7 @@ export class Heap<T> implements Structure<T> {
   /**
    * Removes all elements from the heap.
    * @returns The heap instance.
+   * @complexity O(1).
    */
   clear() {
     this._data = []
@@ -82,6 +87,7 @@ export class Heap<T> implements Structure<T> {
 
   /**
    * The number of elements in the heap.
+   * @complexity O(1).
    */
   get size() {
     return this._data.length
@@ -89,6 +95,7 @@ export class Heap<T> implements Structure<T> {
 
   /**
    * Returns true if the heap is empty, false otherwise.
+   * @complexity O(1).
    */
   get isEmpty() {
     return this._data.length === 0
@@ -96,6 +103,7 @@ export class Heap<T> implements Structure<T> {
 
   /**
    * Returns the elements, in internal heap order, as a new array.
+   * @complexity O(n).
    */
   toArray() {
     return [...this._data]
@@ -104,6 +112,7 @@ export class Heap<T> implements Structure<T> {
   /**
    * Iterates over the elements in internal heap order.
    * @returns An iterator over the elements.
+   * @complexity O(n) to iterate every element.
    */
   [Symbol.iterator](): Iterator<T> {
     return this.toArray()[Symbol.iterator]()

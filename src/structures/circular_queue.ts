@@ -37,6 +37,7 @@ export class CircularQueue<T> extends ListStructure<T> {
    * Adds an element to the back of the queue, overwriting the oldest element if the queue is full.
    * @param element The element to add.
    * @returns The queue instance.
+   * @complexity O(1).
    */
   enqueue(element: T) {
     this._data[(this._head + this._count) % this._capacity] = element
@@ -48,6 +49,7 @@ export class CircularQueue<T> extends ListStructure<T> {
   /**
    * Removes and returns the element at the front of the queue.
    * @returns The front element, or undefined if the queue is empty.
+   * @complexity O(1).
    */
   dequeue() {
     if (this.isEmpty) return undefined
@@ -61,6 +63,7 @@ export class CircularQueue<T> extends ListStructure<T> {
   /**
    * Returns the element at the front of the queue without removing it.
    * @returns The front element, or undefined if the queue is empty.
+   * @complexity O(1).
    */
   peek() {
     return this.isEmpty ? undefined : this._data[this._head]
@@ -68,6 +71,7 @@ export class CircularQueue<T> extends ListStructure<T> {
 
   /**
    * The number of elements in the queue.
+   * @complexity O(1).
    */
   get size() {
     return this._count
@@ -76,6 +80,7 @@ export class CircularQueue<T> extends ListStructure<T> {
   /**
    * Removes every element.
    * @returns The queue instance.
+   * @complexity O(1).
    */
   clear() {
     this._head = 0
@@ -85,6 +90,7 @@ export class CircularQueue<T> extends ListStructure<T> {
 
   /**
    * Returns the elements, from front to back, as a new array.
+   * @complexity O(n).
    */
   toArray() {
     return Array.from({ length: this._count }, (_, i) => this._data[(this._head + i) % this._capacity])

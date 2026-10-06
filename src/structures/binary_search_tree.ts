@@ -60,6 +60,7 @@ export class BinarySearchTree<T> implements Structure<T> {
    * Creates a new binary search tree. Values that compare equal are stored once.
    * @param items The initial values.
    * @param options The tree options.
+   * @complexity O(n · h) for n initial items.
    */
   constructor(items: Iterable<T> = [], options: CompareOptions<T> = {}) {
     this._compare = options.compare ?? defaultCompare
@@ -70,6 +71,7 @@ export class BinarySearchTree<T> implements Structure<T> {
    * Inserts a value into the tree.
    * @param value The value to insert.
    * @returns The tree instance.
+   * @complexity O(h), where h is the tree height: O(log n) on average and O(n) for skewed input. AVLTree keeps h at O(log n).
    */
   insert(value: T) {
     const newNode = new BSTNode(value)
@@ -111,6 +113,7 @@ export class BinarySearchTree<T> implements Structure<T> {
    * Removes a value from the tree.
    * @param value The value to remove.
    * @returns True if the value was found and removed, false otherwise.
+   * @complexity O(h), where h is the tree height: O(log n) on average and O(n) for skewed input. AVLTree keeps h at O(log n).
    */
   delete(value: T) {
     if (!this.contains(value)) return false
@@ -141,6 +144,7 @@ export class BinarySearchTree<T> implements Structure<T> {
    * Useful with a key-based comparator, e.g. to look up a full record by its id.
    * @param value The value to search for.
    * @returns The stored value, or undefined if not found.
+   * @complexity O(h), where h is the tree height: O(log n) on average and O(n) for skewed input. AVLTree keeps h at O(log n).
    */
   search(value: T): T | undefined {
     return this._findNode(value)?.data
@@ -150,6 +154,7 @@ export class BinarySearchTree<T> implements Structure<T> {
    * Checks if a value exists in the tree.
    * @param value The value to check for.
    * @returns True if the value exists, false otherwise.
+   * @complexity O(h), where h is the tree height: O(log n) on average and O(n) for skewed input. AVLTree keeps h at O(log n).
    */
   contains(value: T) {
     return this._findNode(value) !== null
@@ -169,6 +174,7 @@ export class BinarySearchTree<T> implements Structure<T> {
    * Traverses the tree in the specified order.
    * @param order The traversal order. Defaults to `'in'` (in-order).
    * @returns An array of values in the specified order.
+   * @complexity O(n).
    */
   traverse(order: 'pre' | 'in' | 'post' | 'height' = 'in') {
     const result: T[] = []
@@ -182,6 +188,7 @@ export class BinarySearchTree<T> implements Structure<T> {
   /**
    * Returns the minimum value in the tree.
    * @returns The minimum value, or undefined if the tree is empty.
+   * @complexity O(h), where h is the tree height: O(log n) on average and O(n) for skewed input. AVLTree keeps h at O(log n).
    */
   min() {
     if (!this._root) return undefined
@@ -191,6 +198,7 @@ export class BinarySearchTree<T> implements Structure<T> {
   /**
    * Returns the maximum value in the tree.
    * @returns The maximum value, or undefined if the tree is empty.
+   * @complexity O(h), where h is the tree height: O(log n) on average and O(n) for skewed input. AVLTree keeps h at O(log n).
    */
   max() {
     if (!this._root) return undefined
@@ -202,6 +210,7 @@ export class BinarySearchTree<T> implements Structure<T> {
   /**
    * Removes all elements from the tree.
    * @returns The tree instance.
+   * @complexity O(1).
    */
   clear() {
     this._root = null
@@ -211,6 +220,7 @@ export class BinarySearchTree<T> implements Structure<T> {
 
   /**
    * The number of elements in the tree.
+   * @complexity O(1).
    */
   get size() {
     return this._size
@@ -218,6 +228,7 @@ export class BinarySearchTree<T> implements Structure<T> {
 
   /**
    * Returns the height of the tree, or -1 if empty.
+   * @complexity O(n) for a BinarySearchTree; O(1) for an AVLTree, which stores node heights.
    */
   get height() {
     return this._root?.height ?? -1
@@ -225,6 +236,7 @@ export class BinarySearchTree<T> implements Structure<T> {
 
   /**
    * Returns true if the tree is empty, false otherwise.
+   * @complexity O(1).
    */
   get isEmpty() {
     return this._size === 0
@@ -232,6 +244,7 @@ export class BinarySearchTree<T> implements Structure<T> {
 
   /**
    * Returns the values in order as a new array.
+   * @complexity O(n).
    */
   toArray() {
     return [...this]
@@ -241,6 +254,7 @@ export class BinarySearchTree<T> implements Structure<T> {
    * Iterates over the values in order.
    * @yields Each value, from smallest to largest.
    * @returns An iterator over the values.
+   * @complexity O(n) to iterate every value, using O(h) extra space.
    */
   * [Symbol.iterator](): Generator<T, void, undefined> {
     const stack: BSTNode<T>[] = []

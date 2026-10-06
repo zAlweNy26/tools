@@ -16,10 +16,10 @@ hero:
 features:
   - title: Data Structures
     icon: "🏗️"
-    details: "Stack, Queue, CircularQueue, Tree, Matrix, Graph, WeightedGraph — ready-to-use"
+    details: "Stacks, queues, linked lists, heaps, binary search and AVL trees, matrices and four kinds of graph, all sharing one API"
   - title: Sorting Algorithms
     icon: "🔢"
-    details: "Quick sort, merge sort and counting sort both for numbers and strings"
+    details: "Bubble, counting, insertion, merge, quick and selection sort, with custom comparators"
   - title: Vector Distances
     icon: "📏"
     details: "Euclidean, Manhattan, Cosine, Hamming, Canberra, Chebyshev and more"
@@ -31,5 +31,5 @@ features:
     details: "BFS, DFS and Kruskal's algorithm for trees and graph structures"
   - title: Zero dependencies
     icon: "🎯"
-    details: "Lightweight, tree-shakeable, fully typed TypeScript utilities"
+    details: "Lightweight, tree-shakeable, fully typed, and shipped as both ESM and CommonJS"
 ---

@@ -11,6 +11,7 @@
  * getLCP('abc', 'xyz')      // 0
  * ```
  * @group Utils
+ * @complexity O(min(a, b)) for strings of lengths a and b.
  */
 export function getLCP(str1: string, str2: string) {
   let lcp = 0

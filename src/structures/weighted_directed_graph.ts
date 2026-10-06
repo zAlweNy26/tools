@@ -25,6 +25,7 @@ export class WeightedDirectedGraph<N> extends GraphStructure<N, [N, number]> {
    * @param weight The weight of the edge (default 0).
    * @returns The graph instance.
    * @throws An error if `v1` is not in the graph or the edge already exists.
+   * @complexity O(deg(v1)).
    */
   addEdge(v1: N, v2: N, weight = 0) {
     return this._addEdge(v1, v2, weight)
@@ -36,6 +37,7 @@ export class WeightedDirectedGraph<N> extends GraphStructure<N, [N, number]> {
    * @param v2 The second node.
    * @param vn Further nodes along the path.
    * @returns The summed weight, or undefined if two consecutive nodes are not adjacent.
+   * @complexity O(k · d) for a path of k nodes whose degrees are at most d.
    */
   getWeight(v1: N, v2: N, ...vn: N[]) {
     return this._pathWeight([v1, v2, ...vn])

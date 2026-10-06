@@ -14,6 +14,7 @@
  * ```
  * @see {@link https://en.wikipedia.org/wiki/Cosine_similarity#Angular_distance_and_similarity}
  * @group Distances
+ * @complexity O(n) for vectors of length n.
  */
 export function angular(a: number[], b: number[]) {
   if (a.length !== b.length) throw new Error('The vectors should have the same length')

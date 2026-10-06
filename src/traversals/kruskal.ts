@@ -16,6 +16,7 @@ import { WeightedGraph } from '@structures/weighted_graph'
  * // MST edges: B-C (1), A-B (2), B-D (4)
  * ```
  * @group Traversals
+ * @complexity O(E log E), dominated by sorting the edges.
  */
 export function kruskal<T>(graph: WeightedGraph<T>) {
   const edges: [T, T, number][] = []

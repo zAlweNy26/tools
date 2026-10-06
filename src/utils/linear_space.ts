@@ -13,6 +13,7 @@
  * linearSpace(5, 1)       // [5, 4, 3, 2, 1]
  * ```
  * @group Utils
+ * @complexity O(num).
  */
 export function linearSpace(start: number, end: number, num?: number) {
   if (num === undefined) num = Math.max(Math.round(Math.abs(end - start)) + 1, 1)

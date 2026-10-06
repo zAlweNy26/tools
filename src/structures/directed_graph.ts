@@ -24,6 +24,7 @@ export class DirectedGraph<N> extends GraphStructure<N, N> {
    * @param v2 The second node.
    * @returns The graph instance.
    * @throws An error if `v1` is not in the graph or the edge already exists.
+   * @complexity O(deg(v1)).
    */
   addEdge(v1: N, v2: N) {
     return this._addEdge(v1, v2, 1)

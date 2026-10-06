@@ -13,6 +13,7 @@
  * ```
  * @see {@link https://en.wikipedia.org/wiki/Manhattan_distance}
  * @group Distances
+ * @complexity O(n) for vectors of length n.
  */
 export function manhattan(a: number[], b: number[]) {
   if (a.length !== b.length) throw new Error('The vectors should have the same length')
