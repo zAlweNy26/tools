@@ -98,7 +98,7 @@ graph.addEdge(1, 3)
 graph.addEdge(2, 4)
 
 breadthFirstSearch(graph) // [1, 2, 3, 4]
-depthFirstSearch(graph)   // [1, 3, 2, 4]
+depthFirstSearch(graph)   // [1, 2, 4, 3]
 ```
 
 ## Dimensionality Reduction
