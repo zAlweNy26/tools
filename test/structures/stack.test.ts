@@ -64,4 +64,20 @@ describe('Stack', () => {
     expect(stack.hasRoom).toBeTrue()
     expect(stack.isFull).toBeFalse()
   })
+
+  test('a capacity of 0 is unbounded', () => {
+    const stack = new Stack<number>(0)
+    stack.push(1)
+    stack.push(2)
+    expect(stack.isFull).toBeFalse()
+    expect(stack.items).toEqual([1, 2])
+  })
+
+  test('items keeps undefined elements', () => {
+    const stack = new Stack<number | undefined>(0)
+    stack.push(1)
+    stack.push(undefined)
+    expect(stack.items).toStrictEqual([1, undefined])
+    expect(stack.size()).toBe(2)
+  })
 })

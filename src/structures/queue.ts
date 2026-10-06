@@ -60,6 +60,8 @@ export class Queue<T> extends ListStructure<T> {
       this._data[writeIdx++] = this._data[readIdx]
     this._tail -= this._head
     this._head = 0
+    // drop the stale slots left behind the new tail
+    this._data.length = this._tail
   }
 
   /**
@@ -80,6 +82,13 @@ export class Queue<T> extends ListStructure<T> {
   peek() {
     if (this.isEmpty) return undefined
     return this._data[this._head]
+  }
+
+  /**
+   * An array of all the elements in the queue, from front to back.
+   */
+  get items() {
+    return this._data.slice(this._head, this._tail)
   }
 
   /**

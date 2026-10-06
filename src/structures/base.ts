@@ -13,12 +13,13 @@ export abstract class ListStructure<T> implements Structure {
 
   /**
    * Creates a new list structure with the given size or initial elements.
-   * @param size The maximum capacity (as a number) or an array of initial elements.
+   * @param size The maximum capacity (as a number, 0 for unbounded) or an array of initial elements.
    */
   constructor(size: number | T[]) {
     if (typeof size === 'number') {
-      this._data = new FixedArray(size)
-      this._capacity = size
+      // a capacity of 0 means unbounded
+      this._data = size > 0 ? new FixedArray(size) : []
+      this._capacity = Math.max(size, 0)
     }
     else
       this._data = [...size]
@@ -49,7 +50,7 @@ export abstract class ListStructure<T> implements Structure {
    * An array of all the elements in the list.
    */
   get items() {
-    return [...this._data].filter(v => v !== undefined) as T[]
+    return [...this._data]
   }
 
   /**
