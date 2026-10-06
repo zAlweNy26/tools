@@ -22,6 +22,10 @@ describe('cosine', () => {
     expect(result).toBeCloseTo(Math.PI)
   })
 
+  test('returns 0 instead of NaN for parallel vectors with rounding error', () => {
+    expect(cosine([0.1, 0.7], [0.2, 1.4])).toBe(0)
+  })
+
   test('throws for mismatched dimensions', () => {
     expect(() => cosine([1, 2], [1, 2, 3])).toThrow('The vectors should have the same length')
   })

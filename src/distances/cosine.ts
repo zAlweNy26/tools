@@ -30,5 +30,7 @@ export function cosine(a: number[], b: number[]) {
 
   if (sqrtA === 0 || sqrtB === 0) return 1
 
-  return Math.acos(product / (sqrtA * sqrtB))
+  // rounding can push the ratio slightly outside [-1, 1], where acos returns NaN
+  const similarity = Math.min(1, Math.max(-1, product / (sqrtA * sqrtB)))
+  return Math.acos(similarity)
 }
